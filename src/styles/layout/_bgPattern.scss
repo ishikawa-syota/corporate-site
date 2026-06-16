@@ -1,0 +1,30 @@
+@charset "utf-8";
+@use "../foundation/index" as *;
+
+// 💬 Description.........................................
+//
+// サイトの大まかなレイアウトを記述するscss
+//
+// ............................................................
+
+.l-bgPattern {
+    $this: &;
+    background-repeat: repeat;
+    background-position: center center;
+        &-white {
+            background-color: #fff;
+        }
+        &-bgBeige {
+            background-color: $Beige-Light;
+        }
+        &-bgDark {
+            background-color: $Text;
+        }
+        // &-bgSeondary {
+        //     background-color: $Background-Secondary;
+        // }
+        // &-Purple {
+        //     background-color: $Purple;
+        // }
+    
+}

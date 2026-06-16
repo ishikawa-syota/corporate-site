@@ -1,0 +1,176 @@
+---
+/**
+ * InView アニメーションのデモコンポーネント
+ *
+ * このコンポーネントは、InViewアニメーションシステムの
+ * 各種アニメーションのサンプルを表示します。
+ */
+
+interface Props {
+  id?: string;
+  class?: string;
+}
+
+const { id } = Astro.props;
+---
+
+<div class="l-cta" id={id}>
+  <div class="l-cta__container">
+    <h1 class="l-cta__title js-inView js-inView-up2show">
+      InView アニメーションデモ
+    </h1>
+
+    <section class="l-cta__section">
+      <h2 class="l-cta__heading js-inView js-inView-fadeIn">
+        フェードインアニメーション
+      </h2>
+      <p class="l-cta__text js-inView js-inView-fadeIn" style="--animate-block-delay: 0.1s;">
+        下から10pxフェードインします。遅延も設定できます。
+      </p>
+      <p class="l-cta__text js-inView js-inView-fadeIn" style="--animate-block-delay: 0.2s;">
+        2番目の要素（0.2s遅延）
+      </p>
+      <p class="l-cta__text js-inView js-inView-fadeIn" style="--animate-block-delay: 0.3s;">
+        3番目の要素（0.3s遅延）
+      </p>
+    </section>
+
+    <section class="l-cta__section">
+      <h2 class="l-cta__heading js-inView js-inView-up2show">
+        クリップパスアニメーション（下から上）
+      </h2>
+      <p class="l-cta__text js-inView js-inView-up2show" style="--animate-block-delay: 0.1s;">
+        下から上にクリップパスで表示されます。
+      </p>
+      <p class="l-cta__text js-inView js-inView-up2show" style="--animate-block-delay: 0.2s;">
+        見出しやテキストに最適！
+      </p>
+    </section>
+
+    <section class="l-cta__section">
+      <h2 class="l-cta__heading js-inView js-inView-left2show">
+        クリップパスアニメーション（左から右）
+      </h2>
+      <p class="l-cta__text js-inView js-inView-left2show" style="--animate-block-delay: 0.1s;">
+        左から右にクリップパスで表示されます。
+      </p>
+    </section>
+
+    <section class="l-cta__section">
+      <h2 class="l-cta__heading js-inView js-inView-fadeIn">
+        画像アニメーション
+      </h2>
+      <div class="l-cta__image-wrapper js-inView js-inView-ImageScaleIn">
+        <div class="l-cta__placeholder">
+          画像のズームインアニメーション（Scale: 1.05 → 1.0）
+        </div>
+      </div>
+    </section>
+
+    <section class="l-cta__section">
+      <h2 class="l-cta__heading js-inView js-inView-fadeIn">
+        早めに発火（js-inView_short）
+      </h2>
+      <p class="l-cta__text js-inView js-inView-fadeIn js-inView_short">
+        通常より早めに発火するアニメーション（rootMargin: -10%）
+      </p>
+    </section>
+  </div>
+</div>
+
+<style lang="scss" is:global>
+  @use "../styles/foundation/index" as *;
+
+  .l-cta {
+    min-height: 300vh; // スクロールアニメーションのため
+    padding: 60px 20px;
+    background: linear-gradient(
+      to bottom,
+      #f0f0f0 0%,
+      #ffffff 50%,
+      #f0f0f0 100%
+    );
+
+    &__container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    &__title {
+      font-size: 3rem;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 4rem;
+      color: #333;
+
+      @media (max-width: 768px) {
+        font-size: 2rem;
+      }
+    }
+
+    &__section {
+      margin-bottom: 8rem;
+      padding: 2rem;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    &__heading {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 2rem;
+      color: #1a1a1a;
+      border-left: 4px solid #0066cc;
+      padding-left: 1rem;
+
+      @media (max-width: 768px) {
+        font-size: 1.5rem;
+      }
+    }
+
+    &__text {
+      font-size: 1.125rem;
+      line-height: 1.8;
+      margin-bottom: 1rem;
+      color: #444;
+      padding: 1rem;
+      background: #f9f9f9;
+      border-radius: 8px;
+
+      @media (max-width: 768px) {
+        font-size: 1rem;
+      }
+    }
+
+    &__image-wrapper {
+      width: 100%;
+      height: 400px;
+      overflow: hidden;
+      border-radius: 12px;
+
+      @media (max-width: 768px) {
+        height: 250px;
+      }
+    }
+
+    &__placeholder {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.25rem;
+      font-weight: bold;
+      text-align: center;
+      padding: 2rem;
+
+      @media (max-width: 768px) {
+        font-size: 1rem;
+        padding: 1rem;
+      }
+    }
+  }
+</style>

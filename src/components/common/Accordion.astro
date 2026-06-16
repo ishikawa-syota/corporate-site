@@ -1,0 +1,130 @@
+---
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<details class="c-accordion js-details">
+	<summary class="c-accordion_summary js-summary">
+		{title}
+	</summary>
+	<div class="c-accordion_contents js-contents">
+		<slot />
+	</div>
+</details>
+
+<style lang="scss">
+	.c-accordion {
+		cursor: pointer;
+
+		&_summary {
+			@include FontSize_sp_p_bold;
+			list-style: none;
+			display: block;
+			position: relative;
+			background-color: $color-base-green01;
+			padding-left: size(11);
+			border-left: size(7) solid $color-theme-green02-dark;
+
+			@include responsive(md) {
+				@include FontSize_pc_p_bold;
+			}
+
+			&::-webkit-details-marker {
+				display: none;
+			}
+
+			&::after {
+				content: '';
+				position: absolute;
+				right: size(21);
+				top: 50%;
+				transform: translateY(-50%) rotate(0deg);
+				width: size(16);
+				height: size(16);
+				background-image: url('/src/images/flow/chevron-down.svg');
+				background-repeat: no-repeat;
+				background-position: center;
+				background-size: contain;
+				transition: transform 0.3s ease;
+			}
+		}
+
+		&_contents {
+			padding: size(25);
+		}
+
+		&.is-open &_summary::after {
+			transform: translateY(-50%) rotate(180deg);
+		}
+	}
+</style>
+<script>
+	const animTiming = {
+		duration: 300,
+		easing: 'ease',
+	};
+
+	const closingAnimKeyframes = (content: HTMLElement) => [
+		{
+			height: content.offsetHeight + 'px',
+			opacity: 1,
+		},
+		{
+			height: 0,
+			paddingTop: 0,
+			paddingBottom: 0,
+			opacity: 0,
+		},
+	];
+
+	const openingAnimKeyframes = (content: HTMLElement) => [
+		{
+			height: 0,
+			paddingTop: 0,
+			paddingBottom: 0,
+			opacity: 0,
+		},
+		{
+			height: content.offsetHeight + 'px',
+			opacity: 1,
+		},
+	];
+
+	const details = document.querySelectorAll('.js-details');
+
+	details.forEach((el: Element) => {
+		const detail = el as HTMLDetailsElement;
+		const answer = detail.querySelector('.js-contents') as HTMLElement;
+
+		detail.addEventListener('click', (event: Event) => {
+			event.preventDefault();
+
+			if (detail.open) {
+				// アイコンアニメーションを即座に開始するためクラスを削除
+				detail.classList.remove('is-open');
+				// アニメーションを即座に開始するため強制的にリフローを実行
+				void detail.offsetHeight;
+
+				const closingAnim = answer.animate(
+					closingAnimKeyframes(answer),
+					animTiming
+				);
+
+				closingAnim.onfinish = () => {
+					detail.removeAttribute('open');
+				};
+			} else {
+				// アイコンアニメーションを即座に開始するためクラスを追加
+				detail.classList.add('is-open');
+				// アニメーションを即座に開始するため強制的にリフローを実行
+				void detail.offsetHeight;
+
+				detail.setAttribute('open', 'true');
+				answer.animate(openingAnimKeyframes(answer), animTiming);
+			}
+		});
+	});
+</script>

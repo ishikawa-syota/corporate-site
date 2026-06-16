@@ -1,0 +1,165 @@
+@charset "utf-8";
+@use "../foundation/index" as *;
+@use 'inView';
+@use 'inView-animations';
+
+//Description.........................................
+//
+// asideを記述するscss
+//
+//	- INDEX
+//	|- Layout
+//	|- Margin
+//	|- Padding
+//	|- Border
+//	|- Font
+//	|- Color
+//	|- Hidden
+//.......................................................
+
+.u-main {
+    color: $Main;
+}
+
+.u-accent {
+	color: $yellow;
+}
+
+.u-yellow {
+	color: $yellow;
+}
+
+.u-color-primary {
+	color: design-color("primary", "500");
+}
+
+/* ----------------------------------------------- */
+// Layout
+
+/* ----------------------------------------------- */
+// Width
+
+/* ----------------------------------------------- */
+// Margin
+
+/* ----------------------------------------------- */
+// Padding
+
+/* ----------------------------------------------- */
+// Border
+
+/* ----------------------------------------------- */
+// Hidden
+.u-hidden {
+    display: none !important;
+}
+
+/* ----------------------------------------------- */
+// Marker
+
+.u-marker {
+	background: linear-gradient(transparent 0%, #EFEFEF 0%);
+	display: inline;
+	padding: 0 1px 0px;
+	// @include pcp_bold;
+	// color: $text-blue;
+	@media screen and (max-width: 960px) {
+		// @include spp_bold;
+	}
+
+	&._main {
+		background: linear-gradient(transparent 0%, rgba(#0DAB82, 0.07) 0%);
+		display: inline;
+		padding: 0 1px 0px;
+	}
+
+	&._sub {
+		background: linear-gradient(transparent 70%, $white 0%);
+		display: inline;
+		padding: 0 1px 0px;
+		color: $text-blue;
+	}
+
+	&._white {
+		background: linear-gradient(transparent 0%, #fff 0%);
+		display: inline;
+		padding: 0 1px 0px;
+	}
+}
+
+.u-circle {
+	padding-top: .4em;
+	background-position: top left -2px;
+	background-repeat: repeat-x;
+	background-size: 1.1em .3em;
+	background-image: -webkit-radial-gradient(.15em .15em at center center,design-color("accent", "red"),design-color("accent", "red") 100%,transparent);
+	background-image: radial-gradient(.15em .15em at center center,design-color("accent", "red"),design-color("accent", "red") 100%,transparent);
+	@media screen and (max-width: 960px) {
+		background-size: 1.1em .3em;
+		background-position: top .2em left -2px;
+		background-image: -webkit-radial-gradient(.12em .12em at center center,design-color("accent", "red"),design-color("accent", "red") 100%,transparent);
+		background-image: radial-gradient(.12em .12em at center center,design-color("accent", "red"),design-color("accent", "red") 100%,transparent);
+	}
+
+}
+// .u-marker {
+//     display: inline;
+//     background: linear-gradient(transparent 80%, $YellowGreen 10%, transparent 10%);
+//     background: linear-gradient(
+//     180deg,
+//     $YellowGreen 0%,
+//     rgba($YellowGreen, 0) 0%,
+//     rgba($YellowGreen, 0) 75%,
+//     $YellowGreen 75%,
+//     $YellowGreen 90%,
+//     rgba($YellowGreen, 0) 90%
+//     );
+//     padding: 0 1px 0;
+// }
+
+// .u-text-gradient {
+//     background: $Gradation;
+//     -webkit-background-clip: text;
+//     -webkit-text-fill-color: transparent;
+//     background-clip: text;
+//     text-fill-color: transparent;
+// }
+
+// .u-label {
+//     background: rgba($YellowGreen, $alpha: 0.1);
+//     border-radius: calc( 4 * var(--max-fluid-ratio));
+//     padding-inline: calc( 8 * var(--max-fluid-ratio));
+//     @media only screen and (max-width: $Bp-7inch) {
+//         border-radius: calc( 4 * var(--min-fluid-ratio));
+//         padding-inline: calc( 8 * var(--min-fluid-ratio));
+//     }
+// }
+
+.u-sp-only {
+	display: none;
+	@media only screen and (max-width: 960px) {
+		display: block;
+	}
+}
+
+.u-pc-only {
+	display: block;
+	@media only screen and (max-width: 960px) {
+		display: none;
+	}
+}
+
+.u-visibility-hidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	padding: 0;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	border: 0;
+}
+
+.u-gradient {
+    @include text-gradient;
+}

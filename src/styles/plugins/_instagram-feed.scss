@@ -1,0 +1,54 @@
+@charset "utf-8";
+@use "../foundation/index" as *;
+
+// 💬 Description.........................................
+//
+// InstagramFeedProに対してのscss
+//
+// ............................................................
+
+//Hoverした際のテキスト表示領域 --------------------
+#sb_instagram .sbi_hover_top {
+	width: 100%;
+	padding: 1rem !important;
+}
+
+#sb_instagram .sbi_link .sbi_caption {
+	line-height: 1.75;
+	display: -webkit-box;
+	overflow: hidden;
+	-webkit-line-clamp: 5;
+	-webkit-box-orient: vertical;
+}
+
+//カードのキャプション文字色 --------------------
+.sbi_item {
+	.sbi_info {
+		color: #000 !important;
+		opacity: 0.25;
+		transition: 0.25s ease;
+	}
+	&:hover {
+		.sbi_info {
+			opacity: 1;
+			transition: 0.25s ease;
+		}
+	}
+}
+
+//Hoverした際のカードの背景色 --------------------
+#sb_instagram .sbi_photo_wrap:hover .sbi_link {
+	// background: rgba($color: #000000, $alpha: 0.3) !important;
+}
+
+//画像 --------------------
+#sb_instagram .sbi_photo {
+	will-change: transform;
+}
+
+//LightBoxの背景色 --------------------
+.sbi_lightboxOverlay {
+	z-index: 99999;
+	background-color: #000;
+	opacity: 0.9;
+}

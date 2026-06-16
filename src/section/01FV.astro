@@ -1,0 +1,29 @@
+---
+//Images
+
+//Components
+interface Props {
+  id?: string;
+  class?: string;
+  // サンプルデータを上書きする場合のオプション
+  title?: string;
+  subtitle?: string;
+  description?: string;
+  features?: string[];
+}
+
+// Propsからデータを取得
+const { id } = Astro.props;
+
+
+---
+
+<section class="p-top-firstview" id={id}>
+
+</section>
+
+<style lang="scss">
+    @use "../styles/foundation/index" as *;
+
+</style>
+

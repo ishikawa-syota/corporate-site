@@ -1,0 +1,49 @@
+---
+import { SEO } from 'astro-seo';
+
+import { siteMetadata } from '@/data/meta';
+---
+
+<meta name="keywords" content={siteMetadata.keywords} />
+<SEO
+	charset="utf-8"
+	title={siteMetadata.title}
+	description={siteMetadata.description}
+	noindex={false}
+	canonical={siteMetadata.siteUrl}
+	openGraph={{
+		basic: {
+			title: siteMetadata.title,
+			type: siteMetadata.type,
+			image: siteMetadata.ogImage,
+			url: siteMetadata.siteUrl,
+		},
+		optional: {
+			siteName: siteMetadata.title,
+			description: siteMetadata.description,
+			locale: siteMetadata.locale,
+		},
+	}}
+	twitter={{
+		card: siteMetadata.twitterCard,
+		site: siteMetadata.siteUrl,
+		title: siteMetadata.title,
+		description: siteMetadata.description,
+		image: siteMetadata.ogImage,
+	}}
+	extend={{
+		link: [
+			{
+				rel: 'shortcut icon',
+				href: siteMetadata.favicon,
+			},
+		],
+		meta: [
+			{ name: 'format-detection', content: 'telephone=no' },
+			{
+				name: 'viewport',
+				content: 'width=device-width, initial-scale=1.0',
+			},
+		],
+	}}
+/>

@@ -1,0 +1,277 @@
+@charset "utf-8";
+@use "../foundation/index" as *;
+
+// 💬 Description.........................................
+//
+// 基本的なリセットをするscss
+//
+// ............................................................
+:root {
+	--min-viewport-width: 768;
+	--max-viewport-width: 1536;
+	--min-fluid-ratio: calc(1 / var(--min-viewport-width) * 100vw);
+	--max-fluid-ratio: calc(1 / var(--max-viewport-width) * 100vw);
+	--rem: 1rem / 16;
+
+	// calc( 00 * var(--min-fluid-ratio));
+	// calc( 00 * var(--max-fluid-ratio));
+
+	// ============================================
+	// size()関数用のCSS変数
+	// ============================================
+	// PC: 1536px基準、SP: 390px基準でビューポート連動
+	// $design-width-pc, $design-width-sp は _variable.scss で定義
+	--size-unit: calc(1 / 1536 * 100vw);
+
+	@media only screen and (max-width: 768px) {
+		--size-unit: calc(1 / 390 * 100vw);
+	}
+}
+// Asterisk --------------------
+*,
+*:after,
+*::before {
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+}
+
+html {
+	width: 100%;
+	line-height: 1.45;
+	-ms-text-size-adjust: 100%;
+	-webkit-text-size-adjust: 100%;
+	scroll-behavior: smooth;
+	font-optical-sizing: auto;
+	// font-feature-settings: 'palt' on;
+	font-feature-settings:
+		'pnum' on,
+		'lnum' on,
+		'palt' on;
+	&::-webkit-scrollbar {
+		width: 5px;
+	}
+	&::-webkit-scrollbar-track {
+		// background: transparent;
+		background: $white;
+	}
+	&::-webkit-scrollbar-thumb {
+		background: $blue01;
+		// border-radius: 10px;
+	}
+}
+body {
+	width: 100%;
+	color: $Text;
+	font-weight: normal;
+	font-family: $Font;
+	letter-spacing: 1px;
+	overflow-x: hidden;
+	scroll-behavior: smooth;
+
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	-webkit-font-smoothing: antialiased;
+	font-smoothing: antialiased;
+}
+
+// LINK --------------------
+a {
+	color: design-color("gray", "900");
+	text-decoration: none;
+	outline: none;
+	touch-action: manipulation; 
+}
+a:focus {
+	outline: none;
+}
+// IMG --------------------
+img,
+svg {
+	width: 100%;
+	height: auto;
+	border: none;
+	vertical-align: bottom;
+
+	image-rendering: -webkit-optimize-contrast;
+}
+
+// hr --------------------
+hr {
+	height: 0;
+	border: 0;
+	padding: 0;
+	margin: 0;
+}
+
+// h --------------------
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-weight: normal;
+	font-size: 1rem;
+	font-family: $Font;
+	padding: 0rem;
+	margin: 0rem;
+}
+
+// p --------------------
+p {
+	padding: 0rem;
+	margin: 0rem;
+}
+
+// div --------------------
+
+// 構造タグ --------------------
+article,
+aside,
+details,
+footer,
+header,
+main,
+menu,
+nav,
+section,
+summary {
+	display: block;
+}
+
+// ul --------------------
+ul,
+ol {
+	list-style: none;
+}
+ul {
+	font-size: 0;
+}
+ul li {
+	// display: inline-block;
+	font-size: 1rem;
+	margin: 0rem;
+}
+
+//iframe
+iframe {
+	vertical-align: bottom;
+}
+
+//Table
+table {
+	border: none;
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+th,
+td {
+	border: solid 0;
+	font-weight: normal;
+	text-align: left;
+	vertical-align: top;
+}
+caption {
+	text-align: left;
+}
+
+summary {
+	/* display: list-item;以外を指定してデフォルトの三角形アイコンを消します */
+	display: block;
+	cursor: pointer;
+}
+  
+summary::-webkit-details-marker {
+	/* Safariで表示されるデフォルトの三角形アイコンを消します */
+	display: none;
+}
+
+
+// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::============
+//
+//	PLACEHOLDER
+//
+// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::============
+::-webkit-input-placeholder {
+	color: $Text-UltraLight;
+	font-size: 0.8rem;
+	font-family: $Font;
+}
+:-ms-input-placeholder {
+	color: $Text-UltraLight;
+	font-size: 0.8rem;
+	font-family: $Font;
+}
+::-moz-placeholder {
+	color: $Text-UltraLight;
+	font-size: 0.8rem;
+	font-family: $Font;
+}
+
+// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+//
+// * SELECTION *
+//
+// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+::selection {
+	background: $Main; /* 選択色 */
+	color: #ffffff; /*文字色*/
+}
+::-moz-selection {
+	background: $Main; /* 選択色 */
+	color: #ffffff; /*文字色*/
+}
+// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::============
+//
+//	FORM
+//
+// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::============
+// メインとなる入力要素のリセット --------------------
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="tel"],
+input[type="submit"],
+button,
+textarea,
+select {
+	width: 100%;
+	border: none;
+	border-radius: 0;
+	background: none;
+	font-size: 1rem;
+	font-family: $Font;
+	letter-spacing: 1px;
+	vertical-align: bottom;
+	outline: none;
+	padding: 0;
+	margin: 0;
+
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+button {
+	display: inline-block;
+	width: auto;
+	cursor: pointer;
+	touch-action: manipulation;
+}
+
+// チェックボックスとラジオボタンのデフォルトの□や◯を消す --------------------
+input[type="checkbox"],
+input[type="radio"] {
+	// display: none;
+	appearance: none;
+}
+
+// IEでセレクトボックスの矢印を消す --------------------
+select::-ms-expand {
+	display: none;
+}
+
+// reCaptcha のバッチを隠す --------------------
+.grecaptcha-badge {
+	display: none !important;
+	pointer-events: none !important;
+}

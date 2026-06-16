@@ -1,0 +1,13 @@
+---
+import Preload, { type Props as PreloadProps } from './Preload.astro';
+
+const images: PreloadProps[] = [
+	// 画像を追加
+];
+---
+
+{
+	images.map((image) => (
+		<Preload src={image.src} media={image.media} format={image.format} />
+	))
+}

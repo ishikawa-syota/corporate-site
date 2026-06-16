@@ -1,0 +1,41 @@
+---
+import { Image } from 'astro:assets';
+
+type ImageType = typeof Image;
+
+interface Props extends Omit<ImageType, 'src' | 'loading' | 'alt'> {
+	src: ImageMetadata;
+	srcSp: ImageMetadata;
+	loading?: 'eager' | 'lazy';
+	alt: string;
+}
+
+const { src, srcSp, loading = 'lazy', alt, ...attrs } = Astro.props;
+---
+
+<>
+	<Image
+		class="u-pc-only"
+		src={src}
+		loading={loading}
+		alt={alt}
+		decoding="async"
+		quality={80}
+		width={src.width}
+		height={src.height}
+		priority={loading === 'eager'}
+		{...attrs}
+	/>
+	<Image
+		class="u-sp-only"
+		src={srcSp}
+		loading={loading}
+		alt={alt}
+		decoding="async"
+		quality={80}
+		width={srcSp.width}
+		height={srcSp.height}
+		priority={loading === 'eager'}
+		{...attrs}
+	/>
+</>

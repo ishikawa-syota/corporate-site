@@ -1,0 +1,111 @@
+@charset "utf-8";
+
+// 💬 Description.........................................
+//
+// Color設定をするscss
+//
+// ............................................................
+// Text --------------------
+$white: #ffffff;
+$blue01: #0058DB;
+$blue02: #003C97;
+$gray: #EDEDED;
+$gray02: #AAAAAA;
+
+$blue: #54B0F1;
+
+$read: #CE2628;
+$error: #CE2628;
+$error2: #FFF2F2;
+$yellow: #FFEF3A;
+$yellow02: #FFD60C;
+
+$black: #111111;
+$text-blue: #0E7AC9;
+
+$sub-blue: #B3DFFF;
+$sub-blue02: #85CCFF;
+
+$woman01: #FFEBE1;
+$woman02: #AF8F7E;
+
+
+// $Main: #54B0F1;
+$Accent: $read;
+// Text --------------------
+$Text-UltraLight: $black;
+$Text-Light: $black;
+$Text: $black;
+$Text-Dark: $black;
+$Text-UltraDark: $black;
+
+// Main --------------------
+$Main-UltraLight: #000000;
+$Main-Light: #000000;
+$Main: $blue01;
+$Main-Dark: #b2935f;
+$Main-UltraDark: #000000;
+
+// Sub --------------------
+$Sub-UltraLight: #000000;
+$Sub-Light: #000000;
+$Sub: #000000;
+$Sub-Dark: #000000;
+$Sub-UltraDark: #000000;
+
+// Accent --------------------
+$Accent-UltraLight: #000000;
+$Accent-Light: #000000;
+$Accent-Dark: #000000;
+$Accent-UltraDark: #000000;
+
+// Border --------------------
+$Border-Light: #000000;
+$Border: #000000;
+$Border-Dark: #000000;
+
+// Link --------------------
+$Link-Light: #000000;
+$Link: #000000;
+$Link-Dark: #000000;
+
+// Submit --------------------
+$Submit: #000000;
+
+// $Beige-Fix: #ECE2CD;
+$Beige-Light: #f2ebe0;
+$Beige: #ece2cd;
+$bgBeige: #f2ebe0;
+$Gray: #bcbcbc;
+
+// Error --------------------
+$Error: #000000;
+
+// SNS Color (LastUpdate: 2022.10) --------------------
+$SnsColor-Facebook: #1877f2;
+$SnsColor-Twitter: #1da1f2;
+$SnsColor-Line: #06c755;
+$SnsColor-Hateb: #01a5df;
+$SnsColor-Pocket: #ef4056;
+$SnsColor-Youtube: #ff0000;
+$SnsColor-X: #000000;
+$SnsColor-Feedly: #6cc655;
+$SnsColor-Note: #41c9b4;
+$SnsColor-Rss: #f78422;
+
+// ============================================
+// テンプレート汎用化対応カラー
+// ============================================
+
+// プライマリカラー（既存のMainを活用）
+$primary-color: $Main;           // ブランドメインカラー
+$secondary-color: $gray02;       // セカンダリカラー
+$accent-color: $Accent;          // アクセントカラー（CTA等）
+
+// テキストカラー（既存のTextを活用）
+$text-color: $Text;              // メインテキスト
+$text-color-light: $gray02;      // サブテキスト
+
+// 背景カラー
+$bg-primary: $white;             // メイン背景
+$bg-secondary: $gray;            // セカンダリ背景

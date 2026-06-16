@@ -1,0 +1,348 @@
+/**
+ * InView アニメーション - キーフレーム定義
+ *
+ * IntersectionObserver と組み合わせて使用するアニメーションの定義
+ */
+
+// ==========================================
+// フェードイン系アニメーション
+// ==========================================
+
+/**
+ * 基本的なフェードイン
+ */
+@keyframes fadeIn {
+  0% {
+    visibility: visible;
+    opacity: 0;
+  }
+
+  100% {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+/**
+ * フェードアウト
+ */
+@keyframes fadeOut {
+  0% {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  100% {
+    visibility: visible;
+    opacity: 0;
+  }
+}
+
+/**
+ * 下から上にフェードイン（10px上昇）
+ */
+@keyframes fadeInUp {
+  0% {
+    visibility: visible;
+    translate: 0 10px;
+    opacity: 0;
+  }
+
+  100% {
+    visibility: visible;
+    translate: 0 0;
+    opacity: 1;
+  }
+}
+
+/**
+ * 上から下にフェードイン（10px下降）
+ */
+@keyframes fadeInDown {
+  0% {
+    visibility: visible;
+    translate: 0 -10px;
+    opacity: 0;
+  }
+
+  100% {
+    visibility: visible;
+    translate: 0 0;
+    opacity: 1;
+  }
+}
+
+/**
+ * 下から上に大きくフェードアップ（100%移動）
+ */
+@keyframes fadeUp {
+  0% {
+    visibility: visible;
+    translate: 0 100%;
+  }
+
+  100% {
+    visibility: visible;
+    translate: 0 0%;
+  }
+}
+
+// ==========================================
+// クリップパス系アニメーション
+// ==========================================
+
+/**
+ * 下から上にクリップパスで表示
+ * テキストやブロック要素の演出に最適
+ */
+@keyframes up2show {
+  0% {
+    visibility: visible;
+    clip-path: inset(100% 0 0 0);
+  }
+
+  100% {
+    visibility: visible;
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/**
+ * 左から右にクリップパスで表示
+ */
+@keyframes left2show {
+  0% {
+    clip-path: inset(0 0 0 100%);
+  }
+
+  100% {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/**
+ * 上から下にクリップパスで非表示
+ */
+@keyframes up2hide {
+  0% {
+    clip-path: inset(0 0 0 0);
+  }
+
+  100% {
+    clip-path: inset(0 0 100% 0);
+  }
+}
+
+// ==========================================
+// 画像系アニメーション
+// ==========================================
+
+/**
+ * 画像のズームイン（Scale: 1.05 → 1.0）
+ * 画像要素に最適
+ */
+@keyframes ImageScaleIn {
+  0% {
+    visibility: visible;
+    opacity: 0;
+    transform: scale(1.05);
+  }
+
+  100% {
+    visibility: visible;
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/**
+ * 画像のスライドイン（横方向）
+ */
+@keyframes imgSlidein {
+  0% {
+    transform: translateX(3%) scale(1.1);
+  }
+
+  100% {
+    transform: translateX(0) scale(1);
+  }
+}
+
+// ==========================================
+// ループアニメーション（無限ループ用）
+// ==========================================
+
+/**
+ * 横方向の無限ループ
+ * @usage animation: loop-images 10s infinite linear 0.5s both;
+ */
+@keyframes loop-images {
+  0% {
+    visibility: visible;
+    transform: translate3d(0%, 0, 0);
+  }
+
+  100% {
+    visibility: visible;
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+
+/**
+ * 縦方向の無限ループ
+ */
+@keyframes loop-images-vertical {
+  0% {
+    visibility: visible;
+    transform: translate3d(0%, 0, 0);
+  }
+
+  100% {
+    visibility: visible;
+    transform: translate3d(0%, -100%, 0);
+  }
+}
+
+// ==========================================
+// ホバーエフェクト用アニメーション
+// ==========================================
+
+/**
+ * 矢印アイコンのホバーイン（パターン1）
+ */
+@keyframes hoverArrowIn01 {
+  0% {
+    translate: -110% 0;
+  }
+  100% {
+    translate: 0% 0;
+  }
+}
+
+/**
+ * 矢印アイコンのホバーアウト（パターン1）
+ */
+@keyframes hoverArrowOut01 {
+  0% {
+    translate: 0% 0;
+  }
+  100% {
+    translate: 110% 0;
+  }
+}
+
+/**
+ * 矢印アイコンのホバーイン（パターン2）
+ */
+@keyframes hoverArrowIn02 {
+  0% {
+    translate: -100% 0;
+  }
+  100% {
+    translate: 0% 0;
+  }
+}
+
+/**
+ * 矢印アイコンのホバーアウト（パターン2）
+ */
+@keyframes hoverArrowOut02 {
+  0% {
+    translate: -200% 0;
+  }
+  100% {
+    translate: -100% 0;
+  }
+}
+
+/**
+ * 矢印アイコンのホバーイン（アイコン版1）
+ */
+@keyframes hoverArrowIconIn01 {
+  0% {
+    translate: 0 -50%;
+  }
+  100% {
+    translate: 180% -50%;
+  }
+}
+
+/**
+ * 矢印アイコンのホバーイン（アイコン版2）
+ */
+@keyframes hoverArrowIconIn02 {
+  0% {
+    translate: -250% -50%;
+  }
+  100% {
+    translate: 0 -50%;
+  }
+}
+
+/**
+ * 矢印アイコンのホバーアウト（アイコン版1）
+ */
+@keyframes hoverArrowIconOut01 {
+  0% {
+    translate: -250% -50%;
+  }
+  100% {
+    translate: 0 -50%;
+  }
+}
+
+/**
+ * 矢印アイコンのホバーアウト（アイコン版2）
+ */
+@keyframes hoverArrowIconOut02 {
+  0% {
+    translate: 0 -50%;
+  }
+  100% {
+    translate: 180% -50%;
+  }
+}
+
+/**
+ * 矢印アイコンの単一ホバーエフェクト
+ */
+@keyframes hoverArrowInSingle {
+  0% {
+    opacity: 1;
+    translate: 0 0;
+  }
+  50% {
+    opacity: 0;
+    translate: 150% 0;
+  }
+  50.1% {
+    opacity: 0;
+    translate: -150% 0;
+  }
+  100% {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+// ==========================================
+// ラインアニメーション
+// ==========================================
+
+/**
+ * ラインが走るアニメーション
+ */
+@keyframes LineRun {
+  0% {
+    clip-path: inset(0 0% 0 0%);
+  }
+  50% {
+    clip-path: inset(0 0% 0 100%);
+  }
+  50.1% {
+    clip-path: inset(0 100% 0 0%);
+  }
+  100% {
+    clip-path: inset(0 0% 0 0%);
+  }
+}

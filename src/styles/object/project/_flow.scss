@@ -1,0 +1,96 @@
+@charset "utf-8";
+@use "../../foundation/index" as *;
+
+// 💬 Description.........................................
+//
+// カードに対してのscss
+//
+// ............................................................
+
+// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+//
+//	🍔 Card
+//
+// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+.p-top-flow {
+    padding-block: calc( 100 * var(--max-fluid-ratio)) calc( 70 * var(--max-fluid-ratio));
+    @media screen and (max-width: 768px) {
+        padding-block: calc( 100 * var(--min-fluid-ratio)) calc( 60 * var(--min-fluid-ratio));
+    }
+
+    &__title {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: calc( 10 * var(--max-fluid-ratio));
+        margin-bottom: calc( 42 * var(--max-fluid-ratio));
+        @media screen and (max-width: 768px) {
+            gap: calc( 10 * var(--min-fluid-ratio));
+            margin-bottom: calc( 60 * var(--min-fluid-ratio));
+        }
+
+        .en {
+            font-size: calc( 14 * var(--max-fluid-ratio));
+            font-family: $Font-Sub;
+            font-weight: bold;
+            line-height: 1;
+            color: #fbebcf;
+            @media screen and (max-width: 768px) {
+                font-size: calc( 20 * var(--min-fluid-ratio));
+                letter-spacing: 0.2em;
+            }
+        }
+        .ja {
+            font-size: calc( 38 * var(--max-fluid-ratio));
+            color: #fff;
+            @media screen and (max-width: 768px) {
+                font-size: calc( 45 * var(--min-fluid-ratio));
+            }
+        }
+    }
+    
+    &__list {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: calc( 30 * var(--max-fluid-ratio));
+        @media screen and (max-width: 768px) {
+            display: flex;
+            flex-direction: column;
+            gap: calc( 16 * var(--min-fluid-ratio));
+        }
+    }
+
+    &__item {
+        position: relative; 
+        align-items: center;
+
+        &:not(:last-child) {
+            &::after {
+                content: '';
+                display: block;
+                width: calc( 8 * var(--max-fluid-ratio));
+                height: calc( 21 * var(--max-fluid-ratio));
+                background: #fff;
+                position: absolute;
+                right: 0;
+                top: 50%;
+                transform: translate(100%, 50%);
+                clip-path: polygon(0 0, 0% 100%, 100% 50%);
+                @media screen and (max-width: 768px) {
+                    content: none;
+                }   
+            }
+        }
+    }
+
+    &__line {
+        display: block;
+        width: calc( 8 * var(--max-fluid-ratio));
+        margin: calc( 32 * var(--max-fluid-ratio)) auto 0;
+        @media screen and (max-width: 768px) {
+            width: calc( 10 * var(--min-fluid-ratio));
+            margin: calc( 20 * var(--min-fluid-ratio)) auto calc( -20 * var(--min-fluid-ratio));
+        }
+    }
+}

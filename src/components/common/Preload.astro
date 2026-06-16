@@ -1,0 +1,34 @@
+---
+import { getImage } from 'astro:assets';
+
+import { BREAKPOINT_PC_MIN, BREAKPOINT_SP_MAX } from '@/data/config';
+
+import type { ImageInputFormat } from 'astro';
+import type { HTMLAttributes } from 'astro/types';
+
+export interface Props extends Omit<HTMLAttributes<'link'>, 'media'> {
+	src: ImageMetadata;
+	media?: 'sp' | 'pc';
+	format?: ImageInputFormat;
+}
+
+const { src, media, format, ...props }: Props = Astro.props;
+
+const image = await getImage({
+	src,
+	format: format || 'webp',
+	quality: 80,
+});
+---
+
+<link
+	rel="preload"
+	as="image"
+	media={media
+		? media === 'sp'
+			? `screen and (width <= ${BREAKPOINT_SP_MAX}px)`
+			: `screen and (width >= ${BREAKPOINT_PC_MIN}px)`
+		: undefined}
+	href={image.src}
+	{...props}
+/>

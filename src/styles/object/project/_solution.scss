@@ -1,0 +1,50 @@
+@charset "utf-8";
+@use "../../foundation/index" as *;
+
+// 💬 Description.........................................
+//
+// カードに対してのscss
+//
+// ............................................................
+
+// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+//
+//	🍔 Card
+//
+// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+.p-top-solution {
+    position: relative;
+    padding-bottom: calc( 170 * var(--max-fluid-ratio));
+    @media screen and (max-width: 768px) {
+        padding-bottom: calc( 100 * var(--min-fluid-ratio));
+    }
+    &__content {
+        position: relative;
+        z-index: 1;
+    }
+
+    // &__bubbleTitle {
+    //     margin-top: calc( -40 * var(--max-fluid-ratio));
+    // }
+
+    &__title {
+        margin-top: calc( 54 * var(--max-fluid-ratio));
+        @media screen and (max-width: 768px) {
+            width: calc( 688 * var(--min-fluid-ratio));
+            margin-inline: auto;
+            margin-top: calc( 90 * var(--min-fluid-ratio));
+        }   
+    }
+
+    &__list {
+        display: flex;
+        flex-direction: column;
+        gap: calc( 81 * var(--max-fluid-ratio));
+        margin-top: calc( 78 * var(--max-fluid-ratio));
+        @media screen and (max-width: 768px) {
+            margin-top: calc( 90 * var(--min-fluid-ratio));
+            gap: calc( 60 * var(--min-fluid-ratio));
+        }
+    }
+}

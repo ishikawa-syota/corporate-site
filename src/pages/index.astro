@@ -1,0 +1,20 @@
+---
+import { siteMetadata } from '../data/meta';
+import CtaNav from '../layouts/Cta.astro';
+import Footer from '../layouts/Footer.astro';
+import Header from '../layouts/Header.astro';
+import Layout from '../layouts/Layout.astro';
+// ============================================
+// 汎用化済みセクション（テンプレートとして使用可能）
+// ============================================
+import FirstView from '../section/01FV.astro';
+import Contact from '../section/09Contact.astro';
+
+---
+<Layout title={siteMetadata.siteName}>
+    <Header id="header" />
+    <FirstView id="firstview" />
+    <Contact id="contact" />
+    <Footer id="footer" />
+    <CtaNav id="cta-nav" />
+</Layout>

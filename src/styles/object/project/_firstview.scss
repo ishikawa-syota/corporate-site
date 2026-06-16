@@ -1,0 +1,99 @@
+@charset "utf-8";
+@use "../../foundation/index" as *;
+
+// 💬 Description.........................................
+//
+// カードに対してのscss
+//
+// ............................................................
+
+// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+//
+//	🍔 Card
+//
+// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+.p-top-firstview {
+    padding-top: calc( 60 * var(--max-fluid-ratio));
+    height: calc( 814 * var(--max-fluid-ratio));
+    @media screen and (max-width: 768px) {
+        height: initial;
+        // padding-top: calc( 104 * var(--min-fluid-ratio));
+    }
+    &__textWrap {
+        width: 100%;
+    }
+
+    &__copy {
+        display: block;
+        width: calc( 395 * var(--max-fluid-ratio));
+        @media screen and (max-width: 768px) {
+            width: calc( 512 * var(--min-fluid-ratio));
+            margin: calc( -20 * var(--min-fluid-ratio)) auto 0;
+        }
+    }
+
+    &__maincopy {
+        display: block;
+        width: calc( 599 * var(--max-fluid-ratio));
+        margin-left: calc( -40 * var(--max-fluid-ratio));
+        margin-top: calc( 4 * var(--max-fluid-ratio));
+        @media screen and (max-width: 768px) {
+            width: calc( 312 * var(--min-fluid-ratio));
+            margin-left: calc( 340 * var(--min-fluid-ratio));
+            margin-top: calc( 2 * var(--min-fluid-ratio));
+        }
+    }
+
+    &__listWrap {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: calc( 10 * var(--max-fluid-ratio));
+        padding-top: calc( 30 * var(--max-fluid-ratio));
+        margin-top: calc( 30 * var(--max-fluid-ratio));
+        @media screen and (max-width: 768px) {
+            flex-direction: column;
+            margin-top: calc( 34 * var(--min-fluid-ratio));
+            padding-top: calc( 76 * var(--min-fluid-ratio));
+        }
+
+        > * {
+            position: relative;
+            z-index: 1;
+        }
+
+    }
+
+    &__list {
+        display: flex;
+        gap: calc( 26 * var(--max-fluid-ratio));
+    }
+
+    &__listItem {
+        display: block;
+        width: calc( 300 * var(--max-fluid-ratio));
+        @media screen and (max-width: 768px) {
+            width: calc( 334 * var(--min-fluid-ratio));
+        }
+    }
+
+    &__btn {
+        display: block;
+        width: calc( 548 * var(--max-fluid-ratio));
+        transition: all 0.3s ease;
+        &:hover {
+            transform: scale(1.05);
+        }
+        @media screen and (max-width: 768px) {
+            width: 100vw;
+            margin: 0 calc(50% - 50vw);
+            margin-top: calc( 25 * var(--min-fluid-ratio));
+        }
+
+
+
+
+    }
+}

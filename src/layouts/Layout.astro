@@ -1,0 +1,109 @@
+---
+import Meta from '../components/common/Meta.astro';
+import '../styles/main.scss';
+
+interface Props {
+	title?: string;
+	description?: string;
+	ogImage?: string;
+}
+
+const { title, description, ogImage } = Astro.props;
+---
+
+<!doctype html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<Meta {...(title && { title })} {...(description && { description })} {...(ogImage && { ogImage })} />
+
+		<!-- Google Tag Manager -->
+
+		<!--::::::::::::::::::::::::::::::::::::::::::::
+			RequireMobile
+		::::::::::::::::::::::::::::::::::::::::::::-->
+		<meta name="viewport" content="initial-scale=1, minimum-scale=1, maximum-scale=5" />
+		<meta name="format-detection" content="telephone=no">
+		<meta name="msapplication-tap-highlight" content="no">
+		<!--::::::::::::::::::::::::::::::::::::::::::::
+			WebFont (Optimized) - デザインカンプから抽出したフォント
+		::::::::::::::::::::::::::::::::::::::::::::-->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link rel="preconnect" href="https://use.typekit.net" crossorigin>
+		
+		<!-- Google Fonts: Zen Kaku Gothic New, Noto Sans JP & Oswald - 最適化済み (400,600,700のみ) -->
+		<link 
+		  rel="preload" 
+		  as="style" 
+		  href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;600;700&family=Noto+Sans+JP:wght@400;600;700&family=Oswald:wght@400;600;700&display=swap"
+		>
+		<link 
+		  rel="stylesheet" 
+		  href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;600;700&family=Noto+Sans+JP:wght@400;600;700&family=Oswald:wght@400;600;700&display=swap"
+		  media="print"
+		  onload="this.media='all';this.onload=null;"
+		>
+		<noscript>
+		  <link 
+		    rel="stylesheet" 
+		    href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;600;700&family=Noto+Sans+JP:wght@400;600;700&family=Oswald:wght@400;600;700&display=swap"
+		  >
+		</noscript>
+		
+		<!-- Adobe Fonts: oswald -->
+		<!-- NOTE: Adobe FontsのProject IDを設定してください -->
+		<!-- <link rel="stylesheet" href="https://use.typekit.net/[YOUR-PROJECT-ID].css"> -->
+
+		<!-- スクロールアニメーション用のスタイル -->
+		<style is:inline>
+			.js-animation {
+				opacity: 0;
+				visibility: hidden;
+				will-change: transform, opacity;
+			}
+			
+			@media (prefers-reduced-motion: reduce) {
+				.js-animation {
+					opacity: 1 !important;
+					visibility: visible !important;
+					transform: none !important;
+					transition: none !important;
+				}
+			}
+		</style>
+
+		<!-- GSAP ローカルから読み込み（メンテナンス性向上）-->
+		<script>
+			import { gsap } from "gsap";
+			import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+			// ScrollTriggerプラグインを登録
+			gsap.registerPlugin(ScrollTrigger);
+
+			// グローバルに登録（既存のコードとの互換性のため）
+			if (typeof window !== 'undefined') {
+				(window as any).gsap = gsap;
+				(window as any).ScrollTrigger = ScrollTrigger;
+			}
+		</script>
+
+		<!-- ページ固有のpreloadやheadコンテンツを注入 -->
+		<slot name="head" />
+
+		<!-- クラス・IDはビルド時に自動付与されます -->
+	</head>
+	<body>
+		<div id="home"></div>
+		<div class="l-wrapper">
+			<main class="l-container">
+				<slot />
+			</main>
+		</div>
+		
+	</body>
+</html>
+<style lang="scss" >
+	@use "../styles/foundation/index" as *;
+
+</style>

@@ -1,0 +1,188 @@
+@charset "utf-8";
+@use "../foundation/index" as *;
+
+// 💬 Description.........................................
+//
+// サイトの大まかなレイアウトを記述するscss
+//
+// ............................................................
+
+.l-wrapper {
+    font-size: calc(16 * var(--max-fluid-ratio));
+    letter-spacing: 0;
+    // background-color: #F3F8FF;
+    overflow: hidden;
+    scroll-behavior: smooth;
+    color: design-color("gray", "900");
+    // padding-bottom: calc( 120 * var(--max-fluid-ratio));
+    // @media only screen and (max-width: 769px) {
+    //     padding-bottom: calc(188 * var(--min-fluid-ratio));
+    // }
+
+}
+
+.l-container {
+    // background: $Main-UltraLight;
+}
+
+.l-inner {
+    width: 100%;
+    max-width: calc(calc(1106 * var(--max-fluid-ratio)) + calc(64 * var(--max-fluid-ratio)));
+    padding: 0 calc(32 * var(--max-fluid-ratio));
+    margin-inline: auto;
+    @media screen and (min-width: 1536px) {
+        max-width: calc(1106px + 64px);
+        padding: 0 32px;
+    }
+    @media screen and (max-width: 960px) {
+        max-width: calc(690px + 80px);
+        padding: 0 40px;
+    }
+    @media only screen and (max-width: 769px) {
+        width: 100%;
+        max-width: initial;
+        padding: 0 calc(40 * var(--min-fluid-ratio)) !important;
+    }
+
+    // &-xs {
+    //     @extend .l-inner;
+    //     @media only screen and (min-width: 769px) {
+    //         max-width: calc(calc(600 * var(--max-fluid-ratio)) + calc(64 * var(--max-fluid-ratio)));
+    //     }
+    // }
+    // &-s {
+    //     @extend .l-inner;
+    //     @media only screen and (min-width: 769px) {
+    //         max-width: calc(
+    //         calc(1000 * var(--max-fluid-ratio)) + calc(64 * var(--max-fluid-ratio))
+    //         );
+    //     }
+    // }
+    // &-sm {
+    //     @extend .l-inner;
+    //     @media only screen and (min-width: 769px) {
+    //         max-width: calc(
+    //         calc(1104 * var(--max-fluid-ratio)) + calc(64 * var(--max-fluid-ratio))
+    //         );
+    //     }
+    // }
+    &-s {
+        @extend .l-inner;
+        max-width: calc(calc(912 * var(--max-fluid-ratio)) + calc(64 * var(--max-fluid-ratio)));
+        padding: 0 calc(32 * var(--max-fluid-ratio));
+        margin-inline: auto;
+        @media screen and (min-width: 1536px) {
+            max-width: calc(912px + 64px);
+            padding: 0 32px;
+        }
+        @media screen and (max-width: 960px) {
+            max-width: calc(690px + 80px);
+            padding: 0 40px;
+        }
+        @media only screen and (max-width: 769px) {
+            width: 100%;
+            max-width: initial;
+            padding: 0 calc(40 * var(--min-fluid-ratio)) !important;
+        }
+
+    }
+    &-m {
+        @extend .l-inner;
+        max-width: calc(calc(1008 * var(--max-fluid-ratio)) + calc(64 * var(--max-fluid-ratio)));
+        padding: 0 calc(32 * var(--max-fluid-ratio));
+        margin-inline: auto;
+        @media screen and (min-width: 1536px) {
+            max-width: calc(1008px + 64px);
+            padding: 0 32px;
+        }
+        @media screen and (max-width: 960px) {
+            max-width: calc(690px + 80px);
+            padding: 0 40px;
+        }
+        @media only screen and (max-width: 769px) {
+            width: 100%;
+            max-width: initial;
+            padding: 0 calc(40 * var(--min-fluid-ratio)) !important;
+        }
+
+    }
+    
+    // &-ml {
+    //     @extend .l-inner;
+    //     @media only screen and (min-width: 769px) {
+    //         max-width: calc(
+    //         calc(1100 * var(--max-fluid-ratio)) + calc(64 * var(--max-fluid-ratio))
+    //         );
+    //     }
+    // }
+    &-l {
+        @extend .l-inner;
+        max-width: calc(calc(1202 * var(--max-fluid-ratio)) + calc(64 * var(--max-fluid-ratio)));
+        padding: 0 calc(32 * var(--max-fluid-ratio));
+        margin-inline: auto;
+        @media screen and (min-width: 1536px) {
+            max-width: calc(1202px + 64px);
+            padding: 0 32px;
+        }
+        @media screen and (max-width: 960px) {
+            max-width: calc(690px + 80px);
+            padding: 0 40px;
+        }
+        @media only screen and (max-width: 769px) {
+            width: 100%;
+            max-width: initial;
+            padding: 0 calc(25 * var(--min-fluid-ratio)) !important;
+        }
+    }
+
+    &-ll {
+        @extend .l-inner;
+        max-width: calc(calc(1104 * var(--max-fluid-ratio)) + calc(64 * var(--max-fluid-ratio)));
+        padding: 0 calc(32 * var(--max-fluid-ratio));
+        margin-inline: auto;
+        @media screen and (min-width: 1536px) {
+            max-width: calc(1104px + 64px);
+            padding: 0 32px;
+        }
+        @media screen and (max-width: 960px) {
+            max-width: calc(690px + 80px);
+            padding: 0 40px;
+        }
+        @media only screen and (max-width: 769px) {
+            width: 100%;
+            max-width: initial;
+            padding: 0 calc(40 * var(--min-fluid-ratio)) !important;
+        }
+
+    }
+    
+    &-xl {
+        @extend .l-inner;
+        max-width: calc(calc(1200 * var(--max-fluid-ratio)) + calc(64 * var(--max-fluid-ratio)));
+        padding: 0 calc(32 * var(--max-fluid-ratio));
+        margin-inline: auto;
+        @media screen and (min-width: 1536px) {
+            max-width: calc(1200px + 64px);
+            padding: 0 32px;
+        }
+        @media screen and (max-width: 960px) {
+            max-width: calc(690px + 80px);
+            padding: 0 40px;
+        }
+        @media only screen and (max-width: 769px) {
+            width: 100%;
+            max-width: initial;
+            padding: 0 calc(40 * var(--min-fluid-ratio)) !important;
+        }
+
+    }
+
+    // &-fullWidth {
+    //     margin-right: -2rem;
+    //     margin-left: -2rem;
+    //     @media only screen and (max-width: 769px) {
+    //         margin-right: -1rem;
+    //         margin-left: -1rem;
+    //     }
+    // }
+}

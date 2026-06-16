@@ -1,0 +1,92 @@
+---
+import Image from './Image.astro';
+
+export interface SliderImage {
+	src: ImageMetadata;
+	alt: string;
+}
+
+interface Props {
+	class?: string;
+	images: SliderImage[];
+	direction?: 'left' | 'right';
+}
+
+const { class: className, images, direction = 'left' }: Props = Astro.props;
+
+// 画像を4回複製して無限ループを実現（十分なコンテンツを確保）
+const duplicatedImages = [...images, ...images, ...images, ...images];
+---
+
+<div class={`c-image-slider ${className}`} data-direction={direction}>
+	<div class="c-image-slider_track">
+		{
+			duplicatedImages.map((image) => (
+				<div class="c-image-slider_item">
+					<Image
+						class="c-image-slider_image"
+						src={image.src}
+						alt={image.alt}
+						loading="lazy"
+					/>
+				</div>
+			))
+		}
+	</div>
+</div>
+
+<style lang="scss">
+	.c-image-slider {
+		$animation-duration: 70;
+		width: 100%;
+		overflow: hidden;
+		position: relative;
+
+		&_track {
+			display: flex;
+			align-items: center;
+			height: 100%;
+			width: fit-content;
+			animation: slide-left #{$animation-duration}s linear infinite;
+
+			// 方向の制御
+			[data-direction='right'] & {
+				animation: slide-right #{$animation-duration}s linear infinite;
+			}
+		}
+
+		&_item {
+			flex-shrink: 0;
+			margin-right: size(40);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		&_image {
+			height: size(90);
+			width: auto; // 幅は自然な比率で自動調整
+			object-fit: contain; // アスペクト比を維持
+		}
+	}
+
+	// 左方向のアニメーション（4回複製なので25%ずつ移動）
+	@keyframes slide-left {
+		0% {
+			transform: translateX(0);
+		}
+		100% {
+			transform: translateX(-25%);
+		}
+	}
+
+	// 右方向のアニメーション
+	@keyframes slide-right {
+		0% {
+			transform: translateX(-25%);
+		}
+		100% {
+			transform: translateX(0);
+		}
+	}
+</style>

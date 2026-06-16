@@ -1,0 +1,63 @@
+---
+interface Props {
+  type?: 'fadeUp' | 'fadeDown' | 'fadeLeft' | 'fadeRight' | 'zoomIn' | 'zoomOut';
+  delay?: number;
+  duration?: number;
+  tag?: string;
+  className?: string;
+}
+
+const { 
+  type = 'fadeUp', 
+  delay, 
+  duration, 
+  tag = 'div', 
+  className = '' 
+} = Astro.props;
+---
+
+{tag === 'div' ? (
+  <div class={`js-animation ${className}`} data-animation-type={type} data-animation-delay={delay?.toString()} data-animation-duration={duration?.toString()}>
+    <slot />
+  </div>
+) : tag === 'section' ? (
+  <section class={`js-animation ${className}`} data-animation-type={type} data-animation-delay={delay?.toString()} data-animation-duration={duration?.toString()}>
+    <slot />
+  </section>
+) : tag === 'article' ? (
+  <article class={`js-animation ${className}`} data-animation-type={type} data-animation-delay={delay?.toString()} data-animation-duration={duration?.toString()}>
+    <slot />
+  </article>
+) : tag === 'li' ? (
+  <li class={`js-animation ${className}`} data-animation-type={type} data-animation-delay={delay?.toString()} data-animation-duration={duration?.toString()}>
+    <slot />
+  </li>
+) : tag === 'header' ? (
+  <header class={`js-animation ${className}`} data-animation-type={type} data-animation-delay={delay?.toString()} data-animation-duration={duration?.toString()}>
+    <slot />
+  </header>
+) : tag === 'footer' ? (
+  <footer class={`js-animation ${className}`} data-animation-type={type} data-animation-delay={delay?.toString()} data-animation-duration={duration?.toString()}>
+    <slot />
+  </footer>
+) : tag === 'h1' ? (
+  <h1 class={`js-animation ${className}`} data-animation-type={type} data-animation-delay={delay?.toString()} data-animation-duration={duration?.toString()}>
+    <slot />
+  </h1>
+) : tag === 'h2' ? (
+  <h2 class={`js-animation ${className}`} data-animation-type={type} data-animation-delay={delay?.toString()} data-animation-duration={duration?.toString()}>
+    <slot />
+  </h2>
+) : tag === 'h3' ? (
+  <h3 class={`js-animation ${className}`} data-animation-type={type} data-animation-delay={delay?.toString()} data-animation-duration={duration?.toString()}>
+    <slot />
+  </h3>
+) : tag === 'p' ? (
+  <p class={`js-animation ${className}`} data-animation-type={type} data-animation-delay={delay?.toString()} data-animation-duration={duration?.toString()}>
+    <slot />
+  </p>
+) : (
+  <div class={`js-animation ${className}`} data-animation-type={type} data-animation-delay={delay?.toString()} data-animation-duration={duration?.toString()}>
+    <slot />
+  </div>
+)} 

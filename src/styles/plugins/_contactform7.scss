@@ -1,0 +1,47 @@
+@charset "utf-8";
+@use "../foundation/index" as *;
+
+// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+//
+//	🍔 ContactForm7
+//
+// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+// 余計なマージンをリセット --------------------
+span.wpcf7-list-item {
+    display: block;
+    margin: 0;
+}
+
+// 送信後のMESSAGEスタイルをリセット --------------------
+div.wpcf7-response-output {
+	padding: 2rem 1rem;
+	margin: 0;
+	border: 0px;
+}
+
+// エラーメッセージ --------------------
+div.wpcf7-validation-errors, div.wpcf7-acceptance-missing, div.wpcf7-response-output {
+	background: $Error;
+	text-align: center;
+	color: #fff;
+	font-weight: 700;
+}
+
+// 送信成功MESSAGE --------------------
+div.wpcf7-mail-sent-ok {
+	background: $Main;
+	text-align: center;
+	color: #fff;
+	font-weight: 700;
+}
+
+// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+//
+//	🍔 HeadingBig
+//
+// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+	// :::::::::::::::::::::::::::::::::::::::::::::
+	//	✅ HeadingSmall
+	// :::::::::::::::::::::::::::::::::::::::::::::

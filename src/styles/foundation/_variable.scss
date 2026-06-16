@@ -1,0 +1,41 @@
+@charset "utf-8";
+// 💬 Description.........................................
+//
+// 変数/関数を定義するscss
+//
+// ............................................................
+@use "sass:map";
+
+// 変数定義を追加
+$image-path: "../../images" !default;
+
+//MediaQuery --------------------
+$Bp-Mobile: 580px !default;
+$Bp-7inch: 768px !default;
+$Bp-11inch: 1100px !default;
+$Bp-13inch: 1300px !default;
+$Bp-15inch: 1500px !default;
+
+// ============================================
+// デザインカンプ幅（size()関数用）
+// ============================================
+// デザインカンプの幅を設定
+// この値を変更するとsize()関数の計算に反映される
+$design-width-pc: 1536 !default;  // PCデザインカンプ幅
+$design-width-sp: 390 !default;   // SPデザインカンプ幅
+
+// ============================================
+// ブレークポイント変数
+// ============================================
+// mq()ミックスインで使用するブレークポイント
+$breakpoint-sp: 768px !default;   // SP判定ブレークポイント
+
+//使う時
+// @media only screen and (max-width: $Bp-11inch) {
+// }
+
+// @media only screen and (max-width: $Bp-7inch) {
+// }
+
+// @media only screen and (max-width: $Bp-Mobile) {
+// }

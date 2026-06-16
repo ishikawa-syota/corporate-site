@@ -1,0 +1,36 @@
+@charset "utf-8";
+@use "../../foundation/index" as *;
+
+// 💬 Description.........................................
+//
+// ボタンに対してのscss
+//
+// ............................................................
+
+// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+//
+//	🍔 HeadingBig
+//
+// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+.c-btn-slide {
+    // display: grid;
+    // place-items: center;
+    // width: calc( 150 * var(--max-fluid-ratio));
+    // height: calc( 46 * var(--max-fluid-ratio));
+    // font-size: calc( 18 * var(--max-fluid-ratio));
+    // background: #d2dce0;
+    // border: 3px solid #d2dce0;
+    // @media screen and (max-width: 768px) {
+    //     width: calc( 155 * var(--min-fluid-ratio));
+    //     height: calc( 80 * var(--min-fluid-ratio));
+    //     font-size: calc( 24 * var(--min-fluid-ratio));
+    // }
+    // &.is-active {
+    //     border: 3px solid #41b760;
+    //     color: #41b760;
+    //     @media screen and (max-width: 768px) {
+    //         border: 3px solid #41b760;
+    //         color: #41b760;
+    //     }
+    // }
+}

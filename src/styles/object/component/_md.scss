@@ -1,0 +1,45 @@
+@charset "utf-8";
+@use "../../foundation/index" as *;
+
+// 💬 Description.........................................
+//
+// 分類枠の無いモジュールのscss
+//
+// ............................................................
+
+// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+//
+//	🍔 HeadingBig
+//
+// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+.c-marker {
+	position: relative;
+	margin-right: calc( 12 * var(--max-fluid-ratio));
+	.sentence {
+		position: relative;
+		z-index: 1;
+		color: $white;
+		padding-inline: calc( 8 * var(--max-fluid-ratio));
+		white-space: nowrap;
+	}
+
+	&::before {
+		content: "";
+		display: block;
+		width: 100%;
+		height: 100%;
+		background: linear-gradient(100.98deg, #50BBEC -4.41%, #014199 59.68%);
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+
+	&._black {
+		&::before {
+			background: $black;
+		}
+	}
+}
+	// :::::::::::::::::::::::::::::::::::::::::::::
+	//	✅ HeadingSmall
+	// :::::::::::::::::::::::::::::::::::::::::::::

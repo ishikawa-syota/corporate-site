@@ -1,0 +1,13 @@
+@charset "utf-8";
+
+// 💬 Description.........................................
+//
+// Font設定をするscss - デザインカンプから抽出したフォント読み込み
+//
+// ............................................................
+
+// Google Fonts読み込み - Layout.astroで最適化済みのため@import削除
+
+$Font: "Zen Kaku Gothic New", sans-serif;
+$Font-Sub: "Noto Sans JP", sans-serif;
+$Font-En: "Oswald", sans-serif;

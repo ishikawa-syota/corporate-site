@@ -1,6 +1,8 @@
 ---
 import ArrowButton from '../components/button/ArrowButton.astro';
+import OptImage from '../components/common/OptImage.astro';
 import { companyInfo } from '../data/siteContent';
+import logoWhite from '../images/keitasplan/common/footer-01.png';
 
 interface Props {
   id?: string;
@@ -34,6 +36,7 @@ const footerNav = [
 <footer class="l-footer" id={id}>
   <div class="l-footer__inner">
     <div class="l-footer__info">
+      <OptImage src={logoWhite} alt={companyInfo.name} width={420} fit="contain" class="l-footer__logo" />
       <p class="l-footer__company">{companyInfo.name}</p>
       <p class="l-footer__address">
         {companyInfo.address}<br />
@@ -85,11 +88,21 @@ const footerNav = [
       }
     }
 
+    &__logo {
+      width: size(257);
+      margin-bottom: size(24);
+    }
+
     &__company {
       font-family: $Font;
       font-weight: 700;
       font-size: size(20);
       margin-bottom: size(16);
+
+      @include mq('sp') {
+        font-size: size(30);
+        margin-bottom: size(24);
+      }
     }
 
     &__address {
@@ -127,6 +140,10 @@ const footerNav = [
       font-size: size(15);
       color: rgba($brand-white, 0.9);
       transition: color 0.3s ease;
+
+      @include mq('sp') {
+        font-size: size(26);
+      }
 
       @media (hover: hover) and (pointer: fine) {
         &:hover {

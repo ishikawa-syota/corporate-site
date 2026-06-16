@@ -19,9 +19,16 @@ const { id } = Astro.props;
         lead="ご満足いただいたお客様からの喜びの声"
         class="p-voice__heading"
       />
-      <div class="p-voice__grid">
+      <div class="p-voice__grid" data-voice-track>
         {voices.map((v) => (
-          <VoiceCard no={v.no} meta={v.meta} headline={v.headline} body={v.body} />
+          <div class="p-voice__item">
+            <VoiceCard no={v.no} meta={v.meta} headline={v.headline} body={v.body} />
+          </div>
+        ))}
+      </div>
+      <div class="p-voice__dots" aria-hidden="true">
+        {voices.map((_, i) => (
+          <span class="p-voice__dot" data-voice-dot data-index={i}></span>
         ))}
       </div>
       <ArrowButton href="#voice" label="詳しく見る" variant="white" class="p-voice__btn" />
@@ -56,8 +63,8 @@ const { id } = Astro.props;
       box-shadow: 0 size(20) size(50) rgba($brand-blue, 0.12);
 
       @include mq('sp') {
-        padding: size(32) size(24);
-        border-radius: size(16);
+        padding: size(60) size(40);
+        border-radius: size(32);
       }
     }
 
@@ -69,9 +76,52 @@ const { id } = Astro.props;
       margin-top: size(72);
 
       @include mq('sp') {
-        grid-template-columns: 1fr;
-        gap: size(20);
-        margin-top: size(32);
+        // SP: 横スクロール・スナップカルーセル
+        display: flex;
+        grid-template-columns: none;
+        gap: size(40);
+        margin-top: size(56);
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        margin-inline: size(-20);
+        padding-inline: size(20);
+
+        &::-webkit-scrollbar {
+          display: none;
+        }
+      }
+    }
+
+    &__item {
+      display: flex;
+
+      @include mq('sp') {
+        flex: 0 0 88%;
+        scroll-snap-align: center;
+      }
+    }
+
+    &__dots {
+      display: none;
+
+      @include mq('sp') {
+        display: flex;
+        gap: size(33);
+        margin-top: size(48);
+      }
+    }
+
+    &__dot {
+      width: size(28);
+      height: size(28);
+      border-radius: 50%;
+      background-color: rgba($brand-blue, 0.25);
+      transition: background-color 0.3s ease;
+
+      &.is-active {
+        background-color: $brand-blue;
       }
     }
 
@@ -79,8 +129,44 @@ const { id } = Astro.props;
       margin-top: size(64);
 
       @include mq('sp') {
-        margin-top: size(40);
+        margin-top: size(48);
       }
     }
   }
 </style>
+
+<script>
+  document.querySelectorAll('.p-voice').forEach((section) => {
+    const track = section.querySelector<HTMLElement>('[data-voice-track]');
+    const dots = Array.from(section.querySelectorAll<HTMLElement>('[data-voice-dot]'));
+    const items = track ? Array.from(track.children) : [];
+    if (!track || !dots.length) return;
+
+    const setActive = (idx: number) => {
+      dots.forEach((d, i) => d.classList.toggle('is-active', i === idx));
+    };
+    setActive(0);
+
+    // スクロール位置からアクティブなドットを判定
+    track.addEventListener('scroll', () => {
+      const center = track.scrollLeft + track.clientWidth / 2;
+      let nearest = 0;
+      let min = Infinity;
+      items.forEach((item, i) => {
+        const el = item as HTMLElement;
+        const c = el.offsetLeft + el.offsetWidth / 2;
+        const dist = Math.abs(c - center);
+        if (dist < min) { min = dist; nearest = i; }
+      });
+      setActive(nearest);
+    }, { passive: true });
+
+    // ドットクリックで該当カードへスクロール
+    dots.forEach((dot, i) => {
+      dot.addEventListener('click', () => {
+        const el = items[i] as HTMLElement | undefined;
+        if (el) track.scrollTo({ left: el.offsetLeft - track.offsetLeft, behavior: 'smooth' });
+      });
+    });
+  });
+</script>

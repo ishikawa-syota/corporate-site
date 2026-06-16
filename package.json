@@ -19,6 +19,8 @@
 		"lint:check": "eslint . --ext .js,.ts,.astro --max-warnings 0"
 	},
 	"dependencies": {
+		"@fontsource/readex-pro": "^5.2.11",
+		"@fontsource/roboto": "^5.2.10",
 		"@splidejs/splide": "^4.1.4",
 		"@splidejs/splide-extension-auto-scroll": "^0.5.3",
 		"astro": "^5.13.5",

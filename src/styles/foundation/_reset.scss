@@ -24,7 +24,8 @@
 	--size-unit: calc(1 / 1536 * 100vw);
 
 	@media only screen and (max-width: 768px) {
-		--size-unit: calc(1 / 390 * 100vw);
+		// SPデザインカンプ基準幅（FigmaのSPフレーム = 768px）
+		--size-unit: calc(1 / 768 * 100vw);
 	}
 }
 // Asterisk --------------------

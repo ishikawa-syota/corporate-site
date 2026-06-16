@@ -1,0 +1,58 @@
+---
+// 単一ソースの最適化画像（AVIF/WebP生成 + object-fit cover）
+// 固定枠内に流し込む用途。width指定で出力解像度を制御（巨大元画像の最適化）。
+import { getImage } from 'astro:assets';
+
+interface Props {
+  src: ImageMetadata;
+  alt?: string;
+  class?: string;
+  width?: number;
+  priority?: boolean;
+  fit?: 'cover' | 'contain';
+}
+
+const {
+  src,
+  alt = '',
+  class: className,
+  width,
+  priority = false,
+  fit = 'cover',
+} = Astro.props;
+
+const opt = (format: 'avif' | 'webp', quality: number) =>
+  getImage({ src, format, quality, ...(width ? { width } : {}) });
+
+const avif = await opt('avif', 65);
+const webp = await opt('webp', 75);
+---
+
+<picture class:list={['c-img', className]} style={`--img-fit:${fit}`}>
+  <source srcset={avif.src} type="image/avif" />
+  <source srcset={webp.src} type="image/webp" />
+  <img
+    src={webp.src}
+    alt={alt}
+    width={src.width}
+    height={src.height}
+    loading={priority ? 'eager' : 'lazy'}
+    fetchpriority={priority ? 'high' : 'auto'}
+    decoding="async"
+  />
+</picture>
+
+<style lang="scss">
+  .c-img {
+    display: block;
+    width: 100%;
+    height: 100%;
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: var(--img-fit, cover);
+    }
+  }
+</style>

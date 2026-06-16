@@ -2,19 +2,25 @@
 // 事業紹介カード（左：写真 / 右：ブルーパネル）
 import ArrowButton from '../button/ArrowButton.astro';
 import ImagePlaceholder from '../common/ImagePlaceholder.astro';
+import OptImage from '../common/OptImage.astro';
 
 interface Props {
   title: string;
   desc: string;
   href?: string;
+  img?: ImageMetadata;
 }
 
-const { title, desc, href = '#' } = Astro.props;
+const { title, desc, href = '#', img } = Astro.props;
 ---
 
 <article class="c-bizCard">
   <div class="c-bizCard__media">
-    <ImagePlaceholder label={title} class="c-bizCard__img" rounded="0" />
+    {img ? (
+      <OptImage src={img} alt={title} width={500} class="c-bizCard__img" />
+    ) : (
+      <ImagePlaceholder label={title} class="c-bizCard__img" rounded="0" />
+    )}
   </div>
   <div class="c-bizCard__body">
     <h3 class="c-bizCard__title">{title}</h3>
@@ -73,6 +79,10 @@ const { title, desc, href = '#' } = Astro.props;
       font-size: size(30);
       line-height: 1.4;
       color: $brand-white;
+
+      @include mq('sp') {
+        font-size: size(44);
+      }
     }
 
     &__desc {

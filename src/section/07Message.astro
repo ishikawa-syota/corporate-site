@@ -1,7 +1,8 @@
 ---
-import ImagePlaceholder from '../components/common/ImagePlaceholder.astro';
+import OptImage from '../components/common/OptImage.astro';
 import SectionHeading from '../components/common/SectionHeading.astro';
 import { message } from '../data/siteContent';
+import imgRep from '../images/keitasplan/member/member-01.png';
 
 interface Props {
   id?: string;
@@ -25,7 +26,7 @@ const { id } = Astro.props;
           <span class="p-message__signPerson">{message.signName}</span>
         </div>
         <div class="p-message__portrait">
-          <ImagePlaceholder label="代表写真" rounded="10px" />
+          <OptImage src={imgRep} alt={message.signName} width={300} />
         </div>
       </div>
     </div>
@@ -122,6 +123,9 @@ const { id } = Astro.props;
       flex-shrink: 0;
       width: size(132);
       height: size(164);
+      border-radius: size(10);
+      overflow: hidden;
+      background-color: rgba($brand-white, 0.2);
     }
   }
 </style>

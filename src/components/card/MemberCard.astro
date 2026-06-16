@@ -1,18 +1,20 @@
 ---
 // メンバーカード（写真 + 役職 + 氏名）
 import ImagePlaceholder from '../common/ImagePlaceholder.astro';
+import OptImage from '../common/OptImage.astro';
 
 interface Props {
   role: string;
   name: string;
+  img?: ImageMetadata;
 }
 
-const { role, name } = Astro.props;
+const { role, name, img } = Astro.props;
 ---
 
 <article class="c-member">
   <div class="c-member__photo">
-    <ImagePlaceholder label={name} rounded="0" />
+    {img ? <OptImage src={img} alt={name} width={500} fit="contain" /> : <ImagePlaceholder label={name} rounded="0" />}
   </div>
   <div class="c-member__info">
     <span class="c-member__role">{role}</span>

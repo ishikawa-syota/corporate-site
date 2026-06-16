@@ -1,5 +1,8 @@
 ---
-import ImagePlaceholder from '../components/common/ImagePlaceholder.astro';
+import OptImage from '../components/common/OptImage.astro';
+import imgSky from '../images/keitasplan/fv/fv-03.jpg';
+import imgBag from '../images/keitasplan/fv/fv-04.png';
+import imgKv from '../images/keitasplan/fv/fv-05.png';
 
 interface Props {
   id?: string;
@@ -8,8 +11,14 @@ const { id } = Astro.props;
 ---
 
 <section class="p-fv" id={id}>
-  <div class="p-fv__visual">
-    <ImagePlaceholder label="KV / メインビジュアル（握手）" rounded="0" class="p-fv__kv" />
+  <div class="p-fv__sky">
+    <OptImage src={imgSky} alt="" width={1536} priority class="p-fv__skyImg" />
+  </div>
+  <div class="p-fv__kv">
+    <OptImage src={imgKv} alt="モノの価値をつなぐ握手" width={1536} priority fit="contain" />
+  </div>
+  <div class="p-fv__bag" aria-hidden="true">
+    <OptImage src={imgBag} alt="" width={300} fit="contain" />
   </div>
   <div class="p-fv__inner">
     <p class="p-fv__copy">
@@ -30,27 +39,54 @@ const { id } = Astro.props;
     overflow: hidden;
 
     @include mq('sp') {
-      min-height: size(620);
+      min-height: size(640);
       padding-top: size(72);
     }
 
-    &__visual {
+    &__sky {
       position: absolute;
-      inset: size(120) 0 0;
+      inset: 0 0 auto;
+      height: size(1120);
+      z-index: 0;
 
       @include mq('sp') {
-        inset: size(72) 0 auto;
-        height: size(360);
+        height: size(420);
       }
     }
 
     &__kv {
-      height: 100%;
+      position: absolute;
+      left: 50%;
+      bottom: size(40);
+      transform: translateX(-50%);
+      width: size(1300);
+      max-width: 100%;
+      z-index: 1;
+
+      @include mq('sp') {
+        bottom: auto;
+        top: size(150);
+        width: size(360);
+      }
+    }
+
+    &__bag {
+      position: absolute;
+      left: 50%;
+      top: size(360);
+      transform: translateX(-50%);
+      width: size(149);
+      z-index: 2;
+
+      @include mq('sp') {
+        top: size(96);
+        width: size(76);
+      }
     }
 
     &__inner {
       position: relative;
-      z-index: 1;
+      z-index: 3;
       display: flex;
       justify-content: flex-end;
       max-width: size(1450);
@@ -59,7 +95,7 @@ const { id } = Astro.props;
 
       @include mq('sp') {
         justify-content: center;
-        padding: size(260) size(20) 0;
+        padding: size(96) size(20) 0;
       }
     }
 
@@ -75,7 +111,8 @@ const { id } = Astro.props;
       color: $brand-text;
 
       @include mq('sp') {
-        font-size: size(20);
+        font-size: size(22);
+        letter-spacing: 0.3em;
       }
     }
   }

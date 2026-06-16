@@ -1,6 +1,8 @@
 ---
 import ArrowButton from '../components/button/ArrowButton.astro';
+import OptImage from '../components/common/OptImage.astro';
 import { navItems, companyInfo } from '../data/siteContent';
+import logo from '../images/keitasplan/common/header-01.png';
 
 interface Props {
   id?: string;
@@ -11,10 +13,7 @@ const { id } = Astro.props;
 <header class="l-header" id={id}>
   <div class="l-header__inner">
     <a href="#home" class="l-header__logo">
-      <span class="l-header__logoMark" aria-hidden="true">
-        <span></span><span></span><span></span>
-      </span>
-      <span class="l-header__logoText">KEITASU PLAN</span>
+      <OptImage src={logo} alt="KEITASU PLAN" width={520} priority fit="contain" class="l-header__logoImg" />
     </a>
 
     <nav class="l-header__nav" aria-label="グローバルナビゲーション">
@@ -65,8 +64,8 @@ const { id } = Astro.props;
       padding: 0 size(24);
 
       @include mq('sp') {
-        height: size(72);
-        padding: 0 size(20);
+        height: size(120);
+        padding: 0 size(32);
         gap: size(16);
       }
     }
@@ -74,30 +73,16 @@ const { id } = Astro.props;
     &__logo {
       display: flex;
       align-items: center;
-      gap: size(10);
       flex-shrink: 0;
-    }
+      width: size(257);
 
-    &__logoMark {
-      display: inline-flex;
-      gap: size(3);
-
-      span {
-        width: size(14);
-        height: size(14);
-        border-radius: size(3);
+      @include mq('sp') {
+        width: size(319);
       }
-      span:nth-child(1) { background-color: $brand-blue; }
-      span:nth-child(2) { background-color: $brand-green; }
-      span:nth-child(3) { background-color: $brand-yellow; }
     }
 
-    &__logoText {
-      font-family: $Font-En;
-      font-weight: 700;
-      font-size: size(20);
-      letter-spacing: 0.04em;
-      color: $brand-blue;
+    &__logoImg {
+      width: 100%;
     }
 
     &__nav {
@@ -105,7 +90,7 @@ const { id } = Astro.props;
 
       @include mq('sp') {
         position: fixed;
-        inset: size(72) 0 auto;
+        inset: size(120) 0 auto;
         background-color: rgba($brand-white, 0.98);
         max-height: 0;
         overflow: hidden;
@@ -189,6 +174,7 @@ const { id } = Astro.props;
       display: none;
       flex-direction: column;
       justify-content: center;
+      align-items: center;
       gap: size(6);
       width: size(40);
       height: size(40);
@@ -206,6 +192,14 @@ const { id } = Astro.props;
 
       @include mq('sp') {
         display: flex;
+        width: size(70);
+        height: size(70);
+        gap: size(12);
+
+        span {
+          width: size(44);
+          height: size(4);
+        }
       }
     }
 

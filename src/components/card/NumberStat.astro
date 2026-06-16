@@ -1,17 +1,21 @@
 ---
 // 数字で見る（DATA）の指標カード
+import OptImage from '../common/OptImage.astro';
+
 interface Props {
   label: string;
   prefix?: string;
   value: string;
   unit: string;
   note?: string;
+  bg?: ImageMetadata;
 }
 
-const { label, prefix, value, unit, note } = Astro.props;
+const { label, prefix, value, unit, note, bg } = Astro.props;
 ---
 
 <div class="c-stat">
+  {bg && <OptImage src={bg} alt="" width={500} class="c-stat__bg" />}
   <p class="c-stat__label">{label}</p>
   <p class="c-stat__figure">
     {prefix && <span class="c-stat__prefix">{prefix}</span>}
@@ -39,6 +43,22 @@ const { label, prefix, value, unit, note } = Astro.props;
 
     @include mq('sp') {
       min-height: size(150);
+    }
+
+    &__bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      opacity: 0.45;
+      mix-blend-mode: soft-light;
+      pointer-events: none;
+    }
+
+    &__label,
+    &__figure,
+    &__note {
+      position: relative;
+      z-index: 1;
     }
 
     &__label {

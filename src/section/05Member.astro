@@ -3,11 +3,16 @@ import ArrowButton from '../components/button/ArrowButton.astro';
 import MemberCard from '../components/card/MemberCard.astro';
 import SectionHeading from '../components/common/SectionHeading.astro';
 import { members } from '../data/siteContent';
+import memberA from '../images/keitasplan/member/member-01.png';
+import memberB from '../images/keitasplan/member/member-03.png';
 
 interface Props {
   id?: string;
 }
 const { id } = Astro.props;
+
+// 2枚の写真を交互に使用（デザイン同様）
+const memberImages = [memberA, memberB];
 ---
 
 <section class="p-member" id={id}>
@@ -19,8 +24,8 @@ const { id } = Astro.props;
       class="p-member__heading"
     />
     <div class="p-member__grid">
-      {members.map((m) => (
-        <MemberCard role={m.role} name={m.name} />
+      {members.map((m, i) => (
+        <MemberCard role={m.role} name={m.name} img={memberImages[i % 2]} />
       ))}
     </div>
     <ArrowButton href="#member" label="詳しく見る" variant="white" class="p-member__btn" />

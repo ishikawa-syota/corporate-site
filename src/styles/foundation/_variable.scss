@@ -22,7 +22,7 @@ $Bp-15inch: 1500px !default;
 // デザインカンプの幅を設定
 // この値を変更するとsize()関数の計算に反映される
 $design-width-pc: 1536 !default;  // PCデザインカンプ幅
-$design-width-sp: 390 !default;   // SPデザインカンプ幅
+$design-width-sp: 768 !default;   // SPデザインカンプ幅（FigmaのSPフレーム幅）
 
 // ============================================
 // ブレークポイント変数

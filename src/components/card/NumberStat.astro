@@ -15,7 +15,11 @@ const { label, prefix, value, unit, note, bg } = Astro.props;
 ---
 
 <div class="c-stat">
-  {bg && <OptImage src={bg} alt="" width={500} class="c-stat__bg" />}
+  {bg && (
+    <span class="c-stat__bg" aria-hidden="true">
+      <OptImage src={bg} alt="" width={500} />
+    </span>
+  )}
   <p class="c-stat__label">{label}</p>
   <p class="c-stat__figure">
     {prefix && <span class="c-stat__prefix">{prefix}</span>}
@@ -32,10 +36,10 @@ const { label, prefix, value, unit, note, bg } = Astro.props;
     position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-end;
     width: 100%;
     min-height: size(180);
-    padding: size(24) size(30);
+    padding: size(28) size(30);
     border-radius: size(10);
     background: linear-gradient(180deg, $brand-blue 0%, $brand-blue-pale 100%);
     color: $brand-white;
@@ -45,12 +49,22 @@ const { label, prefix, value, unit, note, bg } = Astro.props;
       min-height: size(150);
     }
 
+    // 背景写真（OptImage は子コンポなので span でラップしてスコープ内で配置）
     &__bg {
       position: absolute;
       inset: 0;
       z-index: 0;
-      opacity: 0.45;
-      mix-blend-mode: soft-light;
+      display: block;
+      pointer-events: none;
+    }
+
+    // 写真の上に重ねるブルーオーバーレイ（白文字の視認性確保）
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(165deg, rgba($brand-blue, 0.4) 0%, rgba($brand-blue, 0.82) 100%);
       pointer-events: none;
     }
 
@@ -58,7 +72,7 @@ const { label, prefix, value, unit, note, bg } = Astro.props;
     &__figure,
     &__note {
       position: relative;
-      z-index: 1;
+      z-index: 2;
     }
 
     &__label {

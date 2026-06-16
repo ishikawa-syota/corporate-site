@@ -1,43 +1,13 @@
 ---
-import OptImage from '../components/common/OptImage.astro';
-import read02 from '../images/keitasplan/read/read-02.jpg';
-import read03 from '../images/keitasplan/read/read-03.jpg';
-import read04 from '../images/keitasplan/read/read-04.jpg';
-import read06 from '../images/keitasplan/read/read-06.jpg';
-import read08 from '../images/keitasplan/read/read-08.jpg';
-import read10 from '../images/keitasplan/read/read-10.jpg';
-import read12 from '../images/keitasplan/read/read-12.jpg';
-
 interface Props {
   id?: string;
 }
 const { id } = Astro.props;
 
 const body = `長く使ってきたモノ、誰かから譲り受けたモノ、いつかの自分の暮らしに寄り添っていたモノ。それは、ただの「モノ」じゃなくて、人生の一部だったはず。ケイタスプランは、そのモノの“続き”を考える会社です。価値を見極めて、丁寧にケアして、次の誰かの暮らしへ手渡す。捨てるでも、忘れるでもない、「つなぐ」という選択肢。モノの価値をつなぐ、それが私たちの仕事です。`;
-
-// 散らし装飾画像（Figma sec1 の Rectangle 座標, 1536基準）
-const decors = [
-  { src: read02, l: 0, t: 351, w: 225, h: 180 },
-  { src: read08, l: 1231, t: 227, w: 221, h: 256 },
-  { src: read04, l: 241, t: 632, w: 130, h: 124 },
-  { src: read06, l: 1418, t: 610, w: 119, h: 138 },
-  { src: read12, l: 58, t: 810, w: 121, h: 139 },
-  { src: read10, l: 1154, t: 812, w: 156, h: 180 },
-  { src: read03, l: 281, t: 934, w: 90, h: 90 },
-];
 ---
 
 <section class="p-copy" id={id}>
-  <div class="p-copy__decor" aria-hidden="true">
-    {decors.map((d) => (
-      <span
-        class="p-copy__decorItem"
-        style={`left:${(d.l / 1536) * 100}%;top:calc(${d.t} * var(--size-unit));width:calc(${d.w} * var(--size-unit));height:calc(${d.h} * var(--size-unit))`}
-      >
-        <OptImage src={d.src} alt="" width={300} />
-      </span>
-    ))}
-  </div>
   <div class="p-copy__inner">
     <h2 class="p-copy__title">そのモノには、<br />まだ続きがあります。</h2>
     <p class="p-copy__body">{body}</p>
@@ -54,32 +24,14 @@ const decors = [
     justify-content: center;
     min-height: size(1037);
     overflow: hidden;
-    background: linear-gradient(180deg, $brand-blue-sky 0%, $brand-white 100%);
+    // Figma: 濃いブルー背景に白文字（散らし装飾は非表示レイヤーのため無し）
+    background: linear-gradient(180deg, #4a93dd 0%, #2c6cbe 100%);
 
     @include mq('sp') {
-      // SPデザインでは FV のブルーが継続し、白文字で乗る
       display: block;
       min-height: 0;
       background: linear-gradient(180deg, #4f96dd 0%, $brand-blue-pale 100%);
       padding-block: size(120) size(160);
-    }
-
-    &__decor {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-
-      @include mq('sp') {
-        display: none;
-      }
-    }
-
-    &__decorItem {
-      position: absolute;
-      display: block;
-      border-radius: size(12);
-      overflow: hidden;
-      box-shadow: 0 size(10) size(30) rgba($brand-blue, 0.12);
     }
 
     &__inner {
@@ -102,7 +54,7 @@ const decors = [
     &__title {
       @include ty-lead;
       font-size: size(36);
-      color: $brand-blue;
+      color: $brand-white;
 
       @include mq('sp') {
         font-size: size(44);
@@ -113,7 +65,7 @@ const decors = [
 
     &__body {
       @include ty-body-l;
-      color: $brand-text;
+      color: $brand-white;
 
       @include mq('sp') {
         color: $brand-white;

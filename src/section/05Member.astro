@@ -16,11 +16,18 @@ const memberImages = [memberA, memberB];
 ---
 
 <section class="p-member" id={id}>
+  <span class="p-member__watermark" aria-hidden="true">
+    <svg viewBox="0 0 64 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="24" cy="20" rx="16" ry="15" stroke-width="4"></ellipse>
+      <ellipse cx="40" cy="20" rx="16" ry="15" stroke-width="4"></ellipse>
+    </svg>
+  </span>
   <div class="p-member__inner">
     <SectionHeading
       ja="メンバー"
       en="MEMBERS"
       lead="買取のプロフェッショナルが丁寧に対応します"
+      theme="light"
       class="p-member__heading"
     />
     <div class="p-member__grid">
@@ -36,14 +43,40 @@ const memberImages = [memberA, memberB];
   @use '../styles/foundation/index' as *;
 
   .p-member {
-    background: linear-gradient(180deg, $brand-blue-sky 0%, #d6e9ff 100%);
+    position: relative;
+    overflow: hidden;
+    // Figma: 濃紺グラデ背景（人物写真がくっきり映える）
+    background: linear-gradient(180deg, $brand-blue 0%, #cfe6ff 100%);
     padding-block: size(100);
 
     @include mq('sp') {
       padding-block: size(80);
     }
 
+    // 中央の大きな⊗透かしロゴ
+    &__watermark {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: size(900);
+      transform: translate(-50%, -55%);
+      pointer-events: none;
+      opacity: 0.08;
+
+      svg {
+        width: 100%;
+        height: auto;
+      }
+
+      ellipse {
+        fill: none;
+        stroke: $brand-white;
+      }
+    }
+
     &__inner {
+      position: relative;
+      z-index: 1;
       display: flex;
       flex-direction: column;
       align-items: center;

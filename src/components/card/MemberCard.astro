@@ -37,21 +37,18 @@ const { role, name, img } = Astro.props;
       overflow: hidden;
     }
 
+    // Figma: 白カードなし。氏名・役職を青背景に直置き（写真下に重ねる）
     &__info {
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: size(4);
       margin-top: size(-26);
-      padding: size(14) size(20);
-      background-color: $brand-white;
-      border-radius: size(8);
-      box-shadow: 0 size(6) size(20) rgba($brand-blue, 0.12);
     }
 
     &__role {
       @include ty-caption;
-      color: $brand-blue-light;
+      color: $brand-white;
     }
 
     &__name {

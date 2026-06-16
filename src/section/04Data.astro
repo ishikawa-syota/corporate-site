@@ -1,8 +1,9 @@
 ---
 import ArrowButton from '../components/button/ArrowButton.astro';
 import NumberStat from '../components/card/NumberStat.astro';
-import SectionHeading from '../components/common/SectionHeading.astro';
+import OptImage from '../components/common/OptImage.astro';
 import { stats } from '../data/siteContent';
+import logo from '../images/keitasplan/common/header-01.png';
 import bgSaiji from '../images/keitasplan/data/data-02.png';
 import bgKaitori from '../images/keitasplan/data/data-03.png';
 import bgStaff from '../images/keitasplan/data/data-05.png';
@@ -19,13 +20,13 @@ const statBgs = [bgKaitori, bgSaiji, bgStaff, bgSatisfy];
 
 <section class="p-data" id={id}>
   <div class="p-data__inner">
-    <SectionHeading
-      ja="数字で見る"
-      en="DATA"
-      lead="ケイタスプランにまつわる様々な数字をご紹介します"
-      align="center"
-      class="p-data__heading"
-    />
+    <div class="p-data__heading">
+      <span class="p-data__badge">数字で見る</span>
+      <span class="p-data__logo">
+        <OptImage src={logo} alt="KEITASU PLAN" width={720} fit="contain" />
+      </span>
+      <p class="p-data__lead">ケイタスプランにまつわる様々な数字をご紹介します</p>
+    </div>
     <div class="p-data__grid">
       {stats.map((stat, i) => (
         <NumberStat
@@ -60,6 +61,69 @@ const statBgs = [bgKaitori, bgSaiji, bgStaff, bgSatisfy];
       max-width: size(1098);
       margin-inline: auto;
       padding-inline: size(24);
+    }
+
+    &__heading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    // 「数字で見る」吹き出しバッジ
+    &__badge {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: size(10) size(28);
+      border-radius: size(28);
+      background: linear-gradient(180deg, $brand-blue-light 0%, $brand-blue 100%);
+      color: $brand-white;
+      font-family: $Font;
+      font-weight: 700;
+      font-size: size(22);
+      letter-spacing: 0.06em;
+      white-space: nowrap;
+
+      @include mq('sp') {
+        font-size: size(30);
+        padding: size(12) size(32);
+      }
+
+      // 下向きの吹き出しの尻尾
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: size(-9);
+        left: 50%;
+        transform: translateX(-50%);
+        border-style: solid;
+        border-width: size(11) size(9) 0;
+        border-color: $brand-blue transparent transparent;
+      }
+    }
+
+    &__logo {
+      display: block;
+      width: size(560);
+      max-width: 100%;
+      margin-top: size(24);
+
+      @include mq('sp') {
+        width: 86%;
+        margin-top: size(40);
+      }
+    }
+
+    &__lead {
+      @include ty-lead;
+      margin-top: size(16);
+      color: $brand-text;
+      text-align: center;
+
+      @include mq('sp') {
+        margin-top: size(20);
+      }
     }
 
     &__grid {

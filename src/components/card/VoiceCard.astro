@@ -1,0 +1,72 @@
+---
+// お客様の声カード
+interface Props {
+  no: string;
+  meta: string;
+  headline: string;
+  body: string;
+}
+
+const { no, meta, headline, body } = Astro.props;
+---
+
+<article class="c-voice">
+  <span class="c-voice__badge">{no}</span>
+  <div class="c-voice__head">
+    <p class="c-voice__meta">{meta}</p>
+    <h3 class="c-voice__headline">{headline}</h3>
+  </div>
+  <p class="c-voice__body">{body}</p>
+</article>
+
+<style lang="scss">
+  @use '../../styles/foundation/index' as *;
+
+  .c-voice {
+    display: flex;
+    flex-direction: column;
+    gap: size(24);
+    width: 100%;
+    padding: size(40) size(30);
+    background-color: $brand-white;
+    border-radius: size(10);
+    box-shadow: 0 size(10) size(30) rgba($brand-blue, 0.1);
+
+    &__badge {
+      align-self: flex-start;
+      padding: size(4) size(14);
+      border-radius: 999px;
+      background-color: $brand-blue;
+      font-family: $Font-Readex;
+      font-weight: 500;
+      font-size: size(14);
+      letter-spacing: 0.1em;
+      color: $brand-white;
+    }
+
+    &__head {
+      display: flex;
+      flex-direction: column;
+      gap: size(10);
+    }
+
+    &__meta {
+      @include ty-caption;
+      color: $brand-blue-light;
+    }
+
+    &__headline {
+      font-family: $Font;
+      font-weight: 700;
+      font-size: size(20);
+      line-height: 1.5;
+      color: $brand-blue;
+    }
+
+    &__body {
+      @include ty-body-s;
+      color: $brand-text;
+      text-align: justify;
+    }
+  }
+</style>

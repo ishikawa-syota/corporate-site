@@ -1,0 +1,81 @@
+---
+import BusinessCard from '../components/card/BusinessCard.astro';
+import SectionHeading from '../components/common/SectionHeading.astro';
+import { businessCards } from '../data/siteContent';
+
+interface Props {
+  id?: string;
+}
+const { id } = Astro.props;
+
+const intro = `商業施設で開催する催事買取をメインに、ご自宅へお伺いする出張買取。私たちの仕事は、目利きでお客様の品物を一つひとつ査定し、適正な価格でお預かりして、次の暮らしへとつなぐこと。年間48,000件の実績と180名のスタッフが、それを支えています。`;
+---
+
+<section class="p-business" id={id}>
+  <div class="p-business__inner">
+    <SectionHeading
+      ja="事業紹介"
+      en="BUSINESS"
+      lead="品物を、見極める。その価値を、つなぐ。"
+      class="p-business__heading"
+    />
+    <div class="p-business__body">
+      <p class="p-business__intro">{intro}</p>
+      <div class="p-business__cards">
+        {businessCards.map((card) => (
+          <BusinessCard title={card.title} desc={card.desc} href={card.href} />
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  @use '../styles/foundation/index' as *;
+
+  .p-business {
+    background-color: $brand-white;
+    padding-block: size(100);
+
+    @include mq('sp') {
+      padding-block: size(80);
+    }
+
+    &__inner {
+      // 1050(Figmaコンテンツ幅) + 24*2(padding) = 1098 で実コンテンツを1050pxに
+      max-width: size(1098);
+      margin-inline: auto;
+      padding-inline: size(24);
+    }
+
+    &__body {
+      display: grid;
+      grid-template-columns: size(357) 1fr;
+      gap: size(68);
+      margin-top: size(72);
+
+      @include mq('sp') {
+        grid-template-columns: 1fr;
+        gap: size(40);
+        margin-top: size(40);
+      }
+    }
+
+    &__intro {
+      @include ty-body-s;
+      font-size: size(16);
+      color: $brand-text;
+      text-align: justify;
+    }
+
+    &__cards {
+      display: flex;
+      flex-direction: column;
+      gap: size(48);
+
+      @include mq('sp') {
+        gap: size(32);
+      }
+    }
+  }
+</style>

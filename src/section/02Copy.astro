@@ -1,0 +1,58 @@
+---
+interface Props {
+  id?: string;
+}
+const { id } = Astro.props;
+
+const body = `長く使ってきたモノ、誰かから譲り受けたモノ、いつかの自分の暮らしに寄り添っていたモノ。それは、ただの「モノ」じゃなくて、人生の一部だったはず。ケイタスプランは、そのモノの“続き”を考える会社です。価値を見極めて、丁寧にケアして、次の誰かの暮らしへ手渡す。捨てるでも、忘れるでもない、「つなぐ」という選択肢。モノの価値をつなぐ、それが私たちの仕事です。`;
+---
+
+<section class="p-copy" id={id}>
+  <div class="p-copy__inner">
+    <h2 class="p-copy__title">そのモノには、<br />まだ続きがあります。</h2>
+    <p class="p-copy__body">{body}</p>
+  </div>
+</section>
+
+<style lang="scss">
+  @use '../styles/foundation/index' as *;
+
+  .p-copy {
+    background: linear-gradient(180deg, $brand-blue-sky 0%, $brand-white 100%);
+    padding-block: size(120);
+
+    @include mq('sp') {
+      padding-block: size(80);
+    }
+
+    &__inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: size(48);
+      max-width: size(760);
+      margin-inline: auto;
+      padding-inline: size(24);
+      text-align: center;
+
+      @include mq('sp') {
+        gap: size(32);
+      }
+    }
+
+    &__title {
+      @include ty-lead;
+      font-size: size(36);
+      color: $brand-blue;
+
+      @include mq('sp') {
+        font-size: size(26);
+      }
+    }
+
+    &__body {
+      @include ty-body-l;
+      color: $brand-text;
+    }
+  }
+</style>

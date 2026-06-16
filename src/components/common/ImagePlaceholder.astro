@@ -1,0 +1,52 @@
+---
+// 画像差し替え用プレースホルダー
+// Figma上で写真として作られている箇所に配置。実画像が用意でき次第、
+// この要素を <picture>/<img> に置き換える。
+interface Props {
+  label?: string;
+  class?: string;
+  rounded?: string; // 例: "10px" / "50%"
+}
+
+const { label = 'IMAGE', class: className, rounded } = Astro.props;
+---
+
+<div
+  class:list={['c-imgph', className]}
+  style={rounded ? `--imgph-radius:${rounded}` : undefined}
+  data-label={label}
+  role="img"
+  aria-label={label}
+>
+  <span class="c-imgph__label">{label}</span>
+</div>
+
+<style lang="scss">
+  @use '../../styles/foundation/index' as *;
+
+  .c-imgph {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--imgph-radius, #{size(8)});
+    background:
+      repeating-linear-gradient(
+        -45deg,
+        rgba($brand-blue, 0.06),
+        rgba($brand-blue, 0.06) size(8),
+        rgba($brand-blue, 0.12) size(8),
+        rgba($brand-blue, 0.12) size(16)
+      );
+    color: rgba($brand-blue, 0.55);
+    overflow: hidden;
+
+    &__label {
+      @include ty-caption;
+      padding: size(4) size(10);
+      letter-spacing: 0.08em;
+      text-align: center;
+    }
+  }
+</style>

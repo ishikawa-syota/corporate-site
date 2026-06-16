@@ -1,0 +1,63 @@
+---
+// メンバーカード（写真 + 役職 + 氏名）
+import ImagePlaceholder from '../common/ImagePlaceholder.astro';
+
+interface Props {
+  role: string;
+  name: string;
+}
+
+const { role, name } = Astro.props;
+---
+
+<article class="c-member">
+  <div class="c-member__photo">
+    <ImagePlaceholder label={name} rounded="0" />
+  </div>
+  <div class="c-member__info">
+    <span class="c-member__role">{role}</span>
+    <span class="c-member__name">{name}</span>
+  </div>
+</article>
+
+<style lang="scss">
+  @use '../../styles/foundation/index' as *;
+
+  .c-member {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+    &__photo {
+      width: 100%;
+      aspect-ratio: 402 / 504;
+      overflow: hidden;
+    }
+
+    &__info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: size(4);
+      margin-top: size(-26);
+      padding: size(14) size(20);
+      background-color: $brand-white;
+      border-radius: size(8);
+      box-shadow: 0 size(6) size(20) rgba($brand-blue, 0.12);
+    }
+
+    &__role {
+      @include ty-caption;
+      color: $brand-blue-light;
+    }
+
+    &__name {
+      font-family: $Font;
+      font-weight: 500;
+      font-size: size(22);
+      line-height: 1.4;
+      color: $brand-text;
+    }
+  }
+</style>

@@ -1,0 +1,116 @@
+---
+// よくある質問のアコーディオン項目（JSなしで動作する details/summary）
+interface Props {
+  q: string;
+  a: string;
+}
+
+const { q, a } = Astro.props;
+---
+
+<details class="c-faq">
+  <summary class="c-faq__q">
+    <span class="c-faq__icon c-faq__icon--q" aria-hidden="true">Q</span>
+    <span class="c-faq__qText">{q}</span>
+    <span class="c-faq__toggle" aria-hidden="true"></span>
+  </summary>
+  <div class="c-faq__a">
+    <span class="c-faq__icon c-faq__icon--a" aria-hidden="true">A</span>
+    <p class="c-faq__aText">{a}</p>
+  </div>
+</details>
+
+<style lang="scss">
+  @use '../../styles/foundation/index' as *;
+
+  .c-faq {
+    border-bottom: 1px solid rgba($brand-blue, 0.18);
+
+    &__q {
+      display: flex;
+      align-items: center;
+      gap: size(15);
+      padding: size(20) size(44) size(20) 0;
+      position: relative;
+      cursor: pointer;
+      list-style: none;
+
+      &::-webkit-details-marker {
+        display: none;
+      }
+    }
+
+    &__icon {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: size(40);
+      height: size(40);
+      border-radius: 50%;
+      font-family: $Font-En;
+      font-weight: 700;
+      font-size: size(18);
+
+      &--q {
+        background-color: $brand-blue;
+        color: $brand-white;
+      }
+      &--a {
+        background-color: $brand-green;
+        color: $brand-white;
+      }
+    }
+
+    &__qText {
+      font-family: $Font;
+      font-weight: 500;
+      font-size: size(18);
+      line-height: 1.5;
+      color: $brand-text;
+    }
+
+    &__toggle {
+      position: absolute;
+      right: size(8);
+      top: 50%;
+      width: size(16);
+      height: size(16);
+      transform: translateY(-50%);
+
+      &::before,
+      &::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: size(16);
+        height: size(2);
+        background-color: $brand-blue;
+        transform: translate(-50%, -50%);
+        transition: transform 0.3s ease;
+      }
+      &::after {
+        transform: translate(-50%, -50%) rotate(90deg);
+      }
+    }
+
+    &[open] &__toggle::after {
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    &__a {
+      display: flex;
+      align-items: flex-start;
+      gap: size(15);
+      padding: 0 size(44) size(24) 0;
+    }
+
+    &__aText {
+      @include ty-body-s;
+      padding-top: size(6);
+      color: $brand-text;
+      text-align: justify;
+    }
+  }
+</style>

@@ -109,3 +109,19 @@ $text-color-light: $gray02;      // サブテキスト
 // 背景カラー
 $bg-primary: $white;             // メイン背景
 $bg-secondary: $gray;            // セカンダリ背景
+
+// ============================================
+// ケイタスプラン ブランドカラー（Figmaデザインから抽出）
+// ============================================
+$brand-blue: #0054ac;        // メインブルー（CTA・ブロック背景）
+$brand-blue-light: #378fea;  // ライトブルー
+$brand-blue-pale: #98cbff;   // ペールブルー（グラデーション下端）
+$brand-blue-sky: #eaf4ff;    // スカイブルー（淡い背景）
+$brand-green: #1abd76;       // グリーン（アクセント）
+$brand-yellow: #f7d870;      // イエロー
+$brand-yellow-pale: #f0dc98; // イエロー（淡）
+$brand-text: #4d4d4d;        // 本文テキスト
+$brand-white: #ffffff;       // ホワイト
+
+// ブランドグラデーション（FV・メッセージ等）
+$brand-gradient: linear-gradient(180deg, #{$brand-blue} 0%, #{$brand-blue-pale} 100%);

@@ -1,20 +1,29 @@
 ---
 import { siteMetadata } from '../data/meta';
-import CtaNav from '../layouts/Cta.astro';
 import Footer from '../layouts/Footer.astro';
 import Header from '../layouts/Header.astro';
 import Layout from '../layouts/Layout.astro';
-// ============================================
-// 汎用化済みセクション（テンプレートとして使用可能）
-// ============================================
 import FirstView from '../section/01FV.astro';
-import Contact from '../section/09Contact.astro';
-
+import Copy from '../section/02Copy.astro';
+import Business from '../section/03Business.astro';
+import Data from '../section/04Data.astro';
+import Member from '../section/05Member.astro';
+import Voice from '../section/06Voice.astro';
+import Message from '../section/07Message.astro';
+import Faq from '../section/08Faq.astro';
+import ContactCta from '../section/10ContactCta.astro';
 ---
+
 <Layout title={siteMetadata.siteName}>
-    <Header id="header" />
-    <FirstView id="firstview" />
-    <Contact id="contact" />
-    <Footer id="footer" />
-    <CtaNav id="cta-nav" />
+  <Header id="header" />
+  <FirstView id="firstview" />
+  <Copy id="copy" />
+  <Business id="business" />
+  <Data id="data" />
+  <Member id="member" />
+  <Voice id="voice" />
+  <Message id="message" />
+  <Faq id="faq" />
+  <ContactCta id="contact" />
+  <Footer id="footer" />
 </Layout>

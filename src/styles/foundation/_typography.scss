@@ -1,0 +1,89 @@
+@charset "utf-8";
+@use "mixin" as *;
+@use "font" as *;
+
+// 💬 Description.........................................
+//
+// ケイタスプラン タイポグラフィシステム
+// Figmaデザインから抽出した文字スタイルをmixin化（size()でPC/SP自動切替）
+//
+// ............................................................
+
+// セクション見出し（日本語）例: 事業紹介 / メンバー
+// Figma: Zen Kaku Medium(500) / 60px / lh1.4 / tracking 6px(0.1em) / #4d4d4d
+@mixin ty-heading {
+  font-family: $Font;
+  font-weight: 500;
+  font-size: size(60);
+  line-height: 1.4;
+  letter-spacing: 0.1em;
+}
+
+// セクション見出し（英語サブ）例: BUSINESS / MEMBERS
+// Figma: Readex Pro Medium / 18px / lh1.4 / tracking 1.8px(0.1em) / #4d4d4d
+@mixin ty-heading-en {
+  font-family: $Font-Readex;
+  font-weight: 500;
+  font-size: size(18);
+  line-height: 1.4;
+  letter-spacing: 0.1em;
+}
+
+// リード文（Figma: リード = Zen Kaku Medium 25 / 1.4 / ls 0.726）
+@mixin ty-lead {
+  font-family: $Font;
+  font-weight: 500;
+  font-size: size(25);
+  line-height: 1.4;
+  letter-spacing: 0.03em;
+}
+
+// 本文・大（Figma: 本文 = Zen Kaku Regular 20 / 1.7）
+@mixin ty-body-l {
+  font-family: $Font;
+  font-weight: 400;
+  font-size: size(20);
+  line-height: 1.7;
+}
+
+// 本文（18 / 2.2）メッセージ等の長文
+@mixin ty-body {
+  font-family: $Font;
+  font-weight: 400;
+  font-size: size(18);
+  line-height: 2.2;
+}
+
+// 本文・小（15 / 1.7）カード本文など
+@mixin ty-body-s {
+  font-family: $Font;
+  font-weight: 400;
+  font-size: size(15);
+  line-height: 1.7;
+}
+
+// ボタンラベル（Figma: zen_button = Zen Kaku Regular 14 / 1.4）
+@mixin ty-button {
+  font-family: $Font;
+  font-weight: 500;
+  font-size: size(15);
+  line-height: 1.6;
+  letter-spacing: 0;
+}
+
+// 数字（指標）Figma: Roboto Medium / 80px
+@mixin ty-number {
+  font-family: $Font-Num;
+  font-weight: 500;
+  font-size: size(80);
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+}
+
+// 注釈・キャプション
+@mixin ty-caption {
+  font-family: $Font;
+  font-weight: 500;
+  font-size: size(14);
+  line-height: 1.4;
+}

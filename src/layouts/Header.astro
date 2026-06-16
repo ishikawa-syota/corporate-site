@@ -1,18 +1,235 @@
 ---
+import ArrowButton from '../components/button/ArrowButton.astro';
+import { navItems, companyInfo } from '../data/siteContent';
 
+interface Props {
+  id?: string;
+}
+const { id } = Astro.props;
 ---
 
-<header class="l-header">
-  
+<header class="l-header" id={id}>
+  <div class="l-header__inner">
+    <a href="#home" class="l-header__logo">
+      <span class="l-header__logoMark" aria-hidden="true">
+        <span></span><span></span><span></span>
+      </span>
+      <span class="l-header__logoText">KEITASU PLAN</span>
+    </a>
+
+    <nav class="l-header__nav" aria-label="グローバルナビゲーション">
+      <ul class="l-header__navList">
+        {navItems.map((item) => (
+          <li class="l-header__navItem">
+            <a href={item.href} class="l-header__navLink">{item.ja}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="l-header__contact">
+      <a href={companyInfo.telHref} class="l-header__tel">
+        <span class="l-header__telIcon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 5 5L19 13l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z" fill="currentColor"></path>
+          </svg>
+        </span>
+        <span class="l-header__telNum">{companyInfo.tel}</span>
+      </a>
+      <ArrowButton href="#contact" label="お問い合わせ" variant="blue" size="sm" class="l-header__cta" />
+    </div>
+
+    <button class="l-header__burger" type="button" aria-label="メニューを開く" aria-expanded="false" data-burger>
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </header>
 
 <style lang="scss" is:global>
-    @use "../styles/foundation/index" as *;
+  @use '../styles/foundation/index' as *;
 
+  .l-header {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 100;
+    width: 100%;
+    background-color: rgba($brand-white, 0.92);
+    backdrop-filter: blur(8px);
 
+    &__inner {
+      display: flex;
+      align-items: center;
+      gap: size(24);
+      width: 100%;
+      height: size(120);
+      padding: 0 size(24);
 
+      @include mq('sp') {
+        height: size(72);
+        padding: 0 size(20);
+        gap: size(16);
+      }
+    }
+
+    &__logo {
+      display: flex;
+      align-items: center;
+      gap: size(10);
+      flex-shrink: 0;
+    }
+
+    &__logoMark {
+      display: inline-flex;
+      gap: size(3);
+
+      span {
+        width: size(14);
+        height: size(14);
+        border-radius: size(3);
+      }
+      span:nth-child(1) { background-color: $brand-blue; }
+      span:nth-child(2) { background-color: $brand-green; }
+      span:nth-child(3) { background-color: $brand-yellow; }
+    }
+
+    &__logoText {
+      font-family: $Font-En;
+      font-weight: 700;
+      font-size: size(20);
+      letter-spacing: 0.04em;
+      color: $brand-blue;
+    }
+
+    &__nav {
+      flex: 1;
+
+      @include mq('sp') {
+        position: fixed;
+        inset: size(72) 0 auto;
+        background-color: rgba($brand-white, 0.98);
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease;
+      }
+    }
+
+    &.is-open .l-header__nav {
+      @include mq('sp') {
+        max-height: 80vh;
+      }
+    }
+
+    &__navList {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: size(20);
+      list-style: none;
+
+      @include mq('sp') {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: size(4);
+        padding: size(20) size(20) size(32);
+      }
+    }
+
+    &__navLink {
+      font-family: $Font;
+      font-weight: 500;
+      font-size: size(15);
+      color: $brand-text;
+      transition: color 0.3s ease;
+
+      @include mq('sp') {
+        display: block;
+        padding: size(12) 0;
+        font-size: size(16);
+      }
+
+      @media (hover: hover) and (pointer: fine) {
+        &:hover {
+          color: $brand-blue;
+        }
+      }
+    }
+
+    &__contact {
+      display: flex;
+      align-items: center;
+      gap: size(16);
+      flex-shrink: 0;
+
+      @include mq('sp') {
+        display: none;
+      }
+    }
+
+    &__tel {
+      display: flex;
+      align-items: center;
+      gap: size(8);
+      color: $brand-blue;
+    }
+
+    &__telIcon {
+      display: inline-flex;
+      width: size(20);
+      height: size(20);
+    }
+
+    &__telNum {
+      font-family: $Font-Num;
+      font-weight: 700;
+      font-size: size(24);
+      letter-spacing: 0.02em;
+    }
+
+    &__burger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: size(6);
+      width: size(40);
+      height: size(40);
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+
+      span {
+        display: block;
+        width: size(26);
+        height: 2px;
+        background-color: $brand-blue;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+      }
+
+      @include mq('sp') {
+        display: flex;
+      }
+    }
+
+    &.is-open .l-header__burger {
+      span:nth-child(1) { transform: translateY(#{size(8)}) rotate(45deg); }
+      span:nth-child(2) { opacity: 0; }
+      span:nth-child(3) { transform: translateY(#{size(-8)}) rotate(-45deg); }
+    }
+  }
 </style>
 
 <script>
+  const header = document.querySelector('.l-header');
+  const burger = document.querySelector('[data-burger]');
 
+  burger?.addEventListener('click', () => {
+    const isOpen = header?.classList.toggle('is-open');
+    burger.setAttribute('aria-expanded', String(Boolean(isOpen)));
+  });
+
+  header?.querySelectorAll('.l-header__navLink').forEach((link) => {
+    link.addEventListener('click', () => {
+      header.classList.remove('is-open');
+      burger?.setAttribute('aria-expanded', 'false');
+    });
+  });
 </script>

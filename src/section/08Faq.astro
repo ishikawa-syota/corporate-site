@@ -1,0 +1,49 @@
+---
+import FaqItem from '../components/card/FaqItem.astro';
+import SectionHeading from '../components/common/SectionHeading.astro';
+import { faqs } from '../data/siteContent';
+
+interface Props {
+  id?: string;
+}
+const { id } = Astro.props;
+---
+
+<section class="p-faq" id={id}>
+  <div class="p-faq__inner">
+    <SectionHeading ja="よくある質問" en="FAQ" class="p-faq__heading" />
+    <div class="p-faq__list">
+      {faqs.map((item) => (
+        <FaqItem q={item.q} a={item.a} />
+      ))}
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  @use '../styles/foundation/index' as *;
+
+  .p-faq {
+    background: linear-gradient(180deg, $brand-blue-sky 0%, $brand-white 100%);
+    padding-block: size(98);
+
+    @include mq('sp') {
+      padding-block: size(64);
+    }
+
+    &__inner {
+      max-width: size(1098);
+      margin-inline: auto;
+      padding-inline: size(24);
+    }
+
+    &__list {
+      margin-top: size(56);
+      border-top: 1px solid rgba($brand-blue, 0.18);
+
+      @include mq('sp') {
+        margin-top: size(32);
+      }
+    }
+  }
+</style>

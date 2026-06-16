@@ -1,0 +1,174 @@
+---
+import SectionHeading from '../components/common/SectionHeading.astro';
+import { companyInfo } from '../data/siteContent';
+
+interface Props {
+  id?: string;
+}
+const { id } = Astro.props;
+---
+
+<section class="p-contactCta" id={id}>
+  <div class="p-contactCta__inner">
+    <SectionHeading
+      ja="お問い合わせ"
+      en="CONTACT"
+      lead="サービスや採用について、お気軽にお問い合わせください"
+      class="p-contactCta__heading"
+    />
+    <div class="p-contactCta__body">
+      <a href={companyInfo.telHref} class="p-contactCta__tel">
+        <span class="p-contactCta__telIcon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 5 5L19 13l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z" fill="currentColor"></path>
+          </svg>
+        </span>
+        <span class="p-contactCta__telText">
+          <span class="p-contactCta__telNum">{companyInfo.tel}</span>
+          <span class="p-contactCta__telHours">{companyInfo.hours}</span>
+        </span>
+      </a>
+
+      <a href="#contact" class="p-contactCta__form">
+        <span class="p-contactCta__formLabel">サービスへのご意見・ご要望はこちら</span>
+        <span class="p-contactCta__formBtn">
+          <span>お問い合わせフォーム</span>
+          <span class="p-contactCta__formIcon" aria-hidden="true">
+            <svg viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="14.5" cy="14.5" r="14.5" fill="#ffffff"></circle>
+              <path d="M12.5 9.5 17.5 14.5 12.5 19.5" stroke="#0054ac" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
+            </svg>
+          </span>
+        </span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  @use '../styles/foundation/index' as *;
+
+  .p-contactCta {
+    background-color: $brand-white;
+    padding-block: size(100);
+
+    @include mq('sp') {
+      padding-block: size(64);
+    }
+
+    &__inner {
+      max-width: size(1210);
+      margin-inline: auto;
+      padding: size(60) size(80);
+      background: linear-gradient(180deg, $brand-blue-sky 0%, $brand-white 100%);
+      border-radius: size(20);
+      box-shadow: 0 size(20) size(50) rgba($brand-blue, 0.1);
+
+      @include mq('sp') {
+        padding: size(40) size(24);
+      }
+    }
+
+    &__body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: size(64);
+      margin-top: size(48);
+
+      @include mq('sp') {
+        flex-direction: column;
+        gap: size(32);
+        margin-top: size(32);
+      }
+    }
+
+    &__tel {
+      display: flex;
+      align-items: center;
+      gap: size(16);
+      color: $brand-blue;
+    }
+
+    &__telIcon {
+      display: inline-flex;
+      width: size(48);
+      height: size(48);
+      padding: size(12);
+      border-radius: 50%;
+      background-color: rgba($brand-blue, 0.08);
+    }
+
+    &__telText {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &__telNum {
+      font-family: $Font-Num;
+      font-weight: 700;
+      font-size: size(48);
+      line-height: 1.2;
+      letter-spacing: 0.02em;
+
+      @include mq('sp') {
+        font-size: size(40);
+      }
+    }
+
+    &__telHours {
+      @include ty-caption;
+      color: $brand-text;
+    }
+
+    &__form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: size(8);
+    }
+
+    &__formLabel {
+      @include ty-caption;
+      color: $brand-text;
+    }
+
+    &__formBtn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: size(15);
+      min-width: size(425);
+      height: size(108);
+      padding: 0 size(32);
+      border-radius: size(14);
+      background-color: $brand-blue;
+      font-family: $Font;
+      font-weight: 700;
+      font-size: size(22);
+      color: $brand-white;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+
+      @include mq('sp') {
+        min-width: 0;
+        width: 100%;
+        height: size(80);
+        font-size: size(18);
+      }
+
+      @media (hover: hover) and (pointer: fine) {
+        &:hover {
+          background-color: $brand-blue-light;
+          transform: translateY(#{size(-2)});
+        }
+      }
+    }
+
+    &__formIcon {
+      display: inline-flex;
+      width: size(29);
+      height: size(29);
+    }
+  }
+</style>

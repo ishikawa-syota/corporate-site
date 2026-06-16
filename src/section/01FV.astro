@@ -1,29 +1,82 @@
 ---
-//Images
+import ImagePlaceholder from '../components/common/ImagePlaceholder.astro';
 
-//Components
 interface Props {
   id?: string;
-  class?: string;
-  // サンプルデータを上書きする場合のオプション
-  title?: string;
-  subtitle?: string;
-  description?: string;
-  features?: string[];
 }
-
-// Propsからデータを取得
 const { id } = Astro.props;
-
-
 ---
 
-<section class="p-top-firstview" id={id}>
-
+<section class="p-fv" id={id}>
+  <div class="p-fv__visual">
+    <ImagePlaceholder label="KV / メインビジュアル（握手）" rounded="0" class="p-fv__kv" />
+  </div>
+  <div class="p-fv__inner">
+    <p class="p-fv__copy">
+      <span>モノの価値を</span>
+      <span>つなぐ仕事</span>
+    </p>
+  </div>
 </section>
 
 <style lang="scss">
-    @use "../styles/foundation/index" as *;
+  @use '../styles/foundation/index' as *;
 
+  .p-fv {
+    position: relative;
+    min-height: size(1050);
+    padding-top: size(120);
+    background: linear-gradient(180deg, $brand-blue 0%, $brand-blue-pale 60%, $brand-blue-sky 100%);
+    overflow: hidden;
+
+    @include mq('sp') {
+      min-height: size(620);
+      padding-top: size(72);
+    }
+
+    &__visual {
+      position: absolute;
+      inset: size(120) 0 0;
+
+      @include mq('sp') {
+        inset: size(72) 0 auto;
+        height: size(360);
+      }
+    }
+
+    &__kv {
+      height: 100%;
+    }
+
+    &__inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: flex-end;
+      max-width: size(1450);
+      margin-inline: auto;
+      padding: size(220) size(80) 0;
+
+      @include mq('sp') {
+        justify-content: center;
+        padding: size(260) size(20) 0;
+      }
+    }
+
+    &__copy {
+      display: flex;
+      flex-direction: column;
+      gap: size(8);
+      font-family: $Font;
+      font-weight: 500;
+      font-size: size(22);
+      line-height: 1.8;
+      letter-spacing: 0.4em;
+      color: $brand-text;
+
+      @include mq('sp') {
+        font-size: size(20);
+      }
+    }
+  }
 </style>
-

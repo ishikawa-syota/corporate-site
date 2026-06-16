@@ -1,0 +1,78 @@
+---
+// 数字で見る（DATA）の指標カード
+interface Props {
+  label: string;
+  prefix?: string;
+  value: string;
+  unit: string;
+  note?: string;
+}
+
+const { label, prefix, value, unit, note } = Astro.props;
+---
+
+<div class="c-stat">
+  <p class="c-stat__label">{label}</p>
+  <p class="c-stat__figure">
+    {prefix && <span class="c-stat__prefix">{prefix}</span>}
+    <span class="c-stat__value">{value}</span>
+    <span class="c-stat__unit">{unit}</span>
+  </p>
+  {note && <p class="c-stat__note">{note}</p>}
+</div>
+
+<style lang="scss">
+  @use '../../styles/foundation/index' as *;
+
+  .c-stat {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    min-height: size(180);
+    padding: size(24) size(30);
+    border-radius: size(10);
+    background: linear-gradient(180deg, $brand-blue 0%, $brand-blue-pale 100%);
+    color: $brand-white;
+    overflow: hidden;
+
+    @include mq('sp') {
+      min-height: size(150);
+    }
+
+    &__label {
+      font-family: $Font;
+      font-weight: 700;
+      font-size: size(20);
+      line-height: 1.4;
+      letter-spacing: 0.03em;
+    }
+
+    &__figure {
+      display: flex;
+      align-items: baseline;
+      gap: size(6);
+    }
+
+    &__prefix,
+    &__unit {
+      font-family: $Font;
+      font-weight: 700;
+      font-size: size(20);
+      line-height: 1.4;
+    }
+
+    &__value {
+      @include ty-number;
+    }
+
+    &__note {
+      position: absolute;
+      right: size(20);
+      bottom: size(14);
+      @include ty-caption;
+      text-shadow: 0 0 size(12) $brand-blue;
+    }
+  }
+</style>

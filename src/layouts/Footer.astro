@@ -1,12 +1,155 @@
 ---
---- 
+import ArrowButton from '../components/button/ArrowButton.astro';
+import { companyInfo } from '../data/siteContent';
 
-<footer class="l-footer">
- 
+interface Props {
+  id?: string;
+}
+const { id } = Astro.props;
 
+// フッターナビ（4カラム）
+const footerNav = [
+  [
+    { ja: '事業紹介', href: '#business' },
+    { ja: '数字で見る', href: '#data' },
+    { ja: 'メンバー', href: '#member' },
+  ],
+  [
+    { ja: 'お客様の声', href: '#voice' },
+    { ja: 'ニュース', href: '#news' },
+    { ja: 'メッセージ', href: '#message' },
+  ],
+  [
+    { ja: '会社概要', href: '#about' },
+    { ja: 'よくある質問', href: '#faq' },
+    { ja: 'お問い合わせ', href: '#contact' },
+  ],
+  [
+    { ja: '特定商取引法に基づく表記', href: '#' },
+    { ja: 'プライバシーポリシー', href: '#' },
+  ],
+];
+---
 
-<style lang="scss" scoped >
-    @use "../styles/foundation/index" as *;
+<footer class="l-footer" id={id}>
+  <div class="l-footer__inner">
+    <div class="l-footer__info">
+      <p class="l-footer__company">{companyInfo.name}</p>
+      <p class="l-footer__address">
+        {companyInfo.address}<br />
+        TEL: {companyInfo.tel}
+      </p>
+      <p class="l-footer__license">{companyInfo.license}</p>
+    </div>
 
+    <nav class="l-footer__nav" aria-label="フッターナビゲーション">
+      {footerNav.map((col) => (
+        <ul class="l-footer__navCol">
+          {col.map((item) => (
+            <li><a href={item.href} class="l-footer__navLink">{item.ja}</a></li>
+          ))}
+        </ul>
+      ))}
+    </nav>
 
+    <div class="l-footer__action">
+      <ArrowButton href="#contact" label="採用情報を見る" variant="white" size="lg" />
+    </div>
+  </div>
+
+  <p class="l-footer__copy">&copy; {companyInfo.name}</p>
+</footer>
+
+<style lang="scss" is:global>
+  @use '../styles/foundation/index' as *;
+
+  .l-footer {
+    background-color: #003c97;
+    padding: size(80) size(40) size(40);
+    color: $brand-white;
+
+    @include mq('sp') {
+      padding: size(56) size(24) size(32);
+    }
+
+    &__inner {
+      display: grid;
+      grid-template-columns: size(400) 1fr;
+      gap: size(60) size(48);
+      max-width: size(1058);
+      margin-inline: auto;
+
+      @include mq('sp') {
+        grid-template-columns: 1fr;
+        gap: size(40);
+      }
+    }
+
+    &__company {
+      font-family: $Font;
+      font-weight: 700;
+      font-size: size(20);
+      margin-bottom: size(16);
+    }
+
+    &__address {
+      @include ty-body-s;
+      color: rgba($brand-white, 0.85);
+    }
+
+    &__license {
+      @include ty-caption;
+      margin-top: size(16);
+      color: rgba($brand-white, 0.7);
+    }
+
+    &__nav {
+      display: grid;
+      grid-template-columns: repeat(4, auto);
+      gap: size(48);
+      justify-content: start;
+
+      @include mq('sp') {
+        grid-template-columns: repeat(2, 1fr);
+        gap: size(24) size(20);
+      }
+    }
+
+    &__navCol {
+      display: flex;
+      flex-direction: column;
+      gap: size(16);
+      list-style: none;
+    }
+
+    &__navLink {
+      font-family: $Font;
+      font-size: size(15);
+      color: rgba($brand-white, 0.9);
+      transition: color 0.3s ease;
+
+      @media (hover: hover) and (pointer: fine) {
+        &:hover {
+          color: $brand-blue-pale;
+        }
+      }
+    }
+
+    &__action {
+      grid-column: 2;
+      justify-self: end;
+
+      @include mq('sp') {
+        grid-column: 1;
+        justify-self: start;
+      }
+    }
+
+    &__copy {
+      @include ty-caption;
+      margin-top: size(48);
+      text-align: center;
+      color: rgba($brand-white, 0.6);
+    }
+  }
 </style>

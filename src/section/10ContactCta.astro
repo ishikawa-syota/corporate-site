@@ -1,174 +1,349 @@
 ---
-import SectionHeading from '../components/common/SectionHeading.astro';
+// お問い合わせ CTA（Figma: sec8 / 772:1251）
+// 白→#f9f9f9 グラデのカード内に、見出し・リード・電話/フォームのピル・フィードバックリンクを配置
 import { companyInfo } from '../data/siteContent';
 
 interface Props {
-  id?: string;
+	id?: string;
 }
 const { id } = Astro.props;
 ---
 
 <section class="p-contactCta" id={id}>
-  <div class="p-contactCta__inner">
-    <SectionHeading
-      ja="お問い合わせ"
-      en="CONTACT"
-      lead="サービスや採用について、お気軽にお問い合わせください"
-      class="p-contactCta__heading"
-    />
-    <div class="p-contactCta__body">
-      <a href={companyInfo.telHref} class="p-contactCta__tel">
-        <span class="p-contactCta__telIcon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 5 5L19 13l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z" fill="currentColor"></path>
-          </svg>
-        </span>
-        <span class="p-contactCta__telText">
-          <span class="p-contactCta__telNum">{companyInfo.tel}</span>
-          <span class="p-contactCta__telHours">{companyInfo.hours}</span>
-        </span>
-      </a>
+	<div class="p-contactCta__inner">
+		<div class="p-contactCta__head">
+			<div class="p-contactCta__heading">
+				<span class="p-contactCta__ja">お問い合わせ</span>
+				<span class="p-contactCta__en">CONTACT</span>
+			</div>
+			<p class="p-contactCta__lead">
+				サービスや採用について、お気軽にお問い合わせください
+			</p>
+		</div>
 
-      <a href="#contact" class="p-contactCta__form">
-        <span class="p-contactCta__formLabel">サービスへのご意見・ご要望はこちら</span>
-        <span class="p-contactCta__formBtn">
-          <span>お問い合わせフォーム</span>
-          <span class="p-contactCta__formIcon" aria-hidden="true">
-            <svg viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="14.5" cy="14.5" r="14.5" fill="#ffffff"></circle>
-              <path d="M12.5 9.5 17.5 14.5 12.5 19.5" stroke="#0054ac" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
-            </svg>
-          </span>
-        </span>
-      </a>
-    </div>
-  </div>
+		<div class="p-contactCta__actions">
+			<a href={companyInfo.telHref} class="p-contactCta__tel">
+				<span class="p-contactCta__telIcon" aria-hidden="true">
+					<svg
+						viewBox="0 0 24 24"
+						fill="none"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<path
+							d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.21z"
+							fill="#0054ac"></path>
+					</svg>
+				</span>
+				<span class="p-contactCta__telBody">
+					<span class="p-contactCta__telNum">{companyInfo.tel}</span>
+					<span class="p-contactCta__telHours"
+						>{companyInfo.hours}</span
+					>
+				</span>
+			</a>
+
+			<a href="#contact" class="p-contactCta__form">
+				<span class="p-contactCta__formLabel">お問い合わせフォーム</span
+				>
+				<span class="p-contactCta__formArrow" aria-hidden="true">
+					<svg
+						viewBox="0 0 58 58"
+						fill="none"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<circle cx="29" cy="29" r="29" fill="#ffffff"></circle>
+						<g
+							stroke="#0054ac"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						>
+							<line x1="19" y1="29" x2="38" y2="29"></line>
+							<path d="M31 22 L38 29 L31 36"></path>
+						</g>
+					</svg>
+				</span>
+			</a>
+		</div>
+
+		<a href="#contact" class="p-contactCta__feedback">
+			サービスへのご意見・ご要望はこちら
+		</a>
+	</div>
 </section>
 
 <style lang="scss">
-  @use '../styles/foundation/index' as *;
+	@use '../styles/foundation/index' as *;
 
-  .p-contactCta {
-    background-color: $brand-white;
-    padding-block: size(100);
+	.p-contactCta {
+		padding-block: size(100) 0;
+		margin-bottom: size(-175);
 
-    @include mq('sp') {
-      padding-block: size(64);
-    }
+		@include mq('sp') {
+			padding-block: size(80);
+		}
 
-    &__inner {
-      max-width: size(1210);
-      margin-inline: auto;
-      padding: size(60) size(80);
-      background: linear-gradient(180deg, $brand-blue-sky 0%, $brand-white 100%);
-      border-radius: size(20);
-      box-shadow: 0 size(20) size(50) rgba($brand-blue, 0.1);
+		&__inner {
+			position: relative;
+			max-width: size(1211);
+			margin-inline: auto;
+			padding: size(36) size(51) size(50);
+			background: linear-gradient(180deg, $brand-white 0%, #f9f9f9 100%);
+			border-radius: size(20);
+			box-shadow: 0 size(4) size(17) rgba(#000, 0.25);
+			overflow: clip;
 
-      @include mq('sp') {
-        padding: size(40) size(24);
-      }
-    }
+			@include mq('sp') {
+				padding: size(48) size(32) size(56);
+				border-radius: size(20);
+			}
+		}
 
-    &__body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: size(64);
-      margin-top: size(48);
+		// --- 見出し + リード（横並び） ---
+		&__head {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: size(40);
 
-      @include mq('sp') {
-        flex-direction: column;
-        gap: size(32);
-        margin-top: size(32);
-      }
-    }
+			@include mq('sp') {
+				flex-direction: column;
+				align-items: flex-start;
+				gap: size(16);
+			}
+		}
 
-    &__tel {
-      display: flex;
-      align-items: center;
-      gap: size(16);
-      color: $brand-blue;
-    }
+		&__heading {
+			display: flex;
+			flex-direction: column;
+			flex-shrink: 0;
+		}
 
-    &__telIcon {
-      display: inline-flex;
-      width: size(48);
-      height: size(48);
-      padding: size(12);
-      border-radius: 50%;
-      background-color: rgba($brand-blue, 0.08);
-    }
+		&__ja {
+			font-family: $Font;
+			font-weight: 500;
+			font-size: size(33);
+			line-height: 1.4;
+			letter-spacing: 0.1em;
+			color: $brand-text;
 
-    &__telText {
-      display: flex;
-      flex-direction: column;
-    }
+			@include mq('sp') {
+				font-size: size(48);
+			}
+		}
 
-    &__telNum {
-      font-family: $Font-Num;
-      font-weight: 700;
-      font-size: size(48);
-      line-height: 1.2;
-      letter-spacing: 0.02em;
+		&__en {
+			font-family: $Font-Readex;
+			font-weight: 500;
+			font-size: size(13);
+			line-height: 1.4;
+			letter-spacing: 0.1em;
+			color: $brand-text;
 
-      @include mq('sp') {
-        font-size: size(56);
-      }
-    }
+			@include mq('sp') {
+				font-size: size(20);
+			}
+		}
 
-    &__telHours {
-      @include ty-caption;
-      color: $brand-text;
-    }
+		&__lead {
+			font-family: $Font;
+			font-weight: 400;
+			font-size: size(19);
+			line-height: 1.4;
+			letter-spacing: 0.053em;
+			color: $brand-text;
 
-    &__form {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: size(8);
-    }
+			@include mq('sp') {
+				font-size: size(28);
+				letter-spacing: 0.03em;
+			}
+		}
 
-    &__formLabel {
-      @include ty-caption;
-      color: $brand-text;
-    }
+		// --- 電話 / フォームボタン（横並び・カード中央） ---
+		&__actions {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: size(48);
+			margin-top: size(37);
 
-    &__formBtn {
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: size(15);
-      min-width: size(425);
-      height: size(108);
-      padding: 0 size(32);
-      border-radius: size(14);
-      background-color: $brand-blue;
-      font-family: $Font;
-      font-weight: 700;
-      font-size: size(22);
-      color: $brand-white;
-      transition: background-color 0.3s ease, transform 0.3s ease;
+			@include mq('sp') {
+				flex-direction: column;
+				gap: size(28);
+				margin-top: size(48);
+			}
+		}
 
-      @include mq('sp') {
-        min-width: 0;
-        width: 100%;
-        height: size(108);
-        font-size: size(30);
-      }
+		// --- 電話ピル ---
+		&__tel {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: size(12);
+			width: size(425);
+			height: size(108);
+			padding: 0 size(22);
+			border-radius: size(150);
+			background: linear-gradient(180deg, #e9e9e9 0%, #efefef 100%);
 
-      @media (hover: hover) and (pointer: fine) {
-        &:hover {
-          background-color: $brand-blue-light;
-          transform: translateY(#{size(-2)});
-        }
-      }
-    }
+			@include mq('sp') {
+				width: 100%;
+				height: size(150);
+				gap: size(16);
+			}
+		}
 
-    &__formIcon {
-      display: inline-flex;
-      width: size(29);
-      height: size(29);
-    }
-  }
+		&__telIcon {
+			display: grid;
+			place-items: center;
+			flex-shrink: 0;
+			width: size(64);
+			height: size(64);
+			border-radius: 50%;
+			background-color: $brand-white;
+
+			@include mq('sp') {
+				width: size(90);
+				height: size(90);
+			}
+
+			svg {
+				width: size(34);
+				height: size(34);
+
+				@include mq('sp') {
+					width: size(48);
+					height: size(48);
+				}
+			}
+		}
+
+		&__telBody {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		&__telNum {
+			font-family: $Font-Sub;
+			font-weight: 700;
+			font-size: size(39);
+			line-height: 1.4;
+			letter-spacing: 0.018em;
+			color: $brand-blue;
+			white-space: nowrap;
+
+			@include mq('sp') {
+				font-size: size(56);
+			}
+		}
+
+		&__telHours {
+			font-family: $Font;
+			font-weight: 400;
+			font-size: size(12);
+			line-height: 1.4;
+			color: $brand-blue;
+			white-space: nowrap;
+
+			@include mq('sp') {
+				font-size: size(20);
+			}
+		}
+
+		// --- フォームボタン ---
+		&__form {
+			position: relative;
+			display: flex;
+			align-items: center;
+			justify-content: flex-start;
+			width: size(425);
+			height: size(108);
+			padding: 0 size(80) 0 size(51);
+			border-radius: size(150);
+			background: linear-gradient(
+				180deg,
+				$brand-blue 0%,
+				$brand-blue-pale 100%
+			);
+			transition:
+				transform 0.3s ease,
+				box-shadow 0.3s ease;
+
+			@include mq('sp') {
+				width: 100%;
+				height: size(150);
+				justify-content: center;
+				padding: 0 size(110);
+			}
+
+			@media (hover: hover) and (pointer: fine) {
+				&:hover {
+					transform: translateY(#{size(-2)});
+					box-shadow: 0 size(8) size(20) rgba($brand-blue, 0.3);
+				}
+			}
+		}
+
+		&__formLabel {
+			font-family: $Font;
+			font-weight: 500;
+			font-size: size(27);
+			line-height: 1.4;
+			color: $brand-white;
+			white-space: nowrap;
+
+			@include mq('sp') {
+				font-size: size(38);
+			}
+		}
+
+		&__formArrow {
+			position: absolute;
+			top: 50%;
+			right: size(15);
+			transform: translateY(-50%);
+			display: inline-flex;
+			width: size(58);
+			height: size(58);
+
+			@include mq('sp') {
+				right: size(20);
+				width: size(80);
+				height: size(80);
+			}
+
+			svg {
+				width: 100%;
+				height: 100%;
+			}
+		}
+
+		// --- フィードバックリンク ---
+		&__feedback {
+			display: block;
+			width: fit-content;
+			margin: size(34) auto 0;
+			font-family: $Font;
+			font-weight: 400;
+			font-size: size(16);
+			line-height: 1.4;
+			letter-spacing: 0.038em;
+			color: $brand-text;
+			text-decoration: underline;
+			text-underline-offset: 0.15em;
+			transition: opacity 0.3s ease;
+
+			@include mq('sp') {
+				margin-top: size(40);
+				font-size: size(24);
+			}
+
+			@media (hover: hover) and (pointer: fine) {
+				&:hover {
+					opacity: 0.6;
+				}
+			}
+		}
+	}
 </style>

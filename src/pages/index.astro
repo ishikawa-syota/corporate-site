@@ -1,6 +1,9 @@
 ---
+import OptImage from '../components/common/OptImage.astro';
 import { siteMetadata } from '../data/meta';
 import fvCopyBg from '../images/keitasplan/fv/bg.png';
+// 装飾バッグ：FV上部に固定で浮き、p-copy__body 中部で解除して本文と流れる
+import imgBag from '../images/keitasplan/fv/fv-04.png';
 import Footer from '../layouts/Footer.astro';
 import Header from '../layouts/Header.astro';
 import Layout from '../layouts/Layout.astro';
@@ -24,6 +27,13 @@ const fvCopyStyles = await processImages({ fvbg: fvCopyBg });
   <div class="l-fvCopy" style={fvCopyStyles}>
     <FirstView id="firstview" />
     <Copy id="copy" />
+    {/* 装飾バッグ。Rail（FV上端〜p-copy__body中部の縦枠）内で position: sticky させ、
+        FV上部の高さに固定で浮く→Rail下端=body中部で解除し本文と一緒に流れる（逆stickyパターン） */}
+    <div class="l-fvCopy__bagRail" aria-hidden="true">
+      <div class="l-fvCopy__bag">
+        <OptImage src={imgBag} alt="" width={300} fit="contain" />
+      </div>
+    </div>
   </div>
   <Business id="business" />
   <Data id="data" />
@@ -45,5 +55,36 @@ const fvCopyStyles = await processImages({ fvbg: fvCopyBg });
     background-position: top center;
     /* 均一な縦グラデのため cover で全面カバー（SPは左右クロップ＝視覚上ほぼ無変化、縦は全域に伸びる） */
     background-size: cover;
+  }
+</style>
+
+<style lang="scss">
+  @use '../styles/foundation/index' as *;
+
+  // 装飾バッグの「逆sticky」枠。
+  // l-fvCopy 直下に置くことで FV(p-fv z3) より前面に出し、FV上端〜body中部を縦に覆う。
+  // 高さ size(1664) は body 中部(≒doc1594)＋バッグ半分。全要素 size() 由来で幅にスケールするため、
+  // 枠の高さも size() で表現でき JS 不要。Rail 下端で sticky が解除＝body中部で本文と流れ出す。
+  .l-fvCopy__bagRail {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: size(1664);
+    z-index: 5;
+    pointer-events: none;
+
+    @include mq('sp') {
+      display: none; // SP仕様未確定のため非表示
+    }
+  }
+
+  .l-fvCopy__bag {
+    position: sticky;
+    top: size(310); // FV上部の高さ（元の固定位置）に貼り付く
+    width: size(134);
+    margin-inline: auto; // 横方向は中央
+    opacity: 0.7;
+    will-change: transform;
   }
 </style>

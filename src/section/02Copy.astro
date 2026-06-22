@@ -166,33 +166,6 @@ const imageStyles = await processImages({
 			}
 		}
 
-		// FV から引き継いだ装飾バッグ。
-		// Rail（p-copy 全体に被さる絶対配置の枠）の中で position: sticky させることで、
-		// ・通常はページと等速でスクロール（パララックス感ゼロ）
-		// ・p-copy__body 中部に差しかかるとビューポート中央でピタッと貼り付く
-		// ・Rail 下端まで来たら解放され、再びページと等速で上へ抜ける
-		// をジャンプなし・純CSSで実現する。文字の可読性のため本文（inner z2）の背面に置く。
-		&__bagRail {
-			position: absolute;
-			inset: 0;
-			z-index: 1;
-			pointer-events: none;
-
-			@include mq('sp') {
-				display: none; // 散らし装飾と同様、SP では非表示
-			}
-		}
-
-		&__bag {
-			position: sticky;
-			top: calc(50vh - #{size(70)}); // ビューポート中央に貼り付く（70 ≒ バッグ高の半分）
-			width: size(134);
-			margin-inline: auto; // 横方向は中央
-			margin-top: size(514); // 自然位置（flow）の中心を body 中央へ合わせる
-			opacity: 0.7;
-			will-change: transform;
-		}
-
 		// 散らし写真（read）レイヤー
 		&__decoration {
 			position: absolute;

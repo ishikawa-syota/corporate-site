@@ -23,14 +23,20 @@ const { q, a } = Astro.props;
 <style lang="scss">
   @use '../../styles/foundation/index' as *;
 
+  // Figma: 各項目 border-b / pb 40 / Q行とA行の gap 20
   .c-faq {
-    border-bottom: 1px solid rgba($brand-blue, 0.18);
+    padding-bottom: size(40);
+    border-bottom: 1px solid rgba($brand-text, 0.2);
+
+    @include mq('sp') {
+      padding-bottom: size(48);
+    }
 
     &__q {
       display: flex;
       align-items: center;
       gap: size(15);
-      padding: size(20) size(44) size(20) 0;
+      padding-right: size(44);
       position: relative;
       cursor: pointer;
       list-style: none;
@@ -38,8 +44,14 @@ const { q, a } = Astro.props;
       &::-webkit-details-marker {
         display: none;
       }
+
+      @include mq('sp') {
+        gap: size(20);
+        padding-right: size(56);
+      }
     }
 
+    // Figma: 40px 円 / 文字 21px / Q=青 A=緑
     &__icon {
       flex-shrink: 0;
       display: inline-flex;
@@ -50,32 +62,43 @@ const { q, a } = Astro.props;
       border-radius: 50%;
       font-family: $Font-En;
       font-weight: 700;
-      font-size: size(18);
+      font-size: size(21);
+      color: $brand-white;
+
+      @include mq('sp') {
+        width: size(52);
+        height: size(52);
+        font-size: size(28);
+      }
 
       &--q {
         background-color: $brand-blue;
-        color: $brand-white;
       }
       &--a {
         background-color: $brand-green;
-        color: $brand-white;
       }
     }
 
+    // Figma: Noto Sans JP Bold / 18px / #4d4d4d
     &__qText {
-      font-family: $Font;
-      font-weight: 500;
+      font-family: $Font-Sub;
+      font-weight: 700;
       font-size: size(18);
-      line-height: 1.5;
+      line-height: 1.4;
       color: $brand-text;
+
+      @include mq('sp') {
+        font-size: size(28);
+      }
     }
 
+    // 開閉アイコン（+ / −）
     &__toggle {
       position: absolute;
       right: size(8);
       top: 50%;
-      width: size(16);
-      height: size(16);
+      width: size(14);
+      height: size(14);
       transform: translateY(-50%);
 
       &::before,
@@ -84,7 +107,7 @@ const { q, a } = Astro.props;
         position: absolute;
         left: 50%;
         top: 50%;
-        width: size(16);
+        width: size(14);
         height: size(2);
         background-color: $brand-blue;
         transform: translate(-50%, -50%);
@@ -93,24 +116,53 @@ const { q, a } = Astro.props;
       &::after {
         transform: translate(-50%, -50%) rotate(90deg);
       }
+
+      @include mq('sp') {
+        width: size(20);
+        height: size(20);
+
+        &::before,
+        &::after {
+          width: size(20);
+          height: size(3);
+        }
+      }
     }
 
     &[open] &__toggle::after {
       transform: translate(-50%, -50%) rotate(0deg);
     }
 
+    // Figma: Q行から gap 20 / A行
     &__a {
       display: flex;
       align-items: flex-start;
       gap: size(15);
-      padding: 0 size(44) size(24) 0;
+      margin-top: size(20);
+      padding-right: size(44);
+
+      @include mq('sp') {
+        gap: size(20);
+        margin-top: size(24);
+        padding-right: 0;
+      }
     }
 
+    // Figma: Noto Sans JP Regular / 15px / lh 1.6 / #444 / 両端揃え
     &__aText {
-      @include ty-body-s;
-      padding-top: size(6);
-      color: $brand-text;
+      flex: 1;
+      font-family: $Font-Sub;
+      font-weight: 400;
+      font-size: size(15);
+      line-height: 1.6;
+      color: #444;
       text-align: justify;
+      padding-top: size(7);
+
+      @include mq('sp') {
+        font-size: size(28);
+        padding-top: size(10);
+      }
     }
   }
 </style>

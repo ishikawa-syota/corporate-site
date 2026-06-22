@@ -1,12 +1,24 @@
 ---
-// フォント（fontsource）— Figma準拠: Readex Pro(EN見出し) / Roboto(数字)
-// 事前に `npm install @fontsource/readex-pro @fontsource/roboto` が必要
+// フォント（fontsource）— Figma準拠
+// Zen Kaku Gothic New(本文/$Font) / Noto Sans JP($Font-Sub) / Oswald($Font-En)
+// Readex Pro(EN見出し) / Roboto(数字)
+// 事前に下記インストールが必要:
+//   npm install @fontsource/zen-kaku-gothic-new @fontsource/noto-sans-jp @fontsource/oswald @fontsource/readex-pro @fontsource/roboto
+import '@fontsource/noto-sans-jp/400.css';
+import '@fontsource/noto-sans-jp/500.css';
+import '@fontsource/noto-sans-jp/700.css';
+import '@fontsource/oswald/400.css';
+import '@fontsource/oswald/500.css';
+import '@fontsource/oswald/700.css';
 import '@fontsource/readex-pro/400.css';
 import '@fontsource/readex-pro/500.css';
 import '@fontsource/readex-pro/700.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+import '@fontsource/zen-kaku-gothic-new/400.css';
+import '@fontsource/zen-kaku-gothic-new/500.css';
+import '@fontsource/zen-kaku-gothic-new/700.css';
 import Meta from '../components/common/Meta.astro';
 import '../styles/main.scss';
 
@@ -34,34 +46,9 @@ const { title, description, ogImage } = Astro.props;
 		<meta name="format-detection" content="telephone=no">
 		<meta name="msapplication-tap-highlight" content="no">
 		<!--::::::::::::::::::::::::::::::::::::::::::::
-			WebFont (Optimized) - デザインカンプから抽出したフォント
+			WebFont - fontsource でセルフホスト（フロントマターでimport）
+			Zen Kaku Gothic New / Noto Sans JP / Oswald / Readex Pro / Roboto
 		::::::::::::::::::::::::::::::::::::::::::::-->
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link rel="preconnect" href="https://use.typekit.net" crossorigin>
-		
-		<!-- Google Fonts: Zen Kaku Gothic New, Noto Sans JP & Oswald - 最適化済み (400,600,700のみ) -->
-		<link 
-		  rel="preload" 
-		  as="style" 
-		  href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;600;700&family=Noto+Sans+JP:wght@400;600;700&family=Oswald:wght@400;600;700&display=swap"
-		>
-		<link 
-		  rel="stylesheet" 
-		  href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;600;700&family=Noto+Sans+JP:wght@400;600;700&family=Oswald:wght@400;600;700&display=swap"
-		  media="print"
-		  onload="this.media='all';this.onload=null;"
-		>
-		<noscript>
-		  <link 
-		    rel="stylesheet" 
-		    href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;600;700&family=Noto+Sans+JP:wght@400;600;700&family=Oswald:wght@400;600;700&display=swap"
-		  >
-		</noscript>
-		
-		<!-- Adobe Fonts: oswald -->
-		<!-- NOTE: Adobe FontsのProject IDを設定してください -->
-		<!-- <link rel="stylesheet" href="https://use.typekit.net/[YOUR-PROJECT-ID].css"> -->
 
 		<!-- スクロールアニメーション用のスタイル -->
 		<style is:inline>

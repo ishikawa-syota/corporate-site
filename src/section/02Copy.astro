@@ -1,75 +1,97 @@
 ---
+import bg from '../images/keitasplan/common/bg.png';
+import { processImages } from '../styles/images';
+
 interface Props {
-  id?: string;
+	id?: string;
 }
 const { id } = Astro.props;
 
 const body = `長く使ってきたモノ、誰かから譲り受けたモノ、いつかの自分の暮らしに寄り添っていたモノ。それは、ただの「モノ」じゃなくて、人生の一部だったはず。ケイタスプランは、そのモノの“続き”を考える会社です。価値を見極めて、丁寧にケアして、次の誰かの暮らしへ手渡す。捨てるでも、忘れるでもない、「つなぐ」という選択肢。モノの価値をつなぐ、それが私たちの仕事です。`;
+
+// 背景画像の処理
+const imageStyles = await processImages({
+	bg,
+});
 ---
 
-<section class="p-copy" id={id}>
-  <div class="p-copy__inner">
-    <h2 class="p-copy__title">そのモノには、<br />まだ続きがあります。</h2>
-    <p class="p-copy__body">{body}</p>
-  </div>
+<section class="p-copy" id={id} style={imageStyles}>
+	<div class="p-copy__inner">
+		<h2 class="p-copy__title">そのモノには、まだ続きがあります。</h2>
+		<p class="p-copy__body">{body}</p>
+	</div>
 </section>
 
 <style lang="scss">
-  @use '../styles/foundation/index' as *;
+	@use '../styles/foundation/index' as *;
 
-  .p-copy {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: size(1037);
-    overflow: hidden;
-    // Figma: 濃いブルー背景に白文字（散らし装飾は非表示レイヤーのため無し）
-    background: linear-gradient(180deg, #4a93dd 0%, #2c6cbe 100%);
+	.p-copy {
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		min-height: size(1037);
+		// overflow: hidden;
+		margin-top: size(-40);
 
-    @include mq('sp') {
-      display: block;
-      min-height: 0;
-      background: linear-gradient(180deg, #4f96dd 0%, $brand-blue-pale 100%);
-      padding-block: size(120) size(160);
-    }
+		@include mq('sp') {
+			display: block;
+			min-height: 0;
+			padding-block: size(120) size(160);
+		}
 
-    &__inner {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: size(48);
-      max-width: size(760);
-      margin-inline: auto;
-      padding-inline: size(24);
-      text-align: center;
+		&::before {
+			content: '';
+			width: 100%;
+			height: size(2856);
+			position: absolute;
+			// Figma: 濃いブルー背景に白文字（散らし装飾は非表示レイヤーのため無し）
+			background-image: var(--bg);
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
+			z-index: 0;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
 
-      @include mq('sp') {
-        gap: size(32);
-      }
-    }
+		&__inner {
+			position: relative;
+			z-index: 1;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: size(48);
+			max-width: size(760);
+			margin-inline: auto;
+			padding-inline: size(24);
+			text-align: center;
 
-    &__title {
-      @include ty-lead;
-      font-size: size(36);
-      color: $brand-white;
+			@include mq('sp') {
+				gap: size(32);
+			}
+		}
 
-      @include mq('sp') {
-        font-size: size(44);
-        letter-spacing: 0.12em;
-        color: $brand-white;
-      }
-    }
+		&__title {
+			@include ty-lead;
+			font-size: size(36);
+			color: $brand-white;
 
-    &__body {
-      @include ty-body-l;
-      color: $brand-white;
+			@include mq('sp') {
+				font-size: size(44);
+				letter-spacing: 0.12em;
+				color: $brand-white;
+			}
+		}
 
-      @include mq('sp') {
-        color: $brand-white;
-      }
-    }
-  }
+		&__body {
+			@include ty-body-l;
+			color: $brand-white;
+
+			@include mq('sp') {
+				color: $brand-white;
+			}
+		}
+	}
 </style>

@@ -1,119 +1,133 @@
 ---
 import OptImage from '../components/common/OptImage.astro';
-import imgSky from '../images/keitasplan/fv/fv-03.jpg';
+import imgSky from '../images/keitasplan/fv/fv-01.png';
 import imgBag from '../images/keitasplan/fv/fv-04.png';
 import imgKv from '../images/keitasplan/fv/fv-05.png';
 
 interface Props {
-  id?: string;
+	id?: string;
 }
 const { id } = Astro.props;
 ---
 
 <section class="p-fv" id={id}>
-  <div class="p-fv__sky">
-    <OptImage src={imgSky} alt="" width={1536} priority class="p-fv__skyImg" />
-  </div>
-  <div class="p-fv__kv">
-    <OptImage src={imgKv} alt="モノの価値をつなぐ握手" width={1536} priority fit="contain" />
-  </div>
-  <div class="p-fv__bag" aria-hidden="true">
-    <OptImage src={imgBag} alt="" width={300} fit="contain" />
-  </div>
-  <div class="p-fv__inner">
-    <p class="p-fv__copy">
-      <span>モノの価値を</span>
-      <span>つなぐ仕事</span>
-    </p>
-  </div>
+	<div class="p-fv__sky">
+		<OptImage
+			src={imgSky}
+			alt=""
+			width={1536}
+			priority
+			class="p-fv__skyImg"
+		/>
+	</div>
+	<div class="p-fv__kv">
+		<OptImage
+			src={imgKv}
+			alt="モノの価値をつなぐ握手"
+			width={1536}
+			priority
+			fit="contain"
+		/>
+	</div>
+	<div class="p-fv__bag" aria-hidden="true">
+		<OptImage src={imgBag} alt="" width={300} fit="contain" />
+	</div>
+	<div class="p-fv__inner">
+		<p class="p-fv__copy">
+			<span>モノの価値を</span>
+			<span>つなぐ仕事</span>
+		</p>
+	</div>
 </section>
 
 <style lang="scss">
-  @use '../styles/foundation/index' as *;
+	@use '../styles/foundation/index' as *;
 
-  .p-fv {
-    position: relative;
-    min-height: size(1050);
-    padding-top: size(120);
-    background: linear-gradient(180deg, $brand-blue 0%, $brand-blue-pale 60%, $brand-blue-sky 100%);
-    overflow: hidden;
+	.p-fv {
+		position: relative;
+		min-height: size(1050);
+		padding-top: size(120);
+		// background: linear-gradient(
+		// 	180deg,
+		// 	$brand-blue 0%,
+		// 	$brand-blue-pale 60%,
+		// 	$brand-blue-sky 100%
+		// );
+		overflow: hidden;
+		z-index: 3;
 
-    @include mq('sp') {
-      min-height: size(640);
-      padding-top: size(72);
-    }
+		@include mq('sp') {
+			min-height: size(640);
+			padding-top: size(72);
+		}
 
-    &__sky {
-      position: absolute;
-      inset: 0 0 auto;
-      height: size(1120);
-      z-index: 0;
+		&__sky {
+			position: absolute;
+			inset: 0 0 auto;
+			height: size(1120);
+			z-index: 0;
 
-      @include mq('sp') {
-        height: size(420);
-      }
-    }
+			@include mq('sp') {
+				height: size(420);
+			}
+		}
 
-    &__kv {
-      position: absolute;
-      left: 50%;
-      bottom: size(40);
-      transform: translateX(-50%);
-      width: size(1300);
-      max-width: 100%;
-      z-index: 1;
+		&__kv {
+			position: absolute;
+			left: 50%;
+			top: size(0);
+			transform: translateX(-50%);
+			width: 100%;
+			z-index: 1;
 
-      @include mq('sp') {
-        bottom: auto;
-        top: size(150);
-        width: size(360);
-      }
-    }
+			@include mq('sp') {
+			}
+		}
 
-    &__bag {
-      position: absolute;
-      left: 50%;
-      top: size(360);
-      transform: translateX(-50%);
-      width: size(149);
-      z-index: 2;
+		&__bag {
+			position: absolute;
+			left: 53%;
+			top: size(310);
+			transform: translateX(-50%);
+			width: size(149);
+			z-index: 2;
 
-      @include mq('sp') {
-        top: size(96);
-        width: size(76);
-      }
-    }
+			@include mq('sp') {
+				top: size(96);
+				width: size(76);
+			}
+		}
 
-    &__inner {
-      position: relative;
-      z-index: 3;
-      display: flex;
-      justify-content: flex-end;
-      max-width: size(1450);
-      margin-inline: auto;
-      padding: size(220) size(80) 0;
+		&__inner {
+			position: relative;
+			z-index: 3;
+			display: flex;
+			justify-content: flex-end;
+			max-width: size(1450);
+			margin-inline: auto;
+			padding: size(220) size(80) 0;
 
-      @include mq('sp') {
-        justify-content: center;
-        padding: size(96) size(20) 0;
-      }
-    }
+			@include mq('sp') {
+				justify-content: center;
+				padding: size(96) size(20) 0;
+			}
+		}
 
-    &__copy {
-      display: flex;
-      flex-direction: column;
-      gap: size(8);
-      font-family: $Font;
-      font-weight: 500;
-      font-size: size(22);
-      line-height: 1.8;
-      letter-spacing: 0.4em;
-      color: $brand-text;
+		&__copy {
+			display: flex;
+			flex-direction: column;
+			gap: size(8);
+			font-family: $Font;
+			font-weight: 500;
+			font-size: size(22);
+			line-height: 1.8;
+			letter-spacing: 0.4em;
+			color: $brand-text;
 
-      @include mq('sp') {
-        font-size: size(22);
-        letter-spacing: 0.3em;
-      }
-    }
-  }
+			@include mq('sp') {
+				font-size: size(22);
+				letter-spacing: 0.3em;
+			}
+		}
+	}
 </style>

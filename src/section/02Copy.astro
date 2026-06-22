@@ -1,5 +1,18 @@
 ---
+import { getImage } from 'astro:assets';
+
 import bg from '../images/keitasplan/common/bg.png';
+// アクセント背景（向き合う手 = Figma node 681-1414 / Rectangle 102）
+import accent from '../images/keitasplan/copy/accent.png';
+// 散らし装飾の写真（read）— Figmaでは opacity:0 の隠しレイヤーだが、
+// プロトタイプではビューポート進入時に「下から浮き上がってフェードイン」する。
+import read01 from '../images/keitasplan/read/read-01.jpg';
+import read05 from '../images/keitasplan/read/read-05.jpg';
+import read07 from '../images/keitasplan/read/read-07.jpg';
+import read09 from '../images/keitasplan/read/read-09.jpg';
+import read11 from '../images/keitasplan/read/read-11.jpg';
+import read13 from '../images/keitasplan/read/read-13.jpg';
+import read14 from '../images/keitasplan/read/read-14.jpg';
 import { processImages } from '../styles/images';
 
 interface Props {
@@ -7,20 +20,105 @@ interface Props {
 }
 const { id } = Astro.props;
 
-const body = `長く使ってきたモノ、誰かから譲り受けたモノ、いつかの自分の暮らしに寄り添っていたモノ。それは、ただの「モノ」じゃなくて、人生の一部だったはず。ケイタスプランは、そのモノの“続き”を考える会社です。価値を見極めて、丁寧にケアして、次の誰かの暮らしへ手渡す。捨てるでも、忘れるでもない、「つなぐ」という選択肢。モノの価値をつなぐ、それが私たちの仕事です。`;
+// Figma node 681-870 の改行・段落構成を再現（段落=空行区切り、各行=<br>）
+const bodyBlocks = [
+	[
+		'長く使ってきたモノ、誰かから譲り受けたモノ、',
+		'いつかの自分の暮らしに寄り添っていたモノ。',
+	],
+	['それは、ただの「モノ」じゃなくて、', '人生の一部だったはず。'],
+	[
+		'ケイタスプランは、そのモノの“続き”を考える会社です。',
+		'価値を見極めて、丁寧にケアして、次の誰かの暮らしへ手渡す。',
+	],
+	[
+		'捨てるでも、忘れるでもない、「つなぐ」という選択肢。',
+		'モノの価値をつなぐ、それが私たちの仕事です。',
+	],
+];
 
-// 背景画像の処理
+// 散らし写真カードの定義（座標・サイズは Figma node 681-869 / 1536x1037 基準）
+// ※ SP（768幅）のデザインフレームが現在の Figma ドキュメントに無いため、SP は非表示。
+//    SP版が確認でき次第、各カードに sp 座標を足せば表示できる構造にしている。
+// 写真の割当は Figma 各窓のクロップ比率と元画像のアスペクト比を照合して決定。
+// 特に (241,632) は超ワイド(2.287)の「バッグお渡し(笑顔)」専用窓。
+const cardDefs = [
+	{ src: read01, x: 1231, y: 227, w: 221, h: 256 }, // バッグお渡し(受付) 16:9
+	{ src: read14, x: 1154, y: 812, w: 156, h: 180 }, // 革小物ブラッシング 16:9
+	{ src: read13, x: 241, y: 632, w: 130, h: 124 }, // バッグお渡し(笑顔) 超ワイド
+	{ src: read09, x: 58, y: 810, w: 121, h: 139 }, // ヴィンテージカメラ 3:2
+	{ src: read05, x: 0, y: 351, w: 225, h: 180 }, // 革バッグお手入れ 3:2
+	{ src: read07, x: 1418, y: 610, w: 119, h: 138 }, // 指輪お渡し(手袋) 3:2
+	{ src: read11, x: 281, y: 934, w: 90, h: 90 }, // 宝石修理 3:2
+];
+
+const cards = await Promise.all(
+	cardDefs.map(async (c) => ({
+		...c,
+		opt: await getImage({
+			src: c.src,
+			format: 'avif',
+			width: Math.round(c.w * 3),
+		}),
+	}))
+);
+
+// 背景画像の処理（--bg / --accent を生成）
 const imageStyles = await processImages({
 	bg,
+	accent,
 });
 ---
 
-<section class="p-copy" id={id} style={imageStyles}>
+<section class="p-copy js-inView" id={id} style={imageStyles}>
+	<div class="p-copy__decoration" aria-hidden="true">
+		{
+			cards.map((c, i) => (
+				<div
+					class="p-copy__card js-inView-fadeIn"
+					style={`--card-x:${c.x};--card-y:${c.y};--card-w:${c.w};--card-h:${c.h};--animate-block-delay:${(0.25 + i * 0.09).toFixed(2)}s;`}
+				>
+					<img
+						src={c.opt.src}
+						alt=""
+						loading="lazy"
+						decoding="async"
+					/>
+				</div>
+			))
+		}
+	</div>
 	<div class="p-copy__inner">
 		<h2 class="p-copy__title">そのモノには、まだ続きがあります。</h2>
-		<p class="p-copy__body">{body}</p>
+		<div class="p-copy__body">
+			{
+				bodyBlocks.map((lines) => (
+					<p class="p-copy__paragraph">
+						{lines.map((line, i) => (
+							<Fragment>
+								{i > 0 && <br />}
+								{line}
+							</Fragment>
+						))}
+					</p>
+				))
+			}
+		</div>
 	</div>
 </section>
+
+<script>
+	// InView アニメーション初期化（散らし写真のフェードイン用）。
+	// main.ts がページから読み込まれていないため、このセクションで明示的に発火させる。
+	import initInView from '../scripts/inView';
+
+	const run = () => initInView();
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', run);
+	} else {
+		run();
+	}
+</script>
 
 <style lang="scss">
 	@use '../styles/foundation/index' as *;
@@ -30,9 +128,10 @@ const imageStyles = await processImages({
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		min-height: size(1037);
+		// min-height: size(1037);
 		// overflow: hidden;
 		margin-top: size(-40);
+		padding-block: size(150) size(205);
 
 		@include mq('sp') {
 			display: block;
@@ -45,24 +144,82 @@ const imageStyles = await processImages({
 			width: 100%;
 			height: size(2856);
 			position: absolute;
-			// Figma: 濃いブルー背景に白文字（散らし装飾は非表示レイヤーのため無し）
+			// Figma: 濃いブルー背景に白文字
 			background-image: var(--bg);
 			background-size: cover;
 			background-position: center;
 			background-repeat: no-repeat;
 			z-index: 0;
-			top: 50%;
+			top: 0;
 			left: 50%;
-			transform: translate(-50%, -50%);
+			transform: translate(-50%, -10%);
+		}
+
+		// アクセント背景（向き合う手）— Figma node 681-1414 / Rectangle 102
+		// 青背景の上・コンテンツの下に、薄く重ねる
+		&::after {
+			content: '';
+			position: absolute;
+			z-index: 0;
+			top: size(-124); // 全体を100px上へ調整
+			left: size(-123);
+			width: size(1782);
+			height: size(650);
+			background-image: var(--accent);
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
+			// opacity: 0.21; // Figma: 不透明度21%
+			pointer-events: none;
+
+			@include mq('sp') {
+				// SP版フレーム未確認のため、上部に全幅で薄く敷く（要調整）
+				top: 0;
+				left: 50%;
+				width: size(900);
+				height: size(380);
+				transform: translateX(-50%);
+			}
+		}
+
+		// 散らし写真（read）レイヤー
+		&__decoration {
+			position: absolute;
+			inset: 0;
+			z-index: 1;
+			pointer-events: none;
+			overflow: hidden; // 右端カード(x=1418)が横スクロールを出さないようクリップ
+			transform: translateY(size(-100)); // 散らし写真全体を100px上へ調整
+
+			@include mq('sp') {
+				display: none;
+			}
+		}
+
+		&__card {
+			position: absolute;
+			left: calc(var(--card-x) * var(--size-unit));
+			top: calc(var(--card-y) * var(--size-unit));
+			width: calc(var(--card-w) * var(--size-unit));
+			height: calc(var(--card-h) * var(--size-unit));
+			border-radius: size(10);
+			overflow: hidden;
+
+			img {
+				display: block;
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
 		}
 
 		&__inner {
 			position: relative;
-			z-index: 1;
+			z-index: 2;
 			display: flex;
 			flex-direction: column;
 			align-items: center;
-			gap: size(48);
+			gap: size(160);
 			max-width: size(760);
 			margin-inline: auto;
 			padding-inline: size(24);
@@ -87,10 +244,21 @@ const imageStyles = await processImages({
 
 		&__body {
 			@include ty-body-l;
+			display: flex;
+			flex-direction: column;
+			gap: size(44); // Figma: 段落間 = 空行1つ分
 			color: $brand-white;
 
 			@include mq('sp') {
+				gap: size(44);
 				color: $brand-white;
+			}
+		}
+
+		&__paragraph {
+			// Figma: 最終ブロックの前だけ空行2つ分の余白
+			&:last-child {
+				margin-top: size(44);
 			}
 		}
 	}

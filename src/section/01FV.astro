@@ -85,13 +85,13 @@ const { id } = Astro.props;
 		}
 
 		&__bag {
-			position: absolute;
+			position: fixed;
 			left: 53%;
 			top: size(310);
 			transform: translateX(-50%);
-			width: size(149);
+			width: size(134);
 			z-index: 2;
-
+			opacity: 0.7;
 			@include mq('sp') {
 				top: size(96);
 				width: size(76);
@@ -105,7 +105,7 @@ const { id } = Astro.props;
 			justify-content: flex-end;
 			max-width: size(1450);
 			margin-inline: auto;
-			padding: size(220) size(80) 0;
+			padding: size(270) size(80) 0;
 
 			@include mq('sp') {
 				justify-content: center;

@@ -1,146 +1,132 @@
 ---
 // セクション共通見出し（エンブレム + 日本語タイトル + 英語サブ + リード文）
 // theme: 明るい背景=dark / 暗い背景=light
+import markDark from '../../images/keitasplan/common/mark.svg?raw';
+import markLight from '../../images/keitasplan/common/mark_white.svg?raw';
+
 interface Props {
-  ja: string;
-  en: string;
-  lead?: string;
-  theme?: 'dark' | 'light';
-  align?: 'left' | 'center';
-  class?: string;
+	ja: string;
+	en: string;
+	lead?: string;
+	theme?: 'dark' | 'light';
+	align?: 'left' | 'center';
+	class?: string;
 }
 
 const {
-  ja,
-  en,
-  lead,
-  theme = 'dark',
-  align = 'left',
-  class: className,
+	ja,
+	en,
+	lead,
+	theme = 'dark',
+	align = 'left',
+	class: className,
 } = Astro.props;
+
+const markSvg = theme === 'light' ? markLight : markDark;
 ---
 
 <div
-  class:list={[
-    'c-heading',
-    `c-heading--${theme}`,
-    `c-heading--${align}`,
-    className,
-  ]}
+	class:list={[
+		'c-heading',
+		`c-heading--${theme}`,
+		`c-heading--${align}`,
+		className,
+	]}
 >
-  <div class="c-heading__main">
-    <span class="c-heading__mark" aria-hidden="true">
-      <svg viewBox="0 0 64 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <ellipse class="c-heading__mark--a" cx="24" cy="20" rx="16" ry="15" stroke-width="5"></ellipse>
-        <ellipse class="c-heading__mark--b" cx="40" cy="20" rx="16" ry="15" stroke-width="5"></ellipse>
-      </svg>
-    </span>
-    <span class="c-heading__titles">
-      <span class="c-heading__ja">{ja}</span>
-      <span class="c-heading__en">{en}</span>
-    </span>
-  </div>
-  {lead && <p class="c-heading__lead">{lead}</p>}
+	<div class="c-heading__main">
+		<span class="c-heading__mark" aria-hidden="true" set:html={markSvg}></span>
+		<span class="c-heading__titles">
+			<span class="c-heading__ja">{ja}</span>
+			<span class="c-heading__en">{en}</span>
+		</span>
+	</div>
+	{lead && <p class="c-heading__lead">{lead}</p>}
 </div>
 
 <style lang="scss">
-  @use '../../styles/foundation/index' as *;
+	@use '../../styles/foundation/index' as *;
 
-  .c-heading {
-    display: flex;
-    align-items: flex-end;
-    gap: size(40);
-    width: 100%;
+	.c-heading {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-end;
+		gap: size(40);
+		width: 100%;
 
-    @include mq('sp') {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: size(20);
-    }
+		@include mq('sp') {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: size(20);
+		}
 
-    &--center {
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
+		&--center {
+			flex-direction: column;
+			align-items: center;
+			text-align: center;
+		}
 
-    &__main {
-      display: flex;
-      align-items: center;
-      gap: size(16);
-      flex-shrink: 0;
-    }
+		&__main {
+			display: flex;
+			align-items: center;
+			gap: size(16);
+			flex-shrink: 0;
+		}
 
-    &__mark {
-      display: inline-flex;
-      width: size(64);
-      height: size(40);
+		&__mark {
+			display: inline-flex;
+			width: size(64);
+			height: size(64);
 
-      svg {
-        width: 100%;
-        height: 100%;
-      }
+			svg {
+				width: 100%;
+				height: 100%;
+			}
+		}
 
-      &--a {
-        fill: none;
-        stroke: $brand-green;
-      }
-      &--b {
-        fill: none;
-        stroke: $brand-blue;
-      }
-    }
+		&__titles {
+			display: flex;
+			flex-direction: column;
+			gap: size(6);
+		}
 
-    &__titles {
-      display: flex;
-      flex-direction: column;
-      gap: size(6);
-    }
+		&__ja {
+			@include ty-heading;
+		}
 
-    &__ja {
-      @include ty-heading;
-    }
+		&__en {
+			@include ty-heading-en;
+			color: $brand-text;
+		}
 
-    &__en {
-      @include ty-heading-en;
-      color: $brand-text;
-    }
+		&__lead {
+			@include ty-lead;
+			padding-bottom: size(34);
 
-    &__lead {
-      @include ty-lead;
-      padding-bottom: size(8);
+			@include mq('sp') {
+				padding-bottom: 0;
+			}
+		}
 
-      @include mq('sp') {
-        padding-bottom: 0;
-      }
-    }
+		// --- テーマ ---
+		&--dark {
+			.c-heading__ja {
+				color: $brand-text;
+			}
+			.c-heading__lead {
+				color: $brand-text;
+			}
+		}
 
-    // --- テーマ ---
-    &--dark {
-      .c-heading__ja {
-        color: $brand-text;
-      }
-      .c-heading__lead {
-        color: $brand-text;
-      }
-    }
-
-    &--light {
-      .c-heading__ja {
-        color: $brand-white;
-      }
-      .c-heading__en {
-        color: $brand-white;
-      }
-      .c-heading__lead {
-        color: $brand-white;
-      }
-      .c-heading__mark--a {
-        stroke: $brand-white;
-      }
-      .c-heading__mark--b {
-        stroke: rgba($brand-white, 0.6);
-      }
-    }
-  }
+		&--light {
+			.c-heading__ja {
+				color: $brand-white;
+			}
+			.c-heading__en {
+				color: $brand-white;
+			}
+			.c-heading__lead {
+				color: $brand-white;
+			}
+		}
+	}
 </style>

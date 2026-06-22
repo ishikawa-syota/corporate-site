@@ -3,110 +3,171 @@
 import OptImage from '../common/OptImage.astro';
 
 interface Props {
-  label: string;
-  prefix?: string;
-  value: string;
-  unit: string;
-  note?: string;
-  bg?: ImageMetadata;
+	label: string;
+	prefix?: string;
+	value: string;
+	unit: string;
+	note?: string;
+	bg?: ImageMetadata;
 }
 
 const { label, prefix, value, unit, note, bg } = Astro.props;
+
+// カウントアップ用に数値部分を抽出（カンマ等を除去）。数値でなければアニメ対象外
+const numeric = Number(value.replace(/[^0-9.]/g, ''));
+const isCountable = value !== '' && !Number.isNaN(numeric);
 ---
 
 <div class="c-stat">
-  {bg && (
-    <span class="c-stat__bg" aria-hidden="true">
-      <OptImage src={bg} alt="" width={500} />
-    </span>
-  )}
-  <p class="c-stat__label">{label}</p>
-  <p class="c-stat__figure">
-    {prefix && <span class="c-stat__prefix">{prefix}</span>}
-    <span class="c-stat__value">{value}</span>
-    <span class="c-stat__unit">{unit}</span>
-  </p>
-  {note && <p class="c-stat__note">{note}</p>}
+	{
+		bg && (
+			<span class="c-stat__bg" aria-hidden="true">
+				<OptImage src={bg} alt="" width={500} />
+			</span>
+		)
+	}
+	<p class="c-stat__label">{label}</p>
+	<p class="c-stat__figure">
+		{prefix && <span class="c-stat__prefix">{prefix}</span>}
+		<span
+			class="c-stat__value"
+			data-count-to={isCountable ? numeric : undefined}
+		>{isCountable ? '0' : value}</span>
+		<span class="c-stat__unit">{unit}</span>
+	</p>
+	{note && <p class="c-stat__note">{note}</p>}
 </div>
 
+<script>
+	// 数字カウントアップ：ビューポートに入ったら 0 → 目標値へアニメーション
+	const DURATION = 1600; // ms
+	const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
+	const fmt = (n: number) => Math.round(n).toLocaleString('ja-JP');
+
+	const animateCount = (el: HTMLElement, target: number) => {
+		const prefersReduced = window.matchMedia(
+			'(prefers-reduced-motion: reduce)',
+		).matches;
+		if (prefersReduced) {
+			el.textContent = fmt(target);
+			return;
+		}
+		let startTime: number | null = null;
+		const step = (now: number) => {
+			if (startTime === null) startTime = now;
+			const progress = Math.min((now - startTime) / DURATION, 1);
+			el.textContent = fmt(target * easeOutCubic(progress));
+			if (progress < 1) requestAnimationFrame(step);
+		};
+		requestAnimationFrame(step);
+	};
+
+	const targets = document.querySelectorAll<HTMLElement>(
+		'.c-stat__value[data-count-to]',
+	);
+
+	if (targets.length > 0) {
+		const observer = new IntersectionObserver(
+			(entries, obs) => {
+				entries.forEach((entry) => {
+					if (!entry.isIntersecting) return;
+					const el = entry.target as HTMLElement;
+					const target = Number(el.dataset.countTo);
+					if (!Number.isNaN(target)) animateCount(el, target);
+					obs.unobserve(el);
+				});
+			},
+			{ threshold: 0.4 },
+		);
+		targets.forEach((el) => observer.observe(el));
+	}
+</script>
+
 <style lang="scss">
-  @use '../../styles/foundation/index' as *;
+	@use '../../styles/foundation/index' as *;
 
-  .c-stat {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    width: 100%;
-    min-height: size(180);
-    padding: size(28) size(30);
-    border-radius: size(10);
-    background: linear-gradient(180deg, $brand-blue 0%, $brand-blue-pale 100%);
-    color: $brand-white;
-    overflow: hidden;
+	.c-stat {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		width: 100%;
+		min-height: size(180);
+		padding: size(28) size(30);
+		border-radius: size(10);
+		border-radius: 10px;
+		background:
+			lightgray -145px -238.25px / 193.043% 251.54% no-repeat,
+			linear-gradient(180deg, var(--0054-ac, #0054ac) 0%, #98cbff 100%);
+		color: $brand-white;
+		overflow: hidden;
 
-    @include mq('sp') {
-      min-height: size(150);
-    }
+		@include mq('sp') {
+			min-height: size(150);
+		}
 
-    // 背景写真（OptImage は子コンポなので span でラップしてスコープ内で配置）
-    &__bg {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      display: block;
-      pointer-events: none;
-    }
+		// 背景写真（OptImage は子コンポなので span でラップしてスコープ内で配置）
+		&__bg {
+			position: absolute;
+			inset: 0;
+			z-index: 0;
+			display: block;
+			pointer-events: none;
+		}
 
-    // 写真の上に重ねるブルーオーバーレイ（白文字の視認性確保）
-    &::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      background: linear-gradient(165deg, rgba($brand-blue, 0.4) 0%, rgba($brand-blue, 0.82) 100%);
-      pointer-events: none;
-    }
+		// 写真の上に重ねるブルーオーバーレイ（白文字の視認性確保）
+		&::after {
+			content: '';
+			position: absolute;
+			inset: 0;
+			z-index: 1;
+			background: linear-gradient(
+				165deg,
+				rgba($brand-blue, 0.4) 0%,
+				rgba($brand-blue, 0.82) 100%
+			);
+			pointer-events: none;
+		}
 
-    &__label,
-    &__figure,
-    &__note {
-      position: relative;
-      z-index: 2;
-    }
+		&__label,
+		&__figure,
+		&__note {
+			position: relative;
+			z-index: 2;
+		}
 
-    &__label {
-      font-family: $Font;
-      font-weight: 700;
-      font-size: size(20);
-      line-height: 1.4;
-      letter-spacing: 0.03em;
-    }
+		&__label {
+			font-family: $Font;
+			font-weight: 700;
+			font-size: size(20);
+			line-height: 1.4;
+			letter-spacing: 0.03em;
+		}
 
-    &__figure {
-      display: flex;
-      align-items: baseline;
-      gap: size(6);
-    }
+		&__figure {
+			display: flex;
+			align-items: baseline;
+			gap: size(6);
+		}
 
-    &__prefix,
-    &__unit {
-      font-family: $Font;
-      font-weight: 700;
-      font-size: size(20);
-      line-height: 1.4;
-    }
+		&__prefix,
+		&__unit {
+			font-family: $Font;
+			font-weight: 700;
+			font-size: size(20);
+			line-height: 1.4;
+		}
 
-    &__value {
-      @include ty-number;
-    }
+		&__value {
+			@include ty-number;
+		}
 
-    &__note {
-      position: absolute;
-      right: size(20);
-      bottom: size(14);
-      @include ty-caption;
-      text-shadow: 0 0 size(12) $brand-blue;
-    }
-  }
+		&__note {
+			position: absolute;
+			right: size(20);
+			bottom: size(14);
+			@include ty-caption;
+			text-shadow: 0 0 size(12) $brand-blue;
+		}
+	}
 </style>

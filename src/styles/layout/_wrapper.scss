@@ -11,7 +11,9 @@
     font-size: calc(16 * var(--max-fluid-ratio));
     letter-spacing: 0;
     // background-color: #F3F8FF;
-    overflow: hidden;
+    // overflow: hidden は overflow-y も hidden にしてスクロールコンテナ化し、子孫の sticky を阻害する。
+    // 横はみ出しのクリップ目的なので overflow-x: clip（スクロールコンテナを作らない）に変更。
+    overflow-x: clip;
     scroll-behavior: smooth;
     color: design-color("gray", "900");
     // padding-bottom: calc( 120 * var(--max-fluid-ratio));

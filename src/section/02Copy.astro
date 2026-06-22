@@ -1,7 +1,6 @@
 ---
 import { getImage } from 'astro:assets';
 
-import bg from '../images/keitasplan/common/bg.png';
 // アクセント背景（向き合う手 = Figma node 681-1414 / Rectangle 102）
 import accent from '../images/keitasplan/copy/accent.png';
 // 散らし装飾の写真（read）— Figmaでは opacity:0 の隠しレイヤーだが、
@@ -63,9 +62,8 @@ const cards = await Promise.all(
 	}))
 );
 
-// 背景画像の処理（--bg / --accent を生成）
+// 背景画像の処理（--accent を生成。青背景は親ラッパー l-fvCopy に統合）
 const imageStyles = await processImages({
-	bg,
 	accent,
 });
 ---
@@ -139,21 +137,7 @@ const imageStyles = await processImages({
 			padding-block: size(120) size(160);
 		}
 
-		&::before {
-			content: '';
-			width: 100%;
-			height: size(2856);
-			position: absolute;
-			// Figma: 濃いブルー背景に白文字
-			background-image: var(--bg);
-			background-size: cover;
-			background-position: center;
-			background-repeat: no-repeat;
-			z-index: 0;
-			top: 0;
-			left: 50%;
-			transform: translate(-50%, -10%);
-		}
+		// 青背景は親ラッパー（l-fvCopy / fv/bg.png）に統合したため、ここでは敷かない
 
 		// アクセント背景（向き合う手）— Figma node 681-1414 / Rectangle 102
 		// 青背景の上・コンテンツの下に、薄く重ねる
@@ -180,6 +164,33 @@ const imageStyles = await processImages({
 				height: size(380);
 				transform: translateX(-50%);
 			}
+		}
+
+		// FV から引き継いだ装飾バッグ。
+		// Rail（p-copy 全体に被さる絶対配置の枠）の中で position: sticky させることで、
+		// ・通常はページと等速でスクロール（パララックス感ゼロ）
+		// ・p-copy__body 中部に差しかかるとビューポート中央でピタッと貼り付く
+		// ・Rail 下端まで来たら解放され、再びページと等速で上へ抜ける
+		// をジャンプなし・純CSSで実現する。文字の可読性のため本文（inner z2）の背面に置く。
+		&__bagRail {
+			position: absolute;
+			inset: 0;
+			z-index: 1;
+			pointer-events: none;
+
+			@include mq('sp') {
+				display: none; // 散らし装飾と同様、SP では非表示
+			}
+		}
+
+		&__bag {
+			position: sticky;
+			top: calc(50vh - #{size(70)}); // ビューポート中央に貼り付く（70 ≒ バッグ高の半分）
+			width: size(134);
+			margin-inline: auto; // 横方向は中央
+			margin-top: size(514); // 自然位置（flow）の中心を body 中央へ合わせる
+			opacity: 0.7;
+			will-change: transform;
 		}
 
 		// 散らし写真（read）レイヤー

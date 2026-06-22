@@ -1,5 +1,6 @@
 ---
 import { siteMetadata } from '../data/meta';
+import fvCopyBg from '../images/keitasplan/fv/bg.png';
 import Footer from '../layouts/Footer.astro';
 import Header from '../layouts/Header.astro';
 import Layout from '../layouts/Layout.astro';
@@ -12,12 +13,18 @@ import Voice from '../section/06Voice.astro';
 import Message from '../section/07Message.astro';
 import Faq from '../section/08Faq.astro';
 import ContactCta from '../section/10ContactCta.astro';
+import { processImages } from '../styles/images';
+
+// FV〜Copy を1枚で覆う統合背景（--fvbg を生成）
+const fvCopyStyles = await processImages({ fvbg: fvCopyBg });
 ---
 
 <Layout title={siteMetadata.siteName}>
   <Header id="header" />
-  <FirstView id="firstview" />
-  <Copy id="copy" />
+  <div class="l-fvCopy" style={fvCopyStyles}>
+    <FirstView id="firstview" />
+    <Copy id="copy" />
+  </div>
   <Business id="business" />
   <Data id="data" />
   <Member id="member" />
@@ -27,3 +34,16 @@ import ContactCta from '../section/10ContactCta.astro';
   <ContactCta id="contact" />
   <Footer id="footer" />
 </Layout>
+
+<style>
+  /* FV〜Copy 統合背景：1枚を全幅で上から敷き、画像下端色をフォールバックに */
+  .l-fvCopy {
+    position: relative;
+    background-color: #75afeb; /* fv/bg.png 下端色（高さズレ時の隙間防止） */
+    background-image: var(--fvbg);
+    background-repeat: no-repeat;
+    background-position: top center;
+    /* 均一な縦グラデのため cover で全面カバー（SPは左右クロップ＝視覚上ほぼ無変化、縦は全域に伸びる） */
+    background-size: cover;
+  }
+</style>

@@ -1,32 +1,52 @@
 ---
+import { getImage } from 'astro:assets';
+
 import OptImage from '../components/common/OptImage.astro';
 import SectionHeading from '../components/common/SectionHeading.astro';
 import { message } from '../data/siteContent';
-import imgRep from '../images/keitasplan/member/member-01.png';
+// 上部に薄く敷くヒーロー写真（Figma node 772-1604 / opacity 50%）
+import bgPc from '../images/keitasplan/message/bg_pc.png';
+// 代表ポートレート（Figma node 772-1638 / 132×164 / radius10）
+import president from '../images/keitasplan/message/president.png';
 
 interface Props {
   id?: string;
 }
 const { id } = Astro.props;
+
+// 背景写真は巨大（5MB超）なので AVIF 化して軽量背景に
+const bg = await getImage({ src: bgPc, format: 'avif', width: 2400 });
 ---
 
 <section class="p-message" id={id}>
+  <div class="p-message__bg" aria-hidden="true" style={`--bg:url(${bg.src})`}></div>
+
   <div class="p-message__inner">
-    <div class="p-message__lead">
-      <SectionHeading ja="メッセージ" en="MESSAGE" theme="light" class="p-message__heading" />
-      <h2 class="p-message__headline">
-        {message.headline.map((line) => <span>{line}</span>)}
-      </h2>
-    </div>
-    <div class="p-message__body">
-      {message.body.map((p) => <p class="p-message__text">{p}</p>)}
-      <div class="p-message__sign">
-        <div class="p-message__signName">
-          <span class="p-message__signRole">{message.signRole}</span>
-          <span class="p-message__signPerson">{message.signName}</span>
-        </div>
-        <div class="p-message__portrait">
-          <OptImage src={imgRep} alt={message.signName} width={300} />
+    <SectionHeading
+      ja="メッセージ"
+      en="MESSAGE"
+      theme="dark"
+      class="p-message__heading"
+    />
+
+    <div class="p-message__columns">
+      <div class="p-message__lead">
+        <h2 class="p-message__headline">
+          {message.headline.map((line) => <span>{line}</span>)}
+        </h2>
+      </div>
+
+      <div class="p-message__body">
+        {message.body.map((p) => <p class="p-message__text">{p}</p>)}
+
+        <div class="p-message__sign">
+          <div class="p-message__signName">
+            <span class="p-message__signRole">{message.signRole}</span>
+            <span class="p-message__signPerson">{message.signName}</span>
+          </div>
+          <div class="p-message__portrait">
+            <OptImage src={president} alt={message.signName} width={300} />
+          </div>
         </div>
       </div>
     </div>
@@ -37,54 +57,106 @@ const { id } = Astro.props;
   @use '../styles/foundation/index' as *;
 
   .p-message {
-    background: linear-gradient(160deg, $brand-blue 0%, #1f6fc4 55%, $brand-blue-pale 100%);
-    padding-block: size(140);
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(180deg, $brand-white 0%, #e9e9e9 100%);
 
     @include mq('sp') {
-      padding-block: size(80);
+      padding-bottom: size(120);
+    }
+
+    // 上部に薄く敷くヒーロー写真
+    &__bg {
+      position: absolute;
+      top: size(40);
+      left: size(-218);
+      width: size(1971);
+      height: size(1162);
+      background-image: var(--bg);
+      background-size: cover;
+      background-position: center top;
+      background-repeat: no-repeat;
+      opacity: 0.5;
+      pointer-events: none;
+      z-index: 0;
+
+      @include mq('sp') {
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: size(620);
+      }
     }
 
     &__inner {
-      display: grid;
-      grid-template-columns: size(314) 1fr;
-      gap: size(160);
-      max-width: size(1098);
+      position: relative;
+      z-index: 1;
+      max-width: size(1050);
       margin-inline: auto;
-      padding-inline: size(24);
+      padding-top: size(653);
+      padding-bottom: size(280);
+
+      @include mq('sp') {
+        max-width: none;
+        margin-inline: size(40);
+        padding-top: size(400);
+        padding-bottom: 0;
+      }
+    }
+
+    // 見出しの下〜2カラムの間隔（Figma: heading top653 → body top964）
+    &__columns {
+      display: grid;
+      grid-template-columns: size(452) size(576);
+      gap: size(22);
+      margin-top: size(200);
 
       @include mq('sp') {
         grid-template-columns: 1fr;
-        gap: size(40);
+        gap: size(56);
+        margin-top: size(64);
       }
+    }
+
+    // 左カラム：青い見出しコピー
+    &__lead {
+      padding-left: size(22);
     }
 
     &__headline {
       display: flex;
       flex-direction: column;
-      gap: size(8);
-      margin-top: size(48);
       font-family: $Font;
-      font-weight: 700;
-      font-size: size(40);
-      line-height: 1.5;
-      color: $brand-white;
+      font-weight: 500;
+      font-size: size(36);
+      line-height: 1.62;
+      letter-spacing: 0.02em;
+      color: $brand-blue;
 
       @include mq('sp') {
-        font-size: size(30);
-        margin-top: size(24);
+        font-size: size(48);
       }
     }
 
+    // 右カラム：本文＋署名
     &__body {
       display: flex;
       flex-direction: column;
-      gap: size(24);
     }
 
     &__text {
       @include ty-body;
-      color: $brand-white;
+      color: $brand-text;
       text-align: justify;
+
+      // 段落間（Figma: 空行 1 行分）
+      & + & {
+        margin-top: size(36);
+
+        @include mq('sp') {
+          margin-top: size(48);
+        }
+      }
     }
 
     &__sign {
@@ -92,7 +164,11 @@ const { id } = Astro.props;
       align-items: flex-end;
       justify-content: flex-end;
       gap: size(22);
-      margin-top: size(24);
+      margin-top: size(72);
+
+      @include mq('sp') {
+        margin-top: size(56);
+      }
     }
 
     &__signName {
@@ -100,12 +176,18 @@ const { id } = Astro.props;
       flex-direction: column;
       align-items: flex-end;
       gap: size(3);
-      color: $brand-white;
+      color: $brand-text;
     }
 
     &__signRole {
       font-family: $Font;
+      font-weight: 400;
       font-size: size(18);
+      line-height: 1.4;
+
+      @include mq('sp') {
+        font-size: size(26);
+      }
     }
 
     &__signPerson {
@@ -115,7 +197,7 @@ const { id } = Astro.props;
       line-height: 1.4;
 
       @include mq('sp') {
-        font-size: size(28);
+        font-size: size(44);
       }
     }
 
@@ -125,7 +207,11 @@ const { id } = Astro.props;
       height: size(164);
       border-radius: size(10);
       overflow: hidden;
-      background-color: rgba($brand-white, 0.2);
+
+      @include mq('sp') {
+        width: size(180);
+        height: size(224);
+      }
     }
   }
 </style>

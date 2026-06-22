@@ -35,7 +35,7 @@ const { id } = Astro.props;
         </span>
         <span class="l-header__telNum">{companyInfo.tel}</span>
       </a>
-      <ArrowButton href="#contact" label="お問い合わせ" variant="blue" size="sm" class="l-header__cta" />
+      <ArrowButton href="#contact" label="お問い合わせ" variant="white" size="sm" class="l-header__cta" />
     </div>
 
     <button class="l-header__burger" type="button" aria-label="メニューを開く" aria-expanded="false" data-burger>
@@ -142,8 +142,13 @@ const { id } = Astro.props;
     &__contact {
       display: flex;
       align-items: center;
-      gap: size(16);
+      gap: size(10);
       flex-shrink: 0;
+      align-self: stretch;
+      margin-right: size(-24);
+      padding: 0 size(22) 0 size(33);
+      background: $brand-gradient;
+      border-bottom-left-radius: size(45);
 
       @include mq('sp') {
         display: none;
@@ -154,20 +159,36 @@ const { id } = Astro.props;
       display: flex;
       align-items: center;
       gap: size(8);
-      color: $brand-blue;
     }
 
     &__telIcon {
-      display: inline-flex;
-      width: size(20);
-      height: size(20);
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      width: size(34);
+      height: size(34);
+      background-color: $brand-white;
+      border-radius: 50%;
+      color: $brand-blue;
+
+      svg {
+        width: size(18);
+        height: size(20);
+      }
     }
 
     &__telNum {
-      font-family: $Font-Num;
-      font-weight: 700;
-      font-size: size(24);
+      font-family: $Font-Sub;
+      font-weight: 900;
+      font-size: size(27);
+      line-height: 1.4;
       letter-spacing: 0.02em;
+      color: $brand-white;
+    }
+
+    &__cta {
+      width: size(173);
+      height: size(47);
     }
 
     &__burger {

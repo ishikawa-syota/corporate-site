@@ -67,7 +67,9 @@ body {
 	font-weight: normal;
 	font-family: $Font;
 	letter-spacing: 1px;
-	overflow-x: hidden;
+	// overflow-x: hidden だと overflow-y が auto に強制され、子孫の position: sticky が
+	// 発火しなくなる。clip は横はみ出しを切りつつスクロールコンテナを作らないため sticky を阻害しない。
+	overflow-x: clip;
 	scroll-behavior: smooth;
 
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);

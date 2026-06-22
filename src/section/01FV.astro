@@ -1,7 +1,5 @@
 ---
 import OptImage from '../components/common/OptImage.astro';
-import imgSky from '../images/keitasplan/fv/fv-01.png';
-import imgBag from '../images/keitasplan/fv/fv-04.png';
 import imgKv from '../images/keitasplan/fv/fv-05.png';
 
 interface Props {
@@ -11,15 +9,6 @@ const { id } = Astro.props;
 ---
 
 <section class="p-fv" id={id}>
-	<div class="p-fv__sky">
-		<OptImage
-			src={imgSky}
-			alt=""
-			width={1536}
-			priority
-			class="p-fv__skyImg"
-		/>
-	</div>
 	<div class="p-fv__kv">
 		<OptImage
 			src={imgKv}
@@ -28,9 +17,6 @@ const { id } = Astro.props;
 			priority
 			fit="contain"
 		/>
-	</div>
-	<div class="p-fv__bag" aria-hidden="true">
-		<OptImage src={imgBag} alt="" width={300} fit="contain" />
 	</div>
 	<div class="p-fv__inner">
 		<p class="p-fv__copy">
@@ -61,17 +47,6 @@ const { id } = Astro.props;
 			padding-top: size(72);
 		}
 
-		&__sky {
-			position: absolute;
-			inset: 0 0 auto;
-			height: size(1120);
-			z-index: 0;
-
-			@include mq('sp') {
-				height: size(420);
-			}
-		}
-
 		&__kv {
 			position: absolute;
 			left: 50%;
@@ -81,20 +56,6 @@ const { id } = Astro.props;
 			z-index: 1;
 
 			@include mq('sp') {
-			}
-		}
-
-		&__bag {
-			position: fixed;
-			left: 53%;
-			top: size(310);
-			transform: translateX(-50%);
-			width: size(134);
-			z-index: 2;
-			opacity: 0.7;
-			@include mq('sp') {
-				top: size(96);
-				width: size(76);
 			}
 		}
 

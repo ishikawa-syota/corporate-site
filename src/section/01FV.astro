@@ -1,22 +1,47 @@
 ---
 import OptImage from '../components/common/OptImage.astro';
-import imgKv from '../images/keitasplan/fv/fv-05.png';
+import imgKv01 from '../images/keitasplan/fv/main01.png';
+import imgKv02 from '../images/keitasplan/fv/main02.png';
+import imgKv03 from '../images/keitasplan/fv/main03.png';
 
 interface Props {
 	id?: string;
 }
 const { id } = Astro.props;
+
+// メインビジュアルのフェードスライド用画像（順番に表示）
+const kvSlides = [
+	{ src: imgKv01, alt: 'モノの価値をつなぐ握手' },
+	{ src: imgKv02, alt: 'モノの価値をつなぐ仕事' },
+	{ src: imgKv03, alt: 'モノの価値をつなぐ未来' },
+];
 ---
 
 <section class="p-fv" id={id}>
 	<div class="p-fv__kv">
-		<OptImage
-			src={imgKv}
-			alt="モノの価値をつなぐ握手"
-			width={1536}
-			priority
-			fit="contain"
-		/>
+		<div
+			class="splide p-fv__splide"
+			data-fv-splide
+			aria-label="メインビジュアル"
+		>
+			<div class="splide__track p-fv__track">
+				<div class="splide__list p-fv__list">
+					{
+						kvSlides.map((slide, i) => (
+							<div class="splide__slide p-fv__slide">
+								<OptImage
+									src={slide.src}
+									alt={slide.alt}
+									width={1536}
+									priority={i === 0}
+									fit="contain"
+								/>
+							</div>
+						))
+					}
+				</div>
+			</div>
+		</div>
 	</div>
 	<div class="p-fv__inner">
 		<p class="p-fv__copy">
@@ -26,13 +51,35 @@ const { id } = Astro.props;
 	</div>
 </section>
 
+<script>
+	import Splide from '@splidejs/splide';
+
+	// メインビジュアルのフェードスライダー。
+	// コアCSSは読み込まず、フェード挙動に必要な最小スタイルはこのコンポーネント側で定義。
+	document.querySelectorAll<HTMLElement>('[data-fv-splide]').forEach((el) => {
+		new Splide(el, {
+			type: 'fade',
+			rewind: true,
+			perPage: 1,
+			pagination: false,
+			arrows: false,
+			drag: false,
+			autoplay: true,
+			interval: 4000,
+			speed: 1500,
+			pauseOnHover: false,
+			pauseOnFocus: false,
+		}).mount();
+	});
+</script>
+
 <style lang="scss">
 	@use '../styles/foundation/index' as *;
 
 	.p-fv {
 		position: relative;
 		min-height: size(1050);
-		padding-top: size(120);
+		margin-top: size(120);
 		// background: linear-gradient(
 		// 	180deg,
 		// 	$brand-blue 0%,
@@ -44,7 +91,7 @@ const { id } = Astro.props;
 
 		@include mq('sp') {
 			min-height: size(1300);
-			padding-top: size(72);
+			margin-top: size(72);
 		}
 
 		&__kv {
@@ -61,14 +108,47 @@ const { id } = Astro.props;
 			}
 		}
 
+		// Splideルート（コアCSS非読込のため必要な分だけ自前指定）
+		&__splide {
+			width: 100%;
+		}
+
+		// フェードタイプ: スライドを重ねて opacity で切り替える。
+		// .splide--fade / .is-active は Splide が実行時に付与するため :global で参照。
+		&__splide :global(.splide__track) {
+			position: relative;
+		}
+
+		&__splide :global(.splide__list) {
+			display: block;
+		}
+
+		&__splide :global(.splide__slide) {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			opacity: 0;
+			z-index: 0;
+			// Splide が fade でも各スライドに横位置の translateX を inline 付与するため、
+			// 全スライドを同じ位置に重ねるよう打ち消す（コアCSS非読込のための補正）
+			transform: none !important;
+		}
+
+		&__splide :global(.splide__slide.is-active) {
+			position: relative;
+			opacity: 1;
+			z-index: 1;
+		}
+
 		&__inner {
 			position: relative;
 			z-index: 3;
 			display: flex;
 			justify-content: flex-end;
-			max-width: size(1450);
+			max-width: size(1150);
 			margin-inline: auto;
-			padding: size(270) size(80) 0;
+			padding: size(280) size(80) 0;
 
 			@include mq('sp') {
 				justify-content: center;
@@ -90,6 +170,7 @@ const { id } = Astro.props;
 			@include mq('sp') {
 				font-size: size(25);
 				letter-spacing: 0.41em;
+				text-align: center;
 			}
 		}
 	}

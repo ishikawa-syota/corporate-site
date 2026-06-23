@@ -27,12 +27,12 @@ const bodyBlocks = [
 	],
 	['それは、ただの「モノ」じゃなくて、', '人生の一部だったはず。'],
 	[
-		'ケイタスプランは、そのモノの“続き”を考える会社です。',
-		'価値を見極めて、丁寧にケアして、次の誰かの暮らしへ手渡す。',
+		'ケイタスプランは、<br class="u-sp-only" />そのモノの“続き”を考える会社です。',
+		'価値を見極めて、丁寧にケアして、<br class="u-sp-only" />次の誰かの暮らしへ手渡す。',
 	],
 	[
-		'捨てるでも、忘れるでもない、「つなぐ」という選択肢。',
-		'モノの価値をつなぐ、それが私たちの仕事です。',
+		'捨てるでも、忘れるでもない、<br class="u-sp-only" />「つなぐ」という選択肢。',
+		'モノの価値をつなぐ、<br class="u-sp-only" />それが私たちの仕事です。',
 	],
 ];
 
@@ -87,7 +87,9 @@ const imageStyles = await processImages({
 		}
 	</div>
 	<div class="p-copy__inner">
-		<h2 class="p-copy__title">そのモノには、まだ続きがあります。</h2>
+		<h2 class="p-copy__title">
+			そのモノには、<br class="u-sp-only" />まだ続きがあります。
+		</h2>
 		<div class="p-copy__body">
 			{
 				bodyBlocks.map((lines) => (
@@ -95,7 +97,7 @@ const imageStyles = await processImages({
 						{lines.map((line, i) => (
 							<Fragment>
 								{i > 0 && <br />}
-								{line}
+								<Fragment set:html={line} />
 							</Fragment>
 						))}
 					</p>
@@ -130,11 +132,12 @@ const imageStyles = await processImages({
 		// overflow: hidden;
 		margin-top: size(-40);
 		padding-block: size(150) size(205);
+		z-index: 10;
 
 		@include mq('sp') {
 			display: block;
 			min-height: 0;
-			padding-block: size(120) size(160);
+			padding-block: size(120) size(280);
 		}
 
 		// 青背景は親ラッパー（l-fvCopy / fv/bg.png）に統合したため、ここでは敷かない
@@ -172,7 +175,7 @@ const imageStyles = await processImages({
 			inset: 0;
 			z-index: 1;
 			pointer-events: none;
-			overflow: hidden; // 右端カード(x=1418)が横スクロールを出さないようクリップ
+			overflow: hidde÷n; // 右端カード(x=1418)が横スクロールを出さないようクリップ
 			transform: translateY(size(-100)); // 散らし写真全体を100px上へ調整
 
 			@include mq('sp') {
@@ -199,7 +202,7 @@ const imageStyles = await processImages({
 
 		&__inner {
 			position: relative;
-			z-index: 2;
+			z-index: 3;
 			display: flex;
 			flex-direction: column;
 			align-items: center;
@@ -210,7 +213,7 @@ const imageStyles = await processImages({
 			text-align: center;
 
 			@include mq('sp') {
-				gap: size(32);
+				gap: size(238);
 			}
 		}
 

@@ -6,15 +6,27 @@ import SectionHeading from '../components/common/SectionHeading.astro';
 import { members } from '../data/siteContent';
 import watermarkLogo from '../images/keitasplan/member/logo_S.png';
 import memberA from '../images/keitasplan/member/member-01.png';
-import memberB from '../images/keitasplan/member/member-03.png';
+import memberAHover from '../images/keitasplan/member/member-01_hover.png';
+import memberB from '../images/keitasplan/member/member-02.png';
+import memberBHover from '../images/keitasplan/member/member-02_hover.png';
+import memberC from '../images/keitasplan/member/member-03.png';
+import memberCHover from '../images/keitasplan/member/member-03_hover.png';
+import memberD from '../images/keitasplan/member/member-04.png';
+import memberDHover from '../images/keitasplan/member/member-04_hover.png';
 
 interface Props {
 	id?: string;
 }
 const { id } = Astro.props;
 
-// 2枚の写真を交互に使用（デザイン同様）
-const memberImages = [memberA, memberB];
+// 各メンバーの通常画像とhover画像（1:1対応）
+const memberImages = [memberA, memberB, memberC, memberD];
+const memberHoverImages = [
+	memberAHover,
+	memberBHover,
+	memberCHover,
+	memberDHover,
+];
 ---
 
 <section class="p-member" id={id}>
@@ -43,7 +55,8 @@ const memberImages = [memberA, memberB];
 									<MemberCard
 										role={m.role}
 										name={m.name}
-										img={memberImages[i % 2]}
+										img={memberImages[i]}
+										imgHover={memberHoverImages[i]}
 									/>
 								</div>
 							))
@@ -70,11 +83,12 @@ const memberImages = [memberA, memberB];
 		position: relative;
 		// overflow: hidden;
 		// Figma: 濃紺グラデ背景（人物写真がくっきり映える）
-		background: linear-gradient(180deg, $brand-blue 0%, #cfe6ff 100%);
+		// background: linear-gradient(180deg, $brand-blue 0%, #cfe6ff 100%);
 		padding-block: size(100);
 
 		@include mq('sp') {
 			padding-block: size(80);
+			padding-inline: size(94);
 		}
 
 		&::before {
@@ -91,6 +105,9 @@ const memberImages = [memberA, memberB];
 				#98cbff 51.44%,
 				rgba(255, 255, 255, 0) 100%
 			);
+			@include mq('sp') {
+				border-radius: size(94);
+			}
 		}
 
 		// 中央の大きな⊗透かしロゴ
@@ -99,9 +116,8 @@ const memberImages = [memberA, memberB];
 			top: 50%;
 			left: 50%;
 			width: size(900);
-			transform: translate(-50%, -55%);
+			transform: translate(-50%, -40%);
 			pointer-events: none;
-			opacity: 0.08;
 
 			:global(.c-img),
 			:global(img) {
@@ -119,21 +135,24 @@ const memberImages = [memberA, memberB];
 			max-width: size(1098);
 			margin-inline: auto;
 			padding-inline: size(24);
+			@include mq('sp') {
+				padding-inline: 0;
+			}
 		}
 
-		// PC: 4カラムgrid（=splide__list。SPではSplideが制御）
+		// PC: 4枚を重ねて中央配置（=splide__list。SPではSplideが制御）
+		// Figma: カード幅402 / ピッチ302 → 隣同士100px重なり
 		&__grid {
-			display: grid;
-			grid-template-columns: repeat(4, 1fr);
-			gap: size(40);
+			display: flex;
+			justify-content: center;
+			align-items: flex-start;
 			width: 100%;
 			margin-top: size(72);
 
 			@include mq('sp') {
-				// SP: Splideのリスト。flex化のみ（重なり/位置はSplideのgapが制御）
-				display: flex;
-				grid-template-columns: none;
-				gap: 0;
+				// SP: Splideのリスト。重なり/位置はSplideのgapが制御
+				// PC用のcenter寄せを解除し左寄せに（先頭カードが余白直後にフル表示される）
+				justify-content: flex-start;
 				width: auto;
 				margin-top: 0;
 				padding-inline: 0;
@@ -150,9 +169,9 @@ const memberImages = [memberA, memberB];
 			width: 100%;
 
 			@include mq('sp') {
-				// 画面端までフル幅で見せる（従来の重なりカルーセル踏襲）
-				width: 100vw;
-				margin-left: calc(50% - 50vw);
+				// 左端はセクション余白(size(94))を確保し、右端だけ画面端までフルブリード
+				width: calc(100% + #{size(94)});
+				margin-left: 0;
 				margin-top: size(151);
 			}
 		}
@@ -165,10 +184,25 @@ const memberImages = [memberA, memberB];
 		}
 
 		&__item {
-			@include mq('sp') {
-				// 重なり配置のためカード幅を固定（Splide autoWidthが参照）
-				width: size(402);
-				flex: 0 0 auto;
+			// 重なり配置のためカード幅を固定
+			width: size(402);
+			flex: 0 0 auto;
+			position: relative;
+
+			// PC: 先頭以外を左にずらして100px重ねる（SPはSplideが制御するので0に戻す）
+			&:not(:first-child) {
+				margin-left: size(-100);
+
+				@include mq('sp') {
+					margin-left: 0;
+				}
+			}
+
+			// hover中のカードを手前へ（重なりで隣に隠れないように）
+			@media (hover: hover) and (pointer: fine) {
+				&:hover {
+					z-index: 2;
+				}
 			}
 		}
 

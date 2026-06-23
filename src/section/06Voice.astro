@@ -99,13 +99,12 @@ const { id } = Astro.props;
 			<div
 				class="p-voice__panel-bg p-voice__panel-bg--sp"
 				set:html={bubbleSp}
-			>
-			</div>
+			/>
 			<div class="p-voice__panel-content">
 				<SectionHeading
 					ja="お客様の声"
 					en="VOICE"
-					lead="ご満足いただいたお客様からの喜びの声"
+					lead={'ご満足いただいたお客様からの<br class="u-sp-only" />喜びの声'}
 					class="p-voice__heading"
 				/>
 				<div class="p-voice__carousel">
@@ -138,12 +137,17 @@ const { id } = Astro.props;
 							>
 								<svg
 									width="13"
-									height="27"
-									viewBox="0 0 10 21"
+									height="24"
+									viewBox="0 0 13 24"
 									fill="none"
-									aria-hidden="true"
+									xmlns="http://www.w3.org/2000/svg"
 								>
-									<path d="M10 0L0 10.5L10 21Z" fill="currentColor"></path>
+									<path
+										d="M11.5 1.5L1.5 12L11.5 22.5"
+										stroke="#0054AC"
+										stroke-width="3"
+										stroke-linecap="round"
+										stroke-linejoin="round"></path>
 								</svg>
 							</button>
 							<button
@@ -153,12 +157,17 @@ const { id } = Astro.props;
 							>
 								<svg
 									width="13"
-									height="27"
-									viewBox="0 0 10 21"
+									height="24"
+									viewBox="0 0 13 24"
 									fill="none"
-									aria-hidden="true"
+									xmlns="http://www.w3.org/2000/svg"
 								>
-									<path d="M0 0L10 10.5L0 21Z" fill="currentColor"></path>
+									<path
+										d="M1.5 1.5L11.5 12L1.5 22.5"
+										stroke="#0054AC"
+										stroke-width="3"
+										stroke-linecap="round"
+										stroke-linejoin="round"></path>
 								</svg>
 							</button>
 						</div>
@@ -188,7 +197,7 @@ const { id } = Astro.props;
 
 		@include mq('sp') {
 			padding-block: size(64);
-			padding-inline: size(24);
+			padding-inline: size(24) size(1);
 		}
 
 		&__inner {
@@ -236,6 +245,14 @@ const { id } = Astro.props;
 				@include mq('sp') {
 					display: block;
 				}
+
+				// bubble-sp.svg は set:html の生注入のため Astro の scope 属性が付かず、
+				// 通常の `svg` セレクタ（scope付き）ではマッチしない。
+				// :global() で scope 要求を外し、親(--sp)配下のsvgだけに限定して当てる
+				:global(svg) {
+					width: 100%;
+					height: 100%;
+				}
 			}
 		}
 
@@ -248,7 +265,7 @@ const { id } = Astro.props;
 
 			@include mq('sp') {
 				// SP吹き出しのタブは右上のみ。横はほぼ均等に詰めてカード幅を稼ぐ
-				padding: size(56) 8% size(56) 4%;
+				padding: size(70) size(132) size(102) size(82);
 			}
 		}
 
@@ -356,10 +373,11 @@ const { id } = Astro.props;
 		}
 
 		&__btn {
-			margin-top: size(64);
+			width: fit-content;
+			margin: size(64) auto 0;
 
 			@include mq('sp') {
-				margin-top: size(48);
+				margin: size(48) auto 0;
 			}
 		}
 	}
@@ -376,7 +394,7 @@ const { id } = Astro.props;
 			new Splide(el, {
 				perPage: 1,
 				focus: 'center',
-				padding: '3%',
+				padding: 'calc(20 / 768 * 100vw)', // size(20)相当（SP: 768基準）
 				gap: '3%',
 				arrows: true,
 				pagination: false,

@@ -72,7 +72,7 @@ const bg = await getImage({ src: bgPc, format: 'avif', width: 2400 });
 		background: linear-gradient(180deg, $brand-white 0%, #e9e9e9 100%);
 
 		@include mq('sp') {
-			padding-bottom: size(120);
+			padding-bottom: size(220);
 		}
 
 		// 上部に薄く敷くヒーロー写真
@@ -92,7 +92,7 @@ const bg = await getImage({ src: bgPc, format: 'avif', width: 2400 });
 
 			@include mq('sp') {
 				// Figma SP(609:332): top40 / left-218 / 1569×925 / opacity50
-				top: size(40);
+				top: size(-340);
 				left: size(-218);
 				width: size(1569);
 				height: size(925);
@@ -111,7 +111,7 @@ const bg = await getImage({ src: bgPc, format: 'avif', width: 2400 });
 				// Figma SP(609:329): 見出し left94 top578 / 本文幅576 で左右マージン約94
 				max-width: none;
 				margin-inline: size(94);
-				padding-top: size(578);
+				// padding-top: size(578);
 				padding-bottom: 0;
 			}
 		}

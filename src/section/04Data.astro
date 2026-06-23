@@ -98,6 +98,7 @@ const statBgs = [bgKaitori, bgSaiji, bgStaff, bgSatisfy];
 
 		@include mq('sp') {
 			padding-block: size(80);
+			background: none;
 		}
 
 		&__inner {
@@ -141,7 +142,7 @@ const statBgs = [bgKaitori, bgSaiji, bgStaff, bgSatisfy];
 
 				@include mq('sp') {
 					top: size(9);
-					left: size(220);
+					left: size(256);
 					font-size: size(238);
 					letter-spacing: size(23.8);
 				}
@@ -189,6 +190,8 @@ const statBgs = [bgKaitori, bgSaiji, bgStaff, bgSatisfy];
 
 		&__lead {
 			@include ty-lead;
+			font-size: size(20);
+			font-weight: 300;
 			margin-top: size(16);
 			color: $brand-text;
 			text-align: center;

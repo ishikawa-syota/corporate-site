@@ -36,7 +36,12 @@ const footerNav = [
 	<div class="l-footer__inner">
 		<div class="l-footer__info">
 			<span class="l-footer__logo">
-				<OptImage src={logoWhite} alt={companyInfo.name} width={301} fit="contain" />
+				<OptImage
+					src={logoWhite}
+					alt={companyInfo.name}
+					width={301}
+					fit="contain"
+				/>
 			</span>
 			<p class="l-footer__address">
 				{companyInfo.name}<br />
@@ -95,7 +100,7 @@ const footerNav = [
 		color: $brand-white;
 
 		@include mq('sp') {
-			padding: size(96) size(96) size(80);
+			padding: size(196) size(96) size(80);
 		}
 
 		&__inner {
@@ -208,6 +213,7 @@ const footerNav = [
 
 			@include mq('sp') {
 				font-size: size(20);
+				white-space: nowrap;
 			}
 
 			@media (hover: hover) and (pointer: fine) {
@@ -236,6 +242,7 @@ const footerNav = [
 
 			@include mq('sp') {
 				height: size(60);
+				width: fit-content;
 				margin-top: 0;
 				margin-inline: auto;
 				border-radius: size(180);

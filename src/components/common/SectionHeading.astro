@@ -34,13 +34,13 @@ const markSvg = theme === 'light' ? markLight : markDark;
 	]}
 >
 	<div class="c-heading__main">
-		<span class="c-heading__mark" aria-hidden="true" set:html={markSvg}></span>
+		<span class="c-heading__mark" aria-hidden="true" set:html={markSvg} />
 		<span class="c-heading__titles">
 			<span class="c-heading__ja">{ja}</span>
 			<span class="c-heading__en">{en}</span>
 		</span>
 	</div>
-	{lead && <p class="c-heading__lead">{lead}</p>}
+	{lead && <p class="c-heading__lead" set:html={lead} />}
 </div>
 
 <style lang="scss">
@@ -56,7 +56,7 @@ const markSvg = theme === 'light' ? markLight : markDark;
 		@include mq('sp') {
 			flex-direction: column;
 			align-items: flex-start;
-			gap: size(20);
+			gap: size(94);
 		}
 
 		&--center {
@@ -96,6 +96,9 @@ const markSvg = theme === 'light' ? markLight : markDark;
 		&__en {
 			@include ty-heading-en;
 			color: $brand-text;
+			@include mq('sp') {
+				font-size: size(20);
+			}
 		}
 
 		&__lead {
@@ -104,6 +107,13 @@ const markSvg = theme === 'light' ? markLight : markDark;
 
 			@include mq('sp') {
 				padding-bottom: 0;
+			}
+		}
+
+		// Voice セクションのみ SP リード文サイズを調整
+		&.p-voice__heading .c-heading__lead {
+			@include mq('sp') {
+				font-size: size(30);
 			}
 		}
 

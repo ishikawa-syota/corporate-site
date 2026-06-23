@@ -137,14 +137,14 @@
 
 .u-sp-only {
 	display: none;
-	@media only screen and (max-width: 960px) {
+	@include mq('sp') {
 		display: block;
 	}
 }
 
 .u-pc-only {
 	display: block;
-	@media only screen and (max-width: 960px) {
+	@include mq('sp') {
 		display: none;
 	}
 }

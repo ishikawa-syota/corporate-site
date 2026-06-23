@@ -18,7 +18,7 @@ export const siteMetadata: SiteMetadata = {
 	title: 'title',
 	description: 'description',
 	keywords: 'keywords',
-	ogImage: '', // TODO: 画像を追加（ogImage.src）
+	ogImage: 'https://example.com/ogp.png', // TODO: 本番のOGP画像URLに差し替え（絶対URL必須）
 	type: 'website',
 	siteUrl: 'https://example.com/',
 	siteName: 'siteName',

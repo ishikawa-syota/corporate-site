@@ -15,7 +15,6 @@ import Member from '../section/05Member.astro';
 import Voice from '../section/06Voice.astro';
 import Message from '../section/07Message.astro';
 import Faq from '../section/08Faq.astro';
-import ContactCta from '../section/10ContactCta.astro';
 import { processImages } from '../styles/images';
 
 // FV〜Copy を1枚で覆う統合背景（--fvbg を生成）
@@ -43,7 +42,6 @@ const fvCopyStyles = await processImages({ fvbg: fvCopyBg });
 	<Voice id="voice" />
 	<Message id="message" />
 	<Faq id="faq" />
-	<ContactCta id="contact" />
 	<Footer id="footer" />
 </Layout>
 

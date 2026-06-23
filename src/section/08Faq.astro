@@ -39,13 +39,15 @@ const bgImg = await getImage({ src: bg, format: 'avif', width: 2400 });
 		background-repeat: no-repeat;
 		border-top-left-radius: size(130);
 		border-top-right-radius: size(130);
-		padding-block: size(98);
+		// 下端を拡張し、白→グレーのグラデ背景をフッター直前まで伸ばす。
+		// この余白グレーの上にお問い合わせカードの上半分が重なる（Figma: sec7 下部の余白）
+		padding-block: size(98) size(337);
 		margin-top: size(-80);
 		overflow: clip;
 
-		// Figma SP(768基準): 角丸130 / margin-top-80 はPCと同値。padding-blockのみ上端113
+		// Figma SP(768基準): 角丸130 / margin-top-80 はPCと同値。padding上端113 / 下端はカード重なり用に拡張
 		@include mq('sp') {
-			padding-block: size(113);
+			padding-block: size(113) size(450);
 		}
 
 		&__inner {

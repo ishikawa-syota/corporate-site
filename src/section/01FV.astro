@@ -43,7 +43,7 @@ const { id } = Astro.props;
 		z-index: 3;
 
 		@include mq('sp') {
-			min-height: size(640);
+			min-height: size(1300);
 			padding-top: size(72);
 		}
 
@@ -56,6 +56,8 @@ const { id } = Astro.props;
 			z-index: 1;
 
 			@include mq('sp') {
+				top: size(174);
+				width: size(1536);
 			}
 		}
 
@@ -86,8 +88,8 @@ const { id } = Astro.props;
 			color: $brand-text;
 
 			@include mq('sp') {
-				font-size: size(22);
-				letter-spacing: 0.3em;
+				font-size: size(25);
+				letter-spacing: 0.41em;
 			}
 		}
 	}

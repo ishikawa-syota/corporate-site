@@ -91,10 +91,11 @@ const bg = await getImage({ src: bgPc, format: 'avif', width: 2400 });
 			z-index: 0;
 
 			@include mq('sp') {
-				top: 0;
-				left: 0;
-				width: 100%;
-				height: size(620);
+				// Figma SP(609:332): top40 / left-218 / 1569×925 / opacity50
+				top: size(40);
+				left: size(-218);
+				width: size(1569);
+				height: size(925);
 			}
 		}
 
@@ -107,9 +108,10 @@ const bg = await getImage({ src: bgPc, format: 'avif', width: 2400 });
 			padding-bottom: size(280);
 
 			@include mq('sp') {
+				// Figma SP(609:329): 見出し left94 top578 / 本文幅576 で左右マージン約94
 				max-width: none;
-				margin-inline: size(40);
-				padding-top: size(400);
+				margin-inline: size(94);
+				padding-top: size(578);
 				padding-bottom: 0;
 			}
 		}
@@ -122,9 +124,10 @@ const bg = await getImage({ src: bgPc, format: 'avif', width: 2400 });
 			margin-top: size(200);
 
 			@include mq('sp') {
+				// Figma SP: 見出し下端→青コピー top774、青コピー→本文 top1005
 				grid-template-columns: 1fr;
-				gap: size(56);
-				margin-top: size(64);
+				gap: size(92);
+				margin-top: size(72);
 			}
 		}
 
@@ -153,7 +156,8 @@ const bg = await getImage({ src: bgPc, format: 'avif', width: 2400 });
 			color: $brand-blue;
 
 			@include mq('sp') {
-				font-size: size(48);
+				// Figma SP(609:347): 43px / lh1.62 / #0054ac
+				font-size: size(43);
 			}
 		}
 
@@ -167,6 +171,11 @@ const bg = await getImage({ src: bgPc, format: 'avif', width: 2400 });
 			@include ty-body;
 			color: $brand-text;
 			text-align: justify;
+
+			// Figma SP(609:351) は lh2.2（ty-body の SP 既定 2 を上書き）
+			@include mq('sp') {
+				line-height: 2.2;
+			}
 
 			// 段落間（Figma: 空行 1 行分）
 			& + & {
@@ -205,7 +214,8 @@ const bg = await getImage({ src: bgPc, format: 'avif', width: 2400 });
 			line-height: 1.4;
 
 			@include mq('sp') {
-				font-size: size(26);
+				// Figma SP(609:355): 代表取締役 23px
+				font-size: size(23);
 			}
 		}
 
@@ -216,7 +226,8 @@ const bg = await getImage({ src: bgPc, format: 'avif', width: 2400 });
 			line-height: 1.4;
 
 			@include mq('sp') {
-				font-size: size(44);
+				// Figma SP(609:357): 小林 義典 39px
+				font-size: size(39);
 			}
 		}
 
@@ -228,8 +239,9 @@ const bg = await getImage({ src: bgPc, format: 'avif', width: 2400 });
 			overflow: hidden;
 
 			@include mq('sp') {
-				width: size(180);
-				height: size(224);
+				// Figma SP(609:358): 132×164 / radius10
+				width: size(132);
+				height: size(164);
 			}
 		}
 	}

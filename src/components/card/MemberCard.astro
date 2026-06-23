@@ -55,6 +55,10 @@ const { role, name, img } = Astro.props;
 		&__role {
 			@include ty-caption;
 			color: $brand-white;
+
+			@include mq('sp') {
+				font-size: size(23);
+			}
 		}
 
 		&__name {
@@ -63,6 +67,10 @@ const { role, name, img } = Astro.props;
 			font-size: size(22);
 			line-height: 1.4;
 			color: $brand-text;
+
+			@include mq('sp') {
+				font-size: size(30);
+			}
 		}
 	}
 </style>

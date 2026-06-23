@@ -118,6 +118,12 @@ const statBgs = [bgKaitori, bgSaiji, bgStaff, bgSatisfy];
 				0 size(5) size(30) 0 rgba(0, 0, 0, 0.1);
 			padding: size(84) 0;
 
+			@include mq('sp') {
+				// SPカード: 幅640（左右余白64）/ 内側 上36・左右71・下61
+				max-width: size(640);
+				padding: size(36) size(71) size(61);
+			}
+
 			&::before {
 				content: 'DATA';
 				position: absolute;
@@ -132,6 +138,13 @@ const statBgs = [bgKaitori, bgSaiji, bgStaff, bgSatisfy];
 				opacity: 0.04;
 				transform: rotate(90deg);
 				transform-origin: left top;
+
+				@include mq('sp') {
+					top: size(9);
+					left: size(220);
+					font-size: size(238);
+					letter-spacing: size(23.8);
+				}
 			}
 		}
 
@@ -169,7 +182,7 @@ const statBgs = [bgKaitori, bgSaiji, bgStaff, bgSatisfy];
 			margin-top: size(24);
 
 			@include mq('sp') {
-				width: 86%;
+				width: size(498);
 				margin-top: size(40);
 			}
 		}
@@ -182,6 +195,7 @@ const statBgs = [bgKaitori, bgSaiji, bgStaff, bgSatisfy];
 
 			@include mq('sp') {
 				margin-top: size(20);
+				font-size: size(30);
 			}
 		}
 
@@ -195,8 +209,9 @@ const statBgs = [bgKaitori, bgSaiji, bgStaff, bgSatisfy];
 
 			@include mq('sp') {
 				grid-template-columns: 1fr;
-				gap: size(24);
-				margin-top: size(40);
+				gap: size(34);
+				max-width: size(430);
+				margin-top: size(54);
 			}
 		}
 
@@ -204,7 +219,7 @@ const statBgs = [bgKaitori, bgSaiji, bgStaff, bgSatisfy];
 			margin-top: size(64);
 
 			@include mq('sp') {
-				margin-top: size(40);
+				margin-top: size(53);
 			}
 		}
 	}

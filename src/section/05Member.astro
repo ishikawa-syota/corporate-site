@@ -29,16 +29,28 @@ const memberImages = [memberA, memberB];
 			theme="light"
 			class="p-member__heading"
 		/>
-		<div class="p-member__grid">
-			{
-				members.map((m, i) => (
-					<MemberCard
-						role={m.role}
-						name={m.name}
-						img={memberImages[i % 2]}
-					/>
-				))
-			}
+		<div class="p-member__carousel">
+			<div
+				class="splide p-member__splide"
+				data-member-splide
+				aria-label="メンバー"
+			>
+				<div class="splide__track p-member__track">
+					<div class="splide__list p-member__grid">
+						{
+							members.map((m, i) => (
+								<div class="splide__slide p-member__item">
+									<MemberCard
+										role={m.role}
+										name={m.name}
+										img={memberImages[i % 2]}
+									/>
+								</div>
+							))
+						}
+					</div>
+				</div>
+			</div>
 		</div>
 		<div class="p-member__btn">
 			<ArrowButton
@@ -109,6 +121,7 @@ const memberImages = [memberA, memberB];
 			padding-inline: size(24);
 		}
 
+		// PC: 4カラムgrid（=splide__list。SPではSplideが制御）
 		&__grid {
 			display: grid;
 			grid-template-columns: repeat(4, 1fr);
@@ -117,9 +130,45 @@ const memberImages = [memberA, memberB];
 			margin-top: size(72);
 
 			@include mq('sp') {
-				grid-template-columns: repeat(2, 1fr);
-				gap: size(24) size(20);
-				margin-top: size(40);
+				// SP: Splideのリスト。flex化のみ（重なり/位置はSplideのgapが制御）
+				display: flex;
+				grid-template-columns: none;
+				gap: 0;
+				width: auto;
+				margin-top: 0;
+				padding-inline: 0;
+			}
+		}
+
+		// カルーセルラッパー（透明・レイアウト無影響）
+		&__carousel {
+			width: 100%;
+		}
+
+		// Splideルート。PC(>=769)では破棄され素のブロック → 上のgridが効く
+		&__splide {
+			width: 100%;
+
+			@include mq('sp') {
+				// 画面端までフル幅で見せる（従来の重なりカルーセル踏襲）
+				width: 100vw;
+				margin-left: calc(50% - 50vw);
+				margin-top: size(151);
+			}
+		}
+
+		// Splideトラック。SPのみクリッピング有効化（コアCSS非読込のため自前）
+		&__track {
+			@include mq('sp') {
+				overflow: hidden;
+			}
+		}
+
+		&__item {
+			@include mq('sp') {
+				// 重なり配置のためカード幅を固定（Splide autoWidthが参照）
+				width: size(402);
+				flex: 0 0 auto;
 			}
 		}
 
@@ -132,3 +181,29 @@ const memberImages = [memberA, memberB];
 		}
 	}
 </style>
+
+<script>
+	import Splide from '@splidejs/splide';
+
+	// SPのみカルーセル化。PC(>=769)は mediaQuery:'min' + destroy で破棄され、
+	// マークアップが素のdivに戻る＝CSSの4カラムgridがそのまま効く（PC無影響）
+	document
+		.querySelectorAll<HTMLElement>('[data-member-splide]')
+		.forEach((el) => {
+			new Splide(el, {
+				fixedWidth: '52.34vw', // = size(402)（768基準: 402/768*100vw）
+				focus: 'center',
+				gap: '-19.53vw', // = margin-right size(-150) 相当の重なり（768基準換算）
+				arrows: false,
+				pagination: false,
+				drag: true,
+				speed: 500,
+				mediaQuery: 'min',
+				breakpoints: {
+					769: {
+						destroy: true,
+					},
+				},
+			}).mount();
+		});
+</script>

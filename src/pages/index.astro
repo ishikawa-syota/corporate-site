@@ -75,7 +75,7 @@ const fvCopyStyles = await processImages({ fvbg: fvCopyBg });
     pointer-events: none;
 
     @include mq('sp') {
-      display: none; // SP仕様未確定のため非表示
+      height: size(3322); // Figma SP: bagフレーム高さ（逆sticky範囲）
     }
   }
 
@@ -86,5 +86,11 @@ const fvCopyStyles = await processImages({ fvbg: fvCopyBg });
     margin-inline: auto; // 横方向は中央
     opacity: 0.7;
     will-change: transform;
+
+    @include mq('sp') {
+      top: size(407); // Figma SP: 2人の手の高さ（FV上 y=367 + ヘッダー分）
+      width: size(108);
+      // opacity は PC と同じ 0.7 を継承（本文へ浮上時にテキストが透ける）
+    }
   }
 </style>

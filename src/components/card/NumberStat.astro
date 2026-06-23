@@ -103,7 +103,10 @@ const isCountable = value !== '' && !Number.isNaN(numeric);
 		overflow: hidden;
 
 		@include mq('sp') {
-			min-height: size(150);
+			// SP: カード高180・上16/左右30/下28・コンテンツ縦中央
+			min-height: size(180);
+			justify-content: center;
+			padding: size(16) size(30) size(28);
 		}
 
 		// 背景写真（OptImage は子コンポなので span でラップしてスコープ内で配置）
@@ -142,6 +145,10 @@ const isCountable = value !== '' && !Number.isNaN(numeric);
 			font-size: size(20);
 			line-height: 1.4;
 			letter-spacing: 0.03em;
+
+			@include mq('sp') {
+				font-size: size(26);
+			}
 		}
 
 		&__figure {
@@ -156,10 +163,18 @@ const isCountable = value !== '' && !Number.isNaN(numeric);
 			font-weight: 700;
 			font-size: size(20);
 			line-height: 1.4;
+
+			@include mq('sp') {
+				font-size: size(26);
+			}
 		}
 
 		&__value {
 			@include ty-number;
+
+			@include mq('sp') {
+				font-size: size(90);
+			}
 		}
 
 		&__note {
@@ -168,6 +183,10 @@ const isCountable = value !== '' && !Number.isNaN(numeric);
 			bottom: size(14);
 			@include ty-caption;
 			text-shadow: 0 0 size(12) $brand-blue;
+
+			@include mq('sp') {
+				font-size: size(20);
+			}
 		}
 	}
 </style>

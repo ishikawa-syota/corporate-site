@@ -80,7 +80,7 @@ const { id } = Astro.props;
 		margin-bottom: size(-175);
 
 		@include mq('sp') {
-			padding-block: size(80);
+			padding: size(80) size(100);
 		}
 
 		&__inner {
@@ -94,8 +94,9 @@ const { id } = Astro.props;
 			overflow: clip;
 
 			@include mq('sp') {
-				padding: size(48) size(32) size(56);
-				border-radius: size(20);
+				padding: size(54) size(49) size(81);
+				border-radius: size(10);
+				box-shadow: size(4) size(4) size(25) rgba(#000, 0.1);
 			}
 		}
 
@@ -109,7 +110,7 @@ const { id } = Astro.props;
 			@include mq('sp') {
 				flex-direction: column;
 				align-items: flex-start;
-				gap: size(16);
+				gap: size(20);
 			}
 		}
 
@@ -128,7 +129,7 @@ const { id } = Astro.props;
 			color: $brand-text;
 
 			@include mq('sp') {
-				font-size: size(48);
+				font-size: size(38);
 			}
 		}
 
@@ -141,7 +142,7 @@ const { id } = Astro.props;
 			color: $brand-text;
 
 			@include mq('sp') {
-				font-size: size(20);
+				font-size: size(17);
 			}
 		}
 
@@ -154,8 +155,8 @@ const { id } = Astro.props;
 			color: $brand-text;
 
 			@include mq('sp') {
-				font-size: size(28);
-				letter-spacing: 0.03em;
+				font-size: size(30);
+				letter-spacing: 0.033em;
 			}
 		}
 
@@ -169,8 +170,8 @@ const { id } = Astro.props;
 
 			@include mq('sp') {
 				flex-direction: column;
-				gap: size(28);
-				margin-top: size(48);
+				gap: size(33);
+				margin-top: size(34);
 			}
 		}
 
@@ -188,8 +189,8 @@ const { id } = Astro.props;
 
 			@include mq('sp') {
 				width: 100%;
-				height: size(150);
-				gap: size(16);
+				height: size(108);
+				gap: size(12);
 			}
 		}
 
@@ -203,8 +204,8 @@ const { id } = Astro.props;
 			background-color: $brand-white;
 
 			@include mq('sp') {
-				width: size(90);
-				height: size(90);
+				width: size(64);
+				height: size(64);
 			}
 
 			svg {
@@ -212,8 +213,8 @@ const { id } = Astro.props;
 				height: size(34);
 
 				@include mq('sp') {
-					width: size(48);
-					height: size(48);
+					width: size(34);
+					height: size(38);
 				}
 			}
 		}
@@ -234,7 +235,7 @@ const { id } = Astro.props;
 			white-space: nowrap;
 
 			@include mq('sp') {
-				font-size: size(56);
+				font-size: size(39);
 			}
 		}
 
@@ -247,7 +248,7 @@ const { id } = Astro.props;
 			white-space: nowrap;
 
 			@include mq('sp') {
-				font-size: size(20);
+				font-size: size(17);
 			}
 		}
 
@@ -272,9 +273,9 @@ const { id } = Astro.props;
 
 			@include mq('sp') {
 				width: 100%;
-				height: size(150);
+				height: size(108);
 				justify-content: center;
-				padding: 0 size(110);
+				padding: 0 size(115) 0 size(56);
 			}
 
 			@media (hover: hover) and (pointer: fine) {
@@ -294,7 +295,7 @@ const { id } = Astro.props;
 			white-space: nowrap;
 
 			@include mq('sp') {
-				font-size: size(38);
+				font-size: size(27);
 			}
 		}
 
@@ -308,9 +309,9 @@ const { id } = Astro.props;
 			height: size(58);
 
 			@include mq('sp') {
-				right: size(20);
-				width: size(80);
-				height: size(80);
+				right: size(22);
+				width: size(58);
+				height: size(58);
 			}
 
 			svg {
@@ -335,8 +336,9 @@ const { id } = Astro.props;
 			transition: opacity 0.3s ease;
 
 			@include mq('sp') {
-				margin-top: size(40);
-				font-size: size(24);
+				margin-top: size(24);
+				font-size: size(20);
+				letter-spacing: 0.03em;
 			}
 
 			@media (hover: hover) and (pointer: fine) {

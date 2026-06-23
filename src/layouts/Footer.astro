@@ -95,7 +95,7 @@ const footerNav = [
 		color: $brand-white;
 
 		@include mq('sp') {
-			padding: size(96) size(48) size(80);
+			padding: size(96) size(96) size(80);
 		}
 
 		&__inner {
@@ -106,8 +106,9 @@ const footerNav = [
 			margin-inline: auto;
 
 			@include mq('sp') {
-				flex-direction: column;
-				gap: size(56);
+				flex-direction: column-reverse;
+				align-items: center;
+				gap: size(126);
 			}
 		}
 
@@ -127,8 +128,8 @@ const footerNav = [
 			margin-bottom: size(57);
 
 			@include mq('sp') {
-				width: size(360);
-				margin-bottom: size(48);
+				width: size(576);
+				margin-bottom: size(24);
 			}
 		}
 
@@ -138,7 +139,7 @@ const footerNav = [
 			line-height: 1.8;
 
 			@include mq('sp') {
-				font-size: size(26);
+				font-size: size(25);
 			}
 		}
 
@@ -149,7 +150,7 @@ const footerNav = [
 			margin-top: size(24);
 
 			@include mq('sp') {
-				font-size: size(22);
+				font-size: size(20);
 				margin-top: size(32);
 			}
 		}
@@ -162,7 +163,8 @@ const footerNav = [
 
 			@include mq('sp') {
 				width: 100%;
-				align-items: stretch;
+				align-items: center;
+				gap: size(96);
 			}
 		}
 
@@ -173,9 +175,15 @@ const footerNav = [
 			justify-content: flex-start;
 
 			@include mq('sp') {
+				// 全項目を列方向（上→下→次列）に流し、Figmaの3カラム(4/4/3)を再現
 				display: grid;
-				grid-template-columns: repeat(2, 1fr);
-				gap: size(40) size(24);
+				grid-auto-flow: column;
+				grid-template-rows: repeat(4, auto);
+				grid-template-columns: auto auto auto;
+				column-gap: size(66);
+				row-gap: size(25);
+				justify-content: start;
+				width: auto;
 			}
 		}
 
@@ -184,6 +192,11 @@ const footerNav = [
 			flex-direction: column;
 			gap: size(24);
 			list-style: none;
+
+			// SPではul境界を解体し、全liをnavのgridアイテムにする
+			@include mq('sp') {
+				display: contents;
+			}
 		}
 
 		&__navLink {
@@ -194,7 +207,7 @@ const footerNav = [
 			transition: opacity 0.3s ease;
 
 			@include mq('sp') {
-				font-size: size(26);
+				font-size: size(20);
 			}
 
 			@media (hover: hover) and (pointer: fine) {
@@ -222,12 +235,10 @@ const footerNav = [
 				box-shadow 0.3s ease;
 
 			@include mq('sp') {
-				width: size(440);
-				height: size(88);
-				margin-top: size(56);
+				height: size(60);
+				margin-top: 0;
 				margin-inline: auto;
-				padding: size(16) size(18) size(16) size(80);
-				gap: size(28);
+				border-radius: size(180);
 			}
 
 			@media (hover: hover) and (pointer: fine) {
@@ -247,7 +258,7 @@ const footerNav = [
 			white-space: nowrap;
 
 			@include mq('sp') {
-				font-size: size(32);
+				font-size: size(23);
 			}
 		}
 
@@ -260,19 +271,9 @@ const footerNav = [
 			background-color: $brand-blue;
 			border-radius: 50%;
 
-			@include mq('sp') {
-				width: size(56);
-				height: size(56);
-			}
-
 			svg {
 				width: size(15);
 				height: size(13);
-
-				@include mq('sp') {
-					width: size(28);
-					height: size(24);
-				}
 			}
 		}
 	}

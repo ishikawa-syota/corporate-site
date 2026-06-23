@@ -40,17 +40,15 @@ const { title, desc, href = '#', img } = Astro.props;
     overflow: hidden;
     box-shadow: 0 size(10) size(30) rgba($brand-blue, 0.1);
 
-    @include mq('sp') {
-      flex-direction: column;
-    }
+    // SP(768)も横並び（写真左270 / ブルーパネル右310 = 計580）
 
     &__media {
       flex-shrink: 0;
       width: size(226);
 
       @include mq('sp') {
-        width: 100%;
-        height: size(180);
+        width: size(270);
+        // 高さは align-items: stretch でパネル高に追従
       }
     }
 
@@ -68,8 +66,9 @@ const { title, desc, href = '#', img } = Astro.props;
       background-color: $brand-blue;
 
       @include mq('sp') {
-        padding: size(32) size(24);
-        gap: size(20);
+        // パネル幅310: 内側246 + 左右32 → padding-inline size(32)
+        padding: size(42) size(32);
+        gap: size(55);
       }
     }
 
@@ -81,7 +80,8 @@ const { title, desc, href = '#', img } = Astro.props;
       color: $brand-white;
 
       @include mq('sp') {
-        font-size: size(44);
+        // font-size は PC と同じ size(30)（SP実機で約15px）を継承
+        text-align: center;
       }
     }
 
@@ -89,6 +89,11 @@ const { title, desc, href = '#', img } = Astro.props;
       @include ty-body-s;
       color: $brand-white;
       text-align: justify;
+
+      @include mq('sp') {
+        font-size: size(23);
+        line-height: 1.55;
+      }
     }
   }
 </style>

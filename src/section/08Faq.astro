@@ -34,17 +34,20 @@ const { id } = Astro.props;
     margin-top: size(-80);
     overflow: clip;
 
+    // Figma SP(768基準): 角丸130 / margin-top-80 はPCと同値。padding-blockのみ上端113
     @include mq('sp') {
-      border-top-left-radius: size(80);
-      border-top-right-radius: size(80);
-      padding-block: size(64);
-      margin-top: size(-48);
+      padding-block: size(113);
     }
 
     &__inner {
       max-width: size(1050);
       margin-inline: auto;
       padding-inline: size(24);
+
+      // Figma SP(768基準): コンテンツ幅580
+      @include mq('sp') {
+        max-width: size(580);
+      }
     }
 
     // Figma: 見出し→リスト gap 85 / 上端に区切り線 / 項目間 gap 43
@@ -56,10 +59,12 @@ const { id } = Astro.props;
       padding-top: size(40);
       border-top: 1px solid rgba($brand-text, 0.2);
 
+      // Figma SP(768基準): 見出し→リスト gap84 / 項目間 gap54 / 区切り線なし
       @include mq('sp') {
-        gap: size(48);
-        margin-top: size(48);
-        padding-top: size(48);
+        gap: size(54);
+        margin-top: size(84);
+        padding-top: 0;
+        border-top: none;
       }
     }
   }

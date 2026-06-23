@@ -28,9 +28,7 @@ const { q, a } = Astro.props;
     padding-bottom: size(40);
     border-bottom: 1px solid rgba($brand-text, 0.2);
 
-    @include mq('sp') {
-      padding-bottom: size(48);
-    }
+    // Figma SP(768基準): pb40 はPCと同値のためSP上書き不要
 
     &__q {
       display: flex;
@@ -44,11 +42,7 @@ const { q, a } = Astro.props;
       &::-webkit-details-marker {
         display: none;
       }
-
-      @include mq('sp') {
-        gap: size(20);
-        padding-right: size(56);
-      }
+      // Figma SP(768基準): gap15 / padding-right44 はPCと同値のためSP上書き不要
     }
 
     // Figma: 40px 円 / 文字 21px / Q=青 A=緑
@@ -65,10 +59,11 @@ const { q, a } = Astro.props;
       font-size: size(21);
       color: $brand-white;
 
+      // Figma SP(768基準): 円60 / 文字35
       @include mq('sp') {
-        width: size(52);
-        height: size(52);
-        font-size: size(28);
+        width: size(60);
+        height: size(60);
+        font-size: size(35);
       }
 
       &--q {
@@ -87,8 +82,9 @@ const { q, a } = Astro.props;
       line-height: 1.4;
       color: $brand-text;
 
+      // Figma SP(768基準): 27px
       @include mq('sp') {
-        font-size: size(28);
+        font-size: size(27);
       }
     }
 
@@ -116,17 +112,7 @@ const { q, a } = Astro.props;
       &::after {
         transform: translate(-50%, -50%) rotate(90deg);
       }
-
-      @include mq('sp') {
-        width: size(20);
-        height: size(20);
-
-        &::before,
-        &::after {
-          width: size(20);
-          height: size(3);
-        }
-      }
+      // Figma SP(768基準): 14px はPCと同値のためSP上書き不要
     }
 
     &[open] &__toggle::after {
@@ -141,9 +127,8 @@ const { q, a } = Astro.props;
       margin-top: size(20);
       padding-right: size(44);
 
+      // Figma SP(768基準): gap15 / margin-top20 はPCと同値。padding-rightのみ0
       @include mq('sp') {
-        gap: size(20);
-        margin-top: size(24);
         padding-right: 0;
       }
     }
@@ -159,8 +144,9 @@ const { q, a } = Astro.props;
       text-align: justify;
       padding-top: size(7);
 
+      // Figma SP(768基準): 24px
       @include mq('sp') {
-        font-size: size(28);
+        font-size: size(24);
         padding-top: size(10);
       }
     }

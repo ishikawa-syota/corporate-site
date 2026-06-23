@@ -184,6 +184,7 @@ export default [
 	{
 		ignores: [
 			'dist/',
+			'dist_bak_*/',
 			'node_modules/',
 			'.astro/',
 			'public/',

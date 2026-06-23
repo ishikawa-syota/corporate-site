@@ -318,6 +318,7 @@ const { id } = Astro.props;
 		&__track {
 			@include mq('sp') {
 				overflow: hidden;
+				padding-bottom: size(20);
 			}
 		}
 
@@ -395,7 +396,7 @@ const { id } = Astro.props;
 				perPage: 1,
 				focus: 'center',
 				padding: 'calc(20 / 768 * 100vw)', // size(20)相当（SP: 768基準）
-				gap: '3%',
+				gap: 'calc(40 / 768 * 100vw)', // size(40)相当（SP: 768基準）
 				arrows: true,
 				pagination: false,
 				drag: true,

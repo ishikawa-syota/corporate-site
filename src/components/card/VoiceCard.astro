@@ -1,125 +1,124 @@
 ---
 // お客様の声カード
 interface Props {
-  no: string;
-  meta: string;
-  headline: string;
-  body: string;
+	no: string;
+	meta: string;
+	headline: string;
+	body: string;
 }
 
 const { no, meta, headline, body } = Astro.props;
 ---
 
 <article class="c-voice">
-  <span class="c-voice__badge">{no}</span>
-  <div class="c-voice__content">
-    <div class="c-voice__head">
-      <p class="c-voice__meta">{meta}</p>
-      <h3 class="c-voice__headline">{headline}</h3>
-    </div>
-    <p class="c-voice__body">{body}</p>
-  </div>
+	<span class="c-voice__badge">{no}</span>
+	<div class="c-voice__content">
+		<div class="c-voice__head">
+			<p class="c-voice__meta">{meta}</p>
+			<h3 class="c-voice__headline">{headline}</h3>
+		</div>
+		<p class="c-voice__body">{body}</p>
+	</div>
 </article>
 
 <style lang="scss">
-  @use '../../styles/foundation/index' as *;
+	@use '../../styles/foundation/index' as *;
 
-  .c-voice {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: size(26);
-    width: 100%;
-    min-height: size(365);
-    padding: size(30);
-    background-color: $brand-white;
-    border-radius: size(10);
-    box-shadow: size(2) size(4) size(5) rgba(0, 0, 0, 0.25);
+	.c-voice {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		gap: size(26);
+		width: 100%;
+		min-height: size(365);
+		padding: size(30);
+		background-color: $brand-white;
+		border-radius: size(10);
+		box-shadow: size(2) size(4) size(10) rgba(0, 0, 0, 0.25);
+		@include mq('sp') {
+			min-height: auto;
+			gap: size(26);
+			padding: size(30);
+			border-radius: size(10);
+		}
 
-    @include mq('sp') {
-      min-height: auto;
-      gap: size(26);
-      padding: size(30);
-      border-radius: size(10);
-    }
+		&__badge {
+			align-self: flex-start;
+			padding: size(4) size(9);
+			border-radius: size(3);
+			background-color: $brand-blue;
+			font-family: $Font;
+			font-weight: 500;
+			font-size: size(15);
+			line-height: 1.4;
+			color: $brand-white;
 
-    &__badge {
-      align-self: flex-start;
-      padding: size(4) size(9);
-      border-radius: size(3);
-      background-color: $brand-blue;
-      font-family: $Font;
-      font-weight: 500;
-      font-size: size(15);
-      line-height: 1.4;
-      color: $brand-white;
+			@include mq('sp') {
+				padding: size(4) size(9) size(7);
+				border-radius: size(3);
+				font-size: size(22);
+			}
+		}
 
-      @include mq('sp') {
-        padding: size(4) size(9) size(7);
-        border-radius: size(3);
-        font-size: size(22);
-      }
-    }
+		&__content {
+			display: flex;
+			flex-direction: column;
+			gap: size(20);
 
-    &__content {
-      display: flex;
-      flex-direction: column;
-      gap: size(20);
+			@include mq('sp') {
+				gap: size(20);
+			}
+		}
 
-      @include mq('sp') {
-        gap: size(20);
-      }
-    }
+		&__head {
+			display: flex;
+			flex-direction: column;
+			gap: size(9);
 
-    &__head {
-      display: flex;
-      flex-direction: column;
-      gap: size(9);
+			@include mq('sp') {
+				gap: size(9);
+			}
+		}
 
-      @include mq('sp') {
-        gap: size(9);
-      }
-    }
+		&__meta {
+			font-family: $Font;
+			font-weight: 700;
+			font-size: size(12);
+			line-height: 1.4;
+			letter-spacing: 0.1em;
+			color: $brand-text;
 
-    &__meta {
-      font-family: $Font;
-      font-weight: 700;
-      font-size: size(12);
-      line-height: 1.4;
-      letter-spacing: 0.1em;
-      color: $brand-text;
+			@include mq('sp') {
+				font-size: size(22);
+			}
+		}
 
-      @include mq('sp') {
-        font-size: size(22);
-      }
-    }
+		&__headline {
+			font-family: $Font;
+			font-weight: 700;
+			font-size: size(18);
+			line-height: 1.4;
+			letter-spacing: 0.1em;
+			color: $brand-blue;
 
-    &__headline {
-      font-family: $Font;
-      font-weight: 700;
-      font-size: size(18);
-      line-height: 1.4;
-      letter-spacing: 0.1em;
-      color: $brand-blue;
+			@include mq('sp') {
+				font-size: size(25);
+			}
+		}
 
-      @include mq('sp') {
-        font-size: size(25);
-      }
-    }
+		&__body {
+			font-family: $Font;
+			font-weight: 400;
+			font-size: size(15);
+			line-height: 1.78;
+			letter-spacing: 0.1em;
+			color: $brand-text;
+			text-align: justify;
 
-    &__body {
-      font-family: $Font;
-      font-weight: 400;
-      font-size: size(15);
-      line-height: 1.78;
-      letter-spacing: 0.1em;
-      color: $brand-text;
-      text-align: justify;
-
-      @include mq('sp') {
-        font-size: size(23);
-        line-height: 1.55;
-      }
-    }
-  }
+			@include mq('sp') {
+				font-size: size(23);
+				line-height: 1.55;
+			}
+		}
+	}
 </style>

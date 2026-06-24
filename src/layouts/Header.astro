@@ -1,59 +1,114 @@
 ---
+import { getImage } from 'astro:assets';
+
 import ArrowButton from '../components/button/ArrowButton.astro';
 import OptImage from '../components/common/OptImage.astro';
 import { navItems, companyInfo } from '../data/siteContent';
+import contactBg from '../images/keitasplan/common/headaer_bg.png';
 import logo from '../images/keitasplan/common/header-01.png';
 
 interface Props {
-  id?: string;
+	id?: string;
 }
 const { id } = Astro.props;
 
+// お問い合わせ部分の背景画像（AVIF 最適化）
+const contactBgImg = await getImage({ src: contactBg, format: 'avif' });
+
 // SPドロワー用ナビ（Figma SPデザイン準拠のラベル / hrefはサイト共通）
 const drawerNav = [
-  { ja: '事業紹介', href: '#business' },
-  { ja: '数字で見る', href: '#data' },
-  { ja: 'メンバー', href: '#member' },
-  { ja: 'お客様の声', href: '#voice' },
-  { ja: 'ニュース', href: '#news' },
-  { ja: '代表メッセージ', href: '#message' },
-  { ja: '会社概要', href: '#about' },
-  { ja: 'よくある質問', href: '#faq' },
+	{ ja: '事業紹介', href: '#business' },
+	{ ja: '数字で見る', href: '#data' },
+	{ ja: 'メンバー', href: '#member' },
+	{ ja: 'お客様の声', href: '#voice' },
+	{ ja: 'ニュース', href: '#news' },
+	{ ja: '代表メッセージ', href: '#message' },
+	{ ja: '会社概要', href: '#about' },
+	{ ja: 'よくある質問', href: '#faq' },
 ];
 ---
 
 <header class="l-header" id={id}>
-  <div class="l-header__inner">
-    <a href="#home" class="l-header__logo">
-      <OptImage src={logo} alt="KEITASU PLAN" width={520} priority fit="contain" class="l-header__logoImg" />
-    </a>
+	<div class="l-header__inner">
+		<a href="#home" class="l-header__logo">
+			<OptImage
+				src={logo}
+				alt="KEITASU PLAN"
+				width={520}
+				priority
+				fit="contain"
+				class="l-header__logoImg"
+			/>
+		</a>
 
-    <nav class="l-header__nav" aria-label="グローバルナビゲーション">
-      <ul class="l-header__navList">
-        {navItems.map((item) => (
-          <li class="l-header__navItem">
-            <a href={item.href} class="l-header__navLink">{item.ja}</a>
-          </li>
-        ))}
-      </ul>
-    </nav>
+		<nav class="l-header__nav" aria-label="グローバルナビゲーション">
+			<ul class="l-header__navList">
+				{
+					navItems.map((item) => (
+						<li class="l-header__navItem">
+							<a href={item.href} class="l-header__navLink">
+								{item.ja}
+							</a>
+						</li>
+					))
+				}
+			</ul>
+		</nav>
 
-    <div class="l-header__contact">
-      <a href={companyInfo.telHref} class="l-header__tel">
-        <span class="l-header__telIcon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 5 5L19 13l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z" fill="currentColor"></path>
-          </svg>
-        </span>
-        <span class="l-header__telNum">{companyInfo.tel}</span>
-      </a>
-      <ArrowButton href="#contact" label="お問い合わせ" variant="white" size="sm" class="l-header__cta" />
-    </div>
+		<div
+			class="l-header__contact"
+			style={`--contact-bg:url(${contactBgImg.src})`}
+		>
+			<a href={companyInfo.telHref} class="l-header__tel">
+				<span class="l-header__telIcon" aria-hidden="true">
+					<svg
+						width="18"
+						height="21"
+						viewBox="0 0 18 21"
+						fill="none"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<g clip-path="url(#clip0_554_1973)">
+							<path
+								d="M17.7704 15.9533C16.5394 14.9374 15.3029 13.927 14.0607 12.9247C13.7867 12.6461 13.3033 12.5686 13.0117 12.863C12.6975 13.1921 12.413 13.5491 12.0957 13.875C13.0735 14.7661 14.1312 15.5627 15.1491 16.4063C15.7935 16.9308 16.4201 17.4766 17.0718 17.9922C17.3802 17.6006 17.753 17.246 17.967 16.789C18.0343 16.5072 18.0159 16.1484 17.7706 15.9533H17.7704Z"
+								fill="#0054AC"></path>
+							<path
+								d="M6.07355 6.40478C6.40376 6.24222 6.72347 6.06047 7.04972 5.89C7.27005 5.77075 7.51929 5.63133 7.58818 5.37048C7.69805 5.14148 7.55611 4.91247 7.4599 4.70917C6.72822 3.28015 5.99496 1.85271 5.28169 0.415774C5.14311 0.0874899 4.73352 -0.0661706 4.40332 0.0267772C3.96502 0.20852 3.52969 0.424673 3.12109 0.655262C3.24621 0.989874 3.4321 1.29739 3.58829 1.61757C4.41856 3.21232 5.24803 4.80785 6.07335 6.40497L6.07355 6.40478Z"
+								fill="#0054AC"></path>
+							<path
+								d="M11.5921 14.5405C11.463 14.7583 11.3412 14.9968 11.1167 15.1322C10.8162 15.3371 10.3956 15.3387 10.0966 15.1299C9.68466 14.8569 9.32495 14.5134 8.96347 14.1796C7.14912 12.3968 5.58004 10.3496 4.41145 8.08719C4.15014 7.45949 4.76166 6.92 5.30012 6.7254C5.03881 6.16416 4.75275 5.61418 4.46985 5.06342C3.76391 3.74316 3.10429 2.39918 2.39656 1.08051C1.2931 1.89785 0.307435 3.01619 0.0542372 4.40448C-0.139769 5.44846 0.221716 6.48038 0.584784 7.44427C1.67874 10.1429 3.37134 12.556 5.26666 14.7511C6.72686 16.3908 8.32642 17.9327 10.1665 19.143C11.0496 19.7138 12.0442 20.2487 13.1285 20.2014C14.4012 20.115 15.5951 19.481 16.4927 18.5938C15.8588 18.0518 15.2192 17.5162 14.5693 16.9951C13.561 16.1954 12.5914 15.35 11.5921 14.5405Z"
+								fill="#0054AC"></path>
+						</g>
+						<defs>
+							<clipPath id="clip0_554_1973">
+								<rect width="18" height="20.2041" fill="white"
+								></rect>
+							</clipPath>
+						</defs>
+					</svg>
+				</span>
+				<span class="l-header__telNum">{companyInfo.tel}</span>
+			</a>
+			<ArrowButton
+				href="#contact"
+				label="お問い合わせ"
+				variant="white"
+				size="sm"
+				class="l-header__cta"
+			/>
+		</div>
 
-    <button class="l-header__burger" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="gnav-drawer" data-burger>
-      <span></span><span></span><span></span>
-    </button>
-  </div>
+		<button
+			class="l-header__burger"
+			type="button"
+			aria-label="メニューを開く"
+			aria-expanded="false"
+			aria-controls="gnav-drawer"
+			data-burger
+		>
+			<span></span><span></span><span></span>
+		</button>
+	</div>
 </header>
 
 <!-- SPグローバルナビ（ドロワー）。
@@ -61,496 +116,567 @@ const drawerNav = [
      header の外（兄弟）に出してビューポート基準で全画面表示させる。
      PCでは display:none で完全に不使用。 -->
 <div class="l-drawer" id="gnav-drawer" data-drawer aria-hidden="true">
-    <div class="l-drawer__inner">
-      <nav class="l-drawer__nav" aria-label="グローバルナビゲーション">
-        <ul class="l-drawer__list">
-          {drawerNav.map((item) => (
-            <li>
-              <a href={item.href} class="l-drawer__item">
-                <span class="l-drawer__icon" aria-hidden="true">
-                  <svg viewBox="0 0 91 91" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <g clip-path="url(#drawerChainClip)">
-                      <path d="M69.8443 57.968L71.3396 56.4931L71.5941 56.2384L82.2095 45.7441C87.162 40.8312 89.9086 34.2842 89.9404 27.2916C89.9723 20.2989 87.2786 13.7201 82.3686 8.76474L82.2944 8.69046C77.4055 3.79879 70.873 1.08237 63.9162 1.05054H63.7995C56.7367 1.05054 50.1724 3.70329 45.3259 8.52069L38.0829 15.768C33.088 20.7233 31.1367 26.8671 32.1229 34.5389C32.9713 41.192 36.3118 45.7865 41.0628 50.6358C44.1276 54.0737 48.465 60.5465 43.3853 65.5973L36.1422 72.8446C33.8515 75.1154 30.6701 76.3781 27.1917 76.3781H27.1281C23.7663 76.3675 20.6273 75.0623 18.273 72.7067C15.8976 70.3086 14.5826 67.1253 14.6038 63.7404C14.6144 60.3555 15.9294 57.204 18.3049 54.8483L28.9203 44.3647L29.1748 44.11L30.6807 42.6245" stroke="#0054ac" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                      <path d="M21.1453 33.0322L19.65 34.5071L19.3955 34.7618L8.78002 45.2561C3.82757 50.1689 1.08092 56.7159 1.04911 63.7086C1.01729 70.7012 3.71092 77.2801 8.62095 82.2354L8.69519 82.3097C13.584 87.2014 20.1166 89.9178 27.0733 89.9496H27.19C34.2528 89.9496 40.8172 87.2969 45.6636 82.4795L52.9067 75.2321C57.9016 70.2768 59.8529 64.133 58.8666 56.4613C58.0182 49.8082 54.6777 45.2136 49.9267 40.3644C46.862 36.9264 42.514 30.4537 47.6043 25.4029L54.8474 18.1555C57.138 15.8848 60.3195 14.6221 63.7979 14.6221H63.8615C67.2232 14.6327 70.3622 15.9378 72.7165 18.2935C75.092 20.6916 76.407 23.8749 76.3858 27.2598C76.3752 30.6447 75.0602 33.8068 72.6847 36.1518L62.0693 46.6355L61.8148 46.8901L60.3089 48.3757" stroke="#0054ac" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                    </g>
-                    <defs>
-                      <clipPath id="drawerChainClip"><rect width="91" height="91" fill="white"></rect></clipPath>
-                    </defs>
-                  </svg>
-                </span>
-                <span class="l-drawer__label">{item.ja}</span>
-                <span class="l-drawer__arrow" aria-hidden="true">
-                  <svg viewBox="0 0 54 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M1 11H52M52 11L43 2M52 11L43 20" stroke="#0054ac" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                  </svg>
-                </span>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
+	<div class="l-drawer__inner">
+		<nav class="l-drawer__nav" aria-label="グローバルナビゲーション">
+			<ul class="l-drawer__list">
+				{
+					drawerNav.map((item) => (
+						<li>
+							<a href={item.href} class="l-drawer__item">
+								<span class="l-drawer__icon" aria-hidden="true">
+									<svg
+										viewBox="0 0 91 91"
+										fill="none"
+										xmlns="http://www.w3.org/2000/svg"
+									>
+										<g clip-path="url(#drawerChainClip)">
+											<path
+												d="M69.8443 57.968L71.3396 56.4931L71.5941 56.2384L82.2095 45.7441C87.162 40.8312 89.9086 34.2842 89.9404 27.2916C89.9723 20.2989 87.2786 13.7201 82.3686 8.76474L82.2944 8.69046C77.4055 3.79879 70.873 1.08237 63.9162 1.05054H63.7995C56.7367 1.05054 50.1724 3.70329 45.3259 8.52069L38.0829 15.768C33.088 20.7233 31.1367 26.8671 32.1229 34.5389C32.9713 41.192 36.3118 45.7865 41.0628 50.6358C44.1276 54.0737 48.465 60.5465 43.3853 65.5973L36.1422 72.8446C33.8515 75.1154 30.6701 76.3781 27.1917 76.3781H27.1281C23.7663 76.3675 20.6273 75.0623 18.273 72.7067C15.8976 70.3086 14.5826 67.1253 14.6038 63.7404C14.6144 60.3555 15.9294 57.204 18.3049 54.8483L28.9203 44.3647L29.1748 44.11L30.6807 42.6245"
+												stroke="#0054ac"
+												stroke-width="2"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+											/>
+											<path
+												d="M21.1453 33.0322L19.65 34.5071L19.3955 34.7618L8.78002 45.2561C3.82757 50.1689 1.08092 56.7159 1.04911 63.7086C1.01729 70.7012 3.71092 77.2801 8.62095 82.2354L8.69519 82.3097C13.584 87.2014 20.1166 89.9178 27.0733 89.9496H27.19C34.2528 89.9496 40.8172 87.2969 45.6636 82.4795L52.9067 75.2321C57.9016 70.2768 59.8529 64.133 58.8666 56.4613C58.0182 49.8082 54.6777 45.2136 49.9267 40.3644C46.862 36.9264 42.514 30.4537 47.6043 25.4029L54.8474 18.1555C57.138 15.8848 60.3195 14.6221 63.7979 14.6221H63.8615C67.2232 14.6327 70.3622 15.9378 72.7165 18.2935C75.092 20.6916 76.407 23.8749 76.3858 27.2598C76.3752 30.6447 75.0602 33.8068 72.6847 36.1518L62.0693 46.6355L61.8148 46.8901L60.3089 48.3757"
+												stroke="#0054ac"
+												stroke-width="2"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+											/>
+										</g>
+										<defs>
+											<clipPath id="drawerChainClip">
+												<rect
+													width="91"
+													height="91"
+													fill="white"
+												/>
+											</clipPath>
+										</defs>
+									</svg>
+								</span>
+								<span class="l-drawer__label">{item.ja}</span>
+								<span
+									class="l-drawer__arrow"
+									aria-hidden="true"
+								>
+									<svg
+										viewBox="0 0 54 22"
+										fill="none"
+										xmlns="http://www.w3.org/2000/svg"
+									>
+										<path
+											d="M1 11H52M52 11L43 2M52 11L43 20"
+											stroke="#0054ac"
+											stroke-width="2"
+											stroke-linecap="round"
+											stroke-linejoin="round"
+										/>
+									</svg>
+								</span>
+							</a>
+						</li>
+					))
+				}
+			</ul>
+		</nav>
 
-      <div class="l-drawer__sub">
-        <a href="#" class="l-drawer__subLink">特定商取引法表記</a>
-        <a href="#" class="l-drawer__subLink">プライバシーポリシー</a>
-      </div>
+		<div class="l-drawer__sub">
+			<a href="#" class="l-drawer__subLink">特定商取引法表記</a>
+			<a href="#" class="l-drawer__subLink">プライバシーポリシー</a>
+		</div>
 
-      <div class="l-drawer__contact">
-        <div class="l-drawer__cards">
-          <a href={companyInfo.telHref} class="l-drawer__tel">
-            <span class="l-drawer__telNum">{companyInfo.tel}</span>
-            <span class="l-drawer__telHours">{companyInfo.hours}</span>
-          </a>
-          <a href="#contact" class="l-drawer__form">お問い合わせフォーム</a>
-        </div>
+		<div class="l-drawer__contact">
+			<div class="l-drawer__cards">
+				<a href={companyInfo.telHref} class="l-drawer__tel">
+					<span class="l-drawer__telNum">{companyInfo.tel}</span>
+					<span class="l-drawer__telHours">{companyInfo.hours}</span>
+				</a>
+				<a href="#contact" class="l-drawer__form"
+					>お問い合わせフォーム</a
+				>
+			</div>
 
-        <a href="#contact" class="l-drawer__saiyou">
-          <span class="l-drawer__saiyouText">採用サイトはこちら</span>
-          <span class="l-drawer__saiyouIcon" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 17 15" fill="none">
-              <path d="M16.7071 8.07088C17.0976 7.68035 17.0976 7.04719 16.7071 6.65666L10.3431 0.292702C9.95262 -0.0978227 9.31946 -0.0978227 8.92893 0.292702C8.53841 0.683226 8.53841 1.31639 8.92893 1.70692L14.5858 7.36377L8.92893 13.0206C8.53841 13.4111 8.53841 14.0443 8.92893 14.4348C9.31946 14.8254 9.95262 14.8254 10.3431 14.4348L16.7071 8.07088ZM0 7.36377V8.36377H16V7.36377V6.36377H0V7.36377Z" fill="white"></path>
-            </svg>
-          </span>
-        </a>
-      </div>
-    </div>
+			<a href="#contact" class="l-drawer__saiyou">
+				<span class="l-drawer__saiyouText">採用サイトはこちら</span>
+				<span class="l-drawer__saiyouIcon" aria-hidden="true">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="17"
+						height="15"
+						viewBox="0 0 17 15"
+						fill="none"
+					>
+						<path
+							d="M16.7071 8.07088C17.0976 7.68035 17.0976 7.04719 16.7071 6.65666L10.3431 0.292702C9.95262 -0.0978227 9.31946 -0.0978227 8.92893 0.292702C8.53841 0.683226 8.53841 1.31639 8.92893 1.70692L14.5858 7.36377L8.92893 13.0206C8.53841 13.4111 8.53841 14.0443 8.92893 14.4348C9.31946 14.8254 9.95262 14.8254 10.3431 14.4348L16.7071 8.07088ZM0 7.36377V8.36377H16V7.36377V6.36377H0V7.36377Z"
+							fill="white"></path>
+					</svg>
+				</span>
+			</a>
+		</div>
+	</div>
 </div>
 
 <style lang="scss" is:global>
-  @use '../styles/foundation/index' as *;
+	@use '../styles/foundation/index' as *;
 
-  .l-header {
-    position: fixed;
-    inset: 0 0 auto;
-    z-index: 100;
-    width: 100%;
-    background-color: rgba($brand-white, 0.92);
-    backdrop-filter: blur(8px);
+	.l-header {
+		position: fixed;
+		inset: 0 0 auto;
+		z-index: 100;
+		width: 100%;
+		background-color: rgba($brand-white, 0.92);
+		backdrop-filter: blur(8px);
 
-    &__inner {
-      display: flex;
-      align-items: center;
-      gap: size(24);
-      width: 100%;
-      height: size(120);
-      padding: 0 size(24);
+		&__inner {
+			display: flex;
+			align-items: center;
+			gap: size(24);
+			width: 100%;
+			height: size(120);
+			padding: 0 size(24);
 
-      @include mq('sp') {
-        height: size(120);
-        padding: 0 size(32);
-        gap: size(16);
-      }
-    }
+			@include mq('sp') {
+				height: size(120);
+				padding: 0 size(32);
+				gap: size(16);
+			}
+		}
 
-    &__logo {
-      display: flex;
-      align-items: center;
-      flex-shrink: 0;
-      width: size(257);
+		&__logo {
+			display: flex;
+			align-items: center;
+			flex-shrink: 0;
+			width: size(257);
 
-      @include mq('sp') {
-        width: size(319);
-      }
-    }
+			@include mq('sp') {
+				width: size(319);
+			}
+		}
 
-    &__logoImg {
-      width: 100%;
-    }
+		&__logoImg {
+			width: 100%;
+		}
 
-    &__nav {
-      flex: 1;
+		&__nav {
+			flex: 1;
 
-      // SPではドロワー（.l-drawer）に置き換えるため非表示
-      @include mq('sp') {
-        display: none;
-      }
-    }
+			// SPではドロワー（.l-drawer）に置き換えるため非表示
+			@include mq('sp') {
+				display: none;
+			}
+		}
 
-    &__navList {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: size(20);
-      list-style: none;
-    }
+		&__navList {
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+			gap: size(20);
+			list-style: none;
+		}
 
-    &__navLink {
-      font-family: $Font;
-      font-weight: 500;
-      font-size: size(15);
-      color: $brand-text;
-      transition: color 0.3s ease;
+		&__navLink {
+			font-family: $Font;
+			font-weight: 500;
+			font-size: size(15);
+			color: $brand-text;
+			transition: color 0.3s ease;
 
-      @media (hover: hover) and (pointer: fine) {
-        &:hover {
-          color: $brand-blue;
-        }
-      }
-    }
+			@media (hover: hover) and (pointer: fine) {
+				&:hover {
+					color: $brand-blue;
+				}
+			}
+		}
 
-    &__contact {
-      display: flex;
-      align-items: center;
-      gap: size(10);
-      flex-shrink: 0;
-      align-self: stretch;
-      margin-right: size(-24);
-      padding: 0 size(22) 0 size(33);
-      background: $brand-gradient;
-      border-bottom-left-radius: size(45);
+		&__contact {
+			display: flex;
+			align-items: center;
+			gap: size(10);
+			flex-shrink: 0;
+			align-self: stretch;
+			margin-right: size(-24);
+			padding: 0 size(22) 0 size(33);
+			border-radius: 0 0 0 45px;
+			background-image: var(--contact-bg);
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
+			border-bottom-left-radius: size(45);
+			image-rendering: crisp-edges;
 
-      @include mq('sp') {
-        display: none;
-      }
-    }
+			@include mq('sp') {
+				display: none;
+			}
+		}
 
-    &__tel {
-      display: flex;
-      align-items: center;
-      gap: size(8);
-    }
+		&__tel {
+			display: flex;
+			align-items: center;
+			gap: size(8);
+		}
 
-    &__telIcon {
-      display: grid;
-      place-items: center;
-      flex-shrink: 0;
-      width: size(34);
-      height: size(34);
-      background-color: $brand-white;
-      border-radius: 50%;
-      color: $brand-blue;
+		&__telIcon {
+			display: grid;
+			place-items: center;
+			flex-shrink: 0;
+			width: size(34);
+			height: size(34);
+			background-color: $brand-white;
+			border-radius: 50%;
+			color: $brand-blue;
 
-      svg {
-        width: size(18);
-        height: size(20);
-      }
-    }
+			svg {
+				width: size(18);
+				height: size(20);
+			}
+		}
 
-    &__telNum {
-      font-family: $Font-Sub;
-      font-weight: 900;
-      font-size: size(27);
-      line-height: 1.4;
-      letter-spacing: 0.02em;
-      color: $brand-white;
-    }
+		&__telNum {
+			font-family: $Font-Sub;
+			font-weight: 900;
+			font-size: size(27);
+			line-height: 1.4;
+			letter-spacing: 0.02em;
+			color: $brand-white;
+		}
 
-    &__cta {
-      width: size(173);
-      height: size(47);
-    }
+		&__cta {
+			width: size(173);
+			height: size(47);
 
-    &__burger {
-      display: none;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: size(6);
-      width: size(40);
-      height: size(40);
-      background: transparent;
-      border: 0;
-      cursor: pointer;
+			.c-arrowBtn__label {
+				padding-right: size(10);
+			}
+		}
 
-      span {
-        display: block;
-        width: size(26);
-        height: 2px;
-        background-color: $brand-blue;
-        transition: transform 0.3s ease, opacity 0.3s ease;
-      }
+		&__burger {
+			display: none;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			gap: size(6);
+			width: size(40);
+			height: size(40);
+			background: transparent;
+			border: 0;
+			cursor: pointer;
 
-      // SP: ブルー円ボタン＋白3本線（Figma準拠）
-      @include mq('sp') {
-        display: flex;
-        flex-shrink: 0;
-        margin-left: auto;
-        width: size(70);
-        height: size(70);
-        gap: size(8);
-        background-color: $brand-blue;
-        border-radius: 50%;
+			span {
+				display: block;
+				width: size(26);
+				height: 2px;
+				background-color: $brand-blue;
+				transition:
+					transform 0.3s ease,
+					opacity 0.3s ease;
+			}
 
-        span {
-          width: size(34);
-          height: size(4);
-          border-radius: size(2);
-          background-color: $brand-white;
-        }
-      }
-    }
+			// SP: ブルー円ボタン＋白3本線（Figma準拠）
+			@include mq('sp') {
+				display: flex;
+				flex-shrink: 0;
+				margin-left: auto;
+				width: size(70);
+				height: size(70);
+				gap: size(10);
+				background-color: $brand-blue;
+				border-radius: 50%;
 
-    &.is-open .l-header__burger {
-      span:nth-child(1) { transform: translateY(#{size(8)}) rotate(45deg); }
-      span:nth-child(2) { opacity: 0; }
-      span:nth-child(3) { transform: translateY(#{size(-8)}) rotate(-45deg); }
+				span {
+					width: size(34);
+					height: size(2);
+					border-radius: size(2);
+					background-color: $brand-white;
+				}
+			}
+		}
 
-      @include mq('sp') {
-        span:nth-child(1) { transform: translateY(#{size(12)}) rotate(45deg); }
-        span:nth-child(3) { transform: translateY(#{size(-12)}) rotate(-45deg); }
-      }
-    }
-  }
+		&.is-open .l-header__burger {
+			span:nth-child(1) {
+				transform: translateY(#{size(8)}) rotate(40deg);
+			}
+			span:nth-child(2) {
+				opacity: 0;
+			}
+			span:nth-child(3) {
+				transform: translateY(#{size(-8)}) rotate(-40deg);
+			}
 
-  // ============================================
-  // SPグローバルナビ ドロワー（PCでは一切表示しない）
-  // ============================================
-  .l-drawer {
-    display: none;
+			@include mq('sp') {
+				span:nth-child(1) {
+					transform: translateY(#{size(12)}) rotate(40deg);
+				}
+				span:nth-child(3) {
+					transform: translateY(#{size(-12)}) rotate(-40deg);
+				}
+			}
+		}
+	}
 
-    @include mq('sp') {
-      display: block;
-      position: fixed;
-      inset: size(120) 0 0;
-      z-index: 90;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-      padding: size(47) 0 size(80);
-      background: linear-gradient(180deg, #dfefff 0%, #ffffff 100%);
-      opacity: 0;
-      visibility: hidden;
-      transform: translateX(100%);
-      transition:
-        opacity 0.35s ease,
-        transform 0.35s ease,
-        visibility 0.35s;
-    }
+	// ============================================
+	// SPグローバルナビ ドロワー（PCでは一切表示しない）
+	// ============================================
+	.l-drawer {
+		display: none;
 
-    &__inner {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: size(65);
-      width: size(681);
-      margin-inline: auto;
-    }
+		@include mq('sp') {
+			display: block;
+			position: fixed;
+			inset: size(120) 0 0;
+			z-index: 90;
+			overflow-y: auto;
+			-webkit-overflow-scrolling: touch;
+			padding: size(47) 0 size(80);
+			background: linear-gradient(180deg, #dfefff 0%, #ffffff 100%);
+			opacity: 0;
+			visibility: hidden;
+			transform: translateX(100%);
+			transition:
+				opacity 0.35s ease,
+				transform 0.35s ease,
+				visibility 0.35s;
+		}
 
-    &__nav {
-      width: size(467);
-    }
+		&__inner {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: size(65);
+			width: size(681);
+			margin-inline: auto;
+		}
 
-    &__list {
-      display: flex;
-      flex-direction: column;
-      gap: size(7);
-      list-style: none;
-    }
+		&__nav {
+			width: size(467);
+		}
 
-    &__item {
-      display: flex;
-      align-items: center;
-      gap: size(10);
-      height: size(85);
-      padding: 0 size(10);
-      border-bottom: 1px solid $brand-blue;
+		&__list {
+			display: flex;
+			flex-direction: column;
+			gap: size(7);
+			list-style: none;
+		}
 
-      @media (hover: hover) and (pointer: fine) {
-        &:hover .l-drawer__label {
-          opacity: 0.6;
-        }
-      }
-    }
+		&__item {
+			display: flex;
+			align-items: center;
+			gap: size(10);
+			height: size(85);
+			padding: 0 size(10);
+			border-bottom: 1px solid $brand-blue;
 
-    &__icon {
-      flex-shrink: 0;
-      width: size(45);
-      height: size(45);
+			@media (hover: hover) and (pointer: fine) {
+				&:hover .l-drawer__label {
+					opacity: 0.6;
+				}
+			}
+		}
 
-      svg {
-        display: block;
-        width: 100%;
-        height: 100%;
-      }
-    }
+		&__icon {
+			flex-shrink: 0;
+			width: size(45);
+			height: size(45);
 
-    &__label {
-      flex: 1;
-      padding-left: size(20);
-      font-family: $Font-Sub;
-      font-weight: 500;
-      font-size: size(32);
-      line-height: 1.4;
-      color: $brand-blue;
-      transition: opacity 0.3s ease;
-    }
+			svg {
+				display: block;
+				width: 100%;
+				height: 100%;
+			}
+		}
 
-    &__arrow {
-      flex-shrink: 0;
-      width: size(54);
+		&__label {
+			flex: 1;
+			padding-left: size(20);
+			font-family: $Font-Sub;
+			font-weight: 500;
+			font-size: size(32);
+			line-height: 1.4;
+			color: $brand-blue;
+			transition: opacity 0.3s ease;
+		}
 
-      svg {
-        display: block;
-        width: 100%;
-        height: auto;
-      }
-    }
+		&__arrow {
+			flex-shrink: 0;
+			width: size(54);
 
-    &__sub {
-      display: flex;
-      justify-content: center;
-      gap: size(54);
-    }
+			svg {
+				display: block;
+				width: 100%;
+				height: auto;
+			}
+		}
 
-    &__subLink {
-      font-family: $Font;
-      font-weight: 400;
-      font-size: size(20);
-      line-height: 1.4;
-      color: $brand-blue;
-      transition: opacity 0.3s ease;
+		&__sub {
+			display: flex;
+			justify-content: center;
+			gap: size(54);
+		}
 
-      @media (hover: hover) and (pointer: fine) {
-        &:hover {
-          opacity: 0.6;
-        }
-      }
-    }
+		&__subLink {
+			font-family: $Font;
+			font-weight: 400;
+			font-size: size(20);
+			line-height: 1.4;
+			color: $brand-blue;
+			transition: opacity 0.3s ease;
 
-    &__contact {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: size(52);
-      width: 100%;
-    }
+			@media (hover: hover) and (pointer: fine) {
+				&:hover {
+					opacity: 0.6;
+				}
+			}
+		}
 
-    &__cards {
-      display: flex;
-      gap: size(31);
-      width: 100%;
-    }
+		&__contact {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: size(52);
+			width: 100%;
+		}
 
-    &__tel {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: size(2);
-      width: size(325);
-      height: size(135);
-      padding: size(22) size(10) size(23);
-      border-radius: size(10);
-      background: linear-gradient(180deg, #f2f2f2 0%, #d4d4d4 100%);
-    }
+		&__cards {
+			display: flex;
+			gap: size(31);
+			width: 100%;
+		}
 
-    &__telNum {
-      font-family: $Font-Sub;
-      font-weight: 700;
-      font-size: size(41);
-      line-height: 1.4;
-      letter-spacing: 0.018em;
-      color: $brand-blue;
-    }
+		&__tel {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			gap: size(2);
+			width: size(325);
+			height: size(135);
+			padding: size(22) size(10) size(23);
+			border-radius: size(10);
+			background: linear-gradient(180deg, #f2f2f2 0%, #d4d4d4 100%);
+		}
 
-    &__telHours {
-      font-family: $Font;
-      font-weight: 400;
-      font-size: size(20);
-      line-height: 1.4;
-      color: $brand-blue;
-    }
+		&__telNum {
+			font-family: $Font-Sub;
+			font-weight: 700;
+			font-size: size(41);
+			line-height: 1.4;
+			letter-spacing: 0.018em;
+			color: $brand-blue;
+		}
 
-    &__form {
-      display: grid;
-      place-items: center;
-      width: size(325);
-      height: size(135);
-      padding: 0 size(12);
-      border-radius: size(10);
-      background: $brand-gradient;
-      font-family: $Font;
-      font-weight: 500;
-      font-size: size(27);
-      line-height: 1.4;
-      color: $brand-white;
-      text-align: center;
-      transition: opacity 0.3s ease;
+		&__telHours {
+			font-family: $Font;
+			font-weight: 400;
+			font-size: size(20);
+			line-height: 1.4;
+			color: $brand-blue;
+		}
 
-      @media (hover: hover) and (pointer: fine) {
-        &:hover {
-          opacity: 0.85;
-        }
-      }
-    }
+		&__form {
+			display: grid;
+			place-items: center;
+			width: size(325);
+			height: size(135);
+			padding: 0 size(12);
+			border-radius: size(10);
+			background: $brand-gradient;
+			font-family: $Font;
+			font-weight: 500;
+			font-size: size(27);
+			line-height: 1.4;
+			color: $brand-white;
+			text-align: center;
+			transition: opacity 0.3s ease;
 
-    // 採用サイトはこちらボタン（Figma: button_saiyou）
-    &__saiyou {
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: size(301);
-      height: size(60);
-      padding: size(10) size(48);
-      border-radius: size(180);
-      background: linear-gradient(180deg, #ffffff 0%, #e9e9e9 100%);
-      transition:
-        transform 0.3s ease,
-        box-shadow 0.3s ease;
+			@media (hover: hover) and (pointer: fine) {
+				&:hover {
+					opacity: 0.85;
+				}
+			}
+		}
 
-      @media (hover: hover) and (pointer: fine) {
-        &:hover {
-          transform: translateY(#{size(-2)});
-          box-shadow: 0 size(8) size(20) rgba(#000, 0.15);
-        }
-      }
-    }
+		// 採用サイトはこちらボタン（Figma: button_saiyou）
+		&__saiyou {
+			position: relative;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			width: size(301);
+			height: size(60);
+			padding: size(10) size(48);
+			border-radius: size(180);
+			background: linear-gradient(180deg, #ffffff 0%, #e9e9e9 100%);
+			transition:
+				transform 0.3s ease,
+				box-shadow 0.3s ease;
 
-    &__saiyouText {
-      font-family: $Font;
-      font-weight: 500;
-      font-size: size(23);
-      line-height: 1.4;
-      color: $brand-blue;
-      white-space: nowrap;
-    }
+			@media (hover: hover) and (pointer: fine) {
+				&:hover {
+					transform: translateY(#{size(-2)});
+					box-shadow: 0 size(8) size(20) rgba(#000, 0.15);
+				}
+			}
+		}
 
-    &__saiyouIcon {
-      position: absolute;
-      right: size(11);
-      display: grid;
-      place-items: center;
-      width: size(30);
-      height: size(30);
-      background-color: $brand-blue;
-      border-radius: 50%;
+		&__saiyouText {
+			font-family: $Font;
+			font-weight: 500;
+			font-size: size(23);
+			line-height: 1.4;
+			color: $brand-blue;
+			white-space: nowrap;
+		}
 
-      svg {
-        width: size(15);
-        height: size(13);
-      }
-    }
-  }
+		&__saiyouIcon {
+			position: absolute;
+			right: size(11);
+			display: grid;
+			place-items: center;
+			width: size(30);
+			height: size(30);
+			background-color: $brand-blue;
+			border-radius: 50%;
 
-  .l-drawer.is-open {
-    @include mq('sp') {
-      opacity: 1;
-      visibility: visible;
-      transform: translateX(0);
-    }
-  }
+			svg {
+				width: size(15);
+				height: size(13);
+			}
+		}
+	}
+
+	.l-drawer.is-open {
+		@include mq('sp') {
+			opacity: 1;
+			visibility: visible;
+			transform: translateX(0);
+		}
+	}
 </style>
 
 <script>
-  const header = document.querySelector('.l-header');
-  const burger = document.querySelector('[data-burger]');
-  const drawer = document.querySelector('[data-drawer]');
+	const header = document.querySelector('.l-header');
+	const burger = document.querySelector('[data-burger]');
+	const drawer = document.querySelector('[data-drawer]');
 
-  const setOpen = (open: boolean) => {
-    header?.classList.toggle('is-open', open);
-    drawer?.classList.toggle('is-open', open);
-    burger?.setAttribute('aria-expanded', String(open));
-    burger?.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く');
-    drawer?.setAttribute('aria-hidden', String(!open));
-    document.body.style.overflow = open ? 'hidden' : '';
-  };
+	const setOpen = (open: boolean) => {
+		header?.classList.toggle('is-open', open);
+		drawer?.classList.toggle('is-open', open);
+		burger?.setAttribute('aria-expanded', String(open));
+		burger?.setAttribute(
+			'aria-label',
+			open ? 'メニューを閉じる' : 'メニューを開く'
+		);
+		drawer?.setAttribute('aria-hidden', String(!open));
+		document.body.style.overflow = open ? 'hidden' : '';
+	};
 
-  burger?.addEventListener('click', () => {
-    setOpen(!header?.classList.contains('is-open'));
-  });
+	burger?.addEventListener('click', () => {
+		setOpen(!header?.classList.contains('is-open'));
+	});
 
-  // ドロワー内リンク押下で閉じる
-  drawer?.querySelectorAll('a').forEach((link) => {
-    link.addEventListener('click', () => setOpen(false));
-  });
+	// ドロワー内リンク押下で閉じる
+	drawer?.querySelectorAll('a').forEach((link) => {
+		link.addEventListener('click', () => setOpen(false));
+	});
 </script>

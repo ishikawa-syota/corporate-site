@@ -103,25 +103,6 @@ rm -rf dist .astro
 rm -rf dist .astro && npm run build:check
 ```
 
-## Swiper初期化パターン（v8）
-
-```javascript
-// @ts-expect-error - Swiper v8 ESM modules
-import Swiper, { EffectFade, Autoplay, Navigation, Pagination } from 'swiper';
-import 'swiper/css';
-import 'swiper/css/effect-fade';
-
-// フェードスライダー
-new Swiper('.js-slider', {
-	modules: [EffectFade, Autoplay],
-	effect: 'fade',
-	fadeEffect: { crossFade: true },
-	speed: 2000,
-	autoplay: { delay: 5000, disableOnInteraction: false },
-	loop: true,
-});
-```
-
 ## GSAPアニメーションパターン
 
 ```javascript

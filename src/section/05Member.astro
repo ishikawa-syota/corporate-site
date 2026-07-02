@@ -222,6 +222,8 @@ const memberHoverImages = [
 <script>
 	import Splide from '@splidejs/splide';
 
+	import { BREAKPOINT_PC_MIN } from '@/data/config';
+
 	// SPのみカルーセル化。PC(>=769)は mediaQuery:'min' + destroy で破棄され、
 	// マークアップが素のdivに戻る＝CSSの4カラムgridがそのまま効く（PC無影響）
 	document
@@ -237,7 +239,7 @@ const memberHoverImages = [
 				speed: 500,
 				mediaQuery: 'min',
 				breakpoints: {
-					769: {
+					[BREAKPOINT_PC_MIN]: {
 						destroy: true,
 					},
 				},

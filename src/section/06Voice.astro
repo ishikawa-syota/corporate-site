@@ -389,6 +389,8 @@ const { id } = Astro.props;
 <script>
 	import Splide from '@splidejs/splide';
 
+	import { BREAKPOINT_PC_MIN } from '@/data/config';
+
 	// SPのみカルーセル化。PC(>=769)では mediaQuery:'min' + destroy で破棄され、
 	// マークアップは素のdivに戻る＝CSSの3カラムgridがそのまま効く（PC無影響）
 	document
@@ -405,7 +407,7 @@ const { id } = Astro.props;
 				speed: 500,
 				mediaQuery: 'min',
 				breakpoints: {
-					769: {
+					[BREAKPOINT_PC_MIN]: {
 						destroy: true,
 					},
 				},

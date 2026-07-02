@@ -18,7 +18,7 @@
 - TypeScript
 - SCSS (BEM + FLOCSS)
 - GSAP (ScrollTrigger)
-- Swiper 8.4.7 / Splide 4.1.4（スライダー）
+- Splide 4.1.4（スライダー）
 - Sharp (画像最適化)
 - Google Fonts（Fontsource対応可）
 - Adobe Fonts（Typekit）対応可
@@ -26,7 +26,7 @@
 ## 制約条件
 
 - Figmaデザインからの変更禁止
-- 全ての単位は`size()`関数または`fluid()`関数を使用
+- 全ての単位は`size()`関数を使用
 - 変数名・クラス名に「Figma」の使用禁止
 - BEM方法論に従ったクラス命名
 

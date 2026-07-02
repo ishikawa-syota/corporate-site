@@ -1,0 +1,8 @@
+# prettierしないファイルを指定
+dist/
+.astro/
+.node_modules/
+.vscode/
+.idea/
+pnpm-lock.yaml
+public/

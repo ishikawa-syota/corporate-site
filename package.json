@@ -16,7 +16,14 @@
 		"astro": "astro",
 		"lint": "eslint . --ext .js,.ts,.astro",
 		"lint:fix": "eslint . --ext .js,.ts,.astro --fix",
-		"lint:check": "eslint . --ext .js,.ts,.astro --max-warnings 0"
+		"lint:check": "eslint . --ext .js,.ts,.astro --max-warnings 0",
+		"lint:style": "stylelint --fix \"**/*.{scss,astro}\"",
+		"lint:style:check": "stylelint \"**/*.{scss,astro}\"",
+		"validate:html": "html-validate \"dist/**/*.html\"",
+		"format": "prettier --write .",
+		"format:check": "prettier --check .",
+		"fix": "eslint . --ext .js,.ts,.astro --fix && stylelint --fix \"**/*.{scss,astro}\" && prettier --write .",
+		"check": "npm run lint:check && npm run lint:style:check && npm run format:check"
 	},
 	"dependencies": {
 		"@fontsource/noto-sans-jp": "^5.2.9",
@@ -25,17 +32,13 @@
 		"@fontsource/roboto": "^5.2.10",
 		"@fontsource/zen-kaku-gothic-new": "^5.2.7",
 		"@splidejs/splide": "^4.1.4",
-		"@splidejs/splide-extension-auto-scroll": "^0.5.3",
 		"astro": "^5.13.5",
-		"gsap": "^3.13.0",
-		"install": "^0.13.0",
-		"swiper": "^8.4.7"
+		"gsap": "^3.13.0"
 	},
 	"devDependencies": {
 		"@astrojs/sitemap": "^3.6.0",
 		"@eslint/js": "^9.34.0",
 		"@types/node": "^20.11.0",
-		"@typescript-eslint/parser": "^8.42.0",
 		"astro-relative-links": "^0.4.2",
 		"astro-seo": "^0.8.4",
 		"chalk": "^5.4.1",
@@ -46,17 +49,22 @@
 		"eslint-plugin-astro": "^1.3.1",
 		"eslint-plugin-import-x": "^4.16.1",
 		"glob": "^11.0.3",
+		"html-validate": "^11.5.4",
 		"node-html-parser": "^6.1.13",
 		"npm-run-all": "^4.1.5",
 		"postcss": "^8.5.3",
 		"postcss-combine-media-query": "^1.0.1",
+		"postcss-html": "^1.8.1",
 		"prettier": "^3.6.2",
 		"prettier-plugin-astro": "^0.14.1",
 		"sass": "^1.92.0",
 		"sharp": "^0.34.3",
+		"simple-git-hooks": "^2.13.1",
+		"stylelint": "^17.14.0",
+		"stylelint-config-standard-scss": "^17.0.0",
+		"stylelint-order": "^8.1.1",
 		"terser": "^5.39.0",
 		"typescript": "^5.9.2",
-		"typescript-eslint": "^8.42.0",
-		"vite-plugin-image-optimizer": "^1.1.7"
+		"typescript-eslint": "^8.42.0"
 	}
 }

@@ -1,18 +1,18 @@
 ---
-import ArrowButton from '../components/button/ArrowButton.astro';
-import MemberCard from '../components/card/MemberCard.astro';
-import OptImage from '../components/common/OptImage.astro';
-import SectionHeading from '../components/common/SectionHeading.astro';
-import { members } from '../data/siteContent';
-import watermarkLogo from '../images/keitasplan/member/logo_S.png';
-import memberA from '../images/keitasplan/member/member-01.png';
-import memberAHover from '../images/keitasplan/member/member-01_hover.png';
-import memberB from '../images/keitasplan/member/member-02.png';
-import memberBHover from '../images/keitasplan/member/member-02_hover.png';
-import memberC from '../images/keitasplan/member/member-03.png';
-import memberCHover from '../images/keitasplan/member/member-03_hover.png';
-import memberD from '../images/keitasplan/member/member-04.png';
-import memberDHover from '../images/keitasplan/member/member-04_hover.png';
+import ArrowButton from '../../components/button/ArrowButton.astro';
+import MemberCard from '../../components/card/MemberCard.astro';
+import OptImage from '../../components/common/OptImage.astro';
+import SectionHeading from '../../components/common/SectionHeading.astro';
+import { members } from '../../data/siteContent';
+import watermarkLogo from '../../images/keitasplan/member/logo_S.png';
+import memberA from '../../images/keitasplan/member/member-01.png';
+import memberAHover from '../../images/keitasplan/member/member-01_hover.png';
+import memberB from '../../images/keitasplan/member/member-02.png';
+import memberBHover from '../../images/keitasplan/member/member-02_hover.png';
+import memberC from '../../images/keitasplan/member/member-03.png';
+import memberCHover from '../../images/keitasplan/member/member-03_hover.png';
+import memberD from '../../images/keitasplan/member/member-04.png';
+import memberDHover from '../../images/keitasplan/member/member-04_hover.png';
 
 interface Props {
 	id?: string;
@@ -77,7 +77,7 @@ const memberHoverImages = [
 </section>
 
 <style lang="scss">
-	@use '../styles/foundation/index' as *;
+	@use '../../styles/foundation/index' as *;
 
 	.p-member {
 		position: relative;

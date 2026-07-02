@@ -1,10 +1,10 @@
 ---
-import ArrowButton from '../components/button/ArrowButton.astro';
-import VoiceCard from '../components/card/VoiceCard.astro';
-import SectionHeading from '../components/common/SectionHeading.astro';
-import { voices } from '../data/siteContent';
+import ArrowButton from '../../components/button/ArrowButton.astro';
+import VoiceCard from '../../components/card/VoiceCard.astro';
+import SectionHeading from '../../components/common/SectionHeading.astro';
+import { voices } from '../../data/siteContent';
 // SP専用の吹き出し背景（縦長＋右上タブ）。PCは下のインラインSVGを使用
-import bubbleSp from '../images/keitasplan/voice/bubble-sp.svg?raw';
+import bubbleSp from '../../images/keitasplan/voice/bubble-sp.svg?raw';
 
 interface Props {
 	id?: string;
@@ -187,7 +187,7 @@ const { id } = Astro.props;
 </section>
 
 <style lang="scss">
-	@use '../styles/foundation/index' as *;
+	@use '../../styles/foundation/index' as *;
 
 	.p-voice {
 		// background-color: #d6e9ff;

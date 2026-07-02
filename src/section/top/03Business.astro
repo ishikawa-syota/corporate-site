@@ -1,9 +1,9 @@
 ---
-import BusinessCard from '../components/card/BusinessCard.astro';
-import SectionHeading from '../components/common/SectionHeading.astro';
-import { businessCards } from '../data/siteContent';
-import imgShuccho from '../images/keitasplan/business/business-01.jpg';
-import imgSaiji from '../images/keitasplan/business/business-icon-01.jpg';
+import BusinessCard from '../../components/card/BusinessCard.astro';
+import SectionHeading from '../../components/common/SectionHeading.astro';
+import { businessCards } from '../../data/siteContent';
+import imgShuccho from '../../images/keitasplan/business/business-01.jpg';
+import imgSaiji from '../../images/keitasplan/business/business-icon-01.jpg';
 
 interface Props {
 	id?: string;
@@ -43,7 +43,7 @@ const intro = `商業施設で開催する催事買取をメインに、ご自�
 </section>
 
 <style lang="scss">
-	@use '../styles/foundation/index' as *;
+	@use '../../styles/foundation/index' as *;
 
 	.p-business {
 		background-color: $brand-white;

@@ -2,17 +2,17 @@
 import { getImage } from 'astro:assets';
 
 // アクセント背景（向き合う手 = Figma node 681-1414 / Rectangle 102）
-import accent from '../images/keitasplan/copy/accent.png';
+import accent from '../../images/keitasplan/copy/accent.png';
 // 散らし装飾の写真（read）— Figmaでは opacity:0 の隠しレイヤーだが、
 // プロトタイプではビューポート進入時に「下から浮き上がってフェードイン」する。
-import read01 from '../images/keitasplan/read/read-01.jpg';
-import read05 from '../images/keitasplan/read/read-05.jpg';
-import read07 from '../images/keitasplan/read/read-07.jpg';
-import read09 from '../images/keitasplan/read/read-09.jpg';
-import read11 from '../images/keitasplan/read/read-11.jpg';
-import read13 from '../images/keitasplan/read/read-13.jpg';
-import read14 from '../images/keitasplan/read/read-14.jpg';
-import { processImages } from '../styles/images';
+import read01 from '../../images/keitasplan/read/read-01.jpg';
+import read05 from '../../images/keitasplan/read/read-05.jpg';
+import read07 from '../../images/keitasplan/read/read-07.jpg';
+import read09 from '../../images/keitasplan/read/read-09.jpg';
+import read11 from '../../images/keitasplan/read/read-11.jpg';
+import read13 from '../../images/keitasplan/read/read-13.jpg';
+import read14 from '../../images/keitasplan/read/read-14.jpg';
+import { processImages } from '../../styles/images';
 
 interface Props {
 	id?: string;
@@ -110,7 +110,7 @@ const imageStyles = await processImages({
 <script>
 	// InView アニメーション初期化（散らし写真のフェードイン用）。
 	// main.ts がページから読み込まれていないため、このセクションで明示的に発火させる。
-	import initInView from '../scripts/inView';
+	import initInView from '../../scripts/inView';
 
 	const run = () => initInView();
 	if (document.readyState === 'loading') {
@@ -121,7 +121,7 @@ const imageStyles = await processImages({
 </script>
 
 <style lang="scss">
-	@use '../styles/foundation/index' as *;
+	@use '../../styles/foundation/index' as *;
 
 	.p-copy {
 		position: relative;

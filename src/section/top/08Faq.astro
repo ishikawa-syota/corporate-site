@@ -1,11 +1,11 @@
 ---
 import { getImage } from 'astro:assets';
 
-import FaqItem from '../components/card/FaqItem.astro';
-import SectionHeading from '../components/common/SectionHeading.astro';
-import { faqs } from '../data/siteContent';
+import FaqItem from '../../components/card/FaqItem.astro';
+import SectionHeading from '../../components/common/SectionHeading.astro';
+import { faqs } from '../../data/siteContent';
 // 背景写真（FAQ セクション全面）
-import bg from '../images/keitasplan/faq/bg.png';
+import bg from '../../images/keitasplan/faq/bg.png';
 
 interface Props {
 	id?: string;
@@ -26,7 +26,7 @@ const bgImg = await getImage({ src: bg, format: 'avif', width: 2400 });
 </section>
 
 <style lang="scss">
-	@use '../styles/foundation/index' as *;
+	@use '../../styles/foundation/index' as *;
 
 	// Figma: 上角丸130px / 白背景 / py98 / 前セクション(Message)のグレーに重なるカード表現
 	.p-faq {

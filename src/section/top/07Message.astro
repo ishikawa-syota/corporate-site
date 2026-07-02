@@ -1,13 +1,13 @@
 ---
 import { getImage } from 'astro:assets';
 
-import OptImage from '../components/common/OptImage.astro';
-import SectionHeading from '../components/common/SectionHeading.astro';
-import { message } from '../data/siteContent';
+import OptImage from '../../components/common/OptImage.astro';
+import SectionHeading from '../../components/common/SectionHeading.astro';
+import { message } from '../../data/siteContent';
 // 上部に薄く敷くヒーロー写真（Figma node 772-1604 / opacity 50%）
-import bgPc from '../images/keitasplan/message/bg_pc.png';
+import bgPc from '../../images/keitasplan/message/bg_pc.png';
 // 代表ポートレート（Figma node 772-1638 / 132×164 / radius10）
-import president from '../images/keitasplan/message/president.png';
+import president from '../../images/keitasplan/message/president.png';
 
 interface Props {
 	id?: string;
@@ -63,7 +63,7 @@ const bg = await getImage({ src: bgPc, format: 'avif', width: 2400 });
 </section>
 
 <style lang="scss">
-	@use '../styles/foundation/index' as *;
+	@use '../../styles/foundation/index' as *;
 
 	.p-message {
 		position: relative;

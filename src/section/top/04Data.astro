@@ -1,13 +1,13 @@
 ---
-import ArrowButton from '../components/button/ArrowButton.astro';
-import NumberStat from '../components/card/NumberStat.astro';
-import OptImage from '../components/common/OptImage.astro';
-import { stats } from '../data/siteContent';
-import logo from '../images/keitasplan/common/header-01.png';
-import bgSaiji from '../images/keitasplan/data/data-02.png';
-import bgKaitori from '../images/keitasplan/data/data-03.png';
-import bgStaff from '../images/keitasplan/data/data-05.png';
-import bgSatisfy from '../images/keitasplan/data/data-10.png';
+import ArrowButton from '../../components/button/ArrowButton.astro';
+import NumberStat from '../../components/card/NumberStat.astro';
+import OptImage from '../../components/common/OptImage.astro';
+import { stats } from '../../data/siteContent';
+import logo from '../../images/keitasplan/common/header-01.png';
+import bgSaiji from '../../images/keitasplan/data/data-02.png';
+import bgKaitori from '../../images/keitasplan/data/data-03.png';
+import bgStaff from '../../images/keitasplan/data/data-05.png';
+import bgSatisfy from '../../images/keitasplan/data/data-10.png';
 
 interface Props {
 	id?: string;
@@ -86,7 +86,7 @@ const statBgs = [bgKaitori, bgSaiji, bgStaff, bgSatisfy];
 </section>
 
 <style lang="scss">
-	@use '../styles/foundation/index' as *;
+	@use '../../styles/foundation/index' as *;
 
 	.p-data {
 		background: linear-gradient(

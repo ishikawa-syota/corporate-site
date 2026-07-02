@@ -44,6 +44,7 @@
 			}
 		],
 		"selector-class-pattern": null,
+		"custom-property-pattern": null,
 		"scss/dollar-variable-pattern": null,
 		"scss/at-mixin-pattern": null,
 		"scss/percent-placeholder-pattern": null,
@@ -62,10 +63,11 @@
 		"shorthand-property-no-redundant-values": true,
 		"no-duplicate-selectors": true,
 		"declaration-block-no-shorthand-property-overrides": true,
-		"function-no-unknown": [
+		"function-no-unknown": null,
+		"scss/function-no-unknown": [
 			true,
 			{
-				"ignoreFunctions": ["size"]
+				"ignoreFunctions": ["size", "design-color"]
 			}
 		],
 		"selector-pseudo-class-no-unknown": [

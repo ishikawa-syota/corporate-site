@@ -23,7 +23,11 @@
 		"format": "prettier --write .",
 		"format:check": "prettier --check .",
 		"fix": "eslint . --ext .js,.ts,.astro --fix && stylelint --fix \"**/*.{scss,astro}\" && prettier --write .",
-		"check": "npm run lint:check && npm run lint:style:check && npm run format:check"
+		"check": "npm run lint:check && npm run lint:style:check && npm run format:check",
+		"prepare": "simple-git-hooks"
+	},
+	"simple-git-hooks": {
+		"pre-commit": "npm run check"
 	},
 	"dependencies": {
 		"@fontsource/noto-sans-jp": "^5.2.9",

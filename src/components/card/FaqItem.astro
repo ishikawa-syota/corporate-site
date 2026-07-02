@@ -1,154 +1,158 @@
 ---
 // よくある質問のアコーディオン項目（JSなしで動作する details/summary）
 interface Props {
-  q: string;
-  a: string;
+	q: string;
+	a: string;
 }
 
 const { q, a } = Astro.props;
 ---
 
 <details class="c-faq">
-  <summary class="c-faq__q">
-    <span class="c-faq__icon c-faq__icon--q" aria-hidden="true">Q</span>
-    <span class="c-faq__qText">{q}</span>
-    <span class="c-faq__toggle" aria-hidden="true"></span>
-  </summary>
-  <div class="c-faq__a">
-    <span class="c-faq__icon c-faq__icon--a" aria-hidden="true">A</span>
-    <p class="c-faq__aText">{a}</p>
-  </div>
+	<summary class="c-faq__q">
+		<span class="c-faq__icon c-faq__icon--q" aria-hidden="true">Q</span>
+		<span class="c-faq__qText">{q}</span>
+		<span class="c-faq__toggle" aria-hidden="true"></span>
+	</summary>
+	<div class="c-faq__a">
+		<span class="c-faq__icon c-faq__icon--a" aria-hidden="true">A</span>
+		<p class="c-faq__aText">{a}</p>
+	</div>
 </details>
 
 <style lang="scss">
-  @use '../../styles/foundation/index' as *;
+	@use '../../styles/foundation/index' as *;
 
-  // Figma: 各項目 border-b / pb 40 / Q行とA行の gap 20
-  .c-faq {
-    padding-bottom: size(40);
-    border-bottom: 1px solid rgba($brand-text, 0.2);
+	// Figma: 各項目 border-b / pb 40 / Q行とA行の gap 20
+	.c-faq {
+		padding-bottom: size(40);
+		border-bottom: 1px solid rgba($brand-text, 0.2);
 
-    // Figma SP(768基準): pb40 はPCと同値のためSP上書き不要
+		// Figma SP(768基準): pb40 はPCと同値のためSP上書き不要
 
-    &__q {
-      display: flex;
-      align-items: center;
-      gap: size(15);
-      padding-right: size(44);
-      position: relative;
-      cursor: pointer;
-      list-style: none;
+		&__q {
+			display: flex;
+			align-items: center;
+			gap: size(15);
+			padding-right: size(44);
+			position: relative;
+			cursor: pointer;
+			list-style: none;
 
-      &::-webkit-details-marker {
-        display: none;
-      }
-      // Figma SP(768基準): gap15 / padding-right44 はPCと同値のためSP上書き不要
-    }
+			&::-webkit-details-marker {
+				display: none;
+			}
 
-    // Figma: 40px 円 / 文字 21px / Q=青 A=緑
-    &__icon {
-      flex-shrink: 0;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: size(40);
-      height: size(40);
-      border-radius: 50%;
-      font-family: $Font-En;
-      font-weight: 700;
-      font-size: size(21);
-      color: $brand-white;
+			// Figma SP(768基準): gap15 / padding-right44 はPCと同値のためSP上書き不要
+		}
 
-      // Figma SP(768基準): 円60 / 文字35
-      @include mq('sp') {
-        width: size(60);
-        height: size(60);
-        font-size: size(35);
-      }
+		// Figma: 40px 円 / 文字 21px / Q=青 A=緑
+		&__icon {
+			flex-shrink: 0;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			width: size(40);
+			height: size(40);
+			border-radius: 50%;
+			font-family: $Font-En;
+			font-weight: 700;
+			font-size: size(21);
+			color: $brand-white;
 
-      &--q {
-        background-color: $brand-blue;
-      }
-      &--a {
-        background-color: $brand-green;
-      }
-    }
+			// Figma SP(768基準): 円60 / 文字35
+			@include mq('sp') {
+				width: size(60);
+				height: size(60);
+				font-size: size(35);
+			}
 
-    // Figma: Noto Sans JP Bold / 18px / #4d4d4d
-    &__qText {
-      font-family: $Font-Sub;
-      font-weight: 700;
-      font-size: size(18);
-      line-height: 1.4;
-      color: $brand-text;
+			&--q {
+				background-color: $brand-blue;
+			}
 
-      // Figma SP(768基準): 27px
-      @include mq('sp') {
-        font-size: size(27);
-      }
-    }
+			&--a {
+				background-color: $brand-green;
+			}
+		}
 
-    // 開閉アイコン（+ / −）
-    &__toggle {
-      position: absolute;
-      right: size(8);
-      top: 50%;
-      width: size(14);
-      height: size(14);
-      transform: translateY(-50%);
+		// Figma: Noto Sans JP Bold / 18px / #4d4d4d
+		&__qText {
+			font-family: $Font-Sub;
+			font-weight: 700;
+			font-size: size(18);
+			line-height: 1.4;
+			color: $brand-text;
 
-      &::before,
-      &::after {
-        content: '';
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        width: size(14);
-        height: size(2);
-        background-color: $brand-blue;
-        transform: translate(-50%, -50%);
-        transition: transform 0.3s ease;
-      }
-      &::after {
-        transform: translate(-50%, -50%) rotate(90deg);
-      }
-      // Figma SP(768基準): 14px はPCと同値のためSP上書き不要
-    }
+			// Figma SP(768基準): 27px
+			@include mq('sp') {
+				font-size: size(27);
+			}
+		}
 
-    &[open] &__toggle::after {
-      transform: translate(-50%, -50%) rotate(0deg);
-    }
+		// 開閉アイコン（+ / −）
+		&__toggle {
+			position: absolute;
+			right: size(8);
+			top: 50%;
+			width: size(14);
+			height: size(14);
+			transform: translateY(-50%);
 
-    // Figma: Q行から gap 20 / A行
-    &__a {
-      display: flex;
-      align-items: flex-start;
-      gap: size(15);
-      margin-top: size(20);
-      padding-right: size(44);
+			&::before,
+			&::after {
+				content: '';
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				width: size(14);
+				height: size(2);
+				background-color: $brand-blue;
+				transform: translate(-50%, -50%);
+				transition: transform 0.3s ease;
+			}
 
-      // Figma SP(768基準): gap15 / margin-top20 はPCと同値。padding-rightのみ0
-      @include mq('sp') {
-        padding-right: 0;
-      }
-    }
+			&::after {
+				transform: translate(-50%, -50%) rotate(90deg);
+			}
 
-    // Figma: Noto Sans JP Regular / 15px / lh 1.6 / #444 / 両端揃え
-    &__aText {
-      flex: 1;
-      font-family: $Font-Sub;
-      font-weight: 400;
-      font-size: size(15);
-      line-height: 1.6;
-      color: #444;
-      text-align: justify;
-      padding-top: size(7);
+			// Figma SP(768基準): 14px はPCと同値のためSP上書き不要
+		}
 
-      // Figma SP(768基準): 24px
-      @include mq('sp') {
-        font-size: size(24);
-        padding-top: size(10);
-      }
-    }
-  }
+		&[open] &__toggle::after {
+			transform: translate(-50%, -50%) rotate(0deg);
+		}
+
+		// Figma: Q行から gap 20 / A行
+		&__a {
+			display: flex;
+			align-items: flex-start;
+			gap: size(15);
+			margin-top: size(20);
+			padding-right: size(44);
+
+			// Figma SP(768基準): gap15 / margin-top20 はPCと同値。padding-rightのみ0
+			@include mq('sp') {
+				padding-right: 0;
+			}
+		}
+
+		// Figma: Noto Sans JP Regular / 15px / lh 1.6 / #444 / 両端揃え
+		&__aText {
+			flex: 1;
+			font-family: $Font-Sub;
+			font-weight: 400;
+			font-size: size(15);
+			line-height: 1.6;
+			color: #444;
+			text-align: justify;
+			padding-top: size(7);
+
+			// Figma SP(768基準): 24px
+			@include mq('sp') {
+				font-size: size(24);
+				padding-top: size(10);
+			}
+		}
+	}
 </style>

@@ -11,7 +11,6 @@ const replacePathsInFiles = () => {
 		const htmlFiles = glob.sync('dist/**/*.html');
 
 		for (const file of htmlFiles) {
-			 
 			console.log(`Processing HTML file: ${file}`);
 
 			// Read the file
@@ -24,7 +23,10 @@ const replacePathsInFiles = () => {
 			$('[src^="./"]').each((_, element) => {
 				const $el = $(element);
 				const currentSrc = $el.attr('src');
-				const newSrc = currentSrc.replace(/^\.\//, `${FILE_ROOT_PATH}/`);
+				const newSrc = currentSrc.replace(
+					/^\.\//,
+					`${FILE_ROOT_PATH}/`
+				);
 				$el.attr('src', newSrc);
 			});
 
@@ -32,7 +34,10 @@ const replacePathsInFiles = () => {
 			$('[href^="./"]').each((_, element) => {
 				const $el = $(element);
 				const currentHref = $el.attr('href');
-				const newHref = currentHref.replace(/^\.\//, `${FILE_ROOT_PATH}/`);
+				const newHref = currentHref.replace(
+					/^\.\//,
+					`${FILE_ROOT_PATH}/`
+				);
 				$el.attr('href', newHref);
 			});
 
@@ -40,7 +45,10 @@ const replacePathsInFiles = () => {
 			$('[href^="/"]').each((_, element) => {
 				const $el = $(element);
 				const currentHref = $el.attr('href');
-				const newHref = currentHref.replace(/^\//, `${FILE_ROOT_PATH}/`);
+				const newHref = currentHref.replace(
+					/^\//,
+					`${FILE_ROOT_PATH}/`
+				);
 				$el.attr('href', newHref);
 			});
 
@@ -70,7 +78,10 @@ const replacePathsInFiles = () => {
 			$('meta[content^="/"]').each((_, element) => {
 				const $el = $(element);
 				const currentContent = $el.attr('content');
-				const newContent = currentContent.replace(/^\//, `${FILE_ROOT_PATH}/`);
+				const newContent = currentContent.replace(
+					/^\//,
+					`${FILE_ROOT_PATH}/`
+				);
 				$el.attr('content', newContent);
 			});
 
@@ -89,10 +100,8 @@ const replacePathsInFiles = () => {
 			writeFileSync(file, $.html(), 'utf8');
 		}
 
-		 
 		console.log('Path replacement completed successfully!');
 	} catch (error) {
-		 
 		console.error('Error during path replacement:', error);
 	}
 };

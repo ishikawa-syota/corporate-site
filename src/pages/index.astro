@@ -53,6 +53,7 @@ const fvCopyStyles = await processImages({ fvbg: fvCopyBg });
 		background-image: var(--fvbg);
 		background-repeat: no-repeat;
 		background-position: top center;
+
 		/* 均一な縦グラデのため cover で全面カバー（SPは左右クロップ＝視覚上ほぼ無変化、縦は全域に伸びる） */
 		background-size: cover;
 	}
@@ -93,7 +94,9 @@ const fvCopyStyles = await processImages({ fvbg: fvCopyBg });
 			top: size(
 				457
 			); // Figma SP: 2人の手の高さ（FV上 y=367 + ヘッダー分）
+
 			width: size(108);
+
 			// opacity は PC と同じ 0.7 を継承（本文へ浮上時にテキストが透ける）
 		}
 	}

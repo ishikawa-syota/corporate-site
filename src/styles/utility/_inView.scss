@@ -1,3 +1,5 @@
+/* stylelint-disable declaration-no-important, max-nesting-depth -- inView utility: a11y reduced-motion overrides + intentional nesting */
+
 /**
  * InView アニメーション - クラス定義
  *
@@ -29,25 +31,26 @@
  * <div class="js-inView js-inView-fadeIn">コンテンツ</div>
  */
 .js-inView-fadeIn {
-  pointer-events: none;
-  visibility: hidden;
-  opacity: 0;
+	pointer-events: none;
+	visibility: hidden;
+	opacity: 0;
 
-  // 親要素が .js-inView-activate の場合
-  @at-root {
-    .js-inView-activate {
-      .js-inView-fadeIn {
-        pointer-events: initial;
-        animation: fadeInUp 1s ease forwards var(--animate-block-delay, 0s);
-      }
-    }
-  }
+	// 親要素が .js-inView-activate の場合
+	@at-root {
+		.js-inView-activate {
+			.js-inView-fadeIn {
+				pointer-events: initial;
+				animation: fadeInUp 1s ease forwards
+					var(--animate-block-delay, 0s);
+			}
+		}
+	}
 
-  // 自身が .js-inView-activate の場合
-  &.js-inView-activate {
-    pointer-events: initial;
-    animation: fadeInUp 1s ease forwards var(--animate-block-delay, 0s);
-  }
+	// 自身が .js-inView-activate の場合
+	&.js-inView-activate {
+		pointer-events: initial;
+		animation: fadeInUp 1s ease forwards var(--animate-block-delay, 0s);
+	}
 }
 
 // ==========================================
@@ -62,20 +65,21 @@
  * <h2 class="js-inView js-inView-up2show">見出し</h2>
  */
 .js-inView-up2show {
-  pointer-events: none;
-  visibility: hidden;
-  will-change: clip-path;
+	pointer-events: none;
+	visibility: hidden;
+	will-change: clip-path;
 
-  @at-root {
-    .js-inView-activate {
-      .js-inView-up2show,
-      &.js-inView-up2show {
-        visibility: visible;
-        pointer-events: initial;
-        animation: up2show 0.6s ease forwards var(--animate-block-delay, 0s);
-      }
-    }
-  }
+	@at-root {
+		.js-inView-activate {
+			.js-inView-up2show,
+			&.js-inView-up2show {
+				visibility: visible;
+				pointer-events: initial;
+				animation: up2show 0.6s ease forwards
+					var(--animate-block-delay, 0s);
+			}
+		}
+	}
 }
 
 /**
@@ -85,20 +89,21 @@
  * <div class="js-inView js-inView-left2show">コンテンツ</div>
  */
 .js-inView-left2show {
-  pointer-events: none;
-  visibility: hidden;
-  will-change: clip-path;
+	pointer-events: none;
+	visibility: hidden;
+	will-change: clip-path;
 
-  @at-root {
-    .js-inView-activate {
-      .js-inView-left2show,
-      &.js-inView-left2show {
-        visibility: visible;
-        pointer-events: initial;
-        animation: left2show 0.6s ease forwards var(--animate-block-delay, 0s);
-      }
-    }
-  }
+	@at-root {
+		.js-inView-activate {
+			.js-inView-left2show,
+			&.js-inView-left2show {
+				visibility: visible;
+				pointer-events: initial;
+				animation: left2show 0.6s ease forwards
+					var(--animate-block-delay, 0s);
+			}
+		}
+	}
 }
 
 // ==========================================
@@ -115,21 +120,22 @@
  * </div>
  */
 .js-inView-ImageScaleIn {
-  pointer-events: none;
-  visibility: hidden;
-  opacity: 0;
-  will-change: transform, opacity;
+	pointer-events: none;
+	visibility: hidden;
+	opacity: 0;
+	will-change: transform, opacity;
 
-  @at-root {
-    .js-inView-activate {
-      .js-inView-ImageScaleIn,
-      &.js-inView-ImageScaleIn {
-        visibility: visible;
-        pointer-events: initial;
-        animation: ImageScaleIn 1s ease forwards var(--animate-block-delay, 0s);
-      }
-    }
-  }
+	@at-root {
+		.js-inView-activate {
+			.js-inView-ImageScaleIn,
+			&.js-inView-ImageScaleIn {
+				visibility: visible;
+				pointer-events: initial;
+				animation: ImageScaleIn 1s ease forwards
+					var(--animate-block-delay, 0s);
+			}
+		}
+	}
 }
 
 // ==========================================
@@ -151,13 +157,13 @@
  * アニメーション削減を希望するユーザー向け
  */
 @media (prefers-reduced-motion: reduce) {
-  .js-inView-fadeIn,
-  .js-inView-up2show,
-  .js-inView-left2show,
-  .js-inView-ImageScaleIn {
-    animation: none !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    pointer-events: initial !important;
-  }
+	.js-inView-fadeIn,
+	.js-inView-up2show,
+	.js-inView-left2show,
+	.js-inView-ImageScaleIn {
+		animation: none !important;
+		opacity: 1 !important;
+		visibility: visible !important;
+		pointer-events: initial !important;
+	}
 }

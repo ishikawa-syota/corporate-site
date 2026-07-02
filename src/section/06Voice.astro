@@ -249,6 +249,7 @@ const { id } = Astro.props;
 				// bubble-sp.svg は set:html の生注入のため Astro の scope 属性が付かず、
 				// 通常の `svg` セレクタ（scope付き）ではマッチしない。
 				// :global() で scope 要求を外し、親(--sp)配下のsvgだけに限定して当てる
+				/* stylelint-disable-next-line max-nesting-depth -- intentional nesting */
 				:global(svg) {
 					width: 100%;
 					height: 100%;
@@ -259,6 +260,7 @@ const { id } = Astro.props;
 		&__panel-content {
 			position: relative;
 			z-index: 1;
+
 			// 背景SVGのカード本体はviewBox内で左寄り（右側は折り返しタブ＋透明余白）。
 			// 中身をカード本体の内側へセンタリングするため左右非対称パディング。
 			padding: size(79) 12% size(79) 5%;

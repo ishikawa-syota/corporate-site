@@ -128,6 +128,7 @@ const imageStyles = await processImages({
 		display: flex;
 		align-items: center;
 		justify-content: center;
+
 		// min-height: size(1037);
 		// overflow: hidden;
 		margin-top: size(-40);
@@ -156,6 +157,7 @@ const imageStyles = await processImages({
 			background-size: cover;
 			background-position: center;
 			background-repeat: no-repeat;
+
 			// opacity: 0.21; // Figma: 不透明度21%
 			pointer-events: none;
 
@@ -219,12 +221,14 @@ const imageStyles = await processImages({
 
 		&__title {
 			@include ty-lead;
+
 			font-size: size(36);
 			color: $brand-white;
 			letter-spacing: size(6);
 
 			@include mq('sp') {
 				font-size: size(44);
+
 				// letter-spacing: 0.12em;
 				color: $brand-white;
 			}
@@ -232,6 +236,7 @@ const imageStyles = await processImages({
 
 		&__body {
 			@include ty-body-l;
+
 			display: flex;
 			flex-direction: column;
 			gap: size(44); // Figma: 段落間 = 空行1つ分

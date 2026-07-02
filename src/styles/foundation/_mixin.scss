@@ -1,11 +1,8 @@
-
-@use "variable" as *;
-@use "font" as *;
+@use 'variable' as *;
+@use 'font' as *;
 
 // 💬 Description.........................................
-//
 // Mixinを記述するscss
-//
 // ............................................................
 
 // ============================================
@@ -15,38 +12,34 @@
 // シンプルなメディアクエリMixin
 // $breakpoint-sp は _variable.scss で定義（デフォルト: 768px）
 @mixin mq($breakpoint) {
-  @if $breakpoint == 'sp' {
-    @media only screen and (max-width: $breakpoint-sp) {
-      @content;
-    }
-  } @else if $breakpoint == 'md' {
-    @media only screen and (max-width: 1024px) {
-      @content;
-    }
-  } @else if $breakpoint == 'lg' {
-    @media only screen and (min-width: 1025px) {
-      @content;
-    }
-  } @else {
-    @warn "Unknown breakpoint: #{$breakpoint}. Available: sp, md, lg";
-  }
+	@if $breakpoint == 'sp' {
+		@media only screen and (max-width: $breakpoint-sp) {
+			@content;
+		}
+	} @else if $breakpoint == 'md' {
+		@media only screen and (width <= 1024px) {
+			@content;
+		}
+	} @else if $breakpoint == 'lg' {
+		@media only screen and (width >= 1025px) {
+			@content;
+		}
+	} @else {
+		@warn "Unknown breakpoint: #{$breakpoint}. Available: sp, md, lg";
+	}
 }
 
 // 💬 Description.........................................
-//
 // mixin でプロパティごと定義する
 // 以下のように使用すればここで定義したプロパティが適用される
-//
 // @mixin justify {
 //		text-align: justify;
 //		word-break: break-all;
 //	}
-//
 //	[scss]
 // .hogehoge {
 //		@include justify;
 // }
-//
 // [cssコンパイル結果]
 // .hogehoge {
 //		text-align: justify;
@@ -62,22 +55,17 @@
 // - large-screen-style()
 // - medium-screen-style()
 // - small-screen-style()
-//
 // 移行方法:
 // Before: @include responsive-property(width, 300, 200);
 // After:  width: size(300); // PC/SP自動切り替え
-//
 // PC/SPで別サイズが必要な場合:
 // width: size(300);
 // @include mq('sp') { width: size(200); }
-
-
 
 // ============================================
 // size()関数（推奨）- PC/SP自動切り替え
 // ============================================
 // デザインカンプの数値をそのまま入れるだけでPC/SP自動切り替え
-//
 // 使い方:
 // .element {
 //   width: size(300);     // PC: 300/1536*100vw, SP: 300/390*100vw
@@ -85,28 +73,12 @@
 //   font-size: size(16);
 //   gap: size(24);
 // }
-//
 // 計算式:
 // - PC（769px以上）: 値 / $design-width-pc * 100vw
 // - SP（768px以下）: 値 / $design-width-sp * 100vw
-//
 // $design-width-pc と $design-width-sp は _variable.scss で定義
 
 @function size($size) {
-  // CSS変数を使用してPC/SP自動切り替え
-  @return calc(#{$size} * var(--size-unit));
-}
-
-// ============================================
-// 後方互換性エイリアス（推奨: size()を使用）
-// ============================================
-// 旧プロジェクトからの移行を容易にするためのエイリアス関数
-// 新規プロジェクトでは size() を直接使用することを推奨
-
-@function fluid($size) {
-  @return size($size);
-}
-
-@function fluid-sp($size) {
-  @return size($size);
+	// CSS変数を使用してPC/SP自動切り替え
+	@return calc(#{$size} * var(--size-unit));
 }

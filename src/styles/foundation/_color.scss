@@ -1,37 +1,30 @@
 @charset "utf-8";
 
 // 💬 Description.........................................
-//
 // Color設定をするscss
-//
 // ............................................................
 // Text --------------------
-$white: #ffffff;
-$blue01: #0058DB;
-$blue02: #003C97;
-$gray: #EDEDED;
-$gray02: #AAAAAA;
-
-$blue: #54B0F1;
-
-$read: #CE2628;
-$error: #CE2628;
-$error2: #FFF2F2;
-$yellow: #FFEF3A;
-$yellow02: #FFD60C;
-
-$black: #111111;
-$text-blue: #0E7AC9;
-
-$sub-blue: #B3DFFF;
-$sub-blue02: #85CCFF;
-
-$woman01: #FFEBE1;
-$woman02: #AF8F7E;
-
+$white: #fff;
+$blue01: #0058db;
+$blue02: #003c97;
+$gray: #ededed;
+$gray02: #aaa;
+$blue: #54b0f1;
+$read: #ce2628;
+$error: #ce2628;
+$error2: #fff2f2;
+$yellow: #ffef3a;
+$yellow02: #ffd60c;
+$black: #111;
+$text-blue: #0e7ac9;
+$sub-blue: #b3dfff;
+$sub-blue02: #85ccff;
+$woman01: #ffebe1;
+$woman02: #af8f7e;
 
 // $Main: #54B0F1;
 $Accent: $read;
+
 // Text --------------------
 $Text-UltraLight: $black;
 $Text-Light: $black;
@@ -40,37 +33,37 @@ $Text-Dark: $black;
 $Text-UltraDark: $black;
 
 // Main --------------------
-$Main-UltraLight: #000000;
-$Main-Light: #000000;
+$Main-UltraLight: #000;
+$Main-Light: #000;
 $Main: $blue01;
 $Main-Dark: #b2935f;
-$Main-UltraDark: #000000;
+$Main-UltraDark: #000;
 
 // Sub --------------------
-$Sub-UltraLight: #000000;
-$Sub-Light: #000000;
-$Sub: #000000;
-$Sub-Dark: #000000;
-$Sub-UltraDark: #000000;
+$Sub-UltraLight: #000;
+$Sub-Light: #000;
+$Sub: #000;
+$Sub-Dark: #000;
+$Sub-UltraDark: #000;
 
 // Accent --------------------
-$Accent-UltraLight: #000000;
-$Accent-Light: #000000;
-$Accent-Dark: #000000;
-$Accent-UltraDark: #000000;
+$Accent-UltraLight: #000;
+$Accent-Light: #000;
+$Accent-Dark: #000;
+$Accent-UltraDark: #000;
 
 // Border --------------------
-$Border-Light: #000000;
-$Border: #000000;
-$Border-Dark: #000000;
+$Border-Light: #000;
+$Border: #000;
+$Border-Dark: #000;
 
 // Link --------------------
-$Link-Light: #000000;
-$Link: #000000;
-$Link-Dark: #000000;
+$Link-Light: #000;
+$Link: #000;
+$Link-Dark: #000;
 
 // Submit --------------------
-$Submit: #000000;
+$Submit: #000;
 
 // $Beige-Fix: #ECE2CD;
 $Beige-Light: #f2ebe0;
@@ -79,7 +72,7 @@ $bgBeige: #f2ebe0;
 $Gray: #bcbcbc;
 
 // Error --------------------
-$Error: #000000;
+$Error: #000;
 
 // SNS Color (LastUpdate: 2022.10) --------------------
 $SnsColor-Facebook: #1877f2;
@@ -87,8 +80,8 @@ $SnsColor-Twitter: #1da1f2;
 $SnsColor-Line: #06c755;
 $SnsColor-Hateb: #01a5df;
 $SnsColor-Pocket: #ef4056;
-$SnsColor-Youtube: #ff0000;
-$SnsColor-X: #000000;
+$SnsColor-Youtube: #f00;
+$SnsColor-X: #000;
 $SnsColor-Feedly: #6cc655;
 $SnsColor-Note: #41c9b4;
 $SnsColor-Rss: #f78422;
@@ -98,30 +91,34 @@ $SnsColor-Rss: #f78422;
 // ============================================
 
 // プライマリカラー（既存のMainを活用）
-$primary-color: $Main;           // ブランドメインカラー
-$secondary-color: $gray02;       // セカンダリカラー
-$accent-color: $Accent;          // アクセントカラー（CTA等）
+$primary-color: $Main; // ブランドメインカラー
+$secondary-color: $gray02; // セカンダリカラー
+$accent-color: $Accent; // アクセントカラー（CTA等）
 
 // テキストカラー（既存のTextを活用）
-$text-color: $Text;              // メインテキスト
-$text-color-light: $gray02;      // サブテキスト
+$text-color: $Text; // メインテキスト
+$text-color-light: $gray02; // サブテキスト
 
 // 背景カラー
-$bg-primary: $white;             // メイン背景
-$bg-secondary: $gray;            // セカンダリ背景
+$bg-primary: $white; // メイン背景
+$bg-secondary: $gray; // セカンダリ背景
 
 // ============================================
 // ケイタスプラン ブランドカラー（Figmaデザインから抽出）
 // ============================================
-$brand-blue: #0054ac;        // メインブルー（CTA・ブロック背景）
-$brand-blue-light: #378fea;  // ライトブルー
-$brand-blue-pale: #98cbff;   // ペールブルー（グラデーション下端）
-$brand-blue-sky: #eaf4ff;    // スカイブルー（淡い背景）
-$brand-green: #1abd76;       // グリーン（アクセント）
-$brand-yellow: #f7d870;      // イエロー
+$brand-blue: #0054ac; // メインブルー（CTA・ブロック背景）
+$brand-blue-light: #378fea; // ライトブルー
+$brand-blue-pale: #98cbff; // ペールブルー（グラデーション下端）
+$brand-blue-sky: #eaf4ff; // スカイブルー（淡い背景）
+$brand-green: #1abd76; // グリーン（アクセント）
+$brand-yellow: #f7d870; // イエロー
 $brand-yellow-pale: #f0dc98; // イエロー（淡）
-$brand-text: #4d4d4d;        // 本文テキスト
-$brand-white: #ffffff;       // ホワイト
+$brand-text: #4d4d4d; // 本文テキスト
+$brand-white: #fff; // ホワイト
 
 // ブランドグラデーション（FV・メッセージ等）
-$brand-gradient: linear-gradient(180deg, #{$brand-blue} 0%, #{$brand-blue-pale} 100%);
+$brand-gradient: linear-gradient(
+	180deg,
+	#{$brand-blue} 0%,
+	#{$brand-blue-pale} 100%
+);

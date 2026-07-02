@@ -95,7 +95,9 @@ const markSvg = theme === 'light' ? markLight : markDark;
 
 		&__en {
 			@include ty-heading-en;
+
 			color: $brand-text;
+
 			@include mq('sp') {
 				font-size: size(20);
 			}
@@ -103,6 +105,7 @@ const markSvg = theme === 'light' ? markLight : markDark;
 
 		&__lead {
 			@include ty-lead;
+
 			padding-bottom: size(34);
 
 			@include mq('sp') {
@@ -122,6 +125,7 @@ const markSvg = theme === 'light' ? markLight : markDark;
 			.c-heading__ja {
 				color: $brand-text;
 			}
+
 			.c-heading__lead {
 				color: $brand-text;
 			}
@@ -131,9 +135,11 @@ const markSvg = theme === 'light' ? markLight : markDark;
 			.c-heading__ja {
 				color: $brand-white;
 			}
+
 			.c-heading__en {
 				color: $brand-white;
 			}
+
 			.c-heading__lead {
 				color: $brand-white;
 			}

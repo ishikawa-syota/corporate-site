@@ -170,6 +170,7 @@ const footerNav = [
 		z-index: 2; // FAQ(z:1)より前面。内包するお問い合わせカードを境界線上に重ねる
 		display: flow-root; // カードの負マージンを内包（margin相殺/はみ出しを制御）
 		background-color: $brand-blue;
+
 		// 上端paddingはお問い合わせカードの重なりで担うため0
 		padding: 0 size(40) size(96);
 		color: $brand-white;
@@ -260,8 +261,7 @@ const footerNav = [
 				grid-auto-flow: column;
 				grid-template-rows: repeat(4, auto);
 				grid-template-columns: auto auto auto;
-				column-gap: size(66);
-				row-gap: size(25);
+				gap: size(25) size(66);
 				justify-content: start;
 				width: auto;
 			}
@@ -310,23 +310,10 @@ const footerNav = [
 			margin-top: size(60);
 			padding: size(10) size(11) size(10) size(52);
 			border-radius: size(140);
-			background: linear-gradient(180deg, #ffffff 0%, #e9e9e9 100%);
+			background: linear-gradient(180deg, #fff 0%, #e9e9e9 100%);
 			transition:
 				transform 0.3s ease,
 				box-shadow 0.3s ease;
-
-			&::after {
-				content: '';
-				position: absolute;
-				top: 0;
-				left: 0;
-				width: 100%;
-				height: 100%;
-				border-radius: 140px;
-				background: linear-gradient(90deg, #fff 0%, #dfefff 100%);
-				opacity: 0;
-				transition: opacity 0.3s ease;
-			}
 
 			@include mq('sp') {
 				height: size(60);
@@ -341,10 +328,24 @@ const footerNav = [
 					&::after {
 						opacity: 1;
 					}
+
 					.l-footer__saiyouIcon {
 						transform: translateX(#{size(2)});
 					}
 				}
+			}
+
+			&::after {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				border-radius: 140px;
+				background: linear-gradient(90deg, #fff 0%, #dfefff 100%);
+				opacity: 0;
+				transition: opacity 0.3s ease;
 			}
 		}
 
@@ -358,6 +359,7 @@ const footerNav = [
 			transition: transform 0.3s ease;
 			position: relative;
 			z-index: 1;
+
 			@include mq('sp') {
 				font-size: size(23);
 			}
@@ -374,6 +376,7 @@ const footerNav = [
 			transition: transform 0.3s ease;
 			position: relative;
 			z-index: 1;
+
 			svg {
 				width: size(15);
 				height: size(13);
@@ -388,8 +391,10 @@ const footerNav = [
 	.p-contactCta {
 		position: relative;
 		z-index: 2;
+
 		// margin-top = カード高さの半分（負）。カード中央をフッター上端(=FAQとの境界線)に乗せる
 		margin-top: size(-176);
+
 		// フッターナビとの余白（Figma: フッター上端→ナビ 202 − カード半分 176）
 		margin-bottom: size(26);
 
@@ -587,19 +592,6 @@ const footerNav = [
 				transform 0.3s ease,
 				box-shadow 0.3s ease;
 
-			&::after {
-				content: '';
-				position: absolute;
-				top: 0;
-				left: 0;
-				width: 100%;
-				height: 100%;
-				border-radius: calc(1px / 0);
-				background: var(--0054-ac, #0054ac);
-				opacity: 0;
-				transition: opacity 0.3s ease;
-			}
-
 			@include mq('sp') {
 				width: 100%;
 				height: size(108);
@@ -612,10 +604,24 @@ const footerNav = [
 					&::after {
 						opacity: 1;
 					}
+
 					.p-contactCta__formArrow {
 						transform: translate(#{size(2), -50%});
 					}
 				}
+			}
+
+			&::after {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				border-radius: calc(1px / 0);
+				background: var(--0054-ac, #0054ac);
+				opacity: 0;
+				transition: opacity 0.3s ease;
 			}
 		}
 

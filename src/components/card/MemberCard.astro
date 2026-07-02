@@ -69,9 +69,9 @@ const { role, name, img, imgHover } = Astro.props;
 
 		&__img {
 			display: block;
-			width: 100%;
 			height: 100%;
 			transition: opacity 0.4s ease;
+
 			// transform: scale(1.4);
 			width: size(403);
 			transform: translateX(-20%);
@@ -90,11 +90,13 @@ const { role, name, img, imgHover } = Astro.props;
 			flex-direction: column;
 			align-items: center;
 			gap: size(4);
+
 			// margin-top: size(-26);
 		}
 
 		&__role {
 			@include ty-caption;
+
 			color: $brand-white;
 
 			@include mq('sp') {

@@ -1,15 +1,14 @@
 @charset "utf-8";
+
 // 💬 Description.........................................
-//
 // 変数/関数を定義するscss
-//
 // ............................................................
-@use "sass:map";
+@use 'sass:map';
 
 // 変数定義を追加
-$image-path: "../../images" !default;
+$image-path: '../../images' !default;
 
-//MediaQuery --------------------
+// MediaQuery --------------------
 $Bp-Mobile: 580px !default;
 $Bp-7inch: 768px !default;
 $Bp-11inch: 1100px !default;
@@ -21,16 +20,16 @@ $Bp-15inch: 1500px !default;
 // ============================================
 // デザインカンプの幅を設定
 // この値を変更するとsize()関数の計算に反映される
-$design-width-pc: 1536 !default;  // PCデザインカンプ幅
-$design-width-sp: 768 !default;   // SPデザインカンプ幅（FigmaのSPフレーム幅）
+$design-width-pc: 1536 !default; // PCデザインカンプ幅
+$design-width-sp: 768 !default; // SPデザインカンプ幅（FigmaのSPフレーム幅）
 
 // ============================================
 // ブレークポイント変数
 // ============================================
 // mq()ミックスインで使用するブレークポイント
-$breakpoint-sp: 768px !default;   // SP判定ブレークポイント
+$breakpoint-sp: 768px !default; // SP判定ブレークポイント
 
-//使う時
+// 使う時
 // @media only screen and (max-width: $Bp-11inch) {
 // }
 

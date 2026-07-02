@@ -80,6 +80,7 @@ const kvSlides = [
 		position: relative;
 		min-height: size(1050);
 		margin-top: size(120);
+
 		// background: linear-gradient(
 		// 	180deg,
 		// 	$brand-blue 0%,
@@ -130,9 +131,10 @@ const kvSlides = [
 			width: 100%;
 			opacity: 0;
 			z-index: 0;
+
 			// Splide が fade でも各スライドに横位置の translateX を inline 付与するため、
 			// 全スライドを同じ位置に重ねるよう打ち消す（コアCSS非読込のための補正）
-			transform: none !important;
+			transform: none !important; /* stylelint-disable-line declaration-no-important -- cancel Splide inline transform */
 		}
 
 		&__splide :global(.splide__slide.is-active) {

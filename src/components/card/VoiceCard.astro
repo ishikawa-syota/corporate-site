@@ -34,7 +34,8 @@ const { no, meta, headline, body } = Astro.props;
 		padding: size(30);
 		background-color: $brand-white;
 		border-radius: size(10);
-		box-shadow: size(2) size(4) size(10) rgba(0, 0, 0, 0.25);
+		box-shadow: size(2) size(4) size(10) rgb(0 0 0 / 25%);
+
 		@include mq('sp') {
 			min-height: auto;
 			gap: size(26);

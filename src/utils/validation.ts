@@ -3,8 +3,8 @@
  * @param email メールアドレス
  */
 export const isValidEmail = (email: string): boolean => {
-  const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return pattern.test(email);
+	const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+	return pattern.test(email);
 };
 
 /**
@@ -12,8 +12,8 @@ export const isValidEmail = (email: string): boolean => {
  * @param phone 電話番号
  */
 export const isValidJapanesePhone = (phone: string): boolean => {
-  const pattern = /^(0[0-9]{1,4}-[0-9]{1,4}-[0-9]{4})$/;
-  return pattern.test(phone);
+	const pattern = /^(0[0-9]{1,4}-[0-9]{1,4}-[0-9]{4})$/;
+	return pattern.test(phone);
 };
 
 /**
@@ -21,6 +21,6 @@ export const isValidJapanesePhone = (phone: string): boolean => {
  * @param postalCode 郵便番号
  */
 export const isValidJapanesePostalCode = (postalCode: string): boolean => {
-  const pattern = /^\d{3}-\d{4}$/;
-  return pattern.test(postalCode);
+	const pattern = /^\d{3}-\d{4}$/;
+	return pattern.test(postalCode);
 };

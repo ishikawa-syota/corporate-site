@@ -5,6 +5,7 @@
 ### getImage()に文字列パスを渡すとエラー
 
 **エラーメッセージ:**
+
 ```
 Image's and getImage's src parameter must be an imported image or an URL,
 it cannot be a string filepath. Received /@fs/Users/.../img_example.png?origWidth=682&...
@@ -25,6 +26,7 @@ const optimized = await getImage({ src: image, format: 'png' });
 インポートしたオブジェクトを直接`src`に渡す。
 
 **教訓:**
+
 - Astroの画像インポートは`ImageMetadata`オブジェクトを返す
 - `getImage()`や`<Image>`コンポーネントにはこのオブジェクトを直接渡す
 - `.src`プロパティは最終的なURL文字列を取得する時のみ使用
@@ -34,12 +36,14 @@ const optimized = await getImage({ src: image, format: 'png' });
 ### ビルドキャッシュでOGPが反映されない
 
 **エラーメッセージ:**
+
 ```
 🚨 メタデータ検証エラー:
 - index.html: OGP: og:imageが設定されていません
 ```
 
 **状況:**
+
 - `src/data/meta.ts`には正しい`ogImage`が設定されている
 - ビルド後のHTMLを確認すると`<meta property="og:image" content>`が空
 
@@ -47,11 +51,13 @@ const optimized = await getImage({ src: image, format: 'png' });
 `.astro/`と`dist/`に古いキャッシュが残っていた。
 
 **解決策:**
+
 ```bash
 rm -rf dist .astro && npm run build:check
 ```
 
 **教訓:**
+
 - ビルドエラー発生時はまずキャッシュクリアを試す
 - 特にmeta情報やデータファイルを変更した後は注意
 
@@ -63,6 +69,7 @@ rm -rf dist .astro && npm run build:check
 iOS Safari でページロード時に追従CTAが一瞬表示されてしまう。
 
 **試行錯誤:**
+
 1. インラインスタイル `opacity: 0; visibility: hidden;` → ❌
 2. `transform: translateY(100%)` で画面外に移動 → ❌
 3. `display: none !important` をインラインで設定 → ❌
@@ -81,14 +88,15 @@ clone.style.display = 'none'; // iOS Safari では一瞬見える
 
 // ✅ OK: スクロール時に初めてDOMに追加
 const observer = new IntersectionObserver((entries) => {
-  if (entries[0].isIntersecting) {
-    document.body.appendChild(clone); // ここで初めて追加
-  }
+	if (entries[0].isIntersecting) {
+		document.body.appendChild(clone); // ここで初めて追加
+	}
 });
 observer.observe(targetSection);
 ```
 
 **教訓:**
+
 - iOS Safari の実機または本番環境でテストすることが重要
 - 「要素を隠す」のではなく「要素を存在させない」が最も確実
 
@@ -104,11 +112,12 @@ Adobe Fonts（Typekit）はフォント名を**小文字・ハイフン区切り
 
 ```javascript
 // 実際に登録されているフォント名を確認
-document.fonts.forEach(f => console.log(f.family, f.status));
+document.fonts.forEach((f) => console.log(f.family, f.status));
 // 出力: "fot-cezanne-pron" "loaded"
 ```
 
 **解決策:**
+
 ```scss
 // Before
 $Font-Body: 'FOT-Cezanne ProN', sans-serif;
@@ -118,6 +127,7 @@ $Font-Body: 'fot-cezanne-pron', sans-serif;
 ```
 
 **教訓:**
+
 - Adobe Fontsはフォント名を正規化（小文字・ハイフン区切り）して登録する
 - `document.fonts`で実際の登録名を確認
 
@@ -145,19 +155,21 @@ CSSスタッキングコンテキストの仕様。
 
 ```scss
 .l-header {
-  z-index: 1000;
+	z-index: 1000;
 
-  &.is-drawer-open {
-    @include mq('sp') {
-      z-index: 2001;
-    }
-  }
+	&.is-drawer-open {
+		@include mq('sp') {
+			z-index: 2001;
+		}
+	}
 }
 ```
 
 **教訓:**
+
 - `position: fixed`でも親のスタッキングコンテキストからは逃れられない
 - 親要素のz-indexを動的に変更することで解決可能
 
 ---
+
 <!-- 以下にデバッグ記録を追記 -->

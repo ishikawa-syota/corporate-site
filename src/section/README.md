@@ -31,16 +31,19 @@ section/
 すぐに使えるテンプレート対応済みセクションです。
 
 ### 00Cta.astro - CTAセクション
+
 - **用途**: Call to Action（行動促進）
 - **特徴**: `CtaContent`コンポーネントを使用、プロップスで完全カスタマイズ可能
 - **設定**: `src/data/sampleContent.ts`で一括管理
 
 ### 01FV.astro - ファーストビュー
+
 - **用途**: ページの第一印象を決めるメインビジュアル
 - **特徴**: タイトル・サブタイトル・特徴リスト・CTAボタンを含む
 - **設定**: プロップスまたはサンプルデータで設定可能
 
 ### 02Worries.astro - 悩み・課題セクション
+
 - **用途**: ターゲット顧客の課題・悩みを訴求
 - **特徴**: タイトル・サブタイトル・課題リスト・イメージ画像
 - **設定**: プロップスまたはサンプルデータで設定可能
@@ -58,29 +61,29 @@ section/
 
 ```astro
 ---
-import { sampleContent } from "../data/sampleContent";
+import { sampleContent } from '../data/sampleContent';
 
 interface Props {
-  id?: string;
-  class?: string;
-  // カスタムプロップス
+	id?: string;
+	class?: string;
+	// カスタムプロップス
 }
 
 const { id, class: className } = Astro.props;
 ---
 
 <section class="p-your-section" id={id}>
-  <div class="l-inner">
-    <!-- セクションコンテンツ -->
-  </div>
+	<div class="l-inner">
+		<!-- セクションコンテンツ -->
+	</div>
 </section>
 
 <style lang="scss">
-  @use "../styles/foundation/index" as *;
-  
-  .p-your-section {
-    // スタイル定義
-  }
+	@use '../styles/foundation/index' as *;
+
+	.p-your-section {
+		// スタイル定義
+	}
 </style>
 ```
 
@@ -100,18 +103,18 @@ import YourSection from '../section/YourSection.astro';
 ---
 
 <Layout>
-  <YourSection id="your-section" />
+	<YourSection id="your-section" />
 </Layout>
 ```
 
 ### 2. プロップスでのカスタマイズ
 
 ```astro
-<YourSection 
-  id="custom-section"
-  title="カスタムタイトル"
-  description="カスタム説明文"
-  items={customItems}
+<YourSection
+	id="custom-section"
+	title="カスタムタイトル"
+	description="カスタム説明文"
+	items={customItems}
 />
 ```
 
@@ -125,4 +128,4 @@ import YourSection from '../section/YourSection.astro';
 
 ---
 
-効率的なLP開発にお役立てください！ 🎯 
+効率的なLP開発にお役立てください！ 🎯

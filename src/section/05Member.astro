@@ -81,6 +81,7 @@ const memberHoverImages = [
 
 	.p-member {
 		position: relative;
+
 		// overflow: hidden;
 		// Figma: 濃紺グラデ背景（人物写真がくっきり映える）
 		// background: linear-gradient(180deg, $brand-blue 0%, #cfe6ff 100%);
@@ -103,8 +104,9 @@ const memberHoverImages = [
 				180deg,
 				var(--0054-ac, #0054ac) 0%,
 				#98cbff 51.44%,
-				rgba(255, 255, 255, 0) 100%
+				rgb(255 255 255 / 0%) 100%
 			);
+
 			@include mq('sp') {
 				border-radius: size(94);
 			}
@@ -135,6 +137,7 @@ const memberHoverImages = [
 			max-width: size(1098);
 			margin-inline: auto;
 			padding-inline: size(24);
+
 			@include mq('sp') {
 				padding-inline: 0;
 			}
@@ -189,19 +192,19 @@ const memberHoverImages = [
 			flex: 0 0 auto;
 			position: relative;
 
+			// hover中のカードを手前へ（重なりで隣に隠れないように）
+			@media (hover: hover) and (pointer: fine) {
+				&:hover {
+					z-index: 2;
+				}
+			}
+
 			// PC: 先頭以外を左にずらして100px重ねる（SPはSplideが制御するので0に戻す）
 			&:not(:first-child) {
 				margin-left: size(-100);
 
 				@include mq('sp') {
 					margin-left: 0;
-				}
-			}
-
-			// hover中のカードを手前へ（重なりで隣に隠れないように）
-			@media (hover: hover) and (pointer: fine) {
-				&:hover {
-					z-index: 2;
 				}
 			}
 		}

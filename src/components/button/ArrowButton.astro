@@ -61,6 +61,18 @@ const {
 			box-shadow 0.3s ease,
 			background-color 0.3s ease;
 
+		@media (hover: hover) and (pointer: fine) {
+			&:hover {
+				&::after {
+					opacity: 1;
+				}
+
+				.c-arrowBtn__icon {
+					transform: translateX(#{size(2)});
+				}
+			}
+		}
+
 		&::after {
 			content: '';
 			position: absolute;
@@ -75,11 +87,13 @@ const {
 		}
 
 		&__label {
+			@include ty-button;
+
 			position: relative;
 			z-index: 1;
-			@include ty-button;
 			font-size: size(15);
 			font-weight: 500;
+
 			@include mq('sp') {
 				font-size: size(20);
 			}
@@ -89,7 +103,6 @@ const {
 			position: absolute;
 			z-index: 1;
 			right: size(15);
-			display: inline-flex;
 			width: size(29);
 			height: size(29);
 			background-color: $brand-blue;
@@ -106,18 +119,6 @@ const {
 			}
 		}
 
-		@media (hover: hover) and (pointer: fine) {
-			&:hover {
-				&::after {
-					opacity: 1;
-				}
-
-				.c-arrowBtn__icon {
-					transform: translateX(#{size(2)});
-				}
-			}
-		}
-
 		// --- 配色バリアント ---
 		&--white {
 			background-color: $brand-white;
@@ -126,9 +127,11 @@ const {
 			.c-arrowBtn__label {
 				color: $brand-text;
 			}
+
 			.c-arrowBtn__icon circle {
 				fill: $brand-blue;
 			}
+
 			.c-arrowBtn__icon path {
 				// stroke: $brand-white;
 			}
@@ -140,9 +143,11 @@ const {
 			.c-arrowBtn__label {
 				color: $brand-white;
 			}
+
 			.c-arrowBtn__icon circle {
 				fill: $brand-white;
 			}
+
 			.c-arrowBtn__icon path {
 				stroke: $brand-blue;
 			}

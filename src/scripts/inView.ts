@@ -27,74 +27,75 @@
  * InView アニメーションの初期化
  */
 export const initInView = (): void => {
-  const boxes = document.querySelectorAll<HTMLElement>('.js-inView');
+	const boxes = document.querySelectorAll<HTMLElement>('.js-inView');
 
-  if (boxes.length === 0) {
-    return;
-  }
+	if (boxes.length === 0) {
+		return;
+	}
 
-  // ハッシュリンクからのアクセスを検出
-  // 直接セクションにジャンプした場合、即座にアニメーションを適用
-  if (window.location.hash) {
-    const targetId = window.location.hash.substring(1);
-    const targetSection = document.getElementById(targetId);
+	// ハッシュリンクからのアクセスを検出
+	// 直接セクションにジャンプした場合、即座にアニメーションを適用
+	if (window.location.hash) {
+		const targetId = window.location.hash.substring(1);
+		const targetSection = document.getElementById(targetId);
 
-    if (targetSection) {
-      // ターゲットセクション内のjs-inView要素に直接クラスを追加
-      const elementsInTarget = targetSection.querySelectorAll<HTMLElement>('.js-inView');
-      elementsInTarget.forEach((el) => {
-        el.classList.add('js-inView-activate');
-      });
-    }
-  }
+		if (targetSection) {
+			// ターゲットセクション内のjs-inView要素に直接クラスを追加
+			const elementsInTarget =
+				targetSection.querySelectorAll<HTMLElement>('.js-inView');
+			elementsInTarget.forEach((el) => {
+				el.classList.add('js-inView-activate');
+			});
+		}
+	}
 
-  /**
-   * 要素にアクティブクラスを追加する関数
-   * @param entry IntersectionObserverEntry
-   */
-  const setClass = (entry: IntersectionObserverEntry): void => {
-    if (
-      entry.isIntersecting &&
-      !entry.target.classList.contains('js-inView-activate')
-    ) {
-      entry.target.classList.add('js-inView-activate');
-    }
-  };
+	/**
+	 * 要素にアクティブクラスを追加する関数
+	 * @param entry IntersectionObserverEntry
+	 */
+	const setClass = (entry: IntersectionObserverEntry): void => {
+		if (
+			entry.isIntersecting &&
+			!entry.target.classList.contains('js-inView-activate')
+		) {
+			entry.target.classList.add('js-inView-activate');
+		}
+	};
 
-  /**
-   * 通常のオブザーバー（rootMargin: -40%）
-   * ビューポートの中央付近でアニメーションを発火
-   */
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        setClass(entry);
-      });
-    },
-    { rootMargin: '-40% 0px' }
-  );
+	/**
+	 * 通常のオブザーバー（rootMargin: -40%）
+	 * ビューポートの中央付近でアニメーションを発火
+	 */
+	const observer = new IntersectionObserver(
+		(entries) => {
+			entries.forEach((entry) => {
+				setClass(entry);
+			});
+		},
+		{ rootMargin: '-40% 0px' }
+	);
 
-  /**
-   * 短いオブザーバー（rootMargin: -10%）
-   * 早めにアニメーションを発火したい要素用
-   */
-  const observerShort = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        setClass(entry);
-      });
-    },
-    { rootMargin: '-10% 0px' }
-  );
+	/**
+	 * 短いオブザーバー（rootMargin: -10%）
+	 * 早めにアニメーションを発火したい要素用
+	 */
+	const observerShort = new IntersectionObserver(
+		(entries) => {
+			entries.forEach((entry) => {
+				setClass(entry);
+			});
+		},
+		{ rootMargin: '-10% 0px' }
+	);
 
-  // 各要素にオブザーバーを適用
-  boxes.forEach((box) => {
-    if (box.classList.contains('js-inView_short')) {
-      observerShort.observe(box);
-    } else {
-      observer.observe(box);
-    }
-  });
+	// 各要素にオブザーバーを適用
+	boxes.forEach((box) => {
+		if (box.classList.contains('js-inView_short')) {
+			observerShort.observe(box);
+		} else {
+			observer.observe(box);
+		}
+	});
 };
 
 /**
@@ -103,19 +104,19 @@ export const initInView = (): void => {
  * アニメーションを無効化
  */
 export const initInViewWithAccessibility = (): void => {
-  const prefersReducedMotion = window.matchMedia(
-    '(prefers-reduced-motion: reduce)'
-  ).matches;
+	const prefersReducedMotion = window.matchMedia(
+		'(prefers-reduced-motion: reduce)'
+	).matches;
 
-  if (!prefersReducedMotion) {
-    initInView();
-  } else {
-    // アニメーション削減モード: 即座にすべての要素を表示
-    const boxes = document.querySelectorAll<HTMLElement>('.js-inView');
-    boxes.forEach((box) => {
-      box.classList.add('js-inView-activate');
-    });
-  }
+	if (!prefersReducedMotion) {
+		initInView();
+	} else {
+		// アニメーション削減モード: 即座にすべての要素を表示
+		const boxes = document.querySelectorAll<HTMLElement>('.js-inView');
+		boxes.forEach((box) => {
+			box.classList.add('js-inView-activate');
+		});
+	}
 };
 
 // デフォルトエクスポート

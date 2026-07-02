@@ -1,36 +1,32 @@
 @charset "utf-8";
 
 // 💬 Description.........................................
-//
 // デザインカンプから抽出したデザイントークン
-// 数値は元のデザインから絶対に変更せず、fluid()関数を使用
-//
+// 数値は元のデザインから絶対に変更せず、size()関数を使用
 // ............................................................
 
-@use "sass:map";
-@use "variable" as *;
-@use "mixin" as *;
-
+@use 'sass:map';
+@use 'variable' as *;
+@use 'mixin' as *;
 
 // ============================================
 // DESIGN PADDING TOKENS
 // ============================================
 
-@mixin padding-section($padding-block: fluid(96)) {
-    padding-block: $padding-block;
-    @media screen and (max-width: 960px) {
-        padding-block: fluid-sp(80);
-    }
+@mixin padding-section($padding-block: size(96)) {
+	padding-block: $padding-block;
+
+	@media screen and (width <= 960px) {
+		padding-block: size(80);
+	}
 }
 
 @mixin text-gradient {
-    background: linear-gradient(90deg, #2CAC6F 0%, #00B4CA 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-fill-color: transparent;
+	background: linear-gradient(90deg, #2cac6f 0%, #00b4ca 100%);
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
+	text-fill-color: transparent;
 }
-
 
 // ============================================
 // DESIGN COLOR TOKENS
@@ -44,42 +40,55 @@
 
 // プライマリカラー（デザインカンプから抽出）
 $design-colors: (
-  // メインカラー（緑系カラー）
-  "primary": (
-    "500": #0DAB82,  // メイングリーン（デザインから抽出）
-    "600": #10a481,  // ダークグリーン
-    "400": #26D99C,  // ライトグリーン
-  ),
+	// メインカラー（緑系カラー）
+	'primary': (
+			'500': #0dab82,
+			// メイングリーン（デザインから抽出）
+			'600': #10a481,
+			// ダークグリーン
+			'400': #26d99c,
+			// ライトグリーン
+		),
 
-  // グレースケール
-  "gray": (
-    "100": #FFFFFF,  // ホワイト（背景色）
-    "200": #F8F9FA,  // ライトグレー
-    "300": #E9ECEF,  // ライトグレー2
-    "500": #6C757D,  // ミディアムグレー
-    "700": #495057,  // ダークグレー
-    "900": #3C3C3C,  // ブラック（テキスト色）
-  ),
+	// グレースケール
+	'gray': (
+			'100': #fff,
+			// ホワイト（背景色）
+			'200': #f8f9fa,
+			// ライトグレー
+			'300': #e9ecef,
+			// ライトグレー2
+			'500': #6c757d,
+			// ミディアムグレー
+			'700': #495057,
+			// ダークグレー
+			'900': #3c3c3c,
+			// ブラック（テキスト色）
+		),
 
-  // アクセントカラー
-  "accent": (
-    "red": #DC5945,    // レッド（CTA・ボタン）
-    "yellow": #FFC107, // イエロー（ハイライト）
-    "blue": #0D6EFD,   // ブルー（リンク）
-  ),
+	// アクセントカラー
+	'accent': (
+			'red': #dc5945,
+			// レッド（CTA・ボタン）
+			'yellow': #ffc107,
+			// イエロー（ハイライト）
+			'blue': #0d6efd,
+			// ブルー（リンク）
+		),
 
-  // セマンティックカラー
-  "semantic": (
-    "error": #DC3545,
-    "warning": #FFC107,
-    "success": #00CC88,  // メイングリーンと同じ
-    "info": #0D6EFD,
-  )
+	// セマンティックカラー
+	'semantic': (
+			'error': #dc3545,
+			'warning': #ffc107,
+			'success': #0c8,
+			// メイングリーンと同じ
+			'info': #0d6efd,
+		)
 );
 
 // カラー取得用関数
-@function design-color($category, $variant: "500") {
-  @return map.get(map.get($design-colors, $category), $variant);
+@function design-color($category, $variant: '500') {
+	@return map.get(map.get($design-colors, $category), $variant);
 }
 
 // ============================================
@@ -88,114 +97,138 @@ $design-colors: (
 
 // フォントファミリー（デザインカンプから抽出）
 $design-font-families: (
-  "primary": "Zen Kaku Gothic New, sans-serif",  // デザインから抽出
-  "secondary": "Noto Sans JP, sans-serif",      // サブフォント
-  "en": "Oswald, sans-serif",      // サブフォント
-  "display": "Zen Kaku Gothic New, sans-serif",  // ディスプレイ用も同じ
+	'primary': 'Zen Kaku Gothic New, sans-serif',
+	// デザインから抽出
+	'secondary': 'Noto Sans JP, sans-serif',
+	// サブフォント
+	'en': 'Oswald, sans-serif',
+	// サブフォント
+	'display': 'Zen Kaku Gothic New, sans-serif', // ディスプレイ用も同じ
 );
 
 // フォントウェイト
 $design-font-weights: (
-  "thin": 100,
-  "light": 300,
-  "regular": 400,
-  "medium": 500,
-  "bold": 700,
-  "black": 900,
+	'thin': 100,
+	'light': 300,
+	'regular': 400,
+	'medium': 500,
+	'bold': 700,
+	'black': 900,
 );
 
-// タイポグラフィーシステム（デザインカンプから抽出した値をfluid()で設定）
+// タイポグラフィーシステム（デザインカンプから抽出した値をsize()で設定）
 $design-typography: (
-  // ヘッダータイポグラフィー
-  "heading": (
-    "h1": (
-      "font-size": fluid(48),      // 48px → fluid()で変換
-      "line-height": 1.2,
-      "font-weight": map.get($design-font-weights, "bold"),
-      "letter-spacing": -0.02em,
-    ),
-    "h2": (
-      "font-size": fluid(36),      // 36px → fluid()で変換
-      "line-height": 1.3,
-      "font-weight": map.get($design-font-weights, "bold"),
-      "letter-spacing": -0.01em,
-    ),
-    "h3": (
-      "font-size": fluid(28),      // 28px → fluid()で変換
-      "line-height": 1.4,
-      "font-weight": map.get($design-font-weights, "medium"),
-      "letter-spacing": 0,
-    ),
-    "h4": (
-      "font-size": fluid(24),      // 24px → fluid()で変換
-      "line-height": 1.4,
-      "font-weight": map.get($design-font-weights, "medium"),
-      "letter-spacing": 0,
-    ),
-    "h5": (
-      "font-size": fluid(20),      // 20px → fluid()で変換（デザインから抽出）
-      "line-height": 1.0,          // 20px line-height on 20px font-size（デザインから抽出）
-      "font-weight": map.get($design-font-weights, "bold"),  // 700（デザインから抽出）
-      "letter-spacing": 0,
-    ),
-    "h6": (
-      "font-size": fluid(18),      // 18px → fluid()で変換
-      "line-height": 1.5,
-      "font-weight": map.get($design-font-weights, "medium"),
-      "letter-spacing": 0,
-    ),
-  ),
+	// ヘッダータイポグラフィー
+	'heading': (
+			'h1': (
+				'font-size': size(48),
+				// 48px → size()で変換
+				'line-height': 1.2,
+				'font-weight': map.get($design-font-weights, 'bold'),
+				'letter-spacing': -0.02em,
+			),
+			'h2': (
+				'font-size': size(36),
+				// 36px → size()で変換
+				'line-height': 1.3,
+				'font-weight': map.get($design-font-weights, 'bold'),
+				'letter-spacing': -0.01em,
+			),
+			'h3': (
+				'font-size': size(28),
+				// 28px → size()で変換
+				'line-height': 1.4,
+				'font-weight': map.get($design-font-weights, 'medium'),
+				'letter-spacing': 0,
+			),
+			'h4': (
+				'font-size': size(24),
+				// 24px → size()で変換
+				'line-height': 1.4,
+				'font-weight': map.get($design-font-weights, 'medium'),
+				'letter-spacing': 0,
+			),
+			'h5': (
+				'font-size': size(20),
+				// 20px → size()で変換（デザインから抽出）
+				'line-height': 1,
+				// 20px line-height on 20px font-size（デザインから抽出）
+				'font-weight': map.get($design-font-weights, 'bold'),
+				// 700（デザインから抽出）
+				'letter-spacing': 0,
+			),
+			'h6': (
+				'font-size': size(18),
+				// 18px → size()で変換
+				'line-height': 1.5,
+				'font-weight': map.get($design-font-weights, 'medium'),
+				'letter-spacing': 0,
+			),
+		),
 
-  // ボディタイポグラフィー
-  "body": (
-    "large": (
-      "font-size": fluid(18),      // 18px → fluid()で変換
-      "line-height": 1.6,
-      "font-weight": map.get($design-font-weights, "regular"),
-      "letter-spacing": 0,
-    ),
-    "medium": (
-      "font-size": fluid(16),      // 16px → fluid()で変換
-      "line-height": 1.6,
-      "font-weight": map.get($design-font-weights, "regular"),
-      "letter-spacing": 0,
-    ),
-    "small": (
-      "font-size": fluid(14),      // 14px → fluid()で変換
-      "line-height": 1.5,
-      "font-weight": map.get($design-font-weights, "regular"),
-      "letter-spacing": 0,
-    ),
-    "caption": (
-      "font-size": fluid(12),      // 12px → fluid()で変換
-      "line-height": 1.4,
-      "font-weight": map.get($design-font-weights, "regular"),
-      "letter-spacing": 0.01em,
-    ),
-  ),
+	// ボディタイポグラフィー
+	'body': (
+			'large': (
+				'font-size': size(18),
+				// 18px → size()で変換
+				'line-height': 1.6,
+				'font-weight': map.get($design-font-weights, 'regular'),
+				'letter-spacing': 0,
+			),
+			'medium': (
+				'font-size': size(16),
+				// 16px → size()で変換
+				'line-height': 1.6,
+				'font-weight': map.get($design-font-weights, 'regular'),
+				'letter-spacing': 0,
+			),
+			'small': (
+				'font-size': size(14),
+				// 14px → size()で変換
+				'line-height': 1.5,
+				'font-weight': map.get($design-font-weights, 'regular'),
+				'letter-spacing': 0,
+			),
+			'caption': (
+				'font-size': size(12),
+				// 12px → size()で変換
+				'line-height': 1.4,
+				'font-weight': map.get($design-font-weights, 'regular'),
+				'letter-spacing': 0.01em,
+			),
+		)
 );
 
 // ============================================
 // DESIGN SPACING TOKENS
 // ============================================
 
-// スペーシングシステム（デザインカンプから抽出した値をfluid()で設定）
+// スペーシングシステム（デザインカンプから抽出した値をsize()で設定）
 $design-spacing: (
-  "xs": fluid(4),    // 4px → fluid()で変換
-  "sm": fluid(8),    // 8px → fluid()で変換
-  "md": fluid(16),   // 16px → fluid()で変換
-  "lg": fluid(24),   // 24px → fluid()で変換
-  "xl": fluid(32),   // 32px → fluid()で変換
-  "2xl": fluid(48),  // 48px → fluid()で変換
-  "3xl": fluid(64),  // 64px → fluid()で変換
-  "4xl": fluid(80),  // 80px → fluid()で変換
-  "5xl": fluid(96),  // 96px → fluid()で変換
-  "6xl": fluid(128), // 128px → fluid()で変換
+	'xs': size(4),
+	// 4px → size()で変換
+	'sm': size(8),
+	// 8px → size()で変換
+	'md': size(16),
+	// 16px → size()で変換
+	'lg': size(24),
+	// 24px → size()で変換
+	'xl': size(32),
+	// 32px → size()で変換
+	'2xl': size(48),
+	// 48px → size()で変換
+	'3xl': size(64),
+	// 64px → size()で変換
+	'4xl': size(80),
+	// 80px → size()で変換
+	'5xl': size(96),
+	// 96px → size()で変換
+	'6xl': size(128), // 128px → size()で変換
 );
 
 // スペーシング取得用関数
 @function design-spacing($size) {
-  @return map.get($design-spacing, $size);
+	@return map.get($design-spacing, $size);
 }
 
 // ============================================
@@ -204,28 +237,30 @@ $design-spacing: (
 
 // タイポグラフィーミックスイン
 @mixin design-typography($category, $variant) {
-  $styles: map.get(map.get($design-typography, $category), $variant);
+	$styles: map.get(map.get($design-typography, $category), $variant);
 
-  @if $styles {
-    font-size: map.get($styles, "font-size");
-    line-height: map.get($styles, "line-height");
-    font-weight: map.get($styles, "font-weight");
-    letter-spacing: map.get($styles, "letter-spacing");
-  } @else {
-    @warn "Typography style not found: #{$category}-#{$variant}";
-  }
+	@if $styles {
+		font-size: map.get($styles, 'font-size');
+		line-height: map.get($styles, 'line-height');
+		font-weight: map.get($styles, 'font-weight');
+		letter-spacing: map.get($styles, 'letter-spacing');
+	} @else {
+		@warn "Typography style not found: #{$category}-#{$variant}";
+	}
 }
 
 // ヘッダー用ミックスイン
-@mixin design-heading($level: "h1") {
-  @include design-typography("heading", $level);
-  font-family: map.get($design-font-families, "primary");
+@mixin design-heading($level: 'h1') {
+	@include design-typography('heading', $level);
+
+	font-family: map.get($design-font-families, 'primary');
 }
 
 // ボディテキスト用ミックスイン
-@mixin design-body($size: "medium") {
-  @include design-typography("body", $size);
-  font-family: map.get($design-font-families, "primary");
+@mixin design-body($size: 'medium') {
+	@include design-typography('body', $size);
+
+	font-family: map.get($design-font-families, 'primary');
 }
 
 // ============================================
@@ -233,21 +268,25 @@ $design-spacing: (
 // ============================================
 
 // カラー適用ミックスイン
-@mixin design-text-color($category, $variant: "500") {
-  color: design-color($category, $variant);
+@mixin design-text-color($category, $variant: '500') {
+	color: design-color($category, $variant);
 }
 
-@mixin design-bg-color($category, $variant: "500") {
-  background-color: design-color($category, $variant);
+@mixin design-bg-color($category, $variant: '500') {
+	background-color: design-color($category, $variant);
 }
 
-@mixin design-border-color($category, $variant: "500") {
-  border-color: design-color($category, $variant);
+@mixin design-border-color($category, $variant: '500') {
+	border-color: design-color($category, $variant);
 }
 
 @mixin linearGradient {
-  background: #FFD5CC;
-  background: linear-gradient(180deg,rgba(255, 213, 204, 1) 0%, rgba(201, 56, 34, 1) 100%);
+	background: #ffd5cc;
+	background: linear-gradient(
+		180deg,
+		rgb(255 213 204 / 100%) 0%,
+		rgb(201 56 34 / 100%) 100%
+	);
 }
 
 // ============================================
@@ -260,46 +299,52 @@ $design-spacing: (
 
 // PC用ヘッダーミックスイン
 @mixin pc_head_03 {
-  @include design-heading("h3");
+	@include design-heading('h3');
 }
 
 // SP用ヘッダーミックスイン
 @mixin sp_head_03 {
-  @include design-heading("h3");
-  font-size: fluid-sp(24);
+	@include design-heading('h3');
+
+	font-size: size(24);
 }
 
 // PC用ボールドテキストミックスイン
 @mixin pc_p_bold {
-  @include design-body("medium");
-  font-weight: map.get($design-font-weights, "bold");
+	@include design-body('medium');
+
+	font-weight: map.get($design-font-weights, 'bold');
 }
 
 // SP用ボールドテキストミックスイン
 @mixin sp_p_bold {
-  @include design-body("medium");
-  font-weight: map.get($design-font-weights, "bold");
-  font-size: fluid-sp(16);
+	@include design-body('medium');
+
+	font-weight: map.get($design-font-weights, 'bold');
+	font-size: size(16);
 }
 
 // PC用レギュラーテキストミックスイン
 @mixin pc_p_regular {
-  @include design-body("medium");
-  font-weight: map.get($design-font-weights, "regular");
+	@include design-body('medium');
+
+	font-weight: map.get($design-font-weights, 'regular');
 }
 
 // SP用レギュラーテキストミックスイン
 @mixin sp_p_regular {
-  @include design-body("medium");
-  font-weight: map.get($design-font-weights, "regular");
-  font-size: fluid-sp(16);
+	@include design-body('medium');
+
+	font-weight: map.get($design-font-weights, 'regular');
+	font-size: size(16);
 }
 
 // SP用小テキストボールドミックスイン
 @mixin sp_small02_bold {
-  @include design-body("small");
-  font-weight: map.get($design-font-weights, "bold");
-  font-size: fluid-sp(12);
+	@include design-body('small');
+
+	font-weight: map.get($design-font-weights, 'bold');
+	font-size: size(12);
 }
 
 // ============================================
@@ -312,13 +357,11 @@ $design-spacing: (
 //   @include design-text-color("primary", "500");
 //   margin-bottom: design-spacing("lg");
 // }
-//
 // .body-text {
 //   @include design-body("medium");
 //   @include design-text-color("gray", "900");
 //   margin-bottom: design-spacing("md");
 // }
-//
 // .accent-button {
 //   @include design-bg-color("accent", "red");
 //   @include design-text-color("gray", "100");

@@ -1,28 +1,26 @@
 // 作成したsassを拡張子(.sass)とファイル名頭にある_を削って増やしていく
 // 増やしたsassに記載したソースは、コンパイルすると 1枚のCSS (main.css) に全てまとめて吐き出される
 
-//Foundation
-@use "foundation/reset";
+// Foundation
+@use 'foundation/reset';
 
-//Layout
-@use "layout/wrapper";
-@use "layout/bgPattern";
+// Layout
+@use 'layout/wrapper';
+@use 'layout/bgPattern';
+@use 'layout/header';
 
-@use "layout/header";
 // @use "layout/footer";
-@use "layout/main";
-@use "layout/cta";
-@use "lib/swiper";
+@use 'layout/main';
+@use 'layout/cta';
 
-//Component
+// Component
 // 必要なコンポーネントのみアンコメントアウト
-@use "object/component/heading";
+@use 'object/component/heading';
 
-//Lib - ページの表示に必要なものだけをインポート
+// Lib - ページの表示に必要なものだけをインポート
 
 /* ----------------------------------------------- */
 // utility - 強制的に上書きするスタイル
-@use "utility/utility";
-//Plugins - 必要に応じてアンコメントアウト
-// @use "plugins/contactform7";
-// @use "plugins/instagram-feed";
+@use 'utility/utility';
+
+// Plugins - 必要に応じてアンコメントアウト

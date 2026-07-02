@@ -1,14 +1,17 @@
 # JSのライブラリに対して使用するscss
 
 ## 決まりごと
+
 - jsのライブラリ毎に scssファイルを増やして使用する。
 - 基本的なデフォルトのスタイルを打ち消す際に使用する。
-#### 例 :  
-  ├── lib/  
-  │   ├── _swiper.scss  
-  │   ├── _hogehoge.scss  
-  │   ├── _mogemoge.scss  
-  │   └── ...
+
+#### 例 :
+
+├── lib/  
+ │ ├── \_swiper.scss  
+ │ ├── \_hogehoge.scss  
+ │ ├── \_mogemoge.scss  
+ │ └── ...
 
 - swiper.js など、基本的にすでにcssが当たっている状態だと思うので、上書きしていく形で書いてしまえば大丈夫です。
 

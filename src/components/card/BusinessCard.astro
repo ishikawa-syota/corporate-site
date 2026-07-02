@@ -5,95 +5,114 @@ import ImagePlaceholder from '../common/ImagePlaceholder.astro';
 import OptImage from '../common/OptImage.astro';
 
 interface Props {
-  title: string;
-  desc: string;
-  href?: string;
-  img?: ImageMetadata;
+	title: string;
+	desc: string;
+	href?: string;
+	img?: ImageMetadata;
 }
 
 const { title, desc, href = '#', img } = Astro.props;
 ---
 
 <article class="c-bizCard">
-  <div class="c-bizCard__media">
-    {img ? (
-      <OptImage src={img} alt={title} width={500} class="c-bizCard__img" />
-    ) : (
-      <ImagePlaceholder label={title} class="c-bizCard__img" rounded="0" />
-    )}
-  </div>
-  <div class="c-bizCard__body">
-    <h3 class="c-bizCard__title">{title}</h3>
-    <p class="c-bizCard__desc">{desc}</p>
-    <ArrowButton href={href} label="詳しく見る" variant="white" size="sm" class="c-bizCard__btn" />
-  </div>
+	<div class="c-bizCard__media">
+		{
+			img ? (
+				<OptImage
+					src={img}
+					alt={title}
+					width={500}
+					class="c-bizCard__img"
+				/>
+			) : (
+				<ImagePlaceholder
+					label={title}
+					class="c-bizCard__img"
+					rounded="0"
+				/>
+			)
+		}
+	</div>
+	<div class="c-bizCard__body">
+		<h3 class="c-bizCard__title">{title}</h3>
+		<p class="c-bizCard__desc">{desc}</p>
+		<ArrowButton
+			href={href}
+			label="詳しく見る"
+			variant="white"
+			size="sm"
+			class="c-bizCard__btn"
+		/>
+	</div>
 </article>
 
 <style lang="scss">
-  @use '../../styles/foundation/index' as *;
+	@use '../../styles/foundation/index' as *;
 
-  .c-bizCard {
-    display: flex;
-    align-items: stretch;
-    width: 100%;
-    border-radius: size(7);
-    overflow: hidden;
-    box-shadow: 0 size(10) size(30) rgba($brand-blue, 0.1);
+	.c-bizCard {
+		display: flex;
+		align-items: stretch;
+		width: 100%;
+		border-radius: size(7);
+		overflow: hidden;
+		box-shadow: 0 size(10) size(30) rgba($brand-blue, 0.1);
 
-    // SP(768)も横並び（写真左270 / ブルーパネル右310 = 計580）
+		// SP(768)も横並び（写真左270 / ブルーパネル右310 = 計580）
 
-    &__media {
-      flex-shrink: 0;
-      width: size(226);
+		&__media {
+			flex-shrink: 0;
+			width: size(226);
 
-      @include mq('sp') {
-        width: size(270);
-        // 高さは align-items: stretch でパネル高に追従
-      }
-    }
+			@include mq('sp') {
+				width: size(270);
 
-    &__img {
-      height: 100%;
-    }
+				// 高さは align-items: stretch でパネル高に追従
+			}
+		}
 
-    &__body {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: size(28);
-      padding: size(50) size(30);
-      background-color: $brand-blue;
+		&__img {
+			height: 100%;
+		}
 
-      @include mq('sp') {
-        // パネル幅310: 内側246 + 左右32 → padding-inline size(32)
-        padding: size(42) size(32);
-        gap: size(55);
-      }
-    }
+		&__body {
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: size(28);
+			padding: size(50) size(30);
+			background-color: $brand-blue;
 
-    &__title {
-      font-family: $Font;
-      font-weight: 700;
-      font-size: size(30);
-      line-height: 1.4;
-      color: $brand-white;
+			@include mq('sp') {
+				// パネル幅310: 内側246 + 左右32 → padding-inline size(32)
+				padding: size(42) size(32);
+				gap: size(55);
+			}
+		}
 
-      @include mq('sp') {
-        // font-size は PC と同じ size(30)（SP実機で約15px）を継承
-        text-align: center;
-      }
-    }
+		&__title {
+			font-family: $Font;
+			font-weight: 700;
+			font-size: size(30);
+			line-height: 1.4;
+			color: $brand-white;
 
-    &__desc {
-      @include ty-body-s;
-      color: $brand-white;
-      text-align: justify;
+			@include mq('sp') {
+				// font-size は PC と同じ size(30)（SP実機で約15px）を継承
+				text-align: center;
+			}
+		}
 
-      @include mq('sp') {
-        font-size: size(23);
-        line-height: 1.55;
-      }
-    }
-  }
+		&__desc {
+			@include ty-body-s;
+
+			color: $brand-white;
+			text-align: justify;
+
+			@include mq('sp') {
+				font-size: size(23);
+				line-height: 1.55;
+			}
+		}
+	}
 </style>

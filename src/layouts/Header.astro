@@ -397,9 +397,11 @@ const drawerNav = [
 			span:nth-child(1) {
 				transform: translateY(#{size(8)}) rotate(40deg);
 			}
+
 			span:nth-child(2) {
 				opacity: 0;
 			}
+
 			span:nth-child(3) {
 				transform: translateY(#{size(-8)}) rotate(-40deg);
 			}
@@ -408,6 +410,7 @@ const drawerNav = [
 				span:nth-child(1) {
 					transform: translateY(#{size(12)}) rotate(40deg);
 				}
+
 				span:nth-child(3) {
 					transform: translateY(#{size(-12)}) rotate(-40deg);
 				}
@@ -429,7 +432,7 @@ const drawerNav = [
 			overflow-y: auto;
 			-webkit-overflow-scrolling: touch;
 			padding: size(47) 0 size(80);
-			background: linear-gradient(180deg, #dfefff 0%, #ffffff 100%);
+			background: linear-gradient(180deg, #dfefff 0%, #fff 100%);
 			opacity: 0;
 			visibility: hidden;
 			transform: translateX(100%);
@@ -606,7 +609,7 @@ const drawerNav = [
 			height: size(60);
 			padding: size(10) size(48);
 			border-radius: size(180);
-			background: linear-gradient(180deg, #ffffff 0%, #e9e9e9 100%);
+			background: linear-gradient(180deg, #fff 0%, #e9e9e9 100%);
 			transition:
 				transform 0.3s ease,
 				box-shadow 0.3s ease;

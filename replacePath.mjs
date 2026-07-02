@@ -9,7 +9,6 @@ const replacePathsInFiles = () => {
 		const files = glob.sync('dist/**/*.html');
 
 		for (const file of files) {
-			 
 			console.log(`Processing HTML file: ${file}`);
 
 			// Read the file
@@ -22,7 +21,10 @@ const replacePathsInFiles = () => {
 			$('[style*="url(./"]').each((_, element) => {
 				const $el = $(element);
 				const currentStyle = $el.attr('style');
-				const newStyle = currentStyle.replace(/url\(\.\//g, 'url(../../');
+				const newStyle = currentStyle.replace(
+					/url\(\.\//g,
+					'url(../../'
+				);
 				$el.attr('style', newStyle);
 			});
 
@@ -38,10 +40,8 @@ const replacePathsInFiles = () => {
 			writeFileSync(file, $.html(), 'utf8');
 		}
 
-		 
 		console.log('Path replacement completed successfully!');
 	} catch (error) {
-		 
 		console.error('Error during path replacement:', error);
 	}
 };

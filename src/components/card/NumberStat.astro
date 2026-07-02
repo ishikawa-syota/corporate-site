@@ -32,7 +32,8 @@ const isCountable = value !== '' && !Number.isNaN(numeric);
 		<span
 			class="c-stat__value"
 			data-count-to={isCountable ? numeric : undefined}
-		>{isCountable ? '0' : value}</span>
+			>{isCountable ? '0' : value}</span
+		>
 		<span class="c-stat__unit">{unit}</span>
 	</p>
 	{note && <p class="c-stat__note">{note}</p>}
@@ -46,7 +47,7 @@ const isCountable = value !== '' && !Number.isNaN(numeric);
 
 	const animateCount = (el: HTMLElement, target: number) => {
 		const prefersReduced = window.matchMedia(
-			'(prefers-reduced-motion: reduce)',
+			'(prefers-reduced-motion: reduce)'
 		).matches;
 		if (prefersReduced) {
 			el.textContent = fmt(target);
@@ -63,7 +64,7 @@ const isCountable = value !== '' && !Number.isNaN(numeric);
 	};
 
 	const targets = document.querySelectorAll<HTMLElement>(
-		'.c-stat__value[data-count-to]',
+		'.c-stat__value[data-count-to]'
 	);
 
 	if (targets.length > 0) {
@@ -77,7 +78,7 @@ const isCountable = value !== '' && !Number.isNaN(numeric);
 					obs.unobserve(el);
 				});
 			},
-			{ threshold: 0.4 },
+			{ threshold: 0.4 }
 		);
 		targets.forEach((el) => observer.observe(el));
 	}
@@ -97,7 +98,7 @@ const isCountable = value !== '' && !Number.isNaN(numeric);
 		border-radius: size(10);
 		border-radius: 10px;
 		background:
-			lightgray -145px -238.25px / 193.043% 251.54% no-repeat,
+			#d3d3d3 -145px -238.25px / 193.043% 251.54% no-repeat,
 			linear-gradient(180deg, var(--0054-ac, #0054ac) 0%, #98cbff 100%);
 		color: $brand-white;
 		overflow: hidden;
@@ -178,10 +179,11 @@ const isCountable = value !== '' && !Number.isNaN(numeric);
 		}
 
 		&__note {
+			@include ty-caption;
+
 			position: absolute;
 			right: size(20);
 			bottom: size(14);
-			@include ty-caption;
 			text-shadow: 0 0 size(12) $brand-blue;
 
 			@include mq('sp') {

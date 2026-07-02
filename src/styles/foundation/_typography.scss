@@ -1,114 +1,112 @@
 @charset "utf-8";
-@use "mixin" as *;
-@use "font" as *;
+@use 'mixin' as *;
+@use 'font' as *;
 
 // 💬 Description.........................................
-//
 // ケイタスプラン タイポグラフィシステム
 // Figmaデザインから抽出した文字スタイルをmixin化（size()でPC/SP自動切替）
-//
 // ............................................................
 
 // セクション見出し（日本語）例: 事業紹介 / メンバー
 // Figma: Zen Kaku Medium(500) / 60px / lh1.4 / tracking 6px(0.1em) / #4d4d4d
 @mixin ty-heading {
-  font-family: $Font;
-  font-weight: 500;
-  font-size: size(60);
-  line-height: 1.4;
-  letter-spacing: 0.1em;
+	font-family: $Font;
+	font-weight: 500;
+	font-size: size(60);
+	line-height: 1.4;
+	letter-spacing: 0.1em;
 }
 
 // セクション見出し（英語サブ）例: BUSINESS / MEMBERS
 // Figma: Readex Pro Medium / PC18px / SP24px(768) / lh1.4 / #4d4d4d
 @mixin ty-heading-en {
-  font-family: $Font-Readex;
-  font-weight: 500;
-  font-size: size(18);
-  line-height: 1.4;
-  letter-spacing: 0.1em;
+	font-family: $Font-Readex;
+	font-weight: 500;
+	font-size: size(18);
+	line-height: 1.4;
+	letter-spacing: 0.1em;
 
-  @include mq('sp') {
-    font-size: size(24);
-  }
+	@include mq('sp') {
+		font-size: size(24);
+	}
 }
 
 // リード文（Figma: PC25 / SP40(768) Medium / 1.4）
 @mixin ty-lead {
-  font-family: $Font;
-  font-weight: 500;
-  font-size: size(25);
-  line-height: 1.4;
-  letter-spacing: 0.03em;
+	font-family: $Font;
+	font-weight: 500;
+	font-size: size(25);
+	line-height: 1.4;
+	letter-spacing: 0.03em;
 
-  @include mq('sp') {
-    font-size: size(40);
-  }
+	@include mq('sp') {
+		font-size: size(40);
+	}
 }
 
 // 本文・大（Figma: PC20 / SP30(768) Regular / 1.7）
 @mixin ty-body-l {
-  font-family: $Font;
-  font-weight: 400;
-  font-size: size(20);
-  line-height: 1.7;
+	font-family: $Font;
+	font-weight: 400;
+	font-size: size(20);
+	line-height: 1.7;
 
-  @include mq('sp') {
-    font-size: size(30);
-  }
+	@include mq('sp') {
+		font-size: size(30);
+	}
 }
 
 // 本文（PC18 / SP30(768) / 2.2）メッセージ等の長文
 @mixin ty-body {
-  font-family: $Font;
-  font-weight: 400;
-  font-size: size(18);
-  line-height: 2.2;
+	font-family: $Font;
+	font-weight: 400;
+	font-size: size(18);
+	line-height: 2.2;
 
-  @include mq('sp') {
-    font-size: size(30);
-    line-height: 2;
-  }
+	@include mq('sp') {
+		font-size: size(30);
+		line-height: 2;
+	}
 }
 
 // 本文・小（PC15 / SP28(768) / 1.7）カード本文など
 @mixin ty-body-s {
-  font-family: $Font;
-  font-weight: 400;
-  font-size: size(15);
-  line-height: 1.7;
+	font-family: $Font;
+	font-weight: 400;
+	font-size: size(15);
+	line-height: 1.7;
 
-  @include mq('sp') {
-    font-size: size(28);
-  }
+	@include mq('sp') {
+		font-size: size(28);
+	}
 }
 
 // ボタンラベル（Figma: zen_button = Zen Kaku Regular 14 / 1.4）
 @mixin ty-button {
-  font-family: $Font;
-  font-weight: 500;
-  font-size: size(15);
-  line-height: 1.6;
-  letter-spacing: 0;
+	font-family: $Font;
+	font-weight: 500;
+	font-size: size(15);
+	line-height: 1.6;
+	letter-spacing: 0;
 }
 
 // 数字（指標）Figma: Roboto Medium / 80px
 @mixin ty-number {
-  font-family: $Font-Num;
-  font-weight: 500;
-  font-size: size(80);
-  line-height: 1.1;
-  letter-spacing: -0.04em;
+	font-family: $Font-Num;
+	font-weight: 500;
+	font-size: size(80);
+	line-height: 1.1;
+	letter-spacing: -0.04em;
 }
 
 // 注釈・キャプション（PC14 / SP22(768)）
 @mixin ty-caption {
-  font-family: $Font;
-  font-weight: 500;
-  font-size: size(14);
-  line-height: 1.4;
+	font-family: $Font;
+	font-weight: 500;
+	font-size: size(14);
+	line-height: 1.4;
 
-  @include mq('sp') {
-    font-size: size(22);
-  }
+	@include mq('sp') {
+		font-size: size(22);
+	}
 }

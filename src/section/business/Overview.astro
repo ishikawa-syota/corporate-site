@@ -1,0 +1,152 @@
+---
+// 事業紹介 OVERVIEW セクション（ブルーグラデ背景・2つの買取事業・2カード）
+// Figma: business sec2 993:1887 (PC) / 1024:2576 (SP)
+import OverviewCard from '../../components/card/OverviewCard.astro';
+import imgEventPc from '../../images/keitasplan/business/item-01-pc.png';
+import imgEventSp from '../../images/keitasplan/business/item-01-sp.png';
+import imgDeliveryPc from '../../images/keitasplan/business/item-02-pc.png';
+import imgDeliverySp from '../../images/keitasplan/business/item-02-sp.png';
+
+interface Props {
+	id?: string;
+}
+const { id } = Astro.props;
+---
+
+<section class="p-biz-overview" id={id}>
+	<span class="p-biz-overview__watermark" aria-hidden="true">OVERVIEW</span>
+	<div class="p-biz-overview__inner">
+		<div class="p-biz-overview__head">
+			<h2 class="p-biz-overview__title">2つの買取事業</h2>
+			<p class="p-biz-overview__lead">
+				個人のお客様向けの出張買取と、デパート・商業施設での催事買取を展開しています。
+			</p>
+		</div>
+		<div class="p-biz-overview__cards">
+			<OverviewCard
+				badge="デパート・商業施設向け"
+				title="催事買取"
+				sub="提携先での定期開催"
+				imgPc={imgEventPc}
+				imgSp={imgEventSp}
+			/>
+			<OverviewCard
+				badge="個人のお客様向け"
+				title="出張買取"
+				sub="エコクリア"
+				imgPc={imgDeliveryPc}
+				imgSp={imgDeliverySp}
+			/>
+		</div>
+	</div>
+</section>
+
+<style lang="scss">
+	@use '../../styles/foundation/index' as *;
+
+	.p-biz-overview {
+		position: relative;
+		overflow: hidden;
+
+		// blue_gr は NumberStat 等で再利用の $brand-gradient と一致（要 stops 確認）
+		background: $brand-gradient;
+
+		// 上部角丸 PC=130 / SP=130（採寸値。size() で各基準にスケール）
+		border-radius: size(130) size(130) 0 0;
+
+		@include mq('sp') {
+			&__watermark {
+				top: size(-39);
+				font-size: size(100);
+				letter-spacing: size(10);
+				text-align: center;
+			}
+
+			&__inner {
+				max-width: size(580);
+				padding-top: size(136);
+				padding-bottom: size(120);
+				gap: size(73);
+			}
+
+			&__head {
+				max-width: none;
+				gap: size(47);
+			}
+
+			&__title {
+				font-size: size(45);
+			}
+
+			&__lead {
+				font-size: size(30);
+				text-align: justify;
+			}
+
+			&__cards {
+				grid-template-columns: 1fr;
+				gap: size(61);
+			}
+		}
+
+		&__watermark {
+			position: absolute;
+			top: size(-58);
+			right: 0;
+			left: 0;
+			font-family: $Font-Readex;
+			font-weight: 500;
+			font-size: size(155);
+			line-height: 1.4;
+			letter-spacing: size(15.5);
+			text-align: right;
+			color: $brand-white;
+			opacity: 0.06;
+			white-space: nowrap;
+			pointer-events: none;
+		}
+
+		&__inner {
+			position: relative;
+			max-width: size(1049);
+			margin-inline: auto;
+			padding-top: size(172);
+
+			// TODO(fidelity): 下部余白は次セクション(催事買取)の重なりに依存、暫定値
+			padding-bottom: size(160);
+			display: flex;
+			flex-direction: column;
+			gap: size(73);
+		}
+
+		&__head {
+			display: flex;
+			flex-direction: column;
+			gap: size(27);
+			max-width: size(780);
+		}
+
+		&__title {
+			font-family: $Font;
+			font-weight: 500;
+			font-size: size(40);
+			line-height: 1.4;
+			letter-spacing: size(1.12);
+			color: $brand-white;
+		}
+
+		&__lead {
+			font-family: $Font;
+			font-weight: 400;
+			font-size: size(20);
+			line-height: 1.7;
+			color: $brand-white;
+		}
+
+		&__cards {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			gap: size(77);
+		}
+	}
+</style>

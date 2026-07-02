@@ -1,0 +1,174 @@
+---
+// 事業紹介 overview カード（画像＋バッジ＋タイトル＋サブ＋下向き矢印）
+// Figma: overview_2 486×315 (993:1896) / SP_overview_2 580×315 (1024:2585)
+// カード全体がアンカー。矢印は装飾（下向き矢印 SVG は Figma 書き出し）。
+import arrowDown from '../../images/keitasplan/common/arrow-down.svg?raw';
+import Picture from '../common/Picture.astro';
+
+interface Props {
+	badge: string;
+	title: string;
+	sub: string;
+	imgPc?: ImageMetadata;
+	imgSp?: ImageMetadata;
+	href?: string;
+}
+const { badge, title, sub, imgPc, imgSp, href = '#' } = Astro.props;
+---
+
+<a class="c-ov-card" href={href}>
+	<span class="c-ov-card__bg" aria-hidden="true"></span>
+	<span class="c-ov-card__media" aria-hidden="true">
+		{
+			imgPc && imgSp && (
+				<Picture
+					src={imgPc}
+					srcSp={imgSp}
+					alt=""
+					class="c-ov-card__img"
+				/>
+			)
+		}
+	</span>
+	<span class="c-ov-card__badge">{badge}</span>
+	<h3 class="c-ov-card__title">{title}</h3>
+	<p class="c-ov-card__sub">{sub}</p>
+	<span class="c-ov-card__arrow" aria-hidden="true" set:html={arrowDown} />
+</a>
+
+<style lang="scss">
+	@use '../../styles/foundation/index' as *;
+
+	.c-ov-card {
+		position: relative;
+		display: block;
+		width: 100%;
+		height: size(315); // PC/SP 共通 315
+
+		// hover: 矢印が約6px下がる（Figma バリアント2 = arrow top 82.22%→84.13%）
+		@media (hover: hover) {
+			.c-ov-card__arrow {
+				transition: transform 0.3s ease;
+			}
+
+			&:hover .c-ov-card__arrow {
+				transform: translateX(-50%) translateY(size(6));
+			}
+		}
+
+		&__bg {
+			position: absolute;
+			inset: 0 0 size(32); // 下 10.16% は矢印のはみ出し分
+			background-color: $brand-white;
+			border-radius: size(10);
+			box-shadow: 0 size(10) size(30) rgba($brand-blue, 0.1);
+		}
+
+		&__media {
+			display: block;
+			position: absolute;
+			inset: 0 0 auto;
+			height: size(130); // 上 41.27%
+			overflow: hidden;
+			border-radius: size(7) size(7) 0 0;
+
+			// Picture が出力する <picture> を枠いっぱいに
+			:global(picture) {
+				display: block;
+				width: 100%;
+				height: 100%;
+			}
+		}
+
+		&__img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+
+			// 素材が既に淡色処理済みのため opacity は掛けない
+		}
+
+		&__badge {
+			position: absolute;
+			top: size(38); // 12.06%
+			left: 50%;
+			transform: translateX(-50%);
+			padding: size(10) size(30);
+			background-color: $brand-white;
+			border-radius: size(130);
+			font-family: $Font;
+			font-weight: 500;
+			font-size: size(19);
+			line-height: 1.4;
+			letter-spacing: size(2.8);
+			color: $brand-blue;
+			white-space: nowrap;
+
+			@include mq('sp') {
+				font-size: size(25);
+			}
+		}
+
+		&__title {
+			position: absolute;
+			top: size(154); // 48.89%
+			left: 0;
+			right: 0;
+			font-family: $Font;
+			font-weight: 700;
+			font-size: size(40);
+			line-height: 1.4;
+			color: $brand-blue;
+			text-align: center;
+
+			@include mq('sp') {
+				top: size(136); // 43.17%
+				font-size: size(50);
+			}
+		}
+
+		&__sub {
+			position: absolute;
+			top: size(218); // 69.21%
+			left: 0;
+			right: 0;
+			font-family: $Font;
+			font-weight: 500;
+			font-size: size(19);
+			line-height: 1.4;
+			letter-spacing: size(2.8);
+			color: $brand-blue;
+			text-align: center;
+
+			@include mq('sp') {
+				top: size(206); // 65.4%
+				font-size: size(29);
+			}
+		}
+
+		&__arrow {
+			position: absolute;
+			bottom: 0;
+			left: 50%;
+			transform: translateX(-50%);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: size(56);
+			height: size(56);
+			background-color: $brand-blue;
+			border-radius: 50%;
+
+			:global(svg) {
+				display: block;
+				width: size(22);
+				height: auto;
+			}
+
+			@include mq('sp') {
+				width: size(66);
+				height: size(66);
+			}
+		}
+	}
+</style>

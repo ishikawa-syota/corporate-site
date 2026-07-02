@@ -1,0 +1,67 @@
+---
+// PC/SP アートディレクション画像（lp_arrow_research の Picture を移植 + AVIF/WebP 対応）
+// src = PC素材 / srcSp = SP素材。PCは min-width: BREAKPOINT_PC_MIN の <source> で出し分け。
+// 各ブレークポイントで AVIF 優先・WebP フォールバック（本プロジェクトの OptImage と同方針）。
+import { getImage } from 'astro:assets';
+
+import { BREAKPOINT_PC_MIN } from '@/data/config';
+
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends Omit<HTMLAttributes<'img'>, 'src' | 'srcset'> {
+	src: ImageMetadata;
+	srcSp: ImageMetadata;
+	loading?: 'eager' | 'lazy';
+	alt: string;
+	quality?: number;
+}
+
+const { src, srcSp, loading = 'lazy', alt, quality, ...attrs } = Astro.props;
+
+const eager = loading === 'eager';
+
+const opt = (image: ImageMetadata, format: 'avif' | 'webp', q: number) =>
+	getImage({
+		src: image,
+		width: image.width,
+		height: image.height,
+		format,
+		quality: quality ?? q,
+	});
+
+const pcAvif = await opt(src, 'avif', 65);
+const pcWebp = await opt(src, 'webp', 75);
+const spAvif = await opt(srcSp, 'avif', 65);
+const spWebp = await opt(srcSp, 'webp', 75);
+
+const pcMedia = `(min-width: ${BREAKPOINT_PC_MIN}px)`;
+---
+
+<picture>
+	<source
+		media={pcMedia}
+		srcset={pcAvif.src}
+		type="image/avif"
+		width={src.width}
+		height={src.height}
+	/>
+	<source
+		media={pcMedia}
+		srcset={pcWebp.src}
+		type="image/webp"
+		width={src.width}
+		height={src.height}
+	/>
+	<source srcset={spAvif.src} type="image/avif" />
+	<!-- SP の WebP は <img src> がフォールバックとして兼ねる -->
+	<img
+		src={spWebp.src}
+		alt={alt}
+		loading={loading}
+		decoding="async"
+		fetchpriority={eager ? 'high' : undefined}
+		width={srcSp.width}
+		height={srcSp.height}
+		{...attrs}
+	/>
+</picture>

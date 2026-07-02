@@ -5,8 +5,11 @@ import logoWhite from '../images/keitasplan/common/footer-01.png';
 
 interface Props {
 	id?: string;
+	// 'default' = トップページ（お問い合わせカードが境界線上に重なる）
+	// 'subpage' = 事業紹介/数字で見る等（カードはフッターのブルー面に丸ごと乗る）
+	variant?: 'default' | 'subpage';
 }
-const { id } = Astro.props;
+const { id, variant = 'default' } = Astro.props;
 
 // フッターナビ（Figmaの4カラム構成）
 const footerNav = [
@@ -32,7 +35,7 @@ const footerNav = [
 ];
 ---
 
-<footer class="l-footer" id={id}>
+<footer class:list={['l-footer', `l-footer--${variant}`]} id={id}>
 	{
 		/* お問い合わせ CTA カード。フッター先頭に配置し負マージンで上方向へ引き上げ、
 	    FAQ(白→グレー)とフッター(青)の境界線上にカード中央が乗るように重ねる */
@@ -177,6 +180,24 @@ const footerNav = [
 
 		@include mq('sp') {
 			padding: 0 size(96) size(80);
+		}
+
+		// サブページ（事業紹介/数字で見る等）: お問い合わせカードを境界に跨がせず、
+		// フッターのブルー面に丸ごと乗せる（Figma footer 993:2358 / 1024:2496）
+		&--subpage {
+			padding-top: size(127);
+
+			@include mq('sp') {
+				padding-top: size(111);
+			}
+
+			.p-contactCta {
+				margin-top: 0;
+
+				@include mq('sp') {
+					margin-top: 0;
+				}
+			}
 		}
 
 		&__inner {

@@ -29,24 +29,32 @@ const features = [
 	{
 		no: 'FEATURE 01',
 		icon: feature01,
+		w: 53,
+		h: 80,
 		title: '1点から買取',
 		desc: '1点のお品物でも出張いたします。',
 	},
 	{
 		no: 'FEATURE 02',
 		icon: feature02,
+		w: 63,
+		h: 67,
 		title: '最短即日',
 		desc: 'お電話当日の訪問も対応可能です。',
 	},
 	{
 		no: 'FEATURE 03',
 		icon: feature03,
+		w: 69,
+		h: 64,
 		title: '現金手渡し',
 		desc: 'その場で現金にてお支払い。',
 	},
 	{
 		no: 'FEATURE 04',
 		icon: feature04,
+		w: 62,
+		h: 74,
 		title: '女性査定士対応',
 		desc: 'ご希望に応じて調整いたします。',
 	},
@@ -162,7 +170,11 @@ const flow = [
 								class="p-biz02__featureIcon"
 								aria-hidden="true"
 							>
-								<span set:html={f.icon} />
+								<span
+									class="p-biz02__featureGlyph"
+									style={`width:calc(${f.w} * var(--size-unit));height:calc(${f.h} * var(--size-unit))`}
+									set:html={f.icon}
+								/>
 							</span>
 							<span class="p-biz02__featureTitle">{f.title}</span>
 							<span class="p-biz02__featureDesc">{f.desc}</span>
@@ -597,12 +609,11 @@ const flow = [
 			margin-top: size(14);
 			border-radius: 50%;
 			background: $brand-white;
+		}
 
-			span {
-				display: block;
-				width: size(60);
-				height: size(80);
-			}
+		// 各アイコンの実寸(w/h)はインラインstyleで指定（SVGは非等比なので歪み防止）
+		&__featureGlyph {
+			display: block;
 
 			:global(svg) {
 				display: block;
@@ -718,10 +729,12 @@ const flow = [
 			max-width: size(914);
 			margin-inline: auto;
 
+			// SP: 縦組みタイムライン（左に番号+縦線, 右にラベル+説明）Figma 1024:2856
 			@include mq('sp') {
-				flex-wrap: wrap;
-				gap: size(50) size(40);
-				justify-content: center;
+				flex-direction: column;
+				align-items: stretch;
+				gap: size(50);
+				max-width: size(470);
 			}
 		}
 
@@ -734,7 +747,9 @@ const flow = [
 			background: rgba($brand-blue, 0.25);
 
 			@include mq('sp') {
-				display: none;
+				inset: size(30) auto size(30) size(30);
+				width: 2px;
+				height: auto;
 			}
 		}
 
@@ -748,7 +763,11 @@ const flow = [
 			width: size(170);
 
 			@include mq('sp') {
-				width: size(220);
+				display: grid;
+				grid-template-columns: size(60) 1fr;
+				gap: size(6) size(30);
+				align-items: center;
+				width: 100%;
 			}
 		}
 
@@ -767,6 +786,8 @@ const flow = [
 			color: $brand-white;
 
 			@include mq('sp') {
+				grid-row: 1 / 3;
+				align-self: start;
 				width: size(60);
 				height: size(60);
 				font-size: size(28);
@@ -783,7 +804,10 @@ const flow = [
 			text-align: center;
 
 			@include mq('sp') {
+				grid-column: 2;
+				align-self: end;
 				font-size: size(28);
+				text-align: left;
 			}
 		}
 
@@ -796,7 +820,9 @@ const flow = [
 			text-align: justify;
 
 			@include mq('sp') {
+				grid-column: 2;
 				font-size: size(22);
+				text-align: left;
 			}
 		}
 	}

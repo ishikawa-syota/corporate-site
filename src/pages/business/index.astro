@@ -3,14 +3,16 @@ import { siteMetadata } from '../../data/meta';
 import Footer from '../../layouts/Footer.astro';
 import Header from '../../layouts/Header.astro';
 import Layout from '../../layouts/Layout.astro';
+import Business01 from '../../section/business/Business01.astro';
 import Hero from '../../section/business/Hero.astro';
 import Overview from '../../section/business/Overview.astro';
-// TODO: build as we go — 催事買取 / 出張買取 / 対応エリア / 関連情報(common) …
+// TODO: build as we go — 出張買取 / 対応エリア / 関連情報(common) …
 ---
 
 <Layout title={`事業紹介 | ${siteMetadata.siteName}`}>
 	<Header id="header" />
 	<Hero id="business-hero" />
 	<Overview id="business-overview" />
+	<Business01 id="business-01" />
 	<Footer id="footer" variant="subpage" />
 </Layout>

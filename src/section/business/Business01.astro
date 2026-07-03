@@ -1,0 +1,838 @@
+---
+// 催事買取（BUSINESS 01）セクション
+// Figma: sec4_business2 993:1899 (PC) / sec3_business1 1024:2588 (SP)
+import ArrowButton from '../../components/button/ArrowButton.astro';
+import OptImage from '../../components/common/OptImage.astro';
+import Picture from '../../components/common/Picture.astro';
+import badgeShape from '../../images/keitasplan/business/badge-jisseki.svg?raw';
+import bgPc from '../../images/keitasplan/business/business-01-bg-pc.png';
+import bgSp from '../../images/keitasplan/business/business-01-bg-sp.png';
+import introImg from '../../images/keitasplan/business/business-01-intro.png';
+import reportImg from '../../images/keitasplan/business/item-01-pc.png';
+import iconCalendar from '../../images/keitasplan/business/stat-calendar.svg?raw';
+import iconStore from '../../images/keitasplan/business/stat-store.svg?raw';
+import iconVisitors from '../../images/keitasplan/business/stat-visitors.svg?raw';
+import mark from '../../images/keitasplan/common/mark.svg?raw';
+
+interface Props {
+	id?: string;
+}
+const { id } = Astro.props;
+
+const stats = [
+	{ icon: iconCalendar, label: '年間開催数', num: '00', unit: '回' },
+	{ icon: iconStore, label: '累計出店実績', num: '000', unit: '店舗' },
+	{ icon: iconVisitors, label: '年間来場者数', num: '00,000', unit: '名' },
+];
+
+// TODO: 実データ差し替え（画像・日付・タイトル）
+const reports = [
+	{
+		date: '2026.04.12',
+		title: '◯◯市での催事、大盛況で終了しました',
+		href: '#',
+	},
+	{
+		date: '2026.04.12',
+		title: '◯◯市での催事、大盛況で終了しました',
+		href: '#',
+	},
+	{
+		date: '2026.04.12',
+		title: '◯◯市での催事、大盛況で終了しました',
+		href: '#',
+	},
+];
+---
+
+<section class="p-biz01" id={id}>
+	<div class="p-biz01__bg" aria-hidden="true">
+		<Picture src={bgPc} srcSp={bgSp} alt="" class="p-biz01__bgImg" />
+	</div>
+
+	<div class="p-biz01__inner">
+		<div class="p-biz01__head">
+			<span class="p-biz01__mark" aria-hidden="true" set:html={mark} />
+			<span class="p-biz01__titles">
+				<span class="p-biz01__ja">催事買取</span>
+				<span class="p-biz01__en">BUSINESS 01</span>
+			</span>
+		</div>
+
+		<div class="p-biz01__intro">
+			<div class="p-biz01__introText">
+				<h3 class="p-biz01__introHeading">
+					お買い物のついでに、<br />気軽に売れる。<br
+					/>デパート・商業施設での<br />催事買取。
+				</h3>
+				<p class="p-biz01__introDesc">
+					デパート・商業施設での買取催事を企画・運営しています。年間多数の開催実績がございます。
+				</p>
+			</div>
+			<div class="p-biz01__introImg">
+				<OptImage
+					src={introImg}
+					alt=""
+					width={1100}
+					class="p-biz01__introImgInner"
+				/>
+			</div>
+		</div>
+
+		<div class="p-biz01__stats">
+			<span class="p-biz01__statsBadge">
+				<span
+					class="p-biz01__statsBadgeShape"
+					aria-hidden="true"
+					set:html={badgeShape}
+				/>
+				<span class="p-biz01__statsBadgeText">催事実績</span>
+			</span>
+			<div class="p-biz01__statsInner">
+				{
+					stats.map((s) => (
+						<div class="p-biz01__stat">
+							<span
+								class="p-biz01__statIcon"
+								aria-hidden="true"
+								set:html={s.icon}
+							/>
+							<div class="p-biz01__statBody">
+								<span class="p-biz01__statLabel">
+									{s.label}
+								</span>
+								<span class="p-biz01__statValue">
+									<span class="p-biz01__statNum">
+										{s.num}
+									</span>
+									<span class="p-biz01__statUnit">
+										{s.unit}
+									</span>
+								</span>
+							</div>
+						</div>
+					))
+				}
+			</div>
+		</div>
+
+		<div class="p-biz01__report">
+			<div class="p-biz01__reportHead">
+				<span class="p-biz01__reportMarker" aria-hidden="true"></span>
+				<span class="p-biz01__reportHeadText">催事レポート</span>
+			</div>
+
+			<div class="splide p-biz01__reportSplide" data-report-splide>
+				<div class="splide__track">
+					<ul class="splide__list p-biz01__reportList">
+						{
+							reports.map((r) => (
+								<li class="splide__slide">
+									<a class="c-report-card" href={r.href}>
+										<span class="c-report-card__img">
+											<OptImage
+												src={reportImg}
+												alt=""
+												width={700}
+												class="c-report-card__imgInner"
+											/>
+										</span>
+										<span class="c-report-card__body">
+											<span class="c-report-card__date">
+												<span
+													class="c-report-card__dateBar"
+													aria-hidden="true"
+												/>
+												{r.date} ／ 催事レポート
+											</span>
+											<span class="c-report-card__title">
+												{r.title}
+											</span>
+										</span>
+									</a>
+								</li>
+							))
+						}
+					</ul>
+				</div>
+			</div>
+
+			<div class="p-biz01__reportMore">
+				<ArrowButton href="#" label="詳しく見る" variant="white" />
+			</div>
+		</div>
+	</div>
+
+	<div class="p-biz01__contact">
+		<div class="p-biz01__contactCard">
+			<div class="p-biz01__contactHead">
+				<h3 class="p-biz01__contactTitle">催事開催のお問い合わせ</h3>
+				<p class="p-biz01__contactSub">
+					催事のご検討・資料請求はこちらから
+				</p>
+			</div>
+			<a href="#" class="p-biz01__contactBtn">
+				<span class="p-biz01__contactBtnLabel"
+					>催事お問い合わせフォーム</span
+				>
+				<span class="p-biz01__contactBtnArrow" aria-hidden="true">
+					<svg
+						viewBox="0 0 58 58"
+						fill="none"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<circle cx="29" cy="29" r="29" fill="#ffffff"></circle>
+						<g
+							stroke="#0054ac"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						>
+							<line x1="19" y1="29" x2="38" y2="29"></line>
+							<path d="M31 22 L38 29 L31 36"></path>
+						</g>
+					</svg>
+				</span>
+			</a>
+		</div>
+	</div>
+</section>
+
+<script>
+	import Splide from '@splidejs/splide';
+
+	import { BREAKPOINT_PC_MIN } from '@/data/config';
+
+	// SPのみカルーセル化。PC(>=769)では destroy され、CSSの3カラムgridが効く
+	document
+		.querySelectorAll<HTMLElement>('[data-report-splide]')
+		.forEach((el) => {
+			new Splide(el, {
+				fixedWidth: 'calc(390 / 768 * 100vw)',
+				gap: 'calc(76 / 768 * 100vw)',
+				arrows: false,
+				pagination: false,
+				drag: true,
+				speed: 500,
+				mediaQuery: 'min',
+				breakpoints: {
+					[BREAKPOINT_PC_MIN]: {
+						destroy: true,
+					},
+				},
+			}).mount();
+		});
+</script>
+
+<style lang="scss">
+	@use '../../styles/foundation/index' as *;
+
+	.p-biz01 {
+		position: relative;
+		overflow: hidden;
+
+		// TODO(fidelity): セクション背景色 "bg" 変数が空。要確認（暫定: スカイブルー）
+		background-color: $brand-blue-sky;
+
+		&__bg {
+			position: absolute;
+			inset: 0 0 auto;
+			z-index: 0;
+
+			:global(picture),
+			:global(img) {
+				display: block;
+				width: 100%;
+				height: auto;
+			}
+		}
+
+		&__inner {
+			position: relative;
+			z-index: 1;
+			max-width: size(1052);
+			margin-inline: auto;
+			padding-top: size(194);
+			padding-bottom: size(120);
+
+			@include mq('sp') {
+				max-width: size(580);
+				padding-top: size(116);
+			}
+		}
+
+		// --- 見出し（催事買取 / BUSINESS 01） ---
+		&__head {
+			display: flex;
+			align-items: flex-start;
+		}
+
+		&__mark {
+			flex-shrink: 0;
+			width: size(91);
+			height: size(91);
+			margin-top: size(10);
+
+			:global(svg) {
+				display: block;
+				width: 100%;
+				height: 100%;
+			}
+		}
+
+		&__titles {
+			display: flex;
+			flex-direction: column;
+			gap: size(3);
+		}
+
+		&__ja {
+			font-family: $Font;
+			font-weight: 500;
+			font-size: size(60);
+			line-height: 1.4;
+			letter-spacing: 0.1em;
+			color: $brand-text;
+			padding-inline: size(15);
+
+			@include mq('sp') {
+				font-size: size(66);
+			}
+		}
+
+		&__en {
+			font-family: $Font-Readex;
+			font-weight: 500;
+			font-size: size(18);
+			line-height: 1.4;
+			letter-spacing: 0.1em;
+			color: $brand-text;
+			padding-inline: size(18);
+
+			@include mq('sp') {
+				font-size: size(20);
+			}
+		}
+
+		// --- 導入（テキスト + 画像） ---
+		&__intro {
+			display: flex;
+			gap: size(161);
+			margin-top: size(269);
+
+			@include mq('sp') {
+				flex-direction: column-reverse; // SP: 画像を上に
+				gap: size(99);
+				margin-top: size(99);
+			}
+		}
+
+		&__introText {
+			flex-shrink: 0;
+			width: size(363);
+			display: flex;
+			flex-direction: column;
+			gap: size(57);
+
+			@include mq('sp') {
+				width: 100%;
+			}
+		}
+
+		&__introHeading {
+			font-family: $Font;
+			font-weight: 500;
+			font-size: size(25);
+			line-height: 1.4;
+			letter-spacing: 0.03em;
+			color: $brand-text;
+
+			@include mq('sp') {
+				font-size: size(40);
+			}
+		}
+
+		&__introDesc {
+			font-family: $Font;
+			font-weight: 400;
+			font-size: size(20);
+			line-height: 1.7;
+			color: $brand-text;
+			text-align: justify;
+
+			@include mq('sp') {
+				font-size: size(30);
+			}
+		}
+
+		&__introImg {
+			flex-shrink: 0;
+			width: size(525);
+			height: size(299);
+			border-radius: size(10);
+			overflow: hidden;
+
+			@include mq('sp') {
+				width: 100%;
+				height: size(370);
+			}
+
+			:global(.c-img) {
+				width: 100%;
+				height: 100%;
+			}
+		}
+
+		// --- 催事実績 stats ---
+		&__stats {
+			position: relative;
+			margin-top: size(115);
+		}
+
+		&__statsBadge {
+			position: absolute;
+			top: size(-30);
+			left: 50%;
+			transform: translateX(-50%);
+			z-index: 2;
+			width: size(240);
+			height: size(80);
+
+			@include mq('sp') {
+				top: size(-29);
+				width: size(274);
+				height: size(92);
+			}
+		}
+
+		&__statsBadgeShape {
+			position: absolute;
+			inset: 0;
+
+			:global(svg) {
+				display: block;
+				width: 100%;
+				height: 100%;
+			}
+		}
+
+		&__statsBadgeText {
+			position: absolute;
+			inset: 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding-bottom: size(10);
+			font-family: $Font;
+			font-weight: 500;
+			font-size: size(25);
+			letter-spacing: size(1.5);
+			color: $brand-white;
+
+			@include mq('sp') {
+				font-size: size(34);
+			}
+		}
+
+		&__statsInner {
+			display: flex;
+			justify-content: space-between;
+			align-items: flex-start;
+			padding: size(69) size(60) size(49);
+			background: linear-gradient(180deg, #fff 0%, #e9e9e9 100%);
+			border-radius: size(10);
+			box-shadow: 0 0 size(7.5) rgba(#000, 0.25);
+
+			@include mq('sp') {
+				flex-direction: column;
+				align-items: stretch;
+				gap: size(33);
+				padding: size(60) size(76);
+			}
+		}
+
+		&__stat {
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: size(8);
+
+			@include mq('sp') {
+				flex-direction: row;
+				align-items: center;
+				gap: size(33);
+				padding-bottom: size(23);
+				border-left: none;
+				border-bottom: 1px solid $brand-blue;
+
+				&:last-child {
+					padding-bottom: 0;
+					border-bottom: none;
+				}
+			}
+
+			&:not(:first-child) {
+				border-left: 1px solid rgba($brand-blue, 0.15);
+			}
+		}
+
+		&__statIcon {
+			flex-shrink: 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: size(139);
+			height: size(139);
+			background: $brand-gradient;
+			border-radius: 50%;
+
+			:global(svg) {
+				display: block;
+				width: size(72);
+				height: auto;
+			}
+		}
+
+		&__statBody {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: size(5);
+
+			@include mq('sp') {
+				align-items: flex-start;
+			}
+		}
+
+		&__statLabel {
+			font-family: $Font;
+			font-weight: 400;
+			font-size: size(19);
+			line-height: 1.4;
+			color: $brand-blue;
+
+			@include mq('sp') {
+				font-size: size(25);
+			}
+		}
+
+		&__statValue {
+			display: flex;
+			align-items: flex-end;
+			gap: size(4);
+		}
+
+		&__statNum {
+			font-family: $Font-Num;
+			font-weight: 700;
+			font-size: size(70);
+			line-height: size(64);
+			color: $brand-text;
+		}
+
+		&__statUnit {
+			font-family: $Font-Num;
+			font-weight: 700;
+			font-size: size(28);
+			line-height: size(24);
+			padding-bottom: size(7);
+			color: $brand-text;
+		}
+
+		// --- 催事レポート ---
+		&__report {
+			margin-top: size(115);
+		}
+
+		&__reportHead {
+			display: flex;
+			align-items: center;
+			gap: size(10);
+			padding-bottom: size(11);
+			border-bottom: 2px solid $brand-blue;
+		}
+
+		&__reportMarker {
+			flex-shrink: 0;
+			width: size(24);
+			height: size(25);
+			background: $brand-blue;
+			border-radius: 0 size(20) size(20) 0;
+
+			@include mq('sp') {
+				width: size(28);
+				height: size(35);
+			}
+		}
+
+		&__reportHeadText {
+			font-family: $Font;
+			font-weight: 500;
+			font-size: size(25);
+			line-height: 1.4;
+			color: $brand-blue;
+
+			@include mq('sp') {
+				font-size: size(40);
+			}
+		}
+
+		&__reportSplide {
+			width: 100%;
+			margin-top: size(75);
+
+			@include mq('sp') {
+				position: relative;
+				margin-top: size(125);
+			}
+
+			.splide__track {
+				@include mq('sp') {
+					overflow: hidden;
+					padding-bottom: size(20);
+				}
+			}
+		}
+
+		&__reportList {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: size(76);
+			width: 100%;
+			margin: 0;
+			padding: 0;
+			list-style: none;
+
+			@include mq('sp') {
+				display: flex;
+				grid-template-columns: none;
+				gap: 0;
+				width: auto;
+			}
+
+			.splide__slide {
+				display: flex;
+
+				@include mq('sp') {
+					flex: 0 0 auto;
+				}
+			}
+		}
+
+		&__reportMore {
+			display: flex;
+			justify-content: center;
+			margin-top: size(62);
+
+			@include mq('sp') {
+				margin-top: size(98);
+			}
+		}
+
+		// --- 催事開催のお問い合わせ CTA ---
+		&__contact {
+			position: relative;
+			z-index: 1;
+			padding: 0 size(20) size(120);
+
+			@include mq('sp') {
+				padding: 0 size(20) size(96);
+			}
+		}
+
+		&__contactCard {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: size(33);
+			max-width: size(1211);
+			margin-inline: auto;
+			padding: size(56) size(40);
+			background: $brand-white;
+			border-radius: size(10);
+			box-shadow: 0 0 size(7.5) rgba(#000, 0.1);
+
+			@include mq('sp') {
+				gap: size(40);
+				padding: size(58) size(40);
+			}
+		}
+
+		&__contactHead {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: size(11);
+		}
+
+		&__contactTitle {
+			font-family: $Font;
+			font-weight: 500;
+			font-size: size(32);
+			line-height: 1.4;
+			color: $brand-text;
+			text-align: center;
+
+			@include mq('sp') {
+				font-size: size(40);
+			}
+		}
+
+		&__contactSub {
+			font-family: $Font;
+			font-weight: 400;
+			font-size: size(18);
+			line-height: 1.4;
+			color: $brand-text;
+			text-align: center;
+
+			@include mq('sp') {
+				font-size: size(24);
+			}
+		}
+
+		// Figma: button_footer_contact3 (540×108) / SP_button_footer_contact3
+		&__contactBtn {
+			position: relative;
+			width: size(540);
+			height: size(108);
+			border-radius: size(150);
+			background: linear-gradient(
+				180deg,
+				$brand-blue 0%,
+				$brand-blue-pale 100%
+			);
+			transition:
+				transform 0.3s ease,
+				box-shadow 0.3s ease;
+
+			@media (hover: hover) and (pointer: fine) {
+				&:hover {
+					&::after {
+						opacity: 1;
+					}
+
+					.p-biz01__contactBtnArrow {
+						transform: translate(#{size(2)}, -50%);
+					}
+				}
+			}
+
+			&::after {
+				content: '';
+				position: absolute;
+				inset: 0;
+				border-radius: size(150);
+				background: $brand-blue;
+				opacity: 0;
+				transition: opacity 0.3s ease;
+			}
+		}
+
+		&__contactBtnLabel {
+			position: absolute;
+			top: 50%;
+			left: size(89);
+			right: size(125);
+			transform: translateY(-50%);
+			font-family: $Font;
+			font-weight: 500;
+			font-size: size(27);
+			line-height: 1.4;
+			color: $brand-white;
+			text-align: center;
+			line-break: strict;
+			z-index: 1;
+
+			@include mq('sp') {
+				font-size: size(33);
+				line-height: 1.2;
+			}
+		}
+
+		&__contactBtnArrow {
+			position: absolute;
+			top: 50%;
+			right: size(26);
+			transform: translateY(-50%);
+			display: inline-flex;
+			width: size(58);
+			height: size(58);
+			transition: transform 0.3s ease;
+			z-index: 1;
+
+			:global(svg) {
+				display: block;
+				width: 100%;
+				height: 100%;
+			}
+		}
+	}
+
+	// --- 催事レポートカード ---
+	.c-report-card {
+		display: block;
+		width: 100%;
+
+		&__img {
+			display: block;
+			width: 100%;
+			aspect-ratio: 300 / 168;
+			border-radius: size(10);
+			overflow: hidden;
+
+			:global(.c-img) {
+				width: 100%;
+				height: 100%;
+			}
+		}
+
+		&__body {
+			display: flex;
+			flex-direction: column;
+			gap: size(7);
+			margin-top: size(13);
+		}
+
+		&__date {
+			display: flex;
+			align-items: center;
+			gap: size(10);
+			font-family: $Font;
+			font-weight: 400;
+			font-size: size(14);
+			line-height: 1.4;
+			color: $brand-text;
+
+			@include mq('sp') {
+				font-size: size(22);
+			}
+		}
+
+		&__dateBar {
+			flex-shrink: 0;
+			width: size(4);
+			height: size(20);
+			background: $brand-blue;
+
+			@include mq('sp') {
+				width: size(6);
+				height: size(28);
+			}
+		}
+
+		&__title {
+			font-family: $Font;
+			font-weight: 700;
+			font-size: size(20);
+			line-height: size(30);
+			color: $brand-text;
+
+			@include mq('sp') {
+				font-size: size(30);
+				line-height: 1.5;
+			}
+		}
+	}
+</style>

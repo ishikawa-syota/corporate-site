@@ -1,0 +1,125 @@
+---
+// 数字で見る（DATA）指標カード（白カード・グラデ数字）
+// Figma: 996:3337 系（白カード rounded7 / Roboto100px グラデ数字 / ラベルBold35 / 注釈20）
+// NOTE(scaffold): 上部イラストは ImagePlaceholder（実イラストSVGは fix パスで差し替え）
+import ImagePlaceholder from '../common/ImagePlaceholder.astro';
+
+interface Props {
+	label: string;
+	prefix?: string;
+	value: string;
+	unit: string;
+	caption?: string;
+}
+const { label, prefix, value, unit, caption } = Astro.props;
+---
+
+<div class="c-datastat">
+	<span class="c-datastat__img" aria-hidden="true">
+		<ImagePlaceholder label="illust" rounded="8px" />
+	</span>
+	<p class="c-datastat__label">{label}</p>
+	<p class="c-datastat__figure">
+		{prefix && <span class="c-datastat__prefix">{prefix}</span>}
+		<span class="c-datastat__value">{value}</span>
+		<span class="c-datastat__unit">{unit}</span>
+	</p>
+	{caption && <p class="c-datastat__caption">{caption}</p>}
+</div>
+
+<style lang="scss">
+	@use '../../styles/foundation/index' as *;
+
+	.c-datastat {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: size(12);
+		min-height: size(374);
+		padding: size(26) size(30);
+		background: $brand-white;
+		border-radius: size(7);
+
+		@include mq('sp') {
+			min-height: size(440);
+			padding: size(40) size(30);
+		}
+
+		&__img {
+			display: block;
+			width: size(200);
+			height: size(120);
+
+			@include mq('sp') {
+				width: size(300);
+				height: size(180);
+			}
+		}
+
+		&__label {
+			font-family: $Font;
+			font-weight: 700;
+			font-size: size(35);
+			line-height: 1.4;
+			letter-spacing: size(1.05);
+			color: $brand-text;
+			text-align: center;
+
+			@include mq('sp') {
+				font-size: size(40);
+			}
+		}
+
+		&__figure {
+			display: flex;
+			align-items: baseline;
+			gap: size(2);
+		}
+
+		&__value {
+			font-family: $Font-Num;
+			font-weight: 500;
+			font-size: size(100);
+			line-height: 1.4;
+			background-image: $brand-gradient;
+			background-clip: text;
+			-webkit-text-fill-color: transparent;
+			color: transparent;
+
+			@include mq('sp') {
+				font-size: size(110);
+			}
+		}
+
+		&__prefix,
+		&__unit {
+			font-family: $Font;
+			font-weight: 700;
+			font-size: size(20);
+			line-height: 1.4;
+			letter-spacing: size(0.6);
+			background-image: $brand-gradient;
+			background-clip: text;
+			-webkit-text-fill-color: transparent;
+			color: transparent;
+
+			@include mq('sp') {
+				font-size: size(26);
+			}
+		}
+
+		&__caption {
+			font-family: $Font;
+			font-weight: 400;
+			font-size: size(20);
+			line-height: 1.4;
+			color: $brand-text;
+			text-align: center;
+
+			@include mq('sp') {
+				font-size: size(24);
+			}
+		}
+	}
+</style>

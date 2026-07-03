@@ -1,0 +1,152 @@
+---
+// 数字で見る 指標グループ（縦組みENラベル + 見出し + カードグリッド）
+// Figma: data sec2 内 各グループ（COMPANY SCALE / SERVICE RECORD / STAFF / SOCIAL …）
+// NOTE(scaffold): グリッドは2カラム固定。Figmaは一部ワイド/センター配置あり（要fix照合）
+import DataStat from '../../components/card/DataStat.astro';
+
+interface Stat {
+	label: string;
+	prefix?: string;
+	value: string;
+	unit: string;
+	caption?: string;
+}
+interface Props {
+	id?: string;
+	en: string;
+	ja: string;
+	sub?: string;
+	note?: string;
+	stats: Stat[];
+}
+const { id, en, ja, sub, note, stats } = Astro.props;
+---
+
+<section class="p-data-sec" id={id}>
+	<div class="p-data-sec__inner">
+		<span class="p-data-sec__en" aria-hidden="true">{en}</span>
+		<div class="p-data-sec__body">
+			<div class="p-data-sec__head">
+				<h2 class="p-data-sec__ja">{ja}</h2>
+				{sub && <p class="p-data-sec__sub">{sub}</p>}
+			</div>
+			<ul class="p-data-sec__grid">
+				{
+					stats.map((s) => (
+						<li class="p-data-sec__cell">
+							<DataStat
+								label={s.label}
+								prefix={s.prefix}
+								value={s.value}
+								unit={s.unit}
+								caption={s.caption}
+							/>
+						</li>
+					))
+				}
+			</ul>
+			{note && <p class="p-data-sec__note">{note}</p>}
+		</div>
+	</div>
+</section>
+
+<style lang="scss">
+	@use '../../styles/foundation/index' as *;
+
+	.p-data-sec {
+		position: relative;
+		background-color: $brand-blue-sky;
+
+		&__inner {
+			display: flex;
+			gap: size(81);
+			max-width: size(1293);
+			margin-inline: auto;
+			padding: size(86) size(120);
+
+			@include mq('sp') {
+				gap: size(24);
+				max-width: size(680);
+				padding: size(60) size(44);
+			}
+		}
+
+		// 縦組みENラベル
+		&__en {
+			flex-shrink: 0;
+			writing-mode: vertical-rl;
+			font-family: $Font-Readex;
+			font-weight: 500;
+			font-size: size(16);
+			line-height: 1;
+			letter-spacing: size(2);
+			color: rgba($brand-blue, 0.5);
+			white-space: nowrap;
+
+			@include mq('sp') {
+				font-size: size(20);
+			}
+		}
+
+		&__body {
+			flex: 1;
+			min-width: 0;
+		}
+
+		&__head {
+			display: flex;
+			flex-direction: column;
+			gap: size(16);
+		}
+
+		&__ja {
+			font-family: $Font;
+			font-weight: 700;
+			font-size: size(40);
+			line-height: 1.4;
+			letter-spacing: size(1.2);
+			color: $brand-blue;
+
+			@include mq('sp') {
+				font-size: size(48);
+			}
+		}
+
+		&__sub {
+			font-family: $Font;
+			font-weight: 400;
+			font-size: size(18);
+			line-height: 1.6;
+			color: $brand-text;
+
+			@include mq('sp') {
+				font-size: size(24);
+			}
+		}
+
+		&__grid {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			gap: size(42);
+			margin-top: size(40);
+
+			@include mq('sp') {
+				grid-template-columns: 1fr;
+				gap: size(30);
+			}
+		}
+
+		&__note {
+			margin-top: size(40);
+			font-family: $Font;
+			font-weight: 400;
+			font-size: size(14);
+			line-height: 1.6;
+			color: $brand-text;
+
+			@include mq('sp') {
+				font-size: size(20);
+			}
+		}
+	}
+</style>

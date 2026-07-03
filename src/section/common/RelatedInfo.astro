@@ -73,7 +73,9 @@ const { id, cards = defaultCards } = Astro.props;
 
 	.p-related {
 		position: relative;
-		background-color: $brand-blue-sky;
+
+		// Figma: 関連情報セクション背景は白（business sec5 / data sec7 = #fff）
+		background-color: $brand-white;
 
 		&__inner {
 			max-width: size(1051);

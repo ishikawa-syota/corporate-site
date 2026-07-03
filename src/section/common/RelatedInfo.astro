@@ -1,0 +1,222 @@
+---
+// 関連情報（RELATED）共通セクション — 事業紹介 / 数字で見る 両ページで再利用
+// Figma: sec5 993:2055 (PC)
+// NOTE(scaffold): カード背景写真(opacity)は省略しグラデのみ。SPは1カラム。fixパスで要照合。
+import mark from '../../images/keitasplan/common/mark.svg?raw';
+
+interface Card {
+	ja: string;
+	en: string;
+	desc: string;
+	href: string;
+}
+interface Props {
+	id?: string;
+	cards?: Card[];
+}
+
+const defaultCards: Card[] = [
+	{
+		ja: '数字で見る<br>ケイタスプラン',
+		en: 'DATA',
+		desc: '実績・数字で信頼を証明します。',
+		href: '/data',
+	},
+	{
+		ja: 'お客様の声',
+		en: 'VOICE',
+		desc: '実際にご利用いただいた方の声。',
+		href: '/#voice',
+	},
+	{
+		ja: 'メンバー',
+		en: 'MEMBERS',
+		desc: 'この会社を動かす人たち。',
+		href: '/#member',
+	},
+];
+
+const { id, cards = defaultCards } = Astro.props;
+---
+
+<section class="p-related" id={id}>
+	<div class="p-related__inner">
+		<div class="p-related__head">
+			<span class="p-related__mark" aria-hidden="true" set:html={mark} />
+			<span class="p-related__titles">
+				<span class="p-related__ja">関連情報</span>
+				<span class="p-related__en">RELATED</span>
+			</span>
+		</div>
+
+		<ul class="p-related__cards">
+			{
+				cards.map((c) => (
+					<li class="p-related__card">
+						<a class="p-related__cardLink" href={c.href}>
+							<span
+								class="p-related__cardTitle"
+								set:html={c.ja}
+							/>
+							<span class="p-related__cardEn">{c.en}</span>
+							<span class="p-related__cardDesc">{c.desc}</span>
+						</a>
+					</li>
+				))
+			}
+		</ul>
+	</div>
+</section>
+
+<style lang="scss">
+	@use '../../styles/foundation/index' as *;
+
+	.p-related {
+		position: relative;
+		background-color: $brand-blue-sky;
+
+		&__inner {
+			max-width: size(1051);
+			margin-inline: auto;
+			padding-block: size(120);
+			display: flex;
+			flex-direction: column;
+			gap: size(78);
+
+			@include mq('sp') {
+				max-width: size(580);
+				padding-block: size(96);
+				gap: size(50);
+			}
+		}
+
+		// --- 見出し ---
+		&__head {
+			display: flex;
+			align-items: flex-start;
+		}
+
+		&__mark {
+			flex-shrink: 0;
+			width: size(91);
+			height: size(91);
+			margin-top: size(8);
+
+			:global(svg) {
+				display: block;
+				width: 100%;
+				height: 100%;
+			}
+		}
+
+		&__titles {
+			display: flex;
+			flex-direction: column;
+			gap: size(3);
+		}
+
+		&__ja {
+			font-family: $Font;
+			font-weight: 500;
+			font-size: size(60);
+			line-height: 1.4;
+			letter-spacing: size(6);
+			color: $brand-text;
+			padding-inline: size(15);
+
+			@include mq('sp') {
+				font-size: size(60);
+			}
+		}
+
+		&__en {
+			font-family: $Font-Readex;
+			font-weight: 500;
+			font-size: size(18);
+			line-height: 1.4;
+			letter-spacing: size(1.8);
+			color: $brand-text;
+			padding-inline: size(24);
+
+			@include mq('sp') {
+				font-size: size(20);
+			}
+		}
+
+		// --- カード ---
+		&__cards {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: size(41);
+
+			@include mq('sp') {
+				grid-template-columns: 1fr;
+				gap: size(30);
+			}
+		}
+
+		&__card {
+			border-radius: size(10);
+			overflow: hidden;
+
+			// TODO(fidelity): 背景写真(opacity 20-30%)未実装。現状グラデのみ
+			background: $brand-gradient;
+			transition: transform 0.3s ease;
+
+			@media (hover: hover) and (pointer: fine) {
+				&:hover {
+					transform: translateY(#{size(-4)});
+				}
+			}
+		}
+
+		&__cardLink {
+			display: flex;
+			flex-direction: column;
+			gap: size(8);
+			height: size(244);
+			padding: size(48) size(114) size(48) size(41);
+
+			@include mq('sp') {
+				height: size(280);
+			}
+		}
+
+		&__cardTitle {
+			font-family: $Font;
+			font-weight: 500;
+			font-size: size(24);
+			line-height: 1.4;
+			color: $brand-white;
+
+			@include mq('sp') {
+				font-size: size(34);
+			}
+		}
+
+		&__cardEn {
+			font-family: $Font-Readex;
+			font-weight: 400;
+			font-size: size(14);
+			line-height: 1.4;
+			letter-spacing: size(2.8);
+			color: $brand-white;
+
+			@include mq('sp') {
+				font-size: size(20);
+			}
+		}
+
+		&__cardDesc {
+			font-family: $Font;
+			font-weight: 400;
+			font-size: size(14);
+			line-height: 1.4;
+			color: $brand-white;
+
+			@include mq('sp') {
+				font-size: size(22);
+			}
+		}
+	}
+</style>

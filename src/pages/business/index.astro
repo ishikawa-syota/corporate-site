@@ -8,7 +8,7 @@ import Business01 from '../../section/business/Business01.astro';
 import Business02 from '../../section/business/Business02.astro';
 import Hero from '../../section/business/Hero.astro';
 import Overview from '../../section/business/Overview.astro';
-// TODO: build as we go — 関連情報(common) …
+import RelatedInfo from '../../section/common/RelatedInfo.astro';
 ---
 
 <Layout title={`事業紹介 | ${siteMetadata.siteName}`}>
@@ -18,5 +18,6 @@ import Overview from '../../section/business/Overview.astro';
 	<Business01 id="business-01" />
 	<Business02 id="business-02" />
 	<Area id="business-area" />
+	<RelatedInfo id="business-related" />
 	<Footer id="footer" variant="subpage" />
 </Layout>

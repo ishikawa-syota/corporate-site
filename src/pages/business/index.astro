@@ -3,11 +3,12 @@ import { siteMetadata } from '../../data/meta';
 import Footer from '../../layouts/Footer.astro';
 import Header from '../../layouts/Header.astro';
 import Layout from '../../layouts/Layout.astro';
+import Area from '../../section/business/Area.astro';
 import Business01 from '../../section/business/Business01.astro';
 import Business02 from '../../section/business/Business02.astro';
 import Hero from '../../section/business/Hero.astro';
 import Overview from '../../section/business/Overview.astro';
-// TODO: build as we go — 対応エリア / 関連情報(common) …
+// TODO: build as we go — 関連情報(common) …
 ---
 
 <Layout title={`事業紹介 | ${siteMetadata.siteName}`}>
@@ -16,5 +17,6 @@ import Overview from '../../section/business/Overview.astro';
 	<Overview id="business-overview" />
 	<Business01 id="business-01" />
 	<Business02 id="business-02" />
+	<Area id="business-area" />
 	<Footer id="footer" variant="subpage" />
 </Layout>

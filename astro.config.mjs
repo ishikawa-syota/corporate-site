@@ -1,6 +1,7 @@
+import { fileURLToPath } from 'node:url';
+
 import { defineConfig } from 'astro/config';
 import relativeLinks from 'astro-relative-links';
-import sitemap from '@astrojs/sitemap';
 import postcssMediaQueriesCombinator from 'postcss-combine-media-query';
 import cssnano from 'cssnano';
 // 開発中は検証を無効化して、ビルド時のみ読み込むようにコメントアウト
@@ -24,27 +25,7 @@ export default defineConfig({
 	// 本番サイトのURLを設定してください（例: https://example.com）
 	// NOTE: astro-relative-linksとの相性問題により、
 	// sitemapは public/sitemap.xml に手動で配置しています
-	site: 'https://example.com',
-	integrations: [
-		relativeLinks(),
-		// astro-relative-linksと競合するため無効化
-		// sitemap()
-	],
-	image: {
-		service: {
-			entrypoint: 'astro/assets/services/sharp',
-		},
-		format: ['webp', 'avif'],
-		quality: {
-			avif: 65,
-			webp: 75,
-			jpeg: 80,
-			png: 80,
-		},
-		publicDir: 'public',
-		assets: 'assets',
-		cacheDir: '.astro/cache/images',
-	},
+	integrations: [relativeLinks()],
 	vite: {
 		plugins,
 		build: {
@@ -75,7 +56,10 @@ export default defineConfig({
 		css: {
 			preprocessorOptions: {
 				scss: {
-					prependData: `@use "src/styles/foundation/index" as *;`,
+					loadPaths: [
+						fileURLToPath(new URL('./src', import.meta.url)),
+					],
+					additionalData: `@use "styles/foundation/index" as *;`,
 				},
 			},
 			postcss: {

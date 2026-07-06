@@ -92,10 +92,12 @@ const statBgs = [bgKaitori, bgSaiji, bgStaff, bgSatisfy];
 			$brand-white 0%,
 			$brand-blue-sky 100%
 		);
-		padding-block: size(100);
+		padding-top: size(100);
+		padding-bottom: size(168 + $section-card-radius);
 
 		@include mq('sp') {
-			padding-block: size(80);
+			padding-top: size(100);
+			padding-bottom: size(110 + $section-card-radius);
 			background: none;
 		}
 

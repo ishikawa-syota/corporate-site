@@ -85,6 +85,7 @@ const memberHoverImages = [
 		// Figma: 濃紺グラデ背景（人物写真がくっきり映える）
 		// background: linear-gradient(180deg, $brand-blue 0%, #cfe6ff 100%);
 		padding-block: size(100);
+		margin-top: size(-$section-card-radius);
 
 		@include mq('sp') {
 			padding-block: size(80);
@@ -98,7 +99,7 @@ const memberHoverImages = [
 			left: 0;
 			width: 100%;
 			height: size(1611);
-			border-radius: 130px;
+			border-radius: size($section-card-radius);
 			background: linear-gradient(
 				180deg,
 				var(--0054-ac, #0054ac) 0%,

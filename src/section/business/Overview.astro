@@ -50,8 +50,8 @@ const { id } = Astro.props;
 		// blue_gr は NumberStat 等で再利用の $brand-gradient と一致（要 stops 確認）
 		background: $brand-gradient;
 
-		// 上部角丸 PC=130 / SP=130（採寸値。size() で各基準にスケール）
-		border-radius: size(130) size(130) 0 0;
+		// 上部角丸（$section-card-radius で共通化）
+		border-radius: size($section-card-radius) size($section-card-radius) 0 0;
 
 		@include mq('sp') {
 			&__watermark {

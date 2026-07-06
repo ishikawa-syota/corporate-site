@@ -4,7 +4,10 @@
 // NOTE(scaffold): 買取品目/導入の写真は ImagePlaceholder（要・実写真差し替え）。
 // SPレイアウト（特徴/品目/ながれ）は暫定。fixパスで Figma SP と要照合。
 import ImagePlaceholder from '../../components/common/ImagePlaceholder.astro';
+import Picture from '../../components/common/Picture.astro';
 import badgeShape from '../../images/keitasplan/business/badge-jisseki.svg?raw';
+import bgPc from '../../images/keitasplan/business/business-02-bg-pc.png';
+import bgSp from '../../images/keitasplan/business/business-02-bg-sp.png';
 import feature01 from '../../images/keitasplan/business/feature-01.svg?raw';
 import feature02 from '../../images/keitasplan/business/feature-02.svg?raw';
 import feature03 from '../../images/keitasplan/business/feature-03.svg?raw';
@@ -96,6 +99,10 @@ const flow = [
 ---
 
 <section class="p-biz02" id={id}>
+	<div class="p-biz02__bg" aria-hidden="true">
+		<Picture src={bgPc} srcSp={bgSp} alt="" class="p-biz02__bgImg" />
+	</div>
+
 	<div class="p-biz02__inner">
 		<div class="p-biz02__head">
 			<span class="p-biz02__mark" aria-hidden="true" set:html={mark} />
@@ -239,10 +246,27 @@ const flow = [
 
 	.p-biz02 {
 		position: relative;
+		z-index: 1;
 		overflow: hidden;
+		margin-top: size(-81);
+		border-radius: size(130) size(130) 0 0;
 
-		// TODO(fidelity): セクション背景（Rectangle 105 グラデ）未確認。暫定スカイブルー
-		background-color: $brand-blue-sky;
+		// セクション背景（Figma Rectangle 105 フレーム = 白→#e9e9e9 縦グラデ）
+		background: linear-gradient(180deg, $brand-white 0%, #e9e9e9 100%);
+
+		// 全面背景写真（Figma Rectangle 105・不透明度20%を焼き込み済み）
+		&__bg {
+			position: absolute;
+			inset: 0 0 auto;
+			z-index: 0;
+
+			:global(picture),
+			:global(img) {
+				display: block;
+				width: 100%;
+				height: auto;
+			}
+		}
 
 		&__inner {
 			position: relative;

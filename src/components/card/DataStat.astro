@@ -15,9 +15,9 @@ const { label, prefix, value, unit, caption } = Astro.props;
 ---
 
 <div class="c-datastat">
-	<span class="c-datastat__img" aria-hidden="true">
+	<div class="c-datastat__img" aria-hidden="true">
 		<ImagePlaceholder label="illust" rounded="8px" />
-	</span>
+	</div>
 	<p class="c-datastat__label">{label}</p>
 	<p class="c-datastat__figure">
 		{prefix && <span class="c-datastat__prefix">{prefix}</span>}

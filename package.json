@@ -6,12 +6,10 @@
 	"scripts": {
 		"dev": "astro dev",
 		"start": "astro dev",
-		"build": "run-s lint:check 'astro build' 'replace-html' 'replace-path'",
-		"build:ecforce": "run-s lint:check 'astro build' 'replace-html' 'replace-path-ecforce'",
+		"build": "run-s lint:check 'astro build' 'replace-html' 'replace-path' validate:html",
 		"build:check": "NODE_ENV=production astro build",
 		"replace-html": "node replaceHtml.mjs",
 		"replace-path": "node replacePath.mjs",
-		"replace-path-ecforce": "node replacePathEcforce.mjs",
 		"preview": "astro preview",
 		"astro": "astro",
 		"lint": "eslint . --ext .js,.ts,.astro",

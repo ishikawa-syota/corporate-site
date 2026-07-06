@@ -4,6 +4,7 @@
 		"no-inline-style": "off",
 		"unique-landmark": "off",
 		"hidden-focusable": "off",
-		"no-trailing-whitespace": "off"
+		"no-trailing-whitespace": "off",
+		"tel-non-breaking": "off"
 	}
 }

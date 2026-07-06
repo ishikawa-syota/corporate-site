@@ -1,3 +1,5 @@
+import faviconImage from '../images/favicon.png';
+
 // Twitter Cardの型定義
 type TwitterCardType = 'summary' | 'summary_large_image' | 'app' | 'player';
 
@@ -24,5 +26,5 @@ export const siteMetadata: SiteMetadata = {
 	siteName: 'siteName',
 	locale: 'ja_JP',
 	twitterCard: 'summary_large_image',
-	favicon: '', // TODO: 画像を追加（favicon.src）
+	favicon: faviconImage.src, // TODO: 仮の白画像。正式なファビコンに差し替え
 };

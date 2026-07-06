@@ -4,7 +4,6 @@ import { SEO } from 'astro-seo';
 import { siteMetadata } from '@/data/meta';
 ---
 
-<meta name="keywords" content={siteMetadata.keywords} />
 <SEO
 	charset="utf-8"
 	title={siteMetadata.title}
@@ -19,31 +18,33 @@ import { siteMetadata } from '@/data/meta';
 			url: siteMetadata.siteUrl,
 		},
 		optional: {
-			siteName: siteMetadata.title,
+			siteName: siteMetadata.siteName,
 			description: siteMetadata.description,
 			locale: siteMetadata.locale,
 		},
 	}}
 	twitter={{
 		card: siteMetadata.twitterCard,
-		site: siteMetadata.siteUrl,
 		title: siteMetadata.title,
 		description: siteMetadata.description,
 		image: siteMetadata.ogImage,
 	}}
 	extend={{
-		link: [
-			{
-				rel: 'shortcut icon',
-				href: siteMetadata.favicon,
-			},
-		],
+		link: siteMetadata.favicon
+			? [
+					{
+						rel: 'shortcut icon',
+						href: siteMetadata.favicon,
+					},
+				]
+			: [],
 		meta: [
 			{ name: 'format-detection', content: 'telephone=no' },
 			{
 				name: 'viewport',
 				content: 'width=device-width, initial-scale=1.0',
 			},
+			{ name: 'keywords', content: siteMetadata.keywords },
 		],
 	}}
 />

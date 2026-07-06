@@ -229,10 +229,15 @@ const reports = [
 
 	.p-biz01 {
 		position: relative;
+		z-index: 1;
 		overflow: hidden;
 
-		// TODO(fidelity): セクション背景色 "bg" 変数が空。要確認（暫定: スカイブルー）
-		background-color: $brand-blue-sky;
+		// 前セクション(Overview)の青へ重ねる。角丸トップ130 + 上へ130重ねる
+		margin-top: size(-130);
+		border-radius: size(130) size(130) 0 0;
+
+		// セクション背景（Figma Rectangle 130 = 白→#e9e9e9 縦グラデ）
+		background: linear-gradient(180deg, $brand-white 0%, #e9e9e9 100%);
 
 		&__bg {
 			position: absolute;

@@ -111,39 +111,6 @@
 	}
 }
 
-// .u-marker {
-//     display: inline;
-//     background: linear-gradient(transparent 80%, $YellowGreen 10%, transparent 10%);
-//     background: linear-gradient(
-//     180deg,
-//     $YellowGreen 0%,
-//     rgba($YellowGreen, 0) 0%,
-//     rgba($YellowGreen, 0) 75%,
-//     $YellowGreen 75%,
-//     $YellowGreen 90%,
-//     rgba($YellowGreen, 0) 90%
-//     );
-//     padding: 0 1px 0;
-// }
-
-// .u-text-gradient {
-//     background: $Gradation;
-//     -webkit-background-clip: text;
-//     -webkit-text-fill-color: transparent;
-//     background-clip: text;
-//     text-fill-color: transparent;
-// }
-
-// .u-label {
-//     background: rgba($YellowGreen, $alpha: 0.1);
-//     border-radius: calc( 4 * var(--max-fluid-ratio));
-//     padding-inline: calc( 8 * var(--max-fluid-ratio));
-//     @media only screen and (max-width: $Bp-7inch) {
-//         border-radius: calc( 4 * var(--min-fluid-ratio));
-//         padding-inline: calc( 8 * var(--min-fluid-ratio));
-//     }
-// }
-
 .u-sp-only {
 	display: none;
 

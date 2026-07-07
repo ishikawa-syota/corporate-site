@@ -1,14 +1,20 @@
 ---
-// 関連情報（RELATED）共通セクション — 事業紹介 / 数字で見る 両ページで再利用
-// Figma: sec5 993:2055 (PC)
-// NOTE(scaffold): カード背景写真(opacity)は省略しグラデのみ。SPは1カラム。fixパスで要照合。
+import Picture from '../../components/common/Picture.astro';
 import mark from '../../images/keitasplan/common/mark.svg?raw';
+import relatedDataPc from '../../images/keitasplan/common/related-data-pc.png';
+import relatedDataSp from '../../images/keitasplan/common/related-data-sp.png';
+import relatedMembersPc from '../../images/keitasplan/common/related-members-pc.png';
+import relatedMembersSp from '../../images/keitasplan/common/related-members-sp.png';
+import relatedVoicePc from '../../images/keitasplan/common/related-voice-pc.png';
+import relatedVoiceSp from '../../images/keitasplan/common/related-voice-sp.png';
 
 interface Card {
 	ja: string;
 	en: string;
 	desc: string;
 	href: string;
+	bgPc?: ImageMetadata;
+	bgSp?: ImageMetadata;
 }
 interface Props {
 	id?: string;
@@ -21,18 +27,24 @@ const defaultCards: Card[] = [
 		en: 'DATA',
 		desc: '実績・数字で信頼を証明します。',
 		href: '/data',
+		bgPc: relatedDataPc,
+		bgSp: relatedDataSp,
 	},
 	{
 		ja: 'お客様の声',
 		en: 'VOICE',
 		desc: '実際にご利用いただいた方の声。',
 		href: '/#voice',
+		bgPc: relatedVoicePc,
+		bgSp: relatedVoiceSp,
 	},
 	{
 		ja: 'メンバー',
 		en: 'MEMBERS',
 		desc: 'この会社を動かす人たち。',
 		href: '/#member',
+		bgPc: relatedMembersPc,
+		bgSp: relatedMembersSp,
 	},
 ];
 
@@ -53,6 +65,11 @@ const { id, cards = defaultCards } = Astro.props;
 			{
 				cards.map((c) => (
 					<li class="p-related__card">
+						{c.bgPc && c.bgSp && (
+							<span class="p-related__cardBg" aria-hidden="true">
+								<Picture src={c.bgPc} srcSp={c.bgSp} alt="" />
+							</span>
+						)}
 						<a class="p-related__cardLink" href={c.href}>
 							<span
 								class="p-related__cardTitle"
@@ -71,21 +88,19 @@ const { id, cards = defaultCards } = Astro.props;
 <style lang="scss">
 	.p-related {
 		position: relative;
-
-		// Figma: 関連情報セクション背景は白（business sec5 / data sec7 = #fff）
 		background-color: $brand-white;
 
 		&__inner {
 			max-width: size(1051);
 			margin-inline: auto;
-			padding-block: size(120);
+			padding: size(166) 0 size(256);
 			display: flex;
 			flex-direction: column;
 			gap: size(78);
 
 			@include mq('sp') {
 				max-width: size(580);
-				padding-block: size(96);
+				padding: size(114) 0 size(123);
 				gap: size(50);
 			}
 		}
@@ -156,26 +171,50 @@ const { id, cards = defaultCards } = Astro.props;
 		}
 
 		&__card {
+			position: relative;
 			border-radius: size(10);
 			overflow: hidden;
 
-			// TODO(fidelity): 背景写真(opacity 20-30%)未実装。現状グラデのみ
-			background: $brand-gradient;
-			transition: transform 0.3s ease;
+			// グラデ背景（CSS）。上に半透明写真オーバーレイ（&__cardBg）が重なる
+			background: linear-gradient(
+				180deg,
+				$brand-blue 0%,
+				$brand-blue-pale 100%
+			);
+			transition: opacity 0.3s ease;
 
 			@media (hover: hover) and (pointer: fine) {
 				&:hover {
-					transform: translateY(#{size(-4)});
+					opacity: 0.8;
 				}
 			}
 		}
 
+		&__cardBg {
+			position: absolute;
+			inset: 0;
+			z-index: 0;
+
+			:global(picture),
+			:global(img) {
+				display: block;
+				width: 100%;
+				height: 100%;
+			}
+
+			:global(img) {
+				object-fit: cover;
+			}
+		}
+
 		&__cardLink {
+			position: relative;
+			z-index: 1;
 			display: flex;
 			flex-direction: column;
 			gap: size(8);
 			height: size(244);
-			padding: size(48) size(114) size(48) size(41);
+			padding: size(48) size(41);
 
 			@include mq('sp') {
 				height: size(280);

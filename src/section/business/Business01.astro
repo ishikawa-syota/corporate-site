@@ -8,10 +8,11 @@ import badgeShape from '../../images/keitasplan/business/badge-jisseki.svg?raw';
 import bgPc from '../../images/keitasplan/business/business-01-bg-pc.png';
 import bgSp from '../../images/keitasplan/business/business-01-bg-sp.png';
 import introImg from '../../images/keitasplan/business/business-01-intro.png';
+import statIcon01 from '../../images/keitasplan/business/business-01-stat-01.svg';
+import statIcon02 from '../../images/keitasplan/business/business-01-stat-02.svg';
+import statIcon03 from '../../images/keitasplan/business/business-01-stat-03.svg';
 import reportImg from '../../images/keitasplan/business/item-01-pc.png';
-import iconCalendar from '../../images/keitasplan/business/stat-calendar.svg?raw';
-import iconStore from '../../images/keitasplan/business/stat-store.svg?raw';
-import iconVisitors from '../../images/keitasplan/business/stat-visitors.svg?raw';
+import arrowCircle from '../../images/keitasplan/common/arrow-circle.svg';
 import mark from '../../images/keitasplan/common/mark.svg?raw';
 
 interface Props {
@@ -20,9 +21,9 @@ interface Props {
 const { id } = Astro.props;
 
 const stats = [
-	{ icon: iconCalendar, label: '年間開催数', num: '00', unit: '回' },
-	{ icon: iconStore, label: '累計出店実績', num: '000', unit: '店舗' },
-	{ icon: iconVisitors, label: '年間来場者数', num: '00,000', unit: '名' },
+	{ icon: statIcon01, label: '年間開催数', num: '00', unit: '回' },
+	{ icon: statIcon02, label: '累計出店実績', num: '000', unit: '店舗' },
+	{ icon: statIcon03, label: '年間来場者数', num: '00,000', unit: '名' },
 ];
 
 // TODO: 実データ差し替え（画像・日付・タイトル）
@@ -92,11 +93,9 @@ const reports = [
 				{
 					stats.map((s) => (
 						<div class="p-biz01__stat">
-							<span
-								class="p-biz01__statIcon"
-								aria-hidden="true"
-								set:html={s.icon}
-							/>
+							<span class="p-biz01__statIcon" aria-hidden="true">
+								<img src={s.icon.src} alt="" />
+							</span>
 							<div class="p-biz01__statBody">
 								<span class="p-biz01__statLabel">
 									{s.label}
@@ -176,22 +175,7 @@ const reports = [
 					>催事お問い合わせフォーム</span
 				>
 				<span class="p-biz01__contactBtnArrow" aria-hidden="true">
-					<svg
-						viewBox="0 0 58 58"
-						fill="none"
-						xmlns="http://www.w3.org/2000/svg"
-					>
-						<circle cx="29" cy="29" r="29" fill="#ffffff"></circle>
-						<g
-							stroke="#0054ac"
-							stroke-width="2"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-						>
-							<line x1="19" y1="29" x2="38" y2="29"></line>
-							<path d="M31 22 L38 29 L31 36"></path>
-						</g>
-					</svg>
+					<img src={arrowCircle.src} alt="" />
 				</span>
 			</a>
 		</div>
@@ -467,7 +451,7 @@ const reports = [
 				gap: size(33);
 				padding-bottom: size(23);
 				border-left: none;
-				border-bottom: 1px solid $brand-blue;
+				border-bottom: size(1) solid $brand-blue;
 
 				&:last-child {
 					padding-bottom: 0;
@@ -476,24 +460,20 @@ const reports = [
 			}
 
 			&:not(:first-child) {
-				border-left: 1px solid rgba($brand-blue, 0.15);
+				border-left: size(1) solid rgba($brand-blue, 0.15);
 			}
 		}
 
+		// アイコンはグラデ円+グリフを焼き込んだ単一SVG（business-01-stat-0X.svg）
 		&__statIcon {
 			flex-shrink: 0;
-			display: flex;
-			align-items: center;
-			justify-content: center;
 			width: size(139);
 			height: size(139);
-			background: $brand-gradient;
-			border-radius: 50%;
 
-			:global(svg) {
+			img {
 				display: block;
-				width: size(72);
-				height: auto;
+				width: 100%;
+				height: 100%;
 			}
 		}
 
@@ -553,7 +533,7 @@ const reports = [
 			align-items: center;
 			gap: size(10);
 			padding-bottom: size(11);
-			border-bottom: 2px solid $brand-blue;
+			border-bottom: size(2) solid $brand-blue;
 		}
 
 		&__reportMarker {
@@ -765,7 +745,7 @@ const reports = [
 			transition: transform 0.3s ease;
 			z-index: 1;
 
-			:global(svg) {
+			img {
 				display: block;
 				width: 100%;
 				height: 100%;

@@ -1,6 +1,8 @@
 ---
 // 矢印付きピルボタン（Figma: button1 / button1_s / button2 / button_saiyou）
 // variant でサイズ・配色を切り替え、どこでも流用できる汎用ボタン
+import arrow from '../../images/keitasplan/common/arrow.svg';
+
 interface Props {
 	href?: string;
 	label: string;
@@ -29,17 +31,7 @@ const {
 >
 	<span class="c-arrowBtn__label">{label}</span>
 	<span class="c-arrowBtn__icon" aria-hidden="true">
-		<svg
-			width="17"
-			height="15"
-			viewBox="0 0 17 15"
-			fill="none"
-			xmlns="http://www.w3.org/2000/svg"
-		>
-			<path
-				d="M8.92871 0.292745C9.31914 -0.0976805 9.95223 -0.0974828 10.3428 0.292745L16.707 6.657C17.0976 7.04753 17.0976 7.68054 16.707 8.07106L10.3428 14.4353C9.95223 14.8256 9.31914 14.8257 8.92871 14.4353C8.53829 14.0449 8.53848 13.4118 8.92871 13.0213L13.5859 8.36403H0V6.36403H13.5859L8.92871 1.70681C8.53848 1.31626 8.53829 0.68317 8.92871 0.292745Z"
-				fill="white"></path>
-		</svg>
+		<img src={arrow.src} alt="" />
 	</span>
 </a>
 
@@ -109,9 +101,8 @@ const {
 			place-items: center;
 			transition: transform 0.3s ease;
 
-			svg {
-				display: grid;
-				place-items: center;
+			img {
+				display: block;
 				width: size(17);
 				height: size(15);
 			}

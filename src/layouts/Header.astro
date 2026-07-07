@@ -4,6 +4,7 @@ import { getImage } from 'astro:assets';
 import ArrowButton from '../components/button/ArrowButton.astro';
 import OptImage from '../components/common/OptImage.astro';
 import { navItems, companyInfo } from '../data/siteContent';
+import arrow from '../images/keitasplan/common/arrow.svg';
 import contactBg from '../images/keitasplan/common/headaer_bg.png';
 import logo from '../images/keitasplan/common/header-01.png';
 
@@ -200,19 +201,9 @@ const drawerNav = [
 
 			<a href="#contact" class="l-drawer__saiyou">
 				<span class="l-drawer__saiyouText">採用サイトはこちら</span>
-				<span class="l-drawer__saiyouIcon" aria-hidden="true">
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						width="17"
-						height="15"
-						viewBox="0 0 17 15"
-						fill="none"
-					>
-						<path
-							d="M16.7071 8.07088C17.0976 7.68035 17.0976 7.04719 16.7071 6.65666L10.3431 0.292702C9.95262 -0.0978227 9.31946 -0.0978227 8.92893 0.292702C8.53841 0.683226 8.53841 1.31639 8.92893 1.70692L14.5858 7.36377L8.92893 13.0206C8.53841 13.4111 8.53841 14.0443 8.92893 14.4348C9.31946 14.8254 9.95262 14.8254 10.3431 14.4348L16.7071 8.07088ZM0 7.36377V8.36377H16V7.36377V6.36377H0V7.36377Z"
-							fill="white"></path>
-					</svg>
-				</span>
+				<span class="l-drawer__saiyouArrow" aria-hidden="true"
+					><img src={arrow.src} alt="" /></span
+				>
 			</a>
 		</div>
 	</div>
@@ -225,7 +216,7 @@ const drawerNav = [
 		z-index: 100;
 		width: 100%;
 		background-color: rgba($brand-white, 0.92);
-		backdrop-filter: blur(8px);
+		backdrop-filter: blur(size(8));
 
 		&__inner {
 			display: flex;
@@ -296,7 +287,7 @@ const drawerNav = [
 			align-self: stretch;
 			margin-right: size(-24);
 			padding: 0 size(22) 0 size(33);
-			border-radius: 0 0 0 45px;
+			border-radius: 0 0 0 size(45);
 			background-image: var(--contact-bg);
 			background-size: cover;
 			background-position: center;
@@ -364,7 +355,7 @@ const drawerNav = [
 			span {
 				display: block;
 				width: size(26);
-				height: 2px;
+				height: size(2);
 				background-color: $brand-blue;
 				transition:
 					transform 0.3s ease,
@@ -466,7 +457,7 @@ const drawerNav = [
 			gap: size(10);
 			height: size(85);
 			padding: 0 size(10);
-			border-bottom: 1px solid $brand-blue;
+			border-bottom: size(1) solid $brand-blue;
 
 			@media (hover: hover) and (pointer: fine) {
 				&:hover .l-drawer__label {
@@ -629,7 +620,7 @@ const drawerNav = [
 			white-space: nowrap;
 		}
 
-		&__saiyouIcon {
+		&__saiyouArrow {
 			position: absolute;
 			right: size(11);
 			display: grid;
@@ -639,7 +630,8 @@ const drawerNav = [
 			background-color: $brand-blue;
 			border-radius: 50%;
 
-			svg {
+			img {
+				display: block;
 				width: size(15);
 				height: size(13);
 			}

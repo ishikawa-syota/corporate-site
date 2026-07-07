@@ -1,0 +1,44 @@
+---
+// セクション内の小見出し（青マーカー + テキスト + 下線）
+// 例: エコクリアの特徴 / 買取品目 / 対応エリア
+interface Props {
+	text: string;
+	class?: string;
+}
+const { text, class: className } = Astro.props;
+---
+
+<div class:list={['c-blockHead', className]}>
+	<span class="c-blockHead__marker" aria-hidden="true"></span>
+	<span class="c-blockHead__text">{text}</span>
+</div>
+
+<style lang="scss">
+	.c-blockHead {
+		display: flex;
+		align-items: center;
+		gap: size(10);
+		padding-bottom: size(14);
+		border-bottom: size(2) solid $brand-blue;
+
+		&__marker {
+			flex-shrink: 0;
+			width: size(24);
+			height: size(25);
+			border-radius: 0 size(30) size(30) 0;
+			background: $brand-blue;
+		}
+
+		&__text {
+			font-family: $Font;
+			font-weight: 500;
+			font-size: size(25);
+			line-height: 1.4;
+			color: $brand-blue;
+
+			@include mq('sp') {
+				font-size: size(36);
+			}
+		}
+	}
+</style>

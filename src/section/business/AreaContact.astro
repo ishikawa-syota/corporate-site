@@ -1,152 +1,89 @@
 ---
-// 対応エリア + 出張買取お申込みCTA（BUSINESS 02 内）
+// 対応エリア + 出張買取お申込みCTA（Business02 内で使用）
 // Figma: 993:2213 (対応エリア) / 993:2337 (contact) ※sec3_business1 内
-// NOTE(scaffold): SPレイアウトは暫定。fixパスで Figma SP と要照合。
-import mapUrl from '../../images/keitasplan/business/kanto-map.svg?url';
+import BlockHeading from '../../components/common/BlockHeading.astro';
+import OptImage from '../../components/common/OptImage.astro';
+import mapImg from '../../images/keitasplan/business/kanto-map.png';
+import arrowCircle from '../../images/keitasplan/common/arrow-circle.svg';
 import telIcon from '../../images/keitasplan/common/icon-tel.svg?raw';
-
-interface Props {
-	id?: string;
-}
-const { id } = Astro.props;
 ---
 
-<section class="p-biz-area" id={id}>
-	<div class="p-biz-area__inner">
-		<div class="p-biz-area__head">
-			<span class="p-biz-area__marker" aria-hidden="true"></span>
-			<span class="p-biz-area__headText">対応エリア</span>
-		</div>
+<div class="p-biz-area">
+	<BlockHeading text="対応エリア" />
 
-		<div class="p-biz-area__body">
-			<div class="p-biz-area__map">
-				<img src={mapUrl} alt="対応エリア地図（関東中心）" />
-			</div>
-			<p class="p-biz-area__text">
-				<span class="p-biz-area__textLead">関東を中心に</span>
-				<span class="p-biz-area__textMain">
-					<span class="p-biz-area__textBig">全国対応</span
-					>しております。
+	<div class="p-biz-area__body">
+		<div class="p-biz-area__map">
+			<OptImage
+				src={mapImg}
+				alt="対応エリア地図（関東中心）"
+				width={930}
+				fit="contain"
+			/>
+		</div>
+		<p class="p-biz-area__text">
+			<span class="p-biz-area__textLead">関東を中心に</span>
+			<span class="p-biz-area__textMain">
+				<span class="p-biz-area__textBig">全国対応</span>しております。
+			</span>
+		</p>
+	</div>
+
+	<div class="p-biz-area__contact">
+		<h3 class="p-biz-area__contactTitle">出張買取のお申込み・ご相談</h3>
+		<div class="p-biz-area__actions">
+			<a href="tel:0120210180" class="p-biz-area__tel">
+				<span
+					class="p-biz-area__telIcon"
+					aria-hidden="true"
+					set:html={telIcon}
+				/>
+				<span class="p-biz-area__telBody">
+					<span class="p-biz-area__telNum">0120-210-180</span>
+					<span class="p-biz-area__telHours">
+						営業時間 9:00 - 19:00（年中無休）
+					</span>
 				</span>
-			</p>
-		</div>
-
-		<div class="p-biz-area__contact">
-			<h3 class="p-biz-area__contactTitle">出張買取のお申込み・ご相談</h3>
-			<div class="p-biz-area__actions">
-				<a href="tel:0120210180" class="p-biz-area__tel">
-					<span
-						class="p-biz-area__telIcon"
-						aria-hidden="true"
-						set:html={telIcon}
-					/>
-					<span class="p-biz-area__telBody">
-						<span class="p-biz-area__telNum">0120-210-180</span>
-						<span class="p-biz-area__telHours">
-							営業時間 9:00 - 19:00（年中無休）
-						</span>
-					</span>
-				</a>
-				<a href="#" class="p-biz-area__formBtn">
-					<span class="p-biz-area__formLabel">
-						メールでの<br />お申込み・ご相談
-					</span>
-					<span class="p-biz-area__formArrow" aria-hidden="true">
-						<svg
-							viewBox="0 0 58 58"
-							fill="none"
-							xmlns="http://www.w3.org/2000/svg"
-						>
-							<circle cx="29" cy="29" r="29" fill="#ffffff"
-							></circle>
-							<g
-								stroke="#0054ac"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-							>
-								<line x1="19" y1="29" x2="38" y2="29"></line>
-								<path d="M31 22 L38 29 L31 36"></path>
-							</g>
-						</svg>
-					</span>
-				</a>
-			</div>
+			</a>
+			<a href="#" class="p-biz-area__formBtn">
+				<span class="p-biz-area__formLabel">
+					メールでの<br />お申込み・ご相談
+				</span>
+				<span class="p-biz-area__formArrow" aria-hidden="true">
+					<img src={arrowCircle.src} alt="" />
+				</span>
+			</a>
 		</div>
 	</div>
-</section>
+</div>
 
 <style lang="scss">
 	.p-biz-area {
 		position: relative;
-		background-color: $brand-blue-sky;
+		margin-top: size(160);
 
-		&__inner {
-			max-width: size(1052);
-			margin-inline: auto;
-			padding-bottom: size(120);
-
-			@include mq('sp') {
-				max-width: size(580);
-				padding-bottom: size(96);
-			}
+		@include mq('sp') {
+			margin-top: size(120);
 		}
 
-		// --- 見出し（マーカー + テキスト） ---
-		&__head {
-			display: flex;
-			align-items: center;
-			gap: size(10);
-			padding-bottom: size(14);
-			border-bottom: 1px solid rgba($brand-blue, 0.3);
-		}
-
-		&__marker {
-			flex-shrink: 0;
-			width: size(24);
-			height: size(25);
-			border-radius: 0 size(30) size(30) 0;
-			background: $brand-blue;
-		}
-
-		&__headText {
-			font-family: $Font;
-			font-weight: 500;
-			font-size: size(25);
-			line-height: 1.4;
-			color: $brand-blue;
-
-			@include mq('sp') {
-				font-size: size(36);
-			}
-		}
-
-		// --- 地図 + テキスト ---
 		&__body {
 			display: flex;
 			align-items: center;
-			margin-top: size(77);
+			margin-top: size(28);
 
 			@include mq('sp') {
 				flex-direction: column;
 				gap: size(40);
-				margin-top: size(50);
+				margin-top: size(76);
 			}
 		}
 
 		&__map {
 			flex-shrink: 0;
 			width: size(465);
+			aspect-ratio: 930 / 800;
 
-			img {
-				display: block;
-				width: size(412);
-				height: auto;
-
-				@include mq('sp') {
-					width: size(480);
-					margin-inline: auto;
-				}
+			@include mq('sp') {
+				width: 100%;
 			}
 		}
 
@@ -187,7 +124,6 @@ const { id } = Astro.props;
 			}
 		}
 
-		// --- 出張買取お申込みCTA ---
 		&__contact {
 			margin-top: size(115);
 			padding: size(46) size(51) size(76);
@@ -195,7 +131,10 @@ const { id } = Astro.props;
 			border-radius: size(20);
 			box-shadow: 0 size(4) size(17) rgba(#000, 0.25);
 
+			// SP: 内側コンテナ(580)より広い678でセクション中央に。左右-49で食み出す
 			@include mq('sp') {
+				width: size(678);
+				margin-inline: size(-49);
 				padding: size(50) size(40) size(60);
 			}
 		}
@@ -228,7 +167,6 @@ const { id } = Astro.props;
 			}
 		}
 
-		// 電話ピル
 		&__tel {
 			display: flex;
 			align-items: center;
@@ -293,7 +231,6 @@ const { id } = Astro.props;
 			}
 		}
 
-		// メール申込みボタン（button_footer_contact2 準拠）
 		&__formBtn {
 			position: relative;
 			width: size(425);
@@ -344,7 +281,7 @@ const { id } = Astro.props;
 			height: size(58);
 			transition: transform 0.3s ease;
 
-			:global(svg) {
+			img {
 				display: block;
 				width: 100%;
 				height: 100%;

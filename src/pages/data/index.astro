@@ -4,139 +4,8 @@ import Footer from '../../layouts/Footer.astro';
 import Header from '../../layouts/Header.astro';
 import Layout from '../../layouts/Layout.astro';
 import RelatedInfo from '../../section/common/RelatedInfo.astro';
+import DataStats from '../../section/data/DataStats.astro';
 import Hero from '../../section/data/Hero.astro';
-import StatSection from '../../section/data/StatSection.astro';
-
-// Figma: data 996:2961。数値・注釈は Figma 実テキストを転記（プレースホルダ含む）
-const company = {
-	en: 'COMPANY SCALE',
-	ja: '会社規模',
-	stats: [
-		{
-			label: '創業',
-			value: '2020',
-			unit: '年',
-			caption: '着実に積み上げてきた確かな実績',
-		},
-		{
-			label: '従業員数',
-			prefix: '約',
-			value: '150',
-			unit: '人',
-			caption: '委託業務・パート含む',
-		},
-		{
-			label: '拠点数',
-			value: '0',
-			unit: '拠点',
-			caption: '関東を中心に全国対応しております',
-		},
-	],
-};
-
-const homeVisit = {
-	en: 'SERVICE RECORD - HOME VISIT',
-	ja: '出張買取の実績',
-	sub: '関東を中心に全国対応しております。',
-	stats: [
-		{ label: '年間買取件数', prefix: '約', value: '48,000', unit: '件超' },
-		{
-			label: 'お客様満足度',
-			value: '97',
-			unit: '%',
-			caption: '自社アンケート調べ',
-		},
-		{
-			label: '平均訪問時間',
-			prefix: '約',
-			value: '00',
-			unit: '分',
-			caption: 'ご予約から訪問まで',
-		},
-	],
-};
-
-const events = {
-	en: 'SERVICE RECORD - EVENTS',
-	ja: '催事の実績',
-	stats: [
-		{
-			label: '年間催事開催件数',
-			value: '5,500',
-			unit: '件超',
-			caption: '定期開催を含む',
-		},
-		{
-			label: '累計出店実績',
-			value: '000',
-			unit: '店舗',
-			caption: '提携先の延べ店舗数',
-		},
-		{
-			label: '年間来場者数',
-			value: '00,000',
-			unit: '名',
-			caption: '全催事合計',
-		},
-	],
-};
-
-const staff = {
-	en: 'STAFF',
-	ja: 'スタッフ',
-	stats: [
-		{
-			label: '社員の平均年齢',
-			prefix: '約',
-			value: '00',
-			unit: '歳',
-			caption: '○○○○○○○○○',
-		},
-		{
-			label: '中途入社比率（未経験含む）',
-			prefix: '約',
-			value: '00',
-			unit: '%',
-			caption: '○○○○○○○○○',
-		},
-		{
-			label: '管理職比率',
-			prefix: '約',
-			value: '00',
-			unit: '%',
-			caption: '○○○○○○○○○',
-		},
-		{ label: '定着率', value: '00', unit: '%', caption: '○○○○○○○○○' },
-	],
-};
-
-const social = {
-	en: 'SOCIAL CONTRIBUTION',
-	ja: '環境・社会貢献',
-	sub: 'リユース事業を通じて、資源循環に貢献しています。',
-	note: '古物商許可番号：東京都公安委員会 第305502115691号',
-	stats: [
-		{
-			label: '年間買取物品数',
-			value: '000,000',
-			unit: '点',
-			caption: 'リユースに回る点数',
-		},
-		{
-			label: '再流通率',
-			prefix: '約',
-			value: '00',
-			unit: '%',
-			caption: '買取品の再販売率',
-		},
-		{
-			label: 'CO2削減貢献',
-			value: '00.0',
-			unit: 't',
-			caption: 'リユースによる削減量推定',
-		},
-	],
-};
 
 const relatedCards = [
 	{
@@ -163,11 +32,7 @@ const relatedCards = [
 <Layout title={`数字で見るケイタスプラン | ${siteMetadata.siteName}`}>
 	<Header id="header" />
 	<Hero id="data-hero" />
-	<StatSection id="data-company" {...company} />
-	<StatSection id="data-home-visit" {...homeVisit} />
-	<StatSection id="data-events" {...events} />
-	<StatSection id="data-staff" {...staff} />
-	<StatSection id="data-social" {...social} />
+	<DataStats />
 	<RelatedInfo id="data-related" cards={relatedCards} />
 	<Footer id="footer" variant="subpage" />
 </Layout>

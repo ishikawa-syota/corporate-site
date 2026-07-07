@@ -1,15 +1,21 @@
 ---
-// 数字で見る 指標グループ（縦組みENラベル + 見出し + カードグリッド）
-// Figma: data sec2 内 各グループ（COMPANY SCALE / SERVICE RECORD / STAFF / SOCIAL …）
-// NOTE(scaffold): グリッドは2カラム固定。Figmaは一部ワイド/センター配置あり（要fix照合）
 import DataStat from '../../components/card/DataStat.astro';
 
-interface Stat {
+interface Card {
 	label: string;
 	prefix?: string;
 	value: string;
 	unit: string;
 	caption?: string;
+	illust?: 'top' | 'left' | 'right';
+	inline?: boolean;
+	labelAfter?: boolean;
+	figureFirst?: boolean;
+	overlay?: boolean;
+	illustW?: number;
+	illustH?: number;
+	illustLabel?: string;
+	wide?: boolean;
 }
 interface Props {
 	id?: string;
@@ -17,14 +23,16 @@ interface Props {
 	ja: string;
 	sub?: string;
 	note?: string;
-	stats: Stat[];
+	cards: Card[];
 }
-const { id, en, ja, sub, note, stats } = Astro.props;
+const { id, en, ja, sub, note, cards } = Astro.props;
 ---
 
 <section class="p-data-sec" id={id}>
 	<div class="p-data-sec__inner">
-		<span class="p-data-sec__en" aria-hidden="true">{en}</span>
+		<div class="p-data-sec__label" aria-hidden="true">
+			<span class="p-data-sec__en">{en}</span>
+		</div>
 		<div class="p-data-sec__body">
 			<div class="p-data-sec__head">
 				<h2 class="p-data-sec__ja">{ja}</h2>
@@ -32,15 +40,14 @@ const { id, en, ja, sub, note, stats } = Astro.props;
 			</div>
 			<ul class="p-data-sec__grid">
 				{
-					stats.map((s) => (
-						<li class="p-data-sec__cell">
-							<DataStat
-								label={s.label}
-								prefix={s.prefix}
-								value={s.value}
-								unit={s.unit}
-								caption={s.caption}
-							/>
+					cards.map((c) => (
+						<li
+							class:list={[
+								'p-data-sec__cell',
+								c.wide && 'p-data-sec__cell--wide',
+							]}
+						>
+							<DataStat {...c} />
 						</li>
 					))
 				}
@@ -53,37 +60,44 @@ const { id, en, ja, sub, note, stats } = Astro.props;
 <style lang="scss">
 	.p-data-sec {
 		position: relative;
-		background-color: $brand-blue-sky;
 
 		&__inner {
 			display: flex;
+			align-items: stretch;
 			gap: size(81);
-			max-width: size(1293);
 			margin-inline: auto;
-			padding: size(86) size(120);
+			padding-inline: size(128) size(243);
 
 			@include mq('sp') {
-				gap: size(24);
-				max-width: size(680);
-				padding: size(60) size(44);
+				gap: size(80);
+				padding-inline: size(45) size(94);
 			}
 		}
 
-		// 縦組みENラベル
-		&__en {
+		// 縦組みENラベル + 下方向へ伸びるライン
+		&__label {
 			flex-shrink: 0;
+			display: flex;
+			width: size(35);
+
+			&::after {
+				content: '';
+				flex: 1 1 auto;
+				width: size(2);
+				background: $brand-blue;
+				height: 100%;
+			}
+		}
+
+		&__en {
 			writing-mode: vertical-rl;
 			font-family: $Font-Readex;
 			font-weight: 500;
-			font-size: size(16);
-			line-height: 1;
-			letter-spacing: size(2);
-			color: rgba($brand-blue, 0.5);
+			font-size: size(24);
+			line-height: 1.4;
+			letter-spacing: 0.1em;
+			color: $brand-blue;
 			white-space: nowrap;
-
-			@include mq('sp') {
-				font-size: size(20);
-			}
 		}
 
 		&__body {
@@ -93,8 +107,14 @@ const { id, en, ja, sub, note, stats } = Astro.props;
 
 		&__head {
 			display: flex;
-			flex-direction: column;
-			gap: size(16);
+			align-items: baseline;
+			gap: size(30);
+			flex-wrap: wrap;
+
+			@include mq('sp') {
+				flex-direction: column;
+				gap: size(16);
+			}
 		}
 
 		&__ja {
@@ -124,13 +144,21 @@ const { id, en, ja, sub, note, stats } = Astro.props;
 
 		&__grid {
 			display: grid;
-			grid-template-columns: repeat(2, 1fr);
-			gap: size(42);
-			margin-top: size(40);
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: size(60) size(42);
+			margin-top: size(100);
 
 			@include mq('sp') {
-				grid-template-columns: 1fr;
-				gap: size(30);
+				grid-template-columns: minmax(0, 1fr);
+				gap: size(70);
+			}
+		}
+
+		&__cell {
+			min-width: 0;
+
+			&--wide {
+				grid-column: 1 / -1;
 			}
 		}
 

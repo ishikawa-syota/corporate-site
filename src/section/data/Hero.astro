@@ -1,6 +1,4 @@
 ---
-// 数字で見る ページヘッダー（左：タイトル / 右：logo_S ウォーターマーク）
-// Figma: data sec1_title 996:2966 (PC)
 import watermark from '../../images/keitasplan/common/logo_S.svg?raw';
 
 interface Props {
@@ -11,7 +9,9 @@ const { id } = Astro.props;
 
 <section class="p-data-hero" id={id}>
 	<div class="p-data-hero__titles">
-		<span class="p-data-hero__ja">数字で見るケイタスプラン</span>
+		<span class="p-data-hero__ja"
+			>数字で見る<br class="sp-only" />ケイタスプラン</span
+		>
 		<span class="p-data-hero__en">DATA</span>
 	</div>
 	<span class="p-data-hero__mark" aria-hidden="true" set:html={watermark} />
@@ -21,10 +21,10 @@ const { id } = Astro.props;
 	.p-data-hero {
 		position: relative;
 		overflow: hidden;
-		padding: size(185) size(108) size(112);
+		padding: size(234) size(108) size(64);
 
 		@include mq('sp') {
-			padding: size(205) size(45) size(148);
+			padding: size(183) size(45) size(58);
 
 			&__ja {
 				font-size: size(60);

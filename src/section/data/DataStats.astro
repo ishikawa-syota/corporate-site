@@ -1,0 +1,232 @@
+---
+import StatSection from './StatSection.astro';
+
+const company = {
+	en: 'COMPANY SCALE',
+	ja: '会社規模',
+	cards: [
+		{
+			label: '創業',
+			value: '2020',
+			unit: '年',
+			caption: '着実に積み上げてきた確かな実績',
+			inline: true,
+			labelAfter: true,
+			illustLabel: 'sougyou',
+			illustW: 163,
+			illustH: 155,
+		},
+		{
+			label: '従業員数',
+			prefix: '約',
+			value: '150',
+			unit: '人',
+			caption: '委託業務・パート含む',
+			inline: true,
+			illustLabel: 'jyugyoin',
+			illustW: 289,
+			illustH: 173,
+		},
+		{
+			label: '拠点数',
+			value: '0',
+			unit: '拠点',
+			caption: '関東を中心に全国対応しております',
+			wide: true,
+			illust: 'left' as const,
+			inline: true,
+			illustLabel: 'map',
+			illustW: 465,
+			illustH: 280,
+		},
+	],
+};
+
+const homeVisit = {
+	en: 'SERVICE RECORD - HOME VISIT',
+	ja: '出張買取の実績',
+	cards: [
+		{
+			label: '年間買取件数',
+			prefix: '約',
+			value: '48,000',
+			unit: '件超',
+			wide: true,
+			illust: 'left' as const,
+			illustLabel: 'items',
+			illustW: 433,
+			illustH: 256,
+		},
+		{
+			label: 'お客様満足度',
+			value: '97',
+			unit: '%',
+			caption: '自社アンケート調べ',
+			overlay: true,
+			illustLabel: 'manzokudo',
+			illustW: 300,
+			illustH: 228,
+		},
+		{
+			label: '平均訪問時間',
+			prefix: '約',
+			value: '00',
+			unit: '分',
+			caption: 'ご予約から訪問まで',
+			overlay: true,
+			illustLabel: 'houmonjikan',
+			illustW: 376,
+			illustH: 229,
+		},
+	],
+};
+
+const events = {
+	en: 'SERVICE RECORD - EVENTS',
+	ja: '催事の実績',
+	cards: [
+		{
+			label: '年間催事開催件数',
+			value: '5,500',
+			unit: '件超',
+			caption: '定期開催を含む',
+			illustLabel: 'nenkan',
+			illustW: 248,
+			illustH: 122,
+		},
+		{
+			label: '累計出店実績',
+			value: '000',
+			unit: '店舗',
+			caption: '提携先の延べ店舗数',
+			illustLabel: 'tenpo',
+			illustW: 142,
+			illustH: 128,
+		},
+		{
+			label: '年間来場者数',
+			value: '00,000',
+			unit: '名',
+			caption: '全催事合計',
+			wide: true,
+			illust: 'left' as const,
+			illustLabel: 'raijyou',
+			illustW: 344,
+			illustH: 234,
+		},
+	],
+};
+
+const staff = {
+	en: 'STAFF',
+	ja: 'スタッフ',
+	cards: [
+		{
+			label: '社員の平均年齢',
+			value: '00',
+			unit: '歳',
+			caption: '○○○○○○○○○',
+			illust: 'right' as const,
+			illustLabel: 'nenrei',
+			illustW: 167,
+			illustH: 192,
+		},
+		{
+			label: '中途入社比率（未経験含む）',
+			prefix: '約',
+			value: '00',
+			unit: '%',
+			caption: '○○○○○○○○○',
+			illust: 'left' as const,
+			figureFirst: true,
+			illustLabel: 'chuuto',
+			illustW: 248,
+			illustH: 149,
+		},
+		{
+			label: '管理職比率',
+			value: '00',
+			unit: '%',
+			caption: '○○○○○○○○○',
+			illust: 'left' as const,
+			illustLabel: 'kanri',
+			illustW: 201,
+			illustH: 206,
+		},
+		{
+			label: '定着率',
+			value: '00',
+			unit: '%',
+			caption: '○○○○○○○○○',
+			inline: true,
+			illustLabel: 'teichaku',
+			illustW: 182,
+			illustH: 170,
+		},
+	],
+};
+
+const social = {
+	en: 'SOCIAL CONTRIBUTION',
+	ja: '環境・社会貢献',
+	sub: 'リユース事業を通じて、資源循環に貢献しています。',
+	cards: [
+		{
+			label: '年間買取物品数',
+			value: '000,000',
+			unit: '点',
+			caption: 'リユースに回る点数',
+			illustLabel: 'nenkanre',
+			illustW: 158,
+			illustH: 151,
+		},
+		{
+			label: '再流通率',
+			prefix: '約',
+			value: '00',
+			unit: '%',
+			caption: '買取品の再販売率',
+			overlay: true,
+			illustLabel: 'sairyutsu',
+			illustW: 432,
+			illustH: 195,
+		},
+		{
+			label: 'CO2削減貢献',
+			value: '00.0',
+			unit: 't',
+			caption: 'リユースによる削減量推定',
+			wide: true,
+			illust: 'left' as const,
+			illustLabel: 'co2',
+			illustW: 556,
+			illustH: 214,
+		},
+	],
+};
+---
+
+<div class="p-data-stats">
+	<StatSection id="data-company" {...company} />
+	<StatSection id="data-home-visit" {...homeVisit} />
+	<StatSection id="data-events" {...events} />
+	<StatSection id="data-staff" {...staff} />
+	<StatSection id="data-social" {...social} />
+</div>
+
+<style lang="scss">
+	// 指標グループ全体の背景（淡いブルー）。上部を角丸にしてヒーロー(白)から切り替わる
+	.p-data-stats {
+		position: relative;
+		background: linear-gradient(360deg, #dfefff 48.08%, #b8dbff 100%);
+		border-radius: size($section-card-radius) size($section-card-radius) 0 0;
+		padding-block: size(86) size(152);
+		display: flex;
+		flex-direction: column;
+		gap: size(161);
+
+		@include mq('sp') {
+			padding-block: size(137) size(141);
+		}
+	}
+</style>

@@ -19,6 +19,9 @@ export {
 // 画像関連ユーティリティ
 export { estimateWebPSize, generateImageWidths } from './image';
 
+// サイズ関連ユーティリティ
+export { spVw, SP_DESIGN_WIDTH } from './size';
+
 // 型定義
 export interface CommonUtilityConfig {
 	/** デフォルトの文字列切り詰め長 */
@@ -38,3 +41,4 @@ export * as StringUtils from './string';
 export * as DateUtils from './date';
 export * as ValidationUtils from './validation';
 export * as ImageUtils from './image';
+export * as SizeUtils from './size';

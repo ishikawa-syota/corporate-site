@@ -187,13 +187,19 @@ const reports = [
 
 	import { BREAKPOINT_PC_MIN } from '@/data/config';
 
+	import { spVw } from '@/utils/size';
+
 	// SPのみカルーセル化。PC(>=769)では destroy され、CSSの3カラムgridが効く
 	document
 		.querySelectorAll<HTMLElement>('[data-report-splide]')
 		.forEach((el) => {
 			new Splide(el, {
-				fixedWidth: 'calc(390 / 768 * 100vw)',
-				gap: 'calc(76 / 768 * 100vw)',
+				fixedWidth: spVw(390),
+				gap: spVw(76),
+				padding: {
+					left: spVw(94),
+					right: spVw(94),
+				},
 				arrows: false,
 				pagination: false,
 				drag: true,
@@ -568,6 +574,10 @@ const reports = [
 			@include mq('sp') {
 				position: relative;
 				margin-top: size(125);
+
+				// __inner(580)を突き抜けてビューポート全幅に。左右paddingはSplide側で付与
+				width: 100vw;
+				margin-inline: calc(50% - 50vw);
 			}
 
 			.splide__track {
@@ -620,7 +630,7 @@ const reports = [
 			padding: 0 size(20) size(237 + $section-card-radius);
 
 			@include mq('sp') {
-				padding: 0 size(20) size(173 + $section-card-radius);
+				padding: 0 size(94) size(173 + $section-card-radius);
 			}
 		}
 

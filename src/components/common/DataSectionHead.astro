@@ -1,0 +1,54 @@
+---
+interface Props {
+	ja: string;
+	sub?: string;
+}
+const { ja, sub } = Astro.props;
+---
+
+<div class="c-data-head">
+	<h2 class="c-data-head__title">{ja}</h2>
+	{sub && <p class="c-data-head__sub">{sub}</p>}
+</div>
+
+<style lang="scss">
+	.c-data-head {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: size(27);
+
+		@include mq('sp') {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: size(10);
+		}
+
+		&__title {
+			font-family: $Font;
+			font-weight: 500;
+			font-size: size(40);
+			line-height: 1.4;
+			letter-spacing: size(1.12);
+			color: $brand-blue;
+
+			@include mq('sp') {
+				font-size: size(50);
+			}
+		}
+
+		&__sub {
+			font-family: $Font;
+			font-weight: 400;
+			font-size: size(20);
+			line-height: 1.4;
+			color: $brand-blue;
+			text-align: right;
+
+			@include mq('sp') {
+				font-size: size(25);
+				text-align: left;
+			}
+		}
+	}
+</style>

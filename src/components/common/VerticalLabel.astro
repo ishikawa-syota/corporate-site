@@ -1,0 +1,36 @@
+---
+interface Props {
+	text: string;
+}
+const { text } = Astro.props;
+---
+
+<div class="c-vlabel" aria-hidden="true">
+	<span class="c-vlabel__text">{text}</span>
+</div>
+
+<style lang="scss">
+	.c-vlabel {
+		flex-shrink: 0;
+		display: flex;
+		width: size(35);
+
+		&::after {
+			content: '';
+			width: size(2);
+			height: 100%;
+			background: $brand-blue;
+		}
+
+		&__text {
+			writing-mode: vertical-rl;
+			font-family: $Font-Readex;
+			font-weight: 500;
+			font-size: size(24);
+			line-height: 1.4;
+			letter-spacing: 0.1em;
+			color: $brand-blue;
+			white-space: nowrap;
+		}
+	}
+</style>

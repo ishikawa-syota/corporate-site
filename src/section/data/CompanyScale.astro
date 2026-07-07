@@ -1,0 +1,354 @@
+---
+import DataSectionHead from '../../components/common/DataSectionHead.astro';
+import VerticalLabel from '../../components/common/VerticalLabel.astro';
+import building from '../../images/keitasplan/data/building.svg';
+import mapPc from '../../images/keitasplan/data/map-pc.svg';
+import mapSp from '../../images/keitasplan/data/map-sp.svg';
+import people from '../../images/keitasplan/data/people.svg';
+
+interface Props {
+	id?: string;
+}
+const { id } = Astro.props;
+---
+
+<section class="p-data-company" id={id}>
+	<div class="p-data-company__inner">
+		<VerticalLabel text="COMPANY SCALE" />
+		<div class="p-data-company__body">
+			<DataSectionHead ja="会社規模" />
+			<ul class="p-data-company__grid">
+				<li class="p-data-company__cell">
+					<div class="p-data-company__card">
+						<span
+							class="p-data-company__illust p-data-company__illust--building"
+							aria-hidden="true"
+						>
+							<img src={building.src} alt="" />
+						</span>
+						<div class="p-data-company__text">
+							<p class="p-data-company__figure">
+								<span class="p-data-company__value">2020</span>
+								<span class="p-data-company__unit">年</span>
+								<span class="p-data-company__statLabel">
+									創業
+								</span>
+							</p>
+							<p class="p-data-company__caption">
+								着実に積み上げてきた確かな実績
+							</p>
+						</div>
+					</div>
+				</li>
+
+				<li class="p-data-company__cell">
+					<div class="p-data-company__card">
+						<span
+							class="p-data-company__illust p-data-company__illust--people"
+							aria-hidden="true"
+						>
+							<img src={people.src} alt="" />
+						</span>
+						<div class="p-data-company__text">
+							<p class="p-data-company__figure">
+								<span class="p-data-company__statLabel">
+									従業員数
+								</span>
+								<span class="p-data-company__prefix">約</span>
+								<span class="p-data-company__value">150</span>
+								<span class="p-data-company__unit">人</span>
+							</p>
+							<p class="p-data-company__caption">
+								委託業務・パート含む
+							</p>
+						</div>
+					</div>
+				</li>
+
+				<li class="p-data-company__cell p-data-company__cell--wide">
+					<div class="p-data-company__card p-data-company__card--map">
+						<span class="p-data-company__map" aria-hidden="true">
+							<img
+								class="p-data-company__mapImg p-data-company__mapImg--pc"
+								src={mapPc.src}
+								alt=""
+								width="1049"
+								height="374"
+							/>
+							<img
+								class="p-data-company__mapImg p-data-company__mapImg--sp"
+								src={mapSp.src}
+								alt=""
+								width="513"
+								height="400"
+							/>
+						</span>
+						<div class="p-data-company__mapBody">
+							<p
+								class="p-data-company__figure p-data-company__figure--map"
+							>
+								<span
+									class="p-data-company__statLabel p-data-company__statLabel--map"
+								>
+									拠点数
+								</span>
+								<span class="p-data-company__figureNum">
+									<span class="p-data-company__value">0</span>
+									<span class="p-data-company__unit">
+										拠点
+									</span>
+								</span>
+							</p>
+							<p
+								class="p-data-company__caption p-data-company__caption--map"
+							>
+								関東を中心に全国対応しております
+							</p>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+</section>
+
+<style lang="scss">
+	.p-data-company {
+		position: relative;
+
+		&__inner {
+			display: flex;
+			align-items: stretch;
+			gap: size(81);
+			margin-inline: auto;
+			padding-inline: size(128) size(243);
+
+			@include mq('sp') {
+				padding-inline: size(45) size(94);
+			}
+		}
+
+		&__body {
+			flex: 1;
+			min-width: 0;
+		}
+
+		&__grid {
+			display: grid;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: size(42);
+			margin-top: size(100);
+
+			@include mq('sp') {
+				grid-template-columns: minmax(0, 1fr);
+				gap: size(30);
+			}
+		}
+
+		&__cell {
+			min-width: 0;
+
+			&--wide {
+				grid-column: 1 / -1;
+			}
+		}
+
+		// --- カード ---
+		&__card {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			gap: size(16);
+			height: 100%;
+			min-height: size(374);
+			padding: size(36) size(40);
+			background: $brand-white;
+			border-radius: size(7);
+		}
+
+		&__illust {
+			display: block;
+
+			img {
+				display: block;
+				width: 100%;
+				height: 100%;
+			}
+
+			&--building {
+				width: size(163);
+				height: size(155);
+			}
+
+			&--people {
+				width: size(289);
+				height: size(173);
+			}
+		}
+
+		&__text {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		&__figure {
+			display: flex;
+			align-items: center;
+			gap: size(6);
+
+			// 地図カード: PCは横並び / SPは縦積み（拠点数 の下に 0拠点）
+			&--map {
+				gap: size(18);
+
+				@include mq('sp') {
+					flex-direction: column;
+					align-items: flex-start;
+					gap: size(4);
+				}
+			}
+		}
+
+		&__figureNum {
+			display: flex;
+			align-items: flex-end;
+			gap: size(6);
+		}
+
+		&__value {
+			font-family: $Font-Num;
+			font-weight: 500;
+			font-size: size(100);
+			line-height: 1.1;
+			background-image: $brand-gradient;
+			background-clip: text;
+			-webkit-text-fill-color: transparent;
+			color: transparent;
+
+			@include mq('sp') {
+				font-size: size(110);
+			}
+		}
+
+		&__prefix,
+		&__unit {
+			align-self: flex-end;
+			margin-bottom: size(22);
+			font-family: $Font;
+			font-weight: 700;
+			font-size: size(20);
+			line-height: 1.4;
+			letter-spacing: size(0.6);
+			background-image: $brand-gradient;
+			background-clip: text;
+			-webkit-text-fill-color: transparent;
+			color: transparent;
+
+			@include mq('sp') {
+				font-size: size(26);
+			}
+		}
+
+		&__statLabel {
+			font-family: $Font;
+			font-weight: 700;
+			font-size: size(35);
+			line-height: 1.4;
+			letter-spacing: size(1.05);
+			color: $brand-text;
+			margin-top: size(26);
+
+			@include mq('sp') {
+				font-size: size(40);
+
+				&--map {
+					margin-top: 0;
+				}
+			}
+		}
+
+		&__caption {
+			font-family: $Font;
+			font-weight: 400;
+			font-size: size(20);
+			line-height: 1.4;
+			color: $brand-text;
+			text-align: center;
+
+			@include mq('sp') {
+				font-size: size(24);
+			}
+		}
+
+		// --- 拠点数（地図・横長。地図は絶対配置の背景） ---
+		&__card--map {
+			display: block;
+			position: relative;
+			padding: 0;
+			overflow: hidden;
+		}
+
+		&__map {
+			position: absolute;
+			inset: 0;
+			z-index: 0;
+		}
+
+		&__mapImg {
+			position: absolute;
+
+			&--pc {
+				inset: 0;
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				object-position: left center;
+
+				@include mq('sp') {
+					display: none;
+				}
+			}
+
+			&--sp {
+				display: none;
+
+				@include mq('sp') {
+					display: block;
+					inset: 0;
+					width: 100%;
+					height: 100%;
+					object-fit: cover;
+					object-position: left center;
+				}
+			}
+		}
+
+		&__mapBody {
+			position: absolute;
+			z-index: 1;
+			min-height: size(374);
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			left: size(586);
+
+			// SP: 地図の右に図版（上寄せ）、注釈はカード下部に全幅中央
+			@include mq('sp') {
+				inset: 0;
+				align-items: flex-end;
+				justify-content: flex-start;
+				padding: size(40) size(40) size(44);
+			}
+		}
+
+		&__caption--map {
+			@include mq('sp') {
+				width: 100%;
+				margin-top: auto;
+				text-align: center;
+			}
+		}
+	}
+</style>

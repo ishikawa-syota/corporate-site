@@ -1,5 +1,7 @@
 ---
 import DataStat from '../../components/card/DataStat.astro';
+import DataSectionHead from '../../components/common/DataSectionHead.astro';
+import VerticalLabel from '../../components/common/VerticalLabel.astro';
 
 interface Card {
 	label: string;
@@ -30,14 +32,9 @@ const { id, en, ja, sub, note, cards } = Astro.props;
 
 <section class="p-data-sec" id={id}>
 	<div class="p-data-sec__inner">
-		<div class="p-data-sec__label" aria-hidden="true">
-			<span class="p-data-sec__en">{en}</span>
-		</div>
+		<VerticalLabel text={en} />
 		<div class="p-data-sec__body">
-			<div class="p-data-sec__head">
-				<h2 class="p-data-sec__ja">{ja}</h2>
-				{sub && <p class="p-data-sec__sub">{sub}</p>}
-			</div>
+			<DataSectionHead ja={ja} sub={sub} />
 			<ul class="p-data-sec__grid">
 				{
 					cards.map((c) => (
@@ -74,72 +71,9 @@ const { id, en, ja, sub, note, cards } = Astro.props;
 			}
 		}
 
-		// 縦組みENラベル + 下方向へ伸びるライン
-		&__label {
-			flex-shrink: 0;
-			display: flex;
-			width: size(35);
-
-			&::after {
-				content: '';
-				flex: 1 1 auto;
-				width: size(2);
-				background: $brand-blue;
-				height: 100%;
-			}
-		}
-
-		&__en {
-			writing-mode: vertical-rl;
-			font-family: $Font-Readex;
-			font-weight: 500;
-			font-size: size(24);
-			line-height: 1.4;
-			letter-spacing: 0.1em;
-			color: $brand-blue;
-			white-space: nowrap;
-		}
-
 		&__body {
 			flex: 1;
 			min-width: 0;
-		}
-
-		&__head {
-			display: flex;
-			align-items: baseline;
-			gap: size(30);
-			flex-wrap: wrap;
-
-			@include mq('sp') {
-				flex-direction: column;
-				gap: size(16);
-			}
-		}
-
-		&__ja {
-			font-family: $Font;
-			font-weight: 700;
-			font-size: size(40);
-			line-height: 1.4;
-			letter-spacing: size(1.2);
-			color: $brand-blue;
-
-			@include mq('sp') {
-				font-size: size(48);
-			}
-		}
-
-		&__sub {
-			font-family: $Font;
-			font-weight: 400;
-			font-size: size(18);
-			line-height: 1.6;
-			color: $brand-text;
-
-			@include mq('sp') {
-				font-size: size(24);
-			}
 		}
 
 		&__grid {

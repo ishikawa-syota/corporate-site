@@ -1,46 +1,6 @@
 ---
+import CompanyScale from './CompanyScale.astro';
 import StatSection from './StatSection.astro';
-
-const company = {
-	en: 'COMPANY SCALE',
-	ja: '会社規模',
-	cards: [
-		{
-			label: '創業',
-			value: '2020',
-			unit: '年',
-			caption: '着実に積み上げてきた確かな実績',
-			inline: true,
-			labelAfter: true,
-			illustLabel: 'sougyou',
-			illustW: 163,
-			illustH: 155,
-		},
-		{
-			label: '従業員数',
-			prefix: '約',
-			value: '150',
-			unit: '人',
-			caption: '委託業務・パート含む',
-			inline: true,
-			illustLabel: 'jyugyoin',
-			illustW: 289,
-			illustH: 173,
-		},
-		{
-			label: '拠点数',
-			value: '0',
-			unit: '拠点',
-			caption: '関東を中心に全国対応しております',
-			wide: true,
-			illust: 'left' as const,
-			inline: true,
-			illustLabel: 'map',
-			illustW: 465,
-			illustH: 280,
-		},
-	],
-};
 
 const homeVisit = {
 	en: 'SERVICE RECORD - HOME VISIT',
@@ -207,7 +167,7 @@ const social = {
 ---
 
 <div class="p-data-stats">
-	<StatSection id="data-company" {...company} />
+	<CompanyScale id="data-company" />
 	<StatSection id="data-home-visit" {...homeVisit} />
 	<StatSection id="data-events" {...events} />
 	<StatSection id="data-staff" {...staff} />

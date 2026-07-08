@@ -1,0 +1,78 @@
+---
+interface Props {
+	prefix?: string;
+	value: string;
+	unit?: string;
+	light?: boolean;
+}
+const { prefix, value, unit, light } = Astro.props;
+---
+
+<span class:list={['c-statval', light && 'c-statval--light']}>
+	{prefix && <span class="c-statval__affix">{prefix}</span>}
+	<span class="c-statval__value">{value}</span>
+	{unit && <span class="c-statval__affix">{unit}</span>}
+</span>
+
+<style lang="scss">
+	.c-statval {
+		display: inline-flex;
+		align-items: flex-end;
+		gap: size(4);
+
+		&__value {
+			font-family: $Font-Num;
+			font-weight: 500;
+			font-size: size(100);
+			line-height: 1.1;
+			background-image: $brand-gradient;
+			background-clip: text;
+			-webkit-text-fill-color: transparent;
+			color: transparent;
+
+			@include mq('sp') {
+				font-size: size(110);
+			}
+		}
+
+		&__affix {
+			margin-bottom: size(22);
+			font-family: $Font;
+			font-weight: 700;
+			font-size: size(20);
+			line-height: 1.4;
+			letter-spacing: size(0.6);
+			white-space: nowrap;
+			background-image: $brand-gradient;
+			background-clip: text;
+			-webkit-text-fill-color: transparent;
+			color: transparent;
+
+			@include mq('sp') {
+				font-size: size(26);
+			}
+		}
+
+		// 濃紺の円グラフ上に重ねる白→淡ブルーのグラデ（お客様満足度）
+		&--light {
+			.c-statval__value,
+			.c-statval__affix {
+				background-image: linear-gradient(
+					180deg,
+					#fff 0%,
+					#dfefff 48%,
+					#b8dbff 100%
+				);
+			}
+
+			.c-statval__affix {
+				margin-bottom: size(12);
+				font-size: size(33);
+
+				@include mq('sp') {
+					font-size: size(38);
+				}
+			}
+		}
+	}
+</style>

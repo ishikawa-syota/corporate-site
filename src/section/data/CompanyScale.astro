@@ -1,5 +1,6 @@
 ---
 import DataSectionHead from '../../components/common/DataSectionHead.astro';
+import StatValue from '../../components/common/StatValue.astro';
 import VerticalLabel from '../../components/common/VerticalLabel.astro';
 import building from '../../images/keitasplan/data/building.svg';
 import mapPc from '../../images/keitasplan/data/map-pc.svg';
@@ -28,8 +29,7 @@ const { id } = Astro.props;
 						</span>
 						<div class="p-data-company__text">
 							<p class="p-data-company__figure">
-								<span class="p-data-company__value">2020</span>
-								<span class="p-data-company__unit">年</span>
+								<StatValue value="2020" unit="年" />
 								<span class="p-data-company__statLabel">
 									創業
 								</span>
@@ -54,9 +54,7 @@ const { id } = Astro.props;
 								<span class="p-data-company__statLabel">
 									従業員数
 								</span>
-								<span class="p-data-company__prefix">約</span>
-								<span class="p-data-company__value">150</span>
-								<span class="p-data-company__unit">人</span>
+								<StatValue prefix="約" value="150" unit="人" />
 							</p>
 							<p class="p-data-company__caption">
 								委託業務・パート含む
@@ -92,12 +90,7 @@ const { id } = Astro.props;
 								>
 									拠点数
 								</span>
-								<span class="p-data-company__figureNum">
-									<span class="p-data-company__value">0</span>
-									<span class="p-data-company__unit">
-										拠点
-									</span>
-								</span>
+								<StatValue value="0" unit="拠点" />
 							</p>
 							<p
 								class="p-data-company__caption p-data-company__caption--map"
@@ -136,12 +129,12 @@ const { id } = Astro.props;
 		&__grid {
 			display: grid;
 			grid-template-columns: repeat(2, minmax(0, 1fr));
-			gap: size(42);
+			gap: size(60) size(42);
 			margin-top: size(100);
 
 			@include mq('sp') {
 				grid-template-columns: minmax(0, 1fr);
-				gap: size(30);
+				gap: size(70);
 			}
 		}
 
@@ -207,46 +200,6 @@ const { id } = Astro.props;
 					align-items: flex-start;
 					gap: size(4);
 				}
-			}
-		}
-
-		&__figureNum {
-			display: flex;
-			align-items: flex-end;
-			gap: size(6);
-		}
-
-		&__value {
-			font-family: $Font-Num;
-			font-weight: 500;
-			font-size: size(100);
-			line-height: 1.1;
-			background-image: $brand-gradient;
-			background-clip: text;
-			-webkit-text-fill-color: transparent;
-			color: transparent;
-
-			@include mq('sp') {
-				font-size: size(110);
-			}
-		}
-
-		&__prefix,
-		&__unit {
-			align-self: flex-end;
-			margin-bottom: size(22);
-			font-family: $Font;
-			font-weight: 700;
-			font-size: size(20);
-			line-height: 1.4;
-			letter-spacing: size(0.6);
-			background-image: $brand-gradient;
-			background-clip: text;
-			-webkit-text-fill-color: transparent;
-			color: transparent;
-
-			@include mq('sp') {
-				font-size: size(26);
 			}
 		}
 

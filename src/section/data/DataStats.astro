@@ -1,45 +1,7 @@
 ---
 import CompanyScale from './CompanyScale.astro';
+import HomeVisit from './HomeVisit.astro';
 import StatSection from './StatSection.astro';
-
-const homeVisit = {
-	en: 'SERVICE RECORD - HOME VISIT',
-	ja: '出張買取の実績',
-	cards: [
-		{
-			label: '年間買取件数',
-			prefix: '約',
-			value: '48,000',
-			unit: '件超',
-			wide: true,
-			illust: 'left' as const,
-			illustLabel: 'items',
-			illustW: 433,
-			illustH: 256,
-		},
-		{
-			label: 'お客様満足度',
-			value: '97',
-			unit: '%',
-			caption: '自社アンケート調べ',
-			overlay: true,
-			illustLabel: 'manzokudo',
-			illustW: 300,
-			illustH: 228,
-		},
-		{
-			label: '平均訪問時間',
-			prefix: '約',
-			value: '00',
-			unit: '分',
-			caption: 'ご予約から訪問まで',
-			overlay: true,
-			illustLabel: 'houmonjikan',
-			illustW: 376,
-			illustH: 229,
-		},
-	],
-};
 
 const events = {
 	en: 'SERVICE RECORD - EVENTS',
@@ -168,7 +130,7 @@ const social = {
 
 <div class="p-data-stats">
 	<CompanyScale id="data-company" />
-	<StatSection id="data-home-visit" {...homeVisit} />
+	<HomeVisit id="data-home-visit" />
 	<StatSection id="data-events" {...events} />
 	<StatSection id="data-staff" {...staff} />
 	<StatSection id="data-social" {...social} />

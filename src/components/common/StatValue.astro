@@ -18,7 +18,6 @@ const { prefix, value, unit, light } = Astro.props;
 	.c-statval {
 		display: inline-flex;
 		align-items: flex-end;
-		gap: size(4);
 
 		&__value {
 			font-family: $Font-Num;
@@ -53,7 +52,7 @@ const { prefix, value, unit, light } = Astro.props;
 			}
 		}
 
-		// 濃紺の円グラフ上に重ねる白→淡ブルーのグラデ（お客様満足度）
+		// 濃紺の円グラフ上に重ねる白→淡ブルーのグラデ
 		&--light {
 			.c-statval__value,
 			.c-statval__affix {
@@ -63,15 +62,6 @@ const { prefix, value, unit, light } = Astro.props;
 					#dfefff 48%,
 					#b8dbff 100%
 				);
-			}
-
-			.c-statval__affix {
-				margin-bottom: size(12);
-				font-size: size(33);
-
-				@include mq('sp') {
-					font-size: size(38);
-				}
 			}
 		}
 	}

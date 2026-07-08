@@ -1,0 +1,292 @@
+---
+import DataSectionHead from '../../components/common/DataSectionHead.astro';
+import StatValue from '../../components/common/StatValue.astro';
+import VerticalLabel from '../../components/common/VerticalLabel.astro';
+import co2 from '../../images/keitasplan/data/co2.svg';
+import goods from '../../images/keitasplan/data/goods.svg';
+import recycle from '../../images/keitasplan/data/recycle.svg';
+
+interface Props {
+	id?: string;
+}
+const { id } = Astro.props;
+---
+
+<section class="p-data-social" id={id}>
+	<div class="p-data-social__inner">
+		<VerticalLabel text="SOCIAL CONTRIBUTION" />
+		<div class="p-data-social__body">
+			<DataSectionHead
+				ja="環境・社会貢献"
+				sub="リユース事業を通じて、資源循環に貢献しています。"
+			/>
+			<ul class="p-data-social__grid">
+				<li class="p-data-social__cell">
+					<div class="p-data-social__card p-data-social__card--goods">
+						<span
+							class="p-data-social__illust p-data-social__illust--goods"
+							aria-hidden="true"
+						>
+							<img src={goods.src} alt="" />
+						</span>
+						<div
+							class="p-data-social__text p-data-social__text--stack"
+						>
+							<p class="p-data-social__label">年間買取物品数</p>
+							<StatValue value="000,000" unit="点" />
+							<p class="p-data-social__caption">
+								リユースに回る点数
+							</p>
+						</div>
+					</div>
+				</li>
+
+				<li class="p-data-social__cell">
+					<div class="p-data-social__card">
+						<span
+							class="p-data-social__illust p-data-social__illust--recycle"
+							aria-hidden="true"
+						>
+							<img src={recycle.src} alt="" />
+							<span class="p-data-social__overlay">
+								<StatValue
+									light
+									prefix="約"
+									value="00"
+									unit="%"
+								/>
+							</span>
+						</span>
+						<div
+							class="p-data-social__text p-data-social__text--recycle"
+						>
+							<p class="p-data-social__label">再流通率</p>
+							<p class="p-data-social__caption">
+								買取品の再販売率
+							</p>
+						</div>
+					</div>
+				</li>
+
+				<li class="p-data-social__cell p-data-social__cell--wide">
+					<div class="p-data-social__card p-data-social__card--wide">
+						<span
+							class="p-data-social__illust p-data-social__illust--co2"
+							aria-hidden="true"
+						>
+							<img src={co2.src} alt="" />
+						</span>
+						<div
+							class="p-data-social__text p-data-social__text--stack"
+						>
+							<p class="p-data-social__label">CO2削減貢献</p>
+							<StatValue value="00.0" unit="t" />
+							<p class="p-data-social__caption">
+								リユースによる削減量推定
+							</p>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+</section>
+
+<style lang="scss">
+	.p-data-social {
+		position: relative;
+
+		&__inner {
+			display: flex;
+			align-items: stretch;
+			gap: size(81);
+			margin-inline: auto;
+			padding-inline: size(128) size(243);
+
+			@include mq('sp') {
+				padding-inline: size(45) size(94);
+			}
+		}
+
+		&__body {
+			flex: 1;
+			min-width: 0;
+		}
+
+		&__grid {
+			display: grid;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: size(60) size(42);
+			margin-top: size(100);
+
+			@include mq('sp') {
+				grid-template-columns: minmax(0, 1fr);
+				gap: size(70);
+			}
+		}
+
+		&__cell {
+			min-width: 0;
+
+			&--wide {
+				grid-column: 1 / -1;
+			}
+		}
+
+		// --- カード ---
+		&__card {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			gap: size(12);
+			height: 100%;
+			min-height: size(374);
+			padding: size(15) size(40);
+			background: $brand-white;
+			border-radius: size(7);
+
+			@include mq('sp') {
+				min-height: size(400);
+			}
+
+			// 年間買取物品数: イラストとテキストが密着
+			&--goods {
+				gap: 0;
+			}
+
+			// CO2削減貢献: PCは横並び（イラスト左+テキスト右・上揃え）、SPは縦積み
+			&--wide {
+				flex-direction: row;
+				align-items: flex-start;
+				justify-content: center;
+				gap: size(72);
+				padding: size(83) size(40) size(77);
+
+				@include mq('sp') {
+					flex-direction: column;
+					align-items: center;
+					gap: size(18);
+					padding: size(28) size(40) size(11);
+				}
+			}
+		}
+
+		&__illust {
+			display: block;
+			flex-shrink: 0;
+
+			img {
+				display: block;
+				width: 100%;
+				height: 100%;
+			}
+
+			&--goods {
+				width: size(158);
+				height: size(151);
+
+				@include mq('sp') {
+					width: size(137);
+					height: size(130);
+				}
+			}
+
+			// 数値を重ねるためrelative。カードのpaddingより広いが overflow visible で描画
+			&--recycle {
+				position: relative;
+				width: size(432);
+				height: size(195);
+
+				@include mq('sp') {
+					width: size(471);
+					height: size(213);
+				}
+			}
+
+			&--co2 {
+				width: size(556);
+				height: size(214);
+
+				@include mq('sp') {
+					width: size(369);
+					height: size(160);
+				}
+			}
+		}
+
+		// リサイクル円の中央に重ねる数値
+		&__overlay {
+			position: absolute;
+			top: size(101);
+			left: size(128);
+			transform: translate(-50%, -50%);
+
+			@include mq('sp') {
+				top: size(118);
+				left: size(133);
+			}
+		}
+
+		&__text {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+
+			// SPはFigmaの行間（lhボックスの重なり）に合わせて詰める
+			&--stack {
+				@include mq('sp') {
+					:global(.c-statval) {
+						margin-top: size(-20);
+					}
+
+					.p-data-social__caption {
+						margin-top: size(-9);
+					}
+				}
+			}
+
+			// 再流通率: ラベル直下に注釈
+			&--recycle .p-data-social__caption {
+				margin-top: 0;
+			}
+		}
+
+		&__card--wide &__text {
+			flex-shrink: 0;
+			width: size(299);
+
+			@include mq('sp') {
+				width: auto;
+			}
+		}
+
+		&__label {
+			font-family: $Font;
+			font-weight: 700;
+			font-size: size(35);
+			line-height: 1.4;
+			letter-spacing: size(1.05);
+			color: $brand-text;
+			text-align: center;
+
+			@include mq('sp') {
+				font-size: size(40);
+			}
+		}
+
+		&__caption {
+			margin-top: size(8);
+			font-family: $Font;
+			font-weight: 400;
+			font-size: size(20);
+			line-height: 1.4;
+			color: $brand-text;
+			text-align: center;
+
+			@include mq('sp') {
+				font-size: size(25);
+			}
+		}
+	}
+</style>

@@ -203,6 +203,16 @@ const { id } = Astro.props;
 			}
 		}
 
+		// 満足度の%は他カードより大きい
+		&__overlay--pie :global(.c-statval__affix) {
+			margin-bottom: size(12);
+			font-size: size(33);
+
+			@include mq('sp') {
+				font-size: size(38);
+			}
+		}
+
 		&__text {
 			display: flex;
 			flex-direction: column;

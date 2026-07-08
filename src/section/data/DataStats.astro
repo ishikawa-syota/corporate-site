@@ -2,47 +2,8 @@
 import CompanyScale from './CompanyScale.astro';
 import Events from './Events.astro';
 import HomeVisit from './HomeVisit.astro';
+import Social from './Social.astro';
 import Staff from './Staff.astro';
-import StatSection from './StatSection.astro';
-
-const social = {
-	en: 'SOCIAL CONTRIBUTION',
-	ja: '環境・社会貢献',
-	sub: 'リユース事業を通じて、資源循環に貢献しています。',
-	cards: [
-		{
-			label: '年間買取物品数',
-			value: '000,000',
-			unit: '点',
-			caption: 'リユースに回る点数',
-			illustLabel: 'nenkanre',
-			illustW: 158,
-			illustH: 151,
-		},
-		{
-			label: '再流通率',
-			prefix: '約',
-			value: '00',
-			unit: '%',
-			caption: '買取品の再販売率',
-			overlay: true,
-			illustLabel: 'sairyutsu',
-			illustW: 432,
-			illustH: 195,
-		},
-		{
-			label: 'CO2削減貢献',
-			value: '00.0',
-			unit: 't',
-			caption: 'リユースによる削減量推定',
-			wide: true,
-			illust: 'left' as const,
-			illustLabel: 'co2',
-			illustW: 556,
-			illustH: 214,
-		},
-	],
-};
 ---
 
 <div class="p-data-stats">
@@ -50,7 +11,7 @@ const social = {
 	<HomeVisit id="data-home-visit" />
 	<Events id="data-events" />
 	<Staff id="data-staff" />
-	<StatSection id="data-social" {...social} />
+	<Social id="data-social" />
 </div>
 
 <style lang="scss">

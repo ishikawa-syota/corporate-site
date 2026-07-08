@@ -1,0 +1,278 @@
+---
+import DataSectionHead from '../../components/common/DataSectionHead.astro';
+import StatValue from '../../components/common/StatValue.astro';
+import VerticalLabel from '../../components/common/VerticalLabel.astro';
+import age from '../../images/keitasplan/data/age.svg';
+import handshake from '../../images/keitasplan/data/handshake.svg';
+import manager from '../../images/keitasplan/data/manager.svg';
+import retention from '../../images/keitasplan/data/retention.svg';
+
+interface Props {
+	id?: string;
+}
+const { id } = Astro.props;
+---
+
+<section class="p-data-staff" id={id}>
+	<div class="p-data-staff__inner">
+		<VerticalLabel text="STAFF" />
+		<div class="p-data-staff__body">
+			<DataSectionHead ja="スタッフ" />
+			<ul class="p-data-staff__grid">
+				<li class="p-data-staff__cell">
+					<div class="p-data-staff__card p-data-staff__card--age">
+						<div class="p-data-staff__text">
+							<p class="p-data-staff__label">
+								社員の<br class="u-sp-only" />平均年齢
+							</p>
+							<StatValue value="00" unit="歳" />
+							<p class="p-data-staff__caption">○○○○○○○○○</p>
+						</div>
+						<span
+							class="p-data-staff__illust p-data-staff__illust--age"
+							aria-hidden="true"
+						>
+							<img src={age.src} alt="" />
+						</span>
+					</div>
+				</li>
+
+				<li class="p-data-staff__cell">
+					<div class="p-data-staff__card p-data-staff__card--recruit">
+						<div class="p-data-staff__row">
+							<span
+								class="p-data-staff__illust p-data-staff__illust--handshake"
+								aria-hidden="true"
+							>
+								<img src={handshake.src} alt="" />
+							</span>
+							<StatValue prefix="約" value="00" unit="%" />
+						</div>
+						<p class="p-data-staff__label">
+							中途入社比率<span class="p-data-staff__note"
+								>（未経験含む）</span
+							>
+						</p>
+						<p class="p-data-staff__caption">○○○○○○○○○</p>
+					</div>
+				</li>
+
+				<li class="p-data-staff__cell">
+					<div class="p-data-staff__card p-data-staff__card--manager">
+						<span
+							class="p-data-staff__illust p-data-staff__illust--manager"
+							aria-hidden="true"
+						>
+							<img src={manager.src} alt="" />
+						</span>
+						<div class="p-data-staff__text">
+							<p class="p-data-staff__label">管理職比率</p>
+							<StatValue value="00" unit="%" />
+							<p class="p-data-staff__caption">○○○○○○○○○</p>
+						</div>
+					</div>
+				</li>
+
+				<li class="p-data-staff__cell">
+					<div class="p-data-staff__card">
+						<span
+							class="p-data-staff__illust p-data-staff__illust--retention"
+							aria-hidden="true"
+						>
+							<img src={retention.src} alt="" />
+						</span>
+						<p class="p-data-staff__figure">
+							<span class="p-data-staff__figureLabel">定着率</span
+							>
+							<StatValue value="00" unit="%" />
+						</p>
+						<p class="p-data-staff__caption">○○○○○○○○○</p>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+</section>
+
+<style lang="scss">
+	.p-data-staff {
+		position: relative;
+
+		&__inner {
+			display: flex;
+			align-items: stretch;
+			gap: size(81);
+			margin-inline: auto;
+			padding-inline: size(128) size(243);
+
+			@include mq('sp') {
+				padding-inline: size(45) size(94);
+			}
+		}
+
+		&__body {
+			flex: 1;
+			min-width: 0;
+		}
+
+		&__grid {
+			display: grid;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: size(60) size(42);
+			margin-top: size(100);
+
+			@include mq('sp') {
+				grid-template-columns: minmax(0, 1fr);
+				gap: size(70);
+			}
+		}
+
+		&__cell {
+			min-width: 0;
+		}
+
+		// --- カード ---
+		&__card {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			height: 100%;
+			min-height: size(374);
+			padding: size(36) size(40);
+			background: $brand-white;
+			border-radius: size(7);
+
+			@include mq('sp') {
+				min-height: size(400);
+			}
+
+			// 社員の平均年齢: テキスト左 + イラスト右
+			&--age {
+				flex-direction: row;
+				gap: size(36);
+			}
+
+			// 管理職比率: イラスト左 + テキスト右（隙間なし）
+			&--manager {
+				flex-direction: row;
+				gap: 0;
+			}
+		}
+
+		&__row {
+			display: flex;
+			align-items: center;
+			gap: size(24);
+
+			@include mq('sp') {
+				gap: 0;
+			}
+		}
+
+		&__illust {
+			display: block;
+			flex-shrink: 0;
+
+			img {
+				display: block;
+				width: 100%;
+				height: 100%;
+			}
+
+			&--age {
+				width: size(167);
+				height: size(192);
+			}
+
+			&--handshake {
+				width: size(248);
+				height: size(149);
+
+				@include mq('sp') {
+					width: size(226);
+					height: size(137);
+				}
+			}
+
+			&--manager {
+				width: size(201);
+				height: size(206);
+			}
+
+			&--retention {
+				width: size(182);
+				height: size(170);
+			}
+		}
+
+		&__text {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			flex-shrink: 0;
+			width: size(228);
+		}
+
+		&__label {
+			font-family: $Font;
+			font-weight: 700;
+			font-size: size(35);
+			line-height: 1.4;
+			letter-spacing: size(1.05);
+			color: $brand-text;
+			text-align: center;
+			white-space: nowrap;
+
+			@include mq('sp') {
+				font-size: size(40);
+				white-space: normal;
+			}
+		}
+
+		&__note {
+			font-size: size(18);
+		}
+
+		// 中途入社比率: 上段（イラスト+数値）の下にラベル
+		&__card--recruit &__label {
+			margin-top: size(20);
+		}
+
+		// 定着率: ラベルと数値を横並び（イラストに38px重ねる）
+		&__figure {
+			display: flex;
+			align-items: center;
+			gap: size(11);
+			margin-top: size(-10);
+		}
+
+		&__figureLabel {
+			font-family: $Font;
+			font-weight: 700;
+			font-size: size(35);
+			line-height: 1.4;
+			letter-spacing: size(1.05);
+			color: $brand-text;
+			margin-top: size(26);
+
+			@include mq('sp') {
+				font-size: size(40);
+			}
+		}
+
+		&__caption {
+			margin-top: size(8);
+			font-family: $Font;
+			font-weight: 400;
+			font-size: size(20);
+			line-height: 1.4;
+			color: $brand-text;
+			text-align: center;
+
+			@include mq('sp') {
+				font-size: size(25);
+			}
+		}
+	}
+</style>

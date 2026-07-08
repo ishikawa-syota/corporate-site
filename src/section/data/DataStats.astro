@@ -2,56 +2,8 @@
 import CompanyScale from './CompanyScale.astro';
 import Events from './Events.astro';
 import HomeVisit from './HomeVisit.astro';
+import Staff from './Staff.astro';
 import StatSection from './StatSection.astro';
-
-const staff = {
-	en: 'STAFF',
-	ja: 'スタッフ',
-	cards: [
-		{
-			label: '社員の平均年齢',
-			value: '00',
-			unit: '歳',
-			caption: '○○○○○○○○○',
-			illust: 'right' as const,
-			illustLabel: 'nenrei',
-			illustW: 167,
-			illustH: 192,
-		},
-		{
-			label: '中途入社比率（未経験含む）',
-			prefix: '約',
-			value: '00',
-			unit: '%',
-			caption: '○○○○○○○○○',
-			illust: 'left' as const,
-			figureFirst: true,
-			illustLabel: 'chuuto',
-			illustW: 248,
-			illustH: 149,
-		},
-		{
-			label: '管理職比率',
-			value: '00',
-			unit: '%',
-			caption: '○○○○○○○○○',
-			illust: 'left' as const,
-			illustLabel: 'kanri',
-			illustW: 201,
-			illustH: 206,
-		},
-		{
-			label: '定着率',
-			value: '00',
-			unit: '%',
-			caption: '○○○○○○○○○',
-			inline: true,
-			illustLabel: 'teichaku',
-			illustW: 182,
-			illustH: 170,
-		},
-	],
-};
 
 const social = {
 	en: 'SOCIAL CONTRIBUTION',
@@ -97,7 +49,7 @@ const social = {
 	<CompanyScale id="data-company" />
 	<HomeVisit id="data-home-visit" />
 	<Events id="data-events" />
-	<StatSection id="data-staff" {...staff} />
+	<Staff id="data-staff" />
 	<StatSection id="data-social" {...social} />
 </div>
 

@@ -1,6 +1,4 @@
 ---
-import { getImage } from 'astro:assets';
-
 import ArrowButton from '../components/button/ArrowButton.astro';
 import OptImage from '../components/common/OptImage.astro';
 import { navItems, companyInfo } from '../data/siteContent';
@@ -12,9 +10,6 @@ interface Props {
 	id?: string;
 }
 const { id } = Astro.props;
-
-// お問い合わせ部分の背景画像（AVIF 最適化）
-const contactBgImg = await getImage({ src: contactBg, format: 'avif' });
 
 // SPドロワー用ナビ（Figma SPデザイン準拠のラベル / hrefはサイト共通）
 const drawerNav = [
@@ -56,10 +51,10 @@ const drawerNav = [
 			</ul>
 		</nav>
 
-		<div
-			class="l-header__contact"
-			style={`--contact-bg:url(${contactBgImg.src})`}
-		>
+		<div class="l-header__contact">
+			<span class="l-header__contactBg" aria-hidden="true">
+				<OptImage src={contactBg} alt="" />
+			</span>
 			<a href={companyInfo.telHref} class="l-header__tel">
 				<span class="l-header__telIcon" aria-hidden="true">
 					<svg
@@ -280,6 +275,7 @@ const drawerNav = [
 		}
 
 		&__contact {
+			position: relative;
 			display: flex;
 			align-items: center;
 			gap: size(10);
@@ -288,19 +284,23 @@ const drawerNav = [
 			margin-right: size(-24);
 			padding: 0 size(22) 0 size(33);
 			border-radius: 0 0 0 size(45);
-			background-image: var(--contact-bg);
-			background-size: cover;
-			background-position: center;
-			background-repeat: no-repeat;
 			border-bottom-left-radius: size(45);
-			image-rendering: crisp-edges;
+			overflow: hidden;
 
 			@include mq('sp') {
 				display: none;
 			}
 		}
 
+		&__contactBg {
+			position: absolute;
+			inset: 0;
+			z-index: 0;
+		}
+
 		&__tel {
+			position: relative;
+			z-index: 1;
 			display: flex;
 			align-items: center;
 			gap: size(8);
@@ -332,6 +332,8 @@ const drawerNav = [
 		}
 
 		&__cta {
+			position: relative;
+			z-index: 1;
 			width: size(173);
 			height: size(47);
 

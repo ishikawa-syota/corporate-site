@@ -1,6 +1,4 @@
 ---
-import { getImage } from 'astro:assets';
-
 import OptImage from '../../components/common/OptImage.astro';
 import SectionHeading from '../../components/common/SectionHeading.astro';
 import { message } from '../../data/siteContent';
@@ -13,13 +11,11 @@ interface Props {
 	id?: string;
 }
 const { id } = Astro.props;
-
-// 背景写真は巨大（5MB超）なので AVIF 化して軽量背景に
-const bg = await getImage({ src: bgPc, format: 'avif', width: 2400 });
 ---
 
 <section class="p-message" id={id}>
-	<div class="p-message__bg" aria-hidden="true" style={`--bg:url(${bg.src})`}>
+	<div class="p-message__bg" aria-hidden="true">
+		<OptImage src={bgPc} alt="" width={2400} />
 	</div>
 
 	<div class="p-message__inner">
@@ -81,13 +77,13 @@ const bg = await getImage({ src: bgPc, format: 'avif', width: 2400 });
 			left: size(-218);
 			width: size(1971);
 			height: size(1162);
-			background-image: var(--bg);
-			background-size: cover;
-			background-position: center top;
-			background-repeat: no-repeat;
 			opacity: 0.5;
 			pointer-events: none;
 			z-index: 0;
+
+			:global(img) {
+				object-position: center top;
+			}
 
 			@include mq('sp') {
 				// Figma SP(609:332): top40 / left-218 / 1569×925 / opacity50

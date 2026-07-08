@@ -1,7 +1,7 @@
 import { writeFileSync, readFileSync } from 'fs';
 
-import * as cheerio from 'cheerio';
 import { glob } from 'glob';
+import { parse } from 'node-html-parser';
 
 const replacePathsInFiles = () => {
 	try {
@@ -14,30 +14,38 @@ const replacePathsInFiles = () => {
 			// Read the file
 			const data = readFileSync(file, 'utf8');
 
-			// Load HTML into cheerio
-			const $ = cheerio.load(data);
+			// Parse HTML with node-html-parser
+			const root = parse(data, {
+				comment: true,
+				blockTextElements: {
+					script: true,
+					style: true,
+					noscript: true,
+					pre: true,
+				},
+			});
 
 			// Handle style attributes with url(./
-			$('[style*="url(./"]').each((_, element) => {
-				const $el = $(element);
-				const currentStyle = $el.attr('style');
-				const newStyle = currentStyle.replace(
-					/url\(\.\//g,
-					'url(../../'
-				);
-				$el.attr('style', newStyle);
-			});
+			for (const el of root.querySelectorAll('[style]')) {
+				const style = el.getAttribute('style');
+				if (style?.includes('url(./')) {
+					el.setAttribute(
+						'style',
+						style.replace(/url\(\.\//g, 'url(../../')
+					);
+				}
+			}
 
 			// Handle inline CSS in <style> tags
-			$('style').each((_, element) => {
-				const $el = $(element);
-				const currentCSS = $el.html();
-				const newCSS = currentCSS.replace(/url\(\.\//g, 'url(../../');
-				$el.html(newCSS);
-			});
+			for (const el of root.querySelectorAll('style')) {
+				const css = el.innerHTML;
+				if (css?.includes('url(./')) {
+					el.set_content(css.replace(/url\(\.\//g, 'url(../'));
+				}
+			}
 
 			// Write the modified HTML back to file
-			writeFileSync(file, $.html(), 'utf8');
+			writeFileSync(file, root.toString(), 'utf8');
 		}
 
 		console.log('Path replacement completed successfully!');

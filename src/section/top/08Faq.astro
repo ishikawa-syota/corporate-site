@@ -1,7 +1,6 @@
 ---
-import { getImage } from 'astro:assets';
-
 import FaqItem from '../../components/card/FaqItem.astro';
+import OptImage from '../../components/common/OptImage.astro';
 import SectionHeading from '../../components/common/SectionHeading.astro';
 import { faqs } from '../../data/siteContent';
 // 背景写真（FAQ セクション全面）
@@ -11,12 +10,12 @@ interface Props {
 	id?: string;
 }
 const { id } = Astro.props;
-
-// 背景写真は巨大（約1.9MB）なので AVIF 化して軽量背景に
-const bgImg = await getImage({ src: bg, format: 'avif', width: 2400 });
 ---
 
-<section class="p-faq" id={id} style={`--bg:url(${bgImg.src})`}>
+<section class="p-faq" id={id}>
+	<div class="p-faq__bg" aria-hidden="true">
+		<OptImage src={bg} alt="" width={2400} />
+	</div>
 	<div class="p-faq__inner">
 		<SectionHeading ja="よくある質問" en="FAQ" class="p-faq__heading" />
 		<div class="p-faq__list">
@@ -31,10 +30,6 @@ const bgImg = await getImage({ src: bg, format: 'avif', width: 2400 });
 		position: relative;
 		z-index: 1;
 		background-color: $brand-white;
-		background-image: var(--bg);
-		background-size: cover;
-		background-position: center;
-		background-repeat: no-repeat;
 		border-top-left-radius: size($section-card-radius);
 		border-top-right-radius: size($section-card-radius);
 
@@ -49,7 +44,15 @@ const bgImg = await getImage({ src: bg, format: 'avif', width: 2400 });
 			padding-block: size(113) size(450);
 		}
 
+		&__bg {
+			position: absolute;
+			inset: 0;
+			z-index: 0;
+		}
+
 		&__inner {
+			position: relative;
+			z-index: 1;
 			max-width: size(1050);
 			margin-inline: auto;
 			padding-inline: size(24);

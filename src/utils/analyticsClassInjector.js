@@ -1,52 +1,56 @@
 /**
- * クラス・ID自動付与用Viteプラグイン
+ * クラス・ID自動付与用Astroインテグレーション
  * ビルド時にHTMLファイルにセクション計測用クラス名とボタン・リンクIDを自動的に付与します
  */
 
 import fs from 'fs';
+import { fileURLToPath } from 'node:url';
 import path from 'path';
 
 import chalk from 'chalk';
 import { parse } from 'node-html-parser';
 
 /**
- * HTMLファイルにクラスとIDを付与するViteプラグイン
+ * HTMLファイルにクラスとIDを付与するAstroインテグレーション
+ * astro:build:done は最終HTML出力後に発火するため、付与結果が上書きされない
  */
 export function analyticsClassInjector() {
 	return {
-		name: 'vite-plugin-analytics-class-injector',
+		name: 'analytics-class-injector',
+		hooks: {
+			'astro:build:done': async ({ dir }) => {
+				try {
+					const distDir = fileURLToPath(dir);
 
-		// ビルド完了後に実行
-		closeBundle: async () => {
-			try {
-				const distDir = path.resolve(process.cwd(), 'dist');
+					// distディレクトリが存在しない場合はスキップ
+					if (!fs.existsSync(distDir)) {
+						console.log(
+							chalk.yellow(
+								'\n⚠️ distディレクトリが見つからないため、クラス・ID付与をスキップします'
+							)
+						);
+						return;
+					}
 
-				// distディレクトリが存在しない場合はスキップ
-				if (!fs.existsSync(distDir)) {
 					console.log(
-						chalk.yellow(
-							'\n⚠️ distディレクトリが見つからないため、クラス・ID付与をスキップします'
-						)
+						chalk.blue('\n🔍 解析用クラス・ID自動付与を開始...')
 					);
-					return;
+
+					// HTMLファイルを検索して処理
+					await processHtmlFiles(distDir);
+
+					console.log(
+						chalk.green('\n✅ 解析用クラス・ID付与が完了しました！')
+					);
+				} catch (error) {
+					console.error(
+						chalk.red(
+							'\n🚨 クラス・ID付与中にエラーが発生しました:'
+						),
+						error
+					);
 				}
-
-				console.log(
-					chalk.blue('\n🔍 解析用クラス・ID自動付与を開始...')
-				);
-
-				// HTMLファイルを検索して処理
-				await processHtmlFiles(distDir);
-
-				console.log(
-					chalk.green('\n✅ 解析用クラス・ID付与が完了しました！')
-				);
-			} catch (error) {
-				console.error(
-					chalk.red('\n🚨 クラス・ID付与中にエラーが発生しました:'),
-					error
-				);
-			}
+			},
 		},
 	};
 }

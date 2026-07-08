@@ -1,28 +1,25 @@
 /**
- * メタデータ検証用Viteプラグイン
+ * メタデータ検証用Astroインテグレーション
  * ビルド時に必要なメタタグやOGP設定が適切に構成されているかチェックします
  */
 
-// サーバーサイドでのみ実行される処理
-// Astroのビルド時にのみ読み込まれるため、直接importしても問題ない
 import fs from 'fs';
+import { fileURLToPath } from 'node:url';
 import path from 'path';
 
 import chalk from 'chalk';
 import { parse } from 'node-html-parser';
 
 /**
- * HTMLファイル内のメタタグを検証するViteプラグイン
+ * HTMLファイル内のメタタグを検証するAstroインテグレーション
+ * astro:build:done は最終HTML出力後に発火するため、常に最新のdistを検証できる
  */
 export function metaValidator() {
 	return {
-		name: 'vite-plugin-meta-validator',
-
-		// ビルド完了後に実行
-		// Viteプラグインのライフサイクルフックであり、クライアントコードに影響しない
-		closeBundle: async () => {
-			try {
-				const distDir = path.resolve(process.cwd(), 'dist');
+		name: 'meta-validator',
+		hooks: {
+			'astro:build:done': async ({ dir }) => {
+				const distDir = fileURLToPath(dir);
 
 				// distディレクトリが存在しない場合はスキップ
 				if (!fs.existsSync(distDir)) {
@@ -50,22 +47,10 @@ export function metaValidator() {
 					throw new Error(
 						'メタデータの検証に失敗しました。上記の問題を修正してください。'
 					);
-				} else {
-					console.log(
-						chalk.green('\n✅ メタデータ検証に成功しました！')
-					);
 				}
-			} catch (error) {
-				if (!error.message.includes('メタデータの検証に失敗しました')) {
-					console.error(
-						chalk.red(
-							'\n🚨 メタデータ検証中にエラーが発生しました:'
-						),
-						error
-					);
-				}
-				process.exit(1);
-			}
+
+				console.log(chalk.green('\n✅ メタデータ検証に成功しました！'));
+			},
 		},
 	};
 }

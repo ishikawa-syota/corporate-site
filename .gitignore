@@ -31,3 +31,6 @@ pnpm-debug.log*
 
 # Claude Code personal/local settings (committed .claude/settings.json is kept)
 .claude/settings.local.json
+
+# dist backups for comparison
+dist_bak_*/

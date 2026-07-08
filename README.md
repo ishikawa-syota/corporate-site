@@ -396,9 +396,8 @@ npm run build
 ```javascript
 // astro.config.mjsでの設定（自動的に組み込まれています）
 if (process.env.NODE_ENV === 'production') {
-	const { analyticsClassInjector } = await import(
-		'./src/utils/analyticsClassInjector.js'
-	);
+	const { analyticsClassInjector } =
+		await import('./src/utils/analyticsClassInjector.js');
 	plugins.push(analyticsClassInjector());
 }
 ```

@@ -7,27 +7,25 @@ import cssnano from 'cssnano';
 // 開発中は検証を無効化して、ビルド時のみ読み込むようにコメントアウト
 // import { metaValidator } from './src/utils/metaValidator.js';
 
-// 環境に応じて条件付きインポート
-const plugins = [];
+// 環境に応じて条件付きインポート（Astroインテグレーションとして登録）
+const buildIntegrations = [];
 if (process.env.NODE_ENV === 'production') {
 	// 本番環境（ビルド時）のみメタバリデータを読み込む
 	const { metaValidator } = await import('./src/utils/metaValidator.js');
-	plugins.push(metaValidator());
+	buildIntegrations.push(metaValidator());
 
 	// 本番環境（ビルド時）のみanalyticsClassInjectorを読み込む
-	const { analyticsClassInjector } = await import(
-		'./src/utils/analyticsClassInjector.js'
-	);
-	plugins.push(analyticsClassInjector());
+	const { analyticsClassInjector } =
+		await import('./src/utils/analyticsClassInjector.js');
+	buildIntegrations.push(analyticsClassInjector());
 }
 
 export default defineConfig({
 	// 本番サイトのURLを設定してください（例: https://example.com）
 	// NOTE: astro-relative-linksとの相性問題により、
 	// sitemapは public/sitemap.xml に手動で配置しています
-	integrations: [relativeLinks()],
+	integrations: [relativeLinks(), ...buildIntegrations],
 	vite: {
-		plugins,
 		build: {
 			assetsDir: 'assets',
 			rollupOptions: {
@@ -39,9 +37,8 @@ export default defineConfig({
 						}
 						return `assets/${extType}/[name]-[hash][extname]`;
 					},
-					manualChunks: {
-						vendor: ['astro/client'],
-					},
+					manualChunks: (id) =>
+						id.includes('astro/client') ? 'vendor' : undefined,
 				},
 			},
 			minify: 'terser',

@@ -2,14 +2,20 @@
 import ArrowButton from '../../components/button/ArrowButton.astro';
 import VoiceCard from '../../components/card/VoiceCard.astro';
 import SectionHeading from '../../components/common/SectionHeading.astro';
-import { voices } from '../../data/siteContent';
 // SP専用の吹き出し背景（縦長＋右上タブ）。PCは下のインラインSVGを使用
 import bubbleSp from '../../images/keitasplan/voice/bubble-sp.svg?raw';
+import { getVoices } from '../../lib/microcms';
 
 interface Props {
 	id?: string;
 }
 const { id } = Astro.props;
+
+// 管理画面の並びの上から3件（最新順）表示。VOICE番号は表示順から採番
+const { contents: voices } = await getVoices({
+	orders: 'system:default',
+	limit: 3,
+});
 ---
 
 <section class="p-voice" id={id}>
@@ -117,12 +123,12 @@ const { id } = Astro.props;
 						<div class="splide__track p-voice__track">
 							<div class="splide__list p-voice__grid">
 								{
-									voices.map((v) => (
+									voices.map((v, i) => (
 										<div class="splide__slide p-voice__item">
 											<VoiceCard
-												no={v.no}
+												no={`VOICE ${String(i + 1).padStart(2, '0')}`}
 												meta={v.meta}
-												headline={v.headline}
+												headline={v.title}
 												body={v.body}
 											/>
 										</div>

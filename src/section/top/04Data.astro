@@ -2,17 +2,31 @@
 import ArrowButton from '../../components/button/ArrowButton.astro';
 import NumberStat from '../../components/card/NumberStat.astro';
 import OptImage from '../../components/common/OptImage.astro';
-import { stats } from '../../data/siteContent';
 import logo from '../../images/keitasplan/common/header-01.png';
 import bgSaiji from '../../images/keitasplan/data/data-02.png';
 import bgKaitori from '../../images/keitasplan/data/data-03.png';
 import bgStaff from '../../images/keitasplan/data/data-05.png';
 import bgSatisfy from '../../images/keitasplan/data/data-10.png';
+import { getData } from '../../lib/microcms';
 
 interface Props {
 	id?: string;
 }
 const { id } = Astro.props;
+
+// 数値はmicroCMS、ラベル・単位・注釈はコード側で管理
+const data = await getData();
+const stats = [
+	{ label: '年間買取件数', value: data.annualPurchaseCount, unit: '件超' },
+	{ label: '年間催事開催件数', value: data.annualEventCount, unit: '件超' },
+	{ label: '社員数', prefix: '約', value: data.employeeCount, unit: '人' },
+	{
+		label: 'お客様満足度',
+		value: data.customerSatisfaction,
+		unit: '%',
+		note: '※自社アンケート調べ',
+	},
+];
 
 // stats と同順: 年間買取件数 / 年間催事開催件数 / 社員数 / お客様満足度
 const statBgs = [bgKaitori, bgSaiji, bgStaff, bgSatisfy];

@@ -8,8 +8,12 @@ import visit from '../../images/keitasplan/data/visit.svg';
 
 interface Props {
 	id?: string;
+	annualPurchaseCount: string;
+	customerSatisfaction: string;
+	avgVisitMinutes: string;
 }
-const { id } = Astro.props;
+const { id, annualPurchaseCount, customerSatisfaction, avgVisitMinutes } =
+	Astro.props;
 ---
 
 <section class="p-data-home" id={id}>
@@ -28,7 +32,11 @@ const { id } = Astro.props;
 						</span>
 						<div class="p-data-home__text">
 							<p class="p-data-home__label">年間買取件数</p>
-							<StatValue prefix="約" value="48,000" unit="件超" />
+							<StatValue
+								prefix="約"
+								value={annualPurchaseCount}
+								unit="件超"
+							/>
 						</div>
 					</div>
 				</li>
@@ -43,7 +51,11 @@ const { id } = Astro.props;
 							<span
 								class="p-data-home__overlay p-data-home__overlay--pie"
 							>
-								<StatValue light value="97" unit="%" />
+								<StatValue
+									light
+									value={customerSatisfaction}
+									unit="%"
+								/>
 							</span>
 						</span>
 						<div class="p-data-home__text">
@@ -65,7 +77,11 @@ const { id } = Astro.props;
 							<span
 								class="p-data-home__overlay p-data-home__overlay--visit"
 							>
-								<StatValue prefix="約" value="00" unit="分" />
+								<StatValue
+									prefix="約"
+									value={avgVisitMinutes}
+									unit="分"
+								/>
 							</span>
 						</span>
 						<div class="p-data-home__text">

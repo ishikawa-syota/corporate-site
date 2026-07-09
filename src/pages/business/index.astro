@@ -3,19 +3,32 @@ import { siteMetadata } from '../../data/meta';
 import Footer from '../../layouts/Footer.astro';
 import Header from '../../layouts/Header.astro';
 import Layout from '../../layouts/Layout.astro';
+import { getData } from '../../lib/microcms';
 import Business01 from '../../section/business/Business01.astro';
 import Business02 from '../../section/business/Business02.astro';
 import Hero from '../../section/business/Hero.astro';
 import Overview from '../../section/business/Overview.astro';
 import RelatedInfo from '../../section/common/RelatedInfo.astro';
+
+const data = await getData();
 ---
 
 <Layout title={`事業紹介 | ${siteMetadata.siteName}`}>
 	<Header id="header" />
 	<Hero id="business-hero" />
 	<Overview id="business-overview" />
-	<Business01 id="business-01" />
-	<Business02 id="business-02" />
+	<Business01
+		id="business-01"
+		annualEventCount={data.annualEventCount}
+		totalStoreCount={data.totalStoreCount}
+		annualVisitorCount={data.annualVisitorCount}
+	/>
+	<Business02
+		id="business-02"
+		annualPurchaseCount={data.annualPurchaseCount}
+		customerSatisfaction={data.customerSatisfaction}
+		avgVisitMinutes={data.avgVisitMinutes}
+	/>
 	<RelatedInfo id="business-related" />
 	<Footer id="footer" variant="subpage" />
 </Layout>

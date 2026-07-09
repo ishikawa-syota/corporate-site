@@ -1,49 +1,46 @@
 ---
 // メンバーカード（写真 + 役職 + 氏名）
-import ImagePlaceholder from '../common/ImagePlaceholder.astro';
-import OptImage from '../common/OptImage.astro';
+import type { MicroCMSImage } from 'microcms-js-sdk';
 
 interface Props {
 	role: string;
 	name: string;
-	img?: ImageMetadata;
-	imgHover?: ImageMetadata;
+	photo: MicroCMSImage;
+	photoHover: MicroCMSImage;
 }
 
-const { role, name, img, imgHover } = Astro.props;
+const { role, name, photo, photoHover } = Astro.props;
+
+// microCMS画像API（imgix）でWebP変換・リサイズ
+const src = (img: MicroCMSImage) => `${img.url}?fm=webp&w=500`;
+const srcset = (img: MicroCMSImage) =>
+	`${img.url}?fm=webp&w=500 1x, ${img.url}?fm=webp&w=1000 2x`;
 ---
 
 <article class="c-member">
 	<div class="c-member__photo">
-		{
-			img ? (
-				<>
-					<span class="c-member__img c-member__img--base">
-						<OptImage
-							src={img}
-							alt={name}
-							width={500}
-							fit="contain"
-						/>
-					</span>
-					{imgHover && (
-						<span
-							class="c-member__img c-member__img--hover"
-							aria-hidden="true"
-						>
-							<OptImage
-								src={imgHover}
-								alt=""
-								width={500}
-								fit="contain"
-							/>
-						</span>
-					)}
-				</>
-			) : (
-				<ImagePlaceholder label={name} rounded="0" />
-			)
-		}
+		<span class="c-member__img c-member__img--base">
+			<img
+				src={src(photo)}
+				srcset={srcset(photo)}
+				alt={name}
+				width={photo.width}
+				height={photo.height}
+				loading="lazy"
+				decoding="async"
+			/>
+		</span>
+		<span class="c-member__img c-member__img--hover" aria-hidden="true">
+			<img
+				src={src(photoHover)}
+				srcset={srcset(photoHover)}
+				alt=""
+				width={photoHover.width}
+				height={photoHover.height}
+				loading="lazy"
+				decoding="async"
+			/>
+		</span>
 	</div>
 	<div class="c-member__info">
 		<span class="c-member__role">{role}</span>
@@ -73,6 +70,13 @@ const { role, name, img, imgHover } = Astro.props;
 			// transform: scale(1.4);
 			width: size(403);
 			transform: translateX(-20%);
+
+			img {
+				display: block;
+				width: 100%;
+				height: 100%;
+				object-fit: contain;
+			}
 
 			// hover画像は通常画像の上に重ねて初期は非表示
 			&--hover {

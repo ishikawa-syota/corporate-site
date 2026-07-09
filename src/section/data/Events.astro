@@ -8,8 +8,12 @@ import visitors from '../../images/keitasplan/data/visitors.svg';
 
 interface Props {
 	id?: string;
+	annualEventCount: string;
+	totalStoreCount: string;
+	annualVisitorCount: string;
 }
-const { id } = Astro.props;
+const { id, annualEventCount, totalStoreCount, annualVisitorCount } =
+	Astro.props;
 ---
 
 <section class="p-data-events" id={id}>
@@ -28,7 +32,7 @@ const { id } = Astro.props;
 						</span>
 						<div class="p-data-events__text">
 							<p class="p-data-events__label">年間催事開催件数</p>
-							<StatValue value="5,500" unit="件超" />
+							<StatValue value={annualEventCount} unit="件超" />
 							<p class="p-data-events__caption">定期開催を含む</p>
 						</div>
 					</div>
@@ -44,7 +48,7 @@ const { id } = Astro.props;
 						</span>
 						<div class="p-data-events__text">
 							<p class="p-data-events__label">累計出店実績</p>
-							<StatValue value="000" unit="店舗" />
+							<StatValue value={totalStoreCount} unit="店舗" />
 							<p class="p-data-events__caption">
 								提携先の延べ店舗数
 							</p>
@@ -62,7 +66,7 @@ const { id } = Astro.props;
 						</span>
 						<div class="p-data-events__text">
 							<p class="p-data-events__label">年間来場者数</p>
-							<StatValue value="00,000" unit="名" />
+							<StatValue value={annualVisitorCount} unit="名" />
 							<p class="p-data-events__caption">全催事合計</p>
 						</div>
 					</div>

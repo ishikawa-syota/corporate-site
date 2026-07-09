@@ -1,6 +1,5 @@
 ---
 import ArrowButton from '../../components/button/ArrowButton.astro';
-import OptImage from '../../components/common/OptImage.astro';
 import Picture from '../../components/common/Picture.astro';
 import badgeShape from '../../images/keitasplan/business/badge-jisseki.svg?raw';
 import bgPc from '../../images/keitasplan/business/business-01-bg-pc.png';
@@ -10,39 +9,63 @@ import introSp from '../../images/keitasplan/business/business-01-intro-sp.png';
 import statIcon01 from '../../images/keitasplan/business/business-01-stat-01.svg';
 import statIcon02 from '../../images/keitasplan/business/business-01-stat-02.svg';
 import statIcon03 from '../../images/keitasplan/business/business-01-stat-03.svg';
-import reportImg from '../../images/keitasplan/business/report.png';
 import arrowCircle from '../../images/keitasplan/common/arrow-circle.svg';
 import mark from '../../images/keitasplan/common/mark.svg?raw';
+import { getNews, getNewsCategories } from '../../lib/microcms';
 
 interface Props {
 	id?: string;
+	annualEventCount: string;
+	totalStoreCount: string;
+	annualVisitorCount: string;
 }
-const { id } = Astro.props;
+const { id, annualEventCount, totalStoreCount, annualVisitorCount } =
+	Astro.props;
 
 const stats = [
-	{ icon: statIcon01, label: '年間開催数', num: '00', unit: '回' },
-	{ icon: statIcon02, label: '累計出店実績', num: '000', unit: '店舗' },
-	{ icon: statIcon03, label: '年間来場者数', num: '00,000', unit: '名' },
+	{
+		icon: statIcon01,
+		label: '年間開催数',
+		num: annualEventCount,
+		unit: '回',
+	},
+	{
+		icon: statIcon02,
+		label: '累計出店実績',
+		num: totalStoreCount,
+		unit: '店舗',
+	},
+	{
+		icon: statIcon03,
+		label: '年間来場者数',
+		num: annualVisitorCount,
+		unit: '名',
+	},
 ];
 
-// TODO: 実データ差し替え（画像・日付・タイトル）
-const reports = [
-	{
-		date: '2026.04.12',
-		title: '◯◯市での催事、大盛況で終了しました',
-		href: '#',
-	},
-	{
-		date: '2026.04.12',
-		title: '◯◯市での催事、大盛況で終了しました',
-		href: '#',
-	},
-	{
-		date: '2026.04.12',
-		title: '◯◯市での催事、大盛況で終了しました',
-		href: '#',
-	},
-];
+// 「催事レポート」カテゴリの最新3件（コンテンツ参照はcontentIdでしか絞れないため、slug→idを解決してから取得）
+const { contents: reportCategories } = await getNewsCategories({
+	filters: 'slug[equals]report',
+	limit: 1,
+});
+const reportCategory = reportCategories[0];
+const { contents: reports } = reportCategory
+	? await getNews({
+			filters: `category[equals]${reportCategory.id}`,
+			orders: '-date',
+			limit: 3,
+		})
+	: { contents: [] };
+
+const formatDate = (iso: string) =>
+	new Intl.DateTimeFormat('ja-JP', {
+		timeZone: 'Asia/Tokyo',
+		year: 'numeric',
+		month: '2-digit',
+		day: '2-digit',
+	})
+		.format(new Date(iso))
+		.replaceAll('/', '.');
 ---
 
 <section class="p-biz01" id={id}>
@@ -121,12 +144,19 @@ const reports = [
 						{
 							reports.map((r) => (
 								<li class="splide__slide">
-									<a class="c-report-card" href={r.href}>
+									<a
+										class="c-report-card"
+										href={r.link || '#'}
+									>
 										<span class="c-report-card__img">
-											<OptImage
-												src={reportImg}
+											<img
+												src={`${r.image.url}?fm=webp&w=450`}
+												srcset={`${r.image.url}?fm=webp&w=450 1x, ${r.image.url}?fm=webp&w=900 2x`}
 												alt=""
-												class="c-report-card__imgInner"
+												width={r.image.width}
+												height={r.image.height}
+												loading="lazy"
+												decoding="async"
 											/>
 										</span>
 										<span class="c-report-card__body">
@@ -135,7 +165,7 @@ const reports = [
 													class="c-report-card__dateBar"
 													aria-hidden="true"
 												/>
-												{r.date} ／ 催事レポート
+												{`${formatDate(r.date)} ／ ${r.category.name}`}
 											</span>
 											<span class="c-report-card__title">
 												{r.title}
@@ -774,9 +804,11 @@ const reports = [
 			border-radius: size(10);
 			overflow: hidden;
 
-			:global(.c-img) {
+			img {
+				display: block;
 				width: 100%;
 				height: 100%;
+				object-fit: cover;
 			}
 		}
 

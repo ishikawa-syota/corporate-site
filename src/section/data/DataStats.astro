@@ -1,17 +1,47 @@
 ---
+import { getData } from '../../lib/microcms';
+
 import CompanyScale from './CompanyScale.astro';
 import Events from './Events.astro';
 import HomeVisit from './HomeVisit.astro';
 import Social from './Social.astro';
 import Staff from './Staff.astro';
+
+const data = await getData();
 ---
 
 <div class="p-data-stats">
-	<CompanyScale id="data-company" />
-	<HomeVisit id="data-home-visit" />
-	<Events id="data-events" />
-	<Staff id="data-staff" />
-	<Social id="data-social" />
+	<CompanyScale
+		id="data-company"
+		foundedYear={data.foundedYear}
+		employeeCount={data.employeeCount}
+		officeCount={data.officeCount}
+	/>
+	<HomeVisit
+		id="data-home-visit"
+		annualPurchaseCount={data.annualPurchaseCount}
+		customerSatisfaction={data.customerSatisfaction}
+		avgVisitMinutes={data.avgVisitMinutes}
+	/>
+	<Events
+		id="data-events"
+		annualEventCount={data.annualEventCount}
+		totalStoreCount={data.totalStoreCount}
+		annualVisitorCount={data.annualVisitorCount}
+	/>
+	<Staff
+		id="data-staff"
+		avgStaffAge={data.avgStaffAge}
+		midCareerRatio={data.midCareerRatio}
+		managerRatio={data.managerRatio}
+		retentionRate={data.retentionRate}
+	/>
+	<Social
+		id="data-social"
+		annualItemCount={data.annualItemCount}
+		recirculationRate={data.recirculationRate}
+		co2ReductionTons={data.co2ReductionTons}
+	/>
 </div>
 
 <style lang="scss">

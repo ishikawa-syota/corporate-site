@@ -9,8 +9,13 @@ import retention from '../../images/keitasplan/data/retention.svg';
 
 interface Props {
 	id?: string;
+	avgStaffAge: string;
+	midCareerRatio: string;
+	managerRatio: string;
+	retentionRate: string;
 }
-const { id } = Astro.props;
+const { id, avgStaffAge, midCareerRatio, managerRatio, retentionRate } =
+	Astro.props;
 ---
 
 <section class="p-data-staff" id={id}>
@@ -25,7 +30,7 @@ const { id } = Astro.props;
 							<p class="p-data-staff__label">
 								社員の<br class="u-sp-only" />平均年齢
 							</p>
-							<StatValue value="00" unit="歳" />
+							<StatValue value={avgStaffAge} unit="歳" />
 							<p class="p-data-staff__caption">○○○○○○○○○</p>
 						</div>
 						<span
@@ -46,7 +51,11 @@ const { id } = Astro.props;
 							>
 								<img src={handshake.src} alt="" />
 							</span>
-							<StatValue prefix="約" value="00" unit="%" />
+							<StatValue
+								prefix="約"
+								value={midCareerRatio}
+								unit="%"
+							/>
 						</div>
 						<p class="p-data-staff__label">
 							中途入社比率<span class="p-data-staff__note"
@@ -67,7 +76,7 @@ const { id } = Astro.props;
 						</span>
 						<div class="p-data-staff__text">
 							<p class="p-data-staff__label">管理職比率</p>
-							<StatValue value="00" unit="%" />
+							<StatValue value={managerRatio} unit="%" />
 							<p class="p-data-staff__caption">○○○○○○○○○</p>
 						</div>
 					</div>
@@ -84,7 +93,7 @@ const { id } = Astro.props;
 						<p class="p-data-staff__figure">
 							<span class="p-data-staff__figureLabel">定着率</span
 							>
-							<StatValue value="00" unit="%" />
+							<StatValue value={retentionRate} unit="%" />
 						</p>
 						<p class="p-data-staff__caption">○○○○○○○○○</p>
 					</div>

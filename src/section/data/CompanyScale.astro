@@ -9,8 +9,11 @@ import people from '../../images/keitasplan/data/people.svg';
 
 interface Props {
 	id?: string;
+	foundedYear: string;
+	employeeCount: string;
+	officeCount: string;
 }
-const { id } = Astro.props;
+const { id, foundedYear, employeeCount, officeCount } = Astro.props;
 ---
 
 <section class="p-data-company" id={id}>
@@ -29,7 +32,7 @@ const { id } = Astro.props;
 						</span>
 						<div class="p-data-company__text">
 							<p class="p-data-company__figure">
-								<StatValue value="2020" unit="年" />
+								<StatValue value={foundedYear} unit="年" />
 								<span class="p-data-company__statLabel">
 									創業
 								</span>
@@ -54,7 +57,11 @@ const { id } = Astro.props;
 								<span class="p-data-company__statLabel">
 									従業員数
 								</span>
-								<StatValue prefix="約" value="150" unit="人" />
+								<StatValue
+									prefix="約"
+									value={employeeCount}
+									unit="人"
+								/>
 							</p>
 							<p class="p-data-company__caption">
 								委託業務・パート含む
@@ -90,7 +97,7 @@ const { id } = Astro.props;
 								>
 									拠点数
 								</span>
-								<StatValue value="0" unit="拠点" />
+								<StatValue value={officeCount} unit="拠点" />
 							</p>
 							<p
 								class="p-data-company__caption p-data-company__caption--map"

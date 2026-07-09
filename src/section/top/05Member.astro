@@ -3,30 +3,19 @@ import ArrowButton from '../../components/button/ArrowButton.astro';
 import MemberCard from '../../components/card/MemberCard.astro';
 import OptImage from '../../components/common/OptImage.astro';
 import SectionHeading from '../../components/common/SectionHeading.astro';
-import { members } from '../../data/siteContent';
 import watermarkLogo from '../../images/keitasplan/member/logo_S.png';
-import memberA from '../../images/keitasplan/member/member-01.png';
-import memberAHover from '../../images/keitasplan/member/member-01_hover.png';
-import memberB from '../../images/keitasplan/member/member-02.png';
-import memberBHover from '../../images/keitasplan/member/member-02_hover.png';
-import memberC from '../../images/keitasplan/member/member-03.png';
-import memberCHover from '../../images/keitasplan/member/member-03_hover.png';
-import memberD from '../../images/keitasplan/member/member-04.png';
-import memberDHover from '../../images/keitasplan/member/member-04_hover.png';
+import { getMembers } from '../../lib/microcms';
 
 interface Props {
 	id?: string;
 }
 const { id } = Astro.props;
 
-// 各メンバーの通常画像とhover画像（1:1対応）
-const memberImages = [memberA, memberB, memberC, memberD];
-const memberHoverImages = [
-	memberAHover,
-	memberBHover,
-	memberCHover,
-	memberDHover,
-];
+// 管理画面の並びの下から順に4名表示
+const { contents: members } = await getMembers({
+	orders: '-system:default',
+	limit: 4,
+});
 ---
 
 <section class="p-member" id={id}>
@@ -51,13 +40,13 @@ const memberHoverImages = [
 				<div class="splide__track p-member__track">
 					<div class="splide__list p-member__grid">
 						{
-							members.map((m, i) => (
+							members.map((m) => (
 								<div class="splide__slide p-member__item">
 									<MemberCard
 										role={m.role}
 										name={m.name}
-										img={memberImages[i]}
-										imgHover={memberHoverImages[i]}
+										photo={m.photo}
+										photoHover={m.photoHover}
 									/>
 								</div>
 							))

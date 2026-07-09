@@ -51,69 +51,6 @@ export const businessCards: BusinessCardData[] = [
 	},
 ];
 
-// 数字で見る（DATA）
-export type StatData = {
-	label: string;
-	prefix?: string;
-	value: string;
-	unit: string;
-	note?: string;
-};
-
-export const stats: StatData[] = [
-	{ label: '年間買取件数', value: '48,000', unit: '件超' },
-	{ label: '年間催事開催件数', value: '5,500', unit: '件超' },
-	{ label: '社員数', prefix: '約', value: '150', unit: '人' },
-	{
-		label: 'お客様満足度',
-		value: '97',
-		unit: '%',
-		note: '※自社アンケート調べ',
-	},
-];
-
-// メンバー
-export type MemberData = {
-	role: string;
-	name: string;
-};
-
-export const members: MemberData[] = [
-	{ role: '代表取締役', name: '小林 義典' },
-	{ role: '人事部', name: '照屋 一輝' },
-	{ role: 'マーケティング部', name: '羽田 幸央' },
-	{ role: 'マーケティング部', name: '遠藤 隆正' },
-];
-
-// お客様の声
-export type VoiceData = {
-	no: string;
-	meta: string;
-	headline: string;
-	body: string;
-};
-
-export const voices: VoiceData[] = [
-	{
-		no: 'VOICE 01',
-		meta: '60代女性 ／ 東京都 ／ ブランドバッグ',
-		headline: '思っていた以上の金額で、びっくりしました',
-		body: '押入れにしまったままのバッグが値段がつくとは思っていませんでした。査定員の方の説明も丁寧で、安心してお任せできました。',
-	},
-	{
-		no: 'VOICE 02',
-		meta: '50代男性 ／ 神奈川県 ／ 腕時計',
-		headline: '出張買取でとてもスムーズでした',
-		body: '自宅まで来てくださり、その場で丁寧に査定していただきました。納得のいく価格で、対応もとても親切でした。',
-	},
-	{
-		no: 'VOICE 03',
-		meta: '70代女性 ／ 埼玉県 ／ 貴金属',
-		headline: '丁寧な対応で安心できました',
-		body: '初めての買取で不安でしたが、ひとつひとつ説明してくださり安心してお任せできました。また利用したいです。',
-	},
-];
-
 // よくある質問
 export type FaqData = {
 	q: string;

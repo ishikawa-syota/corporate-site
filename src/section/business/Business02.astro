@@ -36,13 +36,32 @@ import AreaContact from './AreaContact.astro';
 
 interface Props {
 	id?: string;
+	annualPurchaseCount: string;
+	customerSatisfaction: string;
+	avgVisitMinutes: string;
 }
-const { id } = Astro.props;
+const { id, annualPurchaseCount, customerSatisfaction, avgVisitMinutes } =
+	Astro.props;
 
 const stats = [
-	{ icon: statIcon01, label: '年間買取件数', num: '00', unit: '件' },
-	{ icon: statIcon02, label: 'お客様満足度', num: '00', unit: '%' },
-	{ icon: statIcon03, label: '平均訪問時間', num: '00', unit: '分' },
+	{
+		icon: statIcon01,
+		label: '年間買取件数',
+		num: annualPurchaseCount,
+		unit: '件',
+	},
+	{
+		icon: statIcon02,
+		label: 'お客様満足度',
+		num: customerSatisfaction,
+		unit: '%',
+	},
+	{
+		icon: statIcon03,
+		label: '平均訪問時間',
+		num: avgVisitMinutes,
+		unit: '分',
+	},
 ];
 
 const features = [

@@ -1,0 +1,86 @@
+---
+import { siteMetadata } from '../../data/meta';
+import Footer from '../../layouts/Footer.astro';
+import Header from '../../layouts/Header.astro';
+import Layout from '../../layouts/Layout.astro';
+import { getAllVoices } from '../../lib/microcms';
+
+export async function getStaticPaths() {
+	const voices = await getAllVoices({ orders: 'system:default' });
+	return voices.map((voice) => ({
+		params: { slug: voice.id },
+		props: { voice },
+	}));
+}
+
+const { voice } = Astro.props;
+---
+
+<Layout title={`${voice.title} | ${siteMetadata.siteName}`}>
+	<Header id="header" />
+	<section class="p-voice-detail">
+		<div class="p-voice-detail__inner">
+			<a class="p-voice-detail__back" href="/voices/">← お客様の声一覧</a>
+			<p class="p-voice-detail__meta">{voice.meta}</p>
+			<h1 class="p-voice-detail__headline">{voice.title}</h1>
+			<p class="p-voice-detail__body">{voice.body}</p>
+		</div>
+	</section>
+	<Footer id="footer" variant="subpage" />
+</Layout>
+
+<style lang="scss">
+	.p-voice-detail {
+		&__inner {
+			max-width: size(800);
+			margin-inline: auto;
+			padding: size(160) size(24) size(120);
+		}
+
+		&__back {
+			font-family: $Font;
+			font-size: size(14);
+			color: $brand-blue;
+
+			@include mq('sp') {
+				font-size: size(22);
+			}
+		}
+
+		&__meta {
+			margin-top: size(40);
+			font-family: $Font;
+			font-size: size(14);
+			color: $brand-blue;
+
+			@include mq('sp') {
+				font-size: size(22);
+			}
+		}
+
+		&__headline {
+			margin-top: size(8);
+			font-family: $Font;
+			font-weight: 500;
+			font-size: size(32);
+			line-height: 1.5;
+			color: $brand-text;
+
+			@include mq('sp') {
+				font-size: size(40);
+			}
+		}
+
+		&__body {
+			margin-top: size(32);
+			font-family: $Font;
+			font-size: size(16);
+			line-height: 2;
+			color: $brand-text;
+
+			@include mq('sp') {
+				font-size: size(26);
+			}
+		}
+	}
+</style>

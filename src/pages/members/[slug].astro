@@ -1,0 +1,86 @@
+---
+import { siteMetadata } from '../../data/meta';
+import Footer from '../../layouts/Footer.astro';
+import Header from '../../layouts/Header.astro';
+import Layout from '../../layouts/Layout.astro';
+import { getAllMembers } from '../../lib/microcms';
+
+export async function getStaticPaths() {
+	const members = await getAllMembers({ orders: 'system:default' });
+	return members.map((member) => ({
+		params: { slug: member.id },
+		props: { member },
+	}));
+}
+
+const { member } = Astro.props;
+---
+
+<Layout title={`${member.name} | ${siteMetadata.siteName}`}>
+	<Header id="header" />
+	<section class="p-member-detail">
+		<div class="p-member-detail__inner">
+			<a class="p-member-detail__back" href="/members/">← メンバー一覧</a>
+			<img
+				class="p-member-detail__photo"
+				src={`${member.photo.url}?fm=webp&w=800`}
+				alt={member.name}
+				width={member.photo.width}
+				height={member.photo.height}
+				decoding="async"
+			/>
+			<p class="p-member-detail__role">{member.role}</p>
+			<h1 class="p-member-detail__name">{member.name}</h1>
+		</div>
+	</section>
+	<Footer id="footer" variant="subpage" />
+</Layout>
+
+<style lang="scss">
+	.p-member-detail {
+		&__inner {
+			max-width: size(800);
+			margin-inline: auto;
+			padding: size(160) size(24) size(120);
+		}
+
+		&__back {
+			font-family: $Font;
+			font-size: size(14);
+			color: $brand-blue;
+
+			@include mq('sp') {
+				font-size: size(22);
+			}
+		}
+
+		&__photo {
+			display: block;
+			width: size(400);
+			height: auto;
+			margin-top: size(40);
+		}
+
+		&__role {
+			margin-top: size(24);
+			font-family: $Font;
+			font-size: size(16);
+			color: $brand-blue;
+
+			@include mq('sp') {
+				font-size: size(24);
+			}
+		}
+
+		&__name {
+			font-family: $Font;
+			font-weight: 500;
+			font-size: size(32);
+			color: $brand-text;
+
+			@include mq('sp') {
+				font-size: size(40);
+			}
+		}
+	}
+</style>

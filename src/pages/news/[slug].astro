@@ -1,0 +1,114 @@
+---
+import { siteMetadata } from '../../data/meta';
+import Footer from '../../layouts/Footer.astro';
+import Header from '../../layouts/Header.astro';
+import Layout from '../../layouts/Layout.astro';
+import { getAllNews } from '../../lib/microcms';
+import { formatDotDate } from '../../utils/date';
+
+export async function getStaticPaths() {
+	const news = await getAllNews({ orders: '-date' });
+	return news.map((item) => ({
+		params: { slug: item.id },
+		props: { item },
+	}));
+}
+
+const { item } = Astro.props;
+---
+
+<Layout title={`${item.title} | ${siteMetadata.siteName}`}>
+	<Header id="header" />
+	<section class="p-news-detail">
+		<div class="p-news-detail__inner">
+			<a class="p-news-detail__back" href="/news/">← ニュース一覧</a>
+			<p class="p-news-detail__meta">
+				{`${formatDotDate(item.date)} ／ ${item.category.name}`}
+			</p>
+			<h1 class="p-news-detail__headline">{item.title}</h1>
+			<img
+				class="p-news-detail__img"
+				src={`${item.image.url}?fm=webp&w=900`}
+				alt=""
+				width={item.image.width}
+				height={item.image.height}
+				decoding="async"
+			/>
+			{
+				item.body && (
+					<div class="p-news-detail__body" set:html={item.body} />
+				)
+			}
+		</div>
+	</section>
+	<Footer id="footer" variant="subpage" />
+</Layout>
+
+<style lang="scss">
+	.p-news-detail {
+		&__inner {
+			max-width: size(800);
+			margin-inline: auto;
+			padding: size(160) size(24) size(120);
+		}
+
+		&__back {
+			font-family: $Font;
+			font-size: size(14);
+			color: $brand-blue;
+
+			@include mq('sp') {
+				font-size: size(22);
+			}
+		}
+
+		&__meta {
+			margin-top: size(40);
+			font-family: $Font;
+			font-size: size(14);
+			color: $brand-blue;
+
+			@include mq('sp') {
+				font-size: size(22);
+			}
+		}
+
+		&__headline {
+			margin-top: size(8);
+			font-family: $Font;
+			font-weight: 500;
+			font-size: size(32);
+			line-height: 1.5;
+			color: $brand-text;
+
+			@include mq('sp') {
+				font-size: size(40);
+			}
+		}
+
+		&__img {
+			display: block;
+			width: 100%;
+			height: auto;
+			margin-top: size(32);
+			border-radius: size(10);
+		}
+
+		&__body {
+			margin-top: size(32);
+			font-family: $Font;
+			font-size: size(16);
+			line-height: 2;
+			color: $brand-text;
+
+			@include mq('sp') {
+				font-size: size(26);
+			}
+
+			:global(img) {
+				max-width: 100%;
+				height: auto;
+			}
+		}
+	}
+</style>

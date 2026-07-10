@@ -81,6 +81,15 @@ body {
 	-webkit-font-smoothing: antialiased;
 }
 
+// アンカー遷移時に固定ヘッダーで隠れないようにする
+[id] {
+	scroll-margin-top: size($header-height);
+
+	@include mq('sp') {
+		scroll-margin-top: size($header-height-sp);
+	}
+}
+
 // LINK --------------------
 a {
 	color: design-color('gray', '900');

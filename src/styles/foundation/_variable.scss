@@ -8,6 +8,10 @@
 // 角丸サイズ
 $section-card-radius: 130;
 
+// ヘッダー高さ（Header.astroの高さとアンカーのscroll-margin-topで共用）
+$header-height: 120;
+$header-height-sp: 120;
+
 // 変数定義を追加
 $image-path: '../../images' !default;
 

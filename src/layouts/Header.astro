@@ -13,14 +13,14 @@ const { id } = Astro.props;
 
 // SPドロワー用ナビ（Figma SPデザイン準拠のラベル / hrefはサイト共通）
 const drawerNav = [
-	{ ja: '事業紹介', href: '#business' },
-	{ ja: '数字で見る', href: '#data' },
-	{ ja: 'メンバー', href: '#member' },
-	{ ja: 'お客様の声', href: '#voice' },
-	{ ja: 'ニュース', href: '#news' },
-	{ ja: '代表メッセージ', href: '#message' },
+	{ ja: '事業紹介', href: '/business' },
+	{ ja: '数字で見る', href: '/data' },
+	{ ja: 'メンバー', href: '/members' },
+	{ ja: 'お客様の声', href: '/voices' },
+	{ ja: 'ニュース', href: '/news' },
+	{ ja: '代表メッセージ', href: '/#message' },
 	{ ja: '会社概要', href: '#about' },
-	{ ja: 'よくある質問', href: '#faq' },
+	{ ja: 'よくある質問', href: '/#faq' },
 ];
 ---
 
@@ -218,11 +218,11 @@ const drawerNav = [
 			align-items: center;
 			gap: size(24);
 			width: 100%;
-			height: size(120);
+			height: size($header-height);
 			padding: 0 size(24);
 
 			@include mq('sp') {
-				height: size(120);
+				height: size($header-height-sp);
 				padding: 0 size(32);
 				gap: size(16);
 			}

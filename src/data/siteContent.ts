@@ -11,14 +11,14 @@ export type NavItem = {
 
 // グローバルナビ（ヘッダー / フッター共通）
 export const navItems: NavItem[] = [
-	{ ja: '事業紹介', en: 'BUSINESS', href: '#business' },
-	{ ja: '数字で見る', en: 'DATA', href: '#data' },
-	{ ja: 'メンバー', en: 'MEMBERS', href: '#member' },
-	{ ja: 'お客様の声', en: 'VOICE', href: '#voice' },
-	{ ja: 'ニュース', en: 'NEWS', href: '#news' },
-	{ ja: 'メッセージ', en: 'MESSAGE', href: '#message' },
+	{ ja: '事業紹介', en: 'BUSINESS', href: '/business' },
+	{ ja: '数字で見る', en: 'DATA', href: '/data' },
+	{ ja: 'メンバー', en: 'MEMBERS', href: '/members' },
+	{ ja: 'お客様の声', en: 'VOICE', href: '/voices' },
+	{ ja: 'ニュース', en: 'NEWS', href: '/news' },
+	{ ja: 'メッセージ', en: 'MESSAGE', href: '/#message' },
 	{ ja: '会社概要', en: 'ABOUT', href: '#about' },
-	{ ja: 'よくある質問', en: 'FAQ', href: '#faq' },
+	{ ja: 'よくある質問', en: 'FAQ', href: '/#faq' },
 ];
 
 // 会社情報
@@ -42,12 +42,12 @@ export const businessCards: BusinessCardData[] = [
 	{
 		title: '催事買取',
 		desc: 'デパート・商業施設での買取催事を企画・運営。集客から当日運営、実績報告まで一貫対応。年間多数の開催実績があります。',
-		href: '#business',
+		href: '/business#business-01',
 	},
 	{
 		title: '出張買取',
 		desc: 'ご自宅まで査定員が伺い、その場で現金化。最短即日で対応します。ブランド品・貴金属・時計・骨董品など幅広く買取。',
-		href: '#business',
+		href: '/business#business-02',
 	},
 ];
 

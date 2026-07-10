@@ -12,6 +12,20 @@ export const formatJapaneseDate = (date: Date | string): string => {
 };
 
 /**
+ * 日付をYYYY.MM.DD（JST）に変換
+ * @param date 日付オブジェクトまたは日付文字列
+ */
+export const formatDotDate = (date: Date | string): string =>
+	new Intl.DateTimeFormat('ja-JP', {
+		timeZone: 'Asia/Tokyo',
+		year: 'numeric',
+		month: '2-digit',
+		day: '2-digit',
+	})
+		.format(new Date(date))
+		.replaceAll('/', '.');
+
+/**
  * 相対的な時間表示を生成
  * @param date 日付オブジェクトまたは日付文字列
  */

@@ -12,6 +12,7 @@ import statIcon03 from '../../images/keitasplan/business/business-01-stat-03.svg
 import arrowCircle from '../../images/keitasplan/common/arrow-circle.svg';
 import mark from '../../images/keitasplan/common/mark.svg?raw';
 import { getNews, getNewsCategories } from '../../lib/microcms';
+import { formatDotDate } from '../../utils/date';
 
 interface Props {
 	id?: string;
@@ -56,16 +57,6 @@ const { contents: reports } = reportCategory
 			limit: 3,
 		})
 	: { contents: [] };
-
-const formatDate = (iso: string) =>
-	new Intl.DateTimeFormat('ja-JP', {
-		timeZone: 'Asia/Tokyo',
-		year: 'numeric',
-		month: '2-digit',
-		day: '2-digit',
-	})
-		.format(new Date(iso))
-		.replaceAll('/', '.');
 ---
 
 <section class="p-biz01" id={id}>
@@ -165,7 +156,7 @@ const formatDate = (iso: string) =>
 													class="c-report-card__dateBar"
 													aria-hidden="true"
 												/>
-												{`${formatDate(r.date)} ／ ${r.category.name}`}
+												{`${formatDotDate(r.date)} ／ ${r.category.name}`}
 											</span>
 											<span class="c-report-card__title">
 												{r.title}
@@ -180,7 +171,7 @@ const formatDate = (iso: string) =>
 			</div>
 
 			<div class="p-biz01__reportMore">
-				<ArrowButton href="#" label="詳しく見る" variant="white" />
+				<ArrowButton href="/news" label="詳しく見る" variant="white" />
 			</div>
 		</div>
 	</div>

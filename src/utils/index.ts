@@ -7,7 +7,7 @@
 export { truncate, camelToKebab } from './string';
 
 // 日付関連ユーティリティ
-export { formatJapaneseDate, getRelativeTime } from './date';
+export { formatJapaneseDate, formatDotDate, getRelativeTime } from './date';
 
 // バリデーション関連ユーティリティ
 export {

@@ -1,0 +1,105 @@
+---
+import { siteMetadata } from '../../data/meta';
+import Footer from '../../layouts/Footer.astro';
+import Header from '../../layouts/Header.astro';
+import Layout from '../../layouts/Layout.astro';
+import { getAllMembers } from '../../lib/microcms';
+
+const members = await getAllMembers({ orders: 'system:default' });
+---
+
+<Layout title={`メンバー | ${siteMetadata.siteName}`}>
+	<Header id="header" />
+	<section class="p-members">
+		<div class="p-members__inner">
+			<h1 class="p-members__title">メンバー</h1>
+			<ul class="p-members__list">
+				{
+					members.map((m) => (
+						<li class="p-members__item">
+							<a
+								class="p-members__link"
+								href={`/members/${m.id}`}
+							>
+								<img
+									class="p-members__photo"
+									src={`${m.photo.url}?fm=webp&w=400`}
+									alt={m.name}
+									width={m.photo.width}
+									height={m.photo.height}
+									loading="lazy"
+									decoding="async"
+								/>
+								<span class="p-members__role">{m.role}</span>
+								<span class="p-members__name">{m.name}</span>
+							</a>
+						</li>
+					))
+				}
+			</ul>
+		</div>
+	</section>
+	<Footer id="footer" variant="subpage" />
+</Layout>
+
+<style lang="scss">
+	.p-members {
+		&__inner {
+			max-width: size(1050);
+			margin-inline: auto;
+			padding: size(160) size(24) size(120);
+		}
+
+		&__title {
+			font-family: $Font;
+			font-weight: 500;
+			font-size: size(40);
+			color: $brand-text;
+		}
+
+		&__list {
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			gap: size(40);
+			margin-top: size(60);
+
+			@include mq('sp') {
+				grid-template-columns: repeat(2, 1fr);
+				gap: size(30);
+			}
+		}
+
+		&__link {
+			display: flex;
+			flex-direction: column;
+			gap: size(8);
+		}
+
+		&__photo {
+			display: block;
+			width: 100%;
+			height: auto;
+		}
+
+		&__role {
+			font-family: $Font;
+			font-size: size(14);
+			color: $brand-blue;
+
+			@include mq('sp') {
+				font-size: size(22);
+			}
+		}
+
+		&__name {
+			font-family: $Font;
+			font-weight: 500;
+			font-size: size(20);
+			color: $brand-text;
+
+			@include mq('sp') {
+				font-size: size(28);
+			}
+		}
+	}
+</style>

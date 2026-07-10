@@ -16,18 +16,18 @@ const { id, variant = 'default' } = Astro.props;
 // フッターナビ（Figmaの4カラム構成）
 const footerNav = [
 	[
-		{ ja: '事業紹介', href: '#business' },
-		{ ja: '数字で見る', href: '#data' },
-		{ ja: 'メンバー', href: '#member' },
+		{ ja: '事業紹介', href: '/business' },
+		{ ja: '数字で見る', href: '/data' },
+		{ ja: 'メンバー', href: '/members' },
 	],
 	[
-		{ ja: 'お客様の声', href: '#voice' },
-		{ ja: 'ニュース', href: '#news' },
-		{ ja: '代表メッセージ', href: '#message' },
+		{ ja: 'お客様の声', href: '/voices' },
+		{ ja: 'ニュース', href: '/news' },
+		{ ja: '代表メッセージ', href: '/#message' },
 	],
 	[
 		{ ja: '会社概要', href: '#about' },
-		{ ja: 'よくある質問', href: '#faq' },
+		{ ja: 'よくある質問', href: '/#faq' },
 		{ ja: 'お問い合わせ', href: '#contact' },
 	],
 	[

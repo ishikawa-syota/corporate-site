@@ -29,14 +29,30 @@ export const getNewsCategories = (queries?: MicroCMSQueries) =>
 	});
 
 // 全件取得（100件超はSDKがオフセットで自動ページング）
+// 複数ルートのgetStaticPathsから同一条件で呼ばれるため、ビルド中はメモ化して重複フェッチを防ぐ
+const allContentsCache = new Map<string, Promise<unknown>>();
+
+const memoize = <T>(key: string, fetcher: () => Promise<T>): Promise<T> => {
+	if (!allContentsCache.has(key)) {
+		allContentsCache.set(key, fetcher());
+	}
+	return allContentsCache.get(key) as Promise<T>;
+};
+
 export const getAllNews = (queries?: MicroCMSQueries) =>
-	client.getAllContents({ endpoint: 'news', queries });
+	memoize(`news:${JSON.stringify(queries ?? null)}`, () =>
+		client.getAllContents({ endpoint: 'news', queries })
+	);
 
 export const getAllMembers = (queries?: MicroCMSQueries) =>
-	client.getAllContents({ endpoint: 'members', queries });
+	memoize(`members:${JSON.stringify(queries ?? null)}`, () =>
+		client.getAllContents({ endpoint: 'members', queries })
+	);
 
 export const getAllVoices = (queries?: MicroCMSQueries) =>
-	client.getAllContents({ endpoint: 'voices', queries });
+	memoize(`voices:${JSON.stringify(queries ?? null)}`, () =>
+		client.getAllContents({ endpoint: 'voices', queries })
+	);
 
 // メンバー
 export const getMembers = (queries?: MicroCMSQueries) =>

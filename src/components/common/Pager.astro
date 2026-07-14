@@ -1,0 +1,71 @@
+---
+interface Props {
+	currentPage: number;
+	totalPages: number;
+	basePath: string;
+}
+const { currentPage, totalPages, basePath } = Astro.props;
+
+// 1ページ目はルート、2ページ目以降は /page/{n}
+const pageHref = (page: number) =>
+	page === 1 ? `${basePath}/` : `${basePath}/page/${page}`;
+const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+---
+
+{
+	totalPages > 1 && (
+		<nav class="c-pager" aria-label="ページ送り">
+			<ul class="c-pager__list">
+				{pages.map((page) => (
+					<li class="c-pager__item">
+						{page === currentPage ? (
+							<span
+								class="c-pager__page c-pager__page--current"
+								aria-current="page"
+							>
+								{page}
+							</span>
+						) : (
+							<a class="c-pager__page" href={pageHref(page)}>
+								{page}
+							</a>
+						)}
+					</li>
+				))}
+			</ul>
+		</nav>
+	)
+}
+
+<style lang="scss">
+	.c-pager {
+		&__list {
+			display: flex;
+			justify-content: center;
+			gap: size(12);
+		}
+
+		&__page {
+			display: grid;
+			place-items: center;
+			width: size(44);
+			height: size(44);
+			font-family: $Font;
+			font-size: size(16);
+			color: $brand-blue;
+			background: $brand-blue-sky;
+			border-radius: size(8);
+
+			@include mq('sp') {
+				width: size(60);
+				height: size(60);
+				font-size: size(24);
+			}
+
+			&--current {
+				color: $brand-white;
+				background: $brand-blue;
+			}
+		}
+	}
+</style>

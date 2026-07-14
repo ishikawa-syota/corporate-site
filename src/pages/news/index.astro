@@ -1,107 +1,22 @@
 ---
+import { NEWS_PAGE_SIZE } from '../../data/config';
 import { siteMetadata } from '../../data/meta';
 import Footer from '../../layouts/Footer.astro';
 import Header from '../../layouts/Header.astro';
 import Layout from '../../layouts/Layout.astro';
 import { getAllNews } from '../../lib/microcms';
-import { formatDotDate } from '../../utils/date';
+import NewsList from '../../section/news/NewsList.astro';
 
 const news = await getAllNews({ orders: '-date' });
+const totalPages = Math.max(1, Math.ceil(news.length / NEWS_PAGE_SIZE));
 ---
 
 <Layout title={`ニュース | ${siteMetadata.siteName}`}>
 	<Header id="header" />
-	<section class="p-news">
-		<div class="p-news__inner">
-			<h1 class="p-news__title">ニュース</h1>
-			<ul class="p-news__list">
-				{
-					news.map((n) => (
-						<li class="p-news__item">
-							<a class="p-news__link" href={`/news/${n.id}`}>
-								<img
-									class="p-news__img"
-									src={`${n.image.url}?fm=webp&w=450`}
-									alt=""
-									width={n.image.width}
-									height={n.image.height}
-									loading="lazy"
-									decoding="async"
-								/>
-								<span class="p-news__meta">
-									{`${formatDotDate(n.date)} ／ ${n.category.name}`}
-								</span>
-								<span class="p-news__headline">{n.title}</span>
-							</a>
-						</li>
-					))
-				}
-			</ul>
-		</div>
-	</section>
+	<NewsList
+		items={news.slice(0, NEWS_PAGE_SIZE)}
+		currentPage={1}
+		totalPages={totalPages}
+	/>
 	<Footer id="footer" variant="subpage" />
 </Layout>
-
-<style lang="scss">
-	.p-news {
-		&__inner {
-			max-width: size(1050);
-			margin-inline: auto;
-			padding: size(160) size(24) size(120);
-		}
-
-		&__title {
-			font-family: $Font;
-			font-weight: 500;
-			font-size: size(40);
-			color: $brand-text;
-		}
-
-		&__list {
-			display: grid;
-			grid-template-columns: repeat(3, 1fr);
-			gap: size(40);
-			margin-top: size(60);
-
-			@include mq('sp') {
-				grid-template-columns: 1fr;
-				gap: size(40);
-			}
-		}
-
-		&__link {
-			display: flex;
-			flex-direction: column;
-			gap: size(8);
-		}
-
-		&__img {
-			display: block;
-			width: 100%;
-			height: auto;
-			border-radius: size(10);
-		}
-
-		&__meta {
-			font-family: $Font;
-			font-size: size(13);
-			color: $brand-blue;
-
-			@include mq('sp') {
-				font-size: size(22);
-			}
-		}
-
-		&__headline {
-			font-family: $Font;
-			font-weight: 500;
-			font-size: size(18);
-			line-height: 1.6;
-			color: $brand-text;
-
-			@include mq('sp') {
-				font-size: size(28);
-			}
-		}
-	}
-</style>

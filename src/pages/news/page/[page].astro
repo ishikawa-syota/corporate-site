@@ -1,0 +1,37 @@
+---
+import { NEWS_PAGE_SIZE } from '../../../data/config';
+import { siteMetadata } from '../../../data/meta';
+import Footer from '../../../layouts/Footer.astro';
+import Header from '../../../layouts/Header.astro';
+import Layout from '../../../layouts/Layout.astro';
+import { getAllNews } from '../../../lib/microcms';
+import NewsList from '../../../section/news/NewsList.astro';
+
+// 1ページ目は /news/ が担うため、ここでは2ページ目以降のみ生成する
+export async function getStaticPaths() {
+	const news = await getAllNews({ orders: '-date' });
+	const totalPages = Math.ceil(news.length / NEWS_PAGE_SIZE);
+	return Array.from({ length: Math.max(0, totalPages - 1) }, (_, i) => {
+		const page = i + 2;
+		return {
+			params: { page: String(page) },
+			props: {
+				items: news.slice(
+					(page - 1) * NEWS_PAGE_SIZE,
+					page * NEWS_PAGE_SIZE
+				),
+				page,
+				totalPages,
+			},
+		};
+	});
+}
+
+const { items, page, totalPages } = Astro.props;
+---
+
+<Layout title={`ニュース（${page}ページ目） | ${siteMetadata.siteName}`}>
+	<Header id="header" />
+	<NewsList items={items} currentPage={page} totalPages={totalPages} />
+	<Footer id="footer" variant="subpage" />
+</Layout>

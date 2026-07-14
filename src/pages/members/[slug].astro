@@ -8,7 +8,8 @@ import { getAllMembers } from '../../lib/microcms';
 export async function getStaticPaths() {
 	const members = await getAllMembers({ orders: 'system:default' });
 	return members.map((member) => ({
-		params: { slug: member.id },
+		// slug未入力のコンテンツはid（暫定）。microCMS側でslugを必須化したら ?? member.id は削除可
+		params: { slug: member.slug ?? member.id },
 		props: { member },
 	}));
 }

@@ -1,87 +1,22 @@
 ---
+import { VOICES_PAGE_SIZE } from '../../data/config';
 import { siteMetadata } from '../../data/meta';
 import Footer from '../../layouts/Footer.astro';
 import Header from '../../layouts/Header.astro';
 import Layout from '../../layouts/Layout.astro';
 import { getAllVoices } from '../../lib/microcms';
+import VoiceList from '../../section/voices/VoiceList.astro';
 
 const voices = await getAllVoices({ orders: 'system:default' });
+const totalPages = Math.max(1, Math.ceil(voices.length / VOICES_PAGE_SIZE));
 ---
 
 <Layout title={`お客様の声 | ${siteMetadata.siteName}`}>
 	<Header id="header" />
-	<section class="p-voices">
-		<div class="p-voices__inner">
-			<h1 class="p-voices__title">お客様の声</h1>
-			<ul class="p-voices__list">
-				{
-					voices.map((v) => (
-						<li class="p-voices__item">
-							<a class="p-voices__link" href={`/voices/${v.id}`}>
-								<span class="p-voices__meta">{v.meta}</span>
-								<span class="p-voices__headline">
-									{v.title}
-								</span>
-							</a>
-						</li>
-					))
-				}
-			</ul>
-		</div>
-	</section>
+	<VoiceList
+		items={voices.slice(0, VOICES_PAGE_SIZE)}
+		currentPage={1}
+		totalPages={totalPages}
+	/>
 	<Footer id="footer" variant="subpage" />
 </Layout>
-
-<style lang="scss">
-	.p-voices {
-		&__inner {
-			max-width: size(800);
-			margin-inline: auto;
-			padding: size(160) size(24) size(120);
-		}
-
-		&__title {
-			font-family: $Font;
-			font-weight: 500;
-			font-size: size(40);
-			color: $brand-text;
-		}
-
-		&__list {
-			display: flex;
-			flex-direction: column;
-			gap: size(24);
-			margin-top: size(60);
-		}
-
-		&__link {
-			display: flex;
-			flex-direction: column;
-			gap: size(4);
-			padding: size(24);
-			background: $brand-blue-sky;
-			border-radius: size(10);
-		}
-
-		&__meta {
-			font-family: $Font;
-			font-size: size(14);
-			color: $brand-blue;
-
-			@include mq('sp') {
-				font-size: size(22);
-			}
-		}
-
-		&__headline {
-			font-family: $Font;
-			font-weight: 500;
-			font-size: size(20);
-			color: $brand-text;
-
-			@include mq('sp') {
-				font-size: size(28);
-			}
-		}
-	}
-</style>

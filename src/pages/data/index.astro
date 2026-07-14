@@ -3,9 +3,9 @@ import { siteMetadata } from '../../data/meta';
 import Footer from '../../layouts/Footer.astro';
 import Header from '../../layouts/Header.astro';
 import Layout from '../../layouts/Layout.astro';
+import PageHero from '../../section/common/PageHero.astro';
 import RelatedInfo from '../../section/common/RelatedInfo.astro';
 import DataStats from '../../section/data/DataStats.astro';
-import Hero from '../../section/data/Hero.astro';
 
 const relatedCards = [
 	{
@@ -31,7 +31,11 @@ const relatedCards = [
 
 <Layout title={`数字で見るケイタスプラン | ${siteMetadata.siteName}`}>
 	<Header id="header" />
-	<Hero id="data-hero" />
+	<PageHero
+		id="data-hero"
+		ja='数字で見る<br class="u-sp-only" />ケイタスプラン'
+		en="DATA"
+	/>
 	<DataStats />
 	<RelatedInfo id="data-related" cards={relatedCards} />
 	<Footer id="footer" variant="subpage" />

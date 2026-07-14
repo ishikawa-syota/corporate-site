@@ -1,38 +1,32 @@
 ---
+import MemberPanel from '../../components/card/MemberPanel.astro';
 import { siteMetadata } from '../../data/meta';
 import Footer from '../../layouts/Footer.astro';
 import Header from '../../layouts/Header.astro';
 import Layout from '../../layouts/Layout.astro';
 import { getAllMembers } from '../../lib/microcms';
+import PageHero from '../../section/common/PageHero.astro';
 
-const members = await getAllMembers({ orders: 'system:default' });
+const members = await getAllMembers({ orders: '-system:default' });
 ---
 
 <Layout title={`メンバー | ${siteMetadata.siteName}`}>
 	<Header id="header" />
+	<PageHero id="members-hero" ja="メンバー" en="MEMBERS" spTitleLarge />
 	<section class="p-members">
 		<div class="p-members__inner">
-			<h1 class="p-members__title">メンバー</h1>
-			<ul class="p-members__list">
+			<ul class="p-members__grid">
 				{
 					members.map((m) => (
-						<li class="p-members__item">
-							<a
-								class="p-members__link"
+						<li class="p-members__cell">
+							<MemberPanel
 								href={`/members/${m.id}`}
-							>
-								<img
-									class="p-members__photo"
-									src={`${m.photo.url}?fm=webp&w=400`}
-									alt={m.name}
-									width={m.photo.width}
-									height={m.photo.height}
-									loading="lazy"
-									decoding="async"
-								/>
-								<span class="p-members__role">{m.role}</span>
-								<span class="p-members__name">{m.name}</span>
-							</a>
+								name={m.name}
+								nameEn={m.nameEn}
+								role={m.role}
+								photo={m.photo}
+								photoHover={m.photoHover}
+							/>
 						</li>
 					))
 				}
@@ -44,62 +38,34 @@ const members = await getAllMembers({ orders: 'system:default' });
 
 <style lang="scss">
 	.p-members {
+		position: relative;
+		background: linear-gradient(360deg, #dfefff 48.08%, #b8dbff 100%);
+		border-radius: size($section-card-radius) size($section-card-radius) 0 0;
+
 		&__inner {
-			max-width: size(1050);
+			max-width: size(1092);
 			margin-inline: auto;
-			padding: size(160) size(24) size(120);
+			padding-block: size(96) size(147);
+
+			@include mq('sp') {
+				max-width: size(680);
+				padding-block: size(148) size(150);
+			}
 		}
 
-		&__title {
-			font-family: $Font;
-			font-weight: 500;
-			font-size: size(40);
-			color: $brand-text;
-		}
-
-		&__list {
+		&__grid {
 			display: grid;
-			grid-template-columns: repeat(4, 1fr);
-			gap: size(40);
-			margin-top: size(60);
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+			gap: size(80) size(36);
 
 			@include mq('sp') {
-				grid-template-columns: repeat(2, 1fr);
-				gap: size(30);
+				grid-template-columns: repeat(2, minmax(0, 1fr));
+				gap: size(80) size(40);
 			}
 		}
 
-		&__link {
-			display: flex;
-			flex-direction: column;
-			gap: size(8);
-		}
-
-		&__photo {
-			display: block;
-			width: 100%;
-			height: auto;
-		}
-
-		&__role {
-			font-family: $Font;
-			font-size: size(14);
-			color: $brand-blue;
-
-			@include mq('sp') {
-				font-size: size(22);
-			}
-		}
-
-		&__name {
-			font-family: $Font;
-			font-weight: 500;
-			font-size: size(20);
-			color: $brand-text;
-
-			@include mq('sp') {
-				font-size: size(28);
-			}
+		&__cell {
+			min-width: 0;
 		}
 	}
 </style>

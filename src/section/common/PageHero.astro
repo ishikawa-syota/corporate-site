@@ -3,22 +3,27 @@ import watermark from '../../images/keitasplan/common/logo_S.svg?raw';
 
 interface Props {
 	id?: string;
+	ja: string;
+	en: string;
+	// SPの見出しサイズ（タイトルが短いページは大きめ）
+	spTitleLarge?: boolean;
 }
-const { id } = Astro.props;
+const { id, ja, en, spTitleLarge = false } = Astro.props;
 ---
 
-<section class="p-data-hero" id={id}>
-	<div class="p-data-hero__titles">
-		<span class="p-data-hero__ja"
-			>数字で見る<br class="sp-only" />ケイタスプラン</span
-		>
-		<span class="p-data-hero__en">DATA</span>
+<section
+	class:list={['c-page-hero', spTitleLarge && 'c-page-hero--sp-lg']}
+	id={id}
+>
+	<div class="c-page-hero__titles">
+		<span class="c-page-hero__ja" set:html={ja} />
+		<span class="c-page-hero__en">{en}</span>
 	</div>
-	<span class="p-data-hero__mark" aria-hidden="true" set:html={watermark} />
+	<span class="c-page-hero__mark" aria-hidden="true" set:html={watermark} />
 </section>
 
 <style lang="scss">
-	.p-data-hero {
+	.c-page-hero {
 		position: relative;
 		overflow: hidden;
 		padding: size(234) size(108) size(64);
@@ -38,6 +43,14 @@ const { id } = Astro.props;
 				top: size(120);
 				width: size(587);
 				height: size(587);
+			}
+		}
+
+		&--sp-lg {
+			@include mq('sp') {
+				.c-page-hero__ja {
+					font-size: size(80);
+				}
 			}
 		}
 

@@ -20,7 +20,7 @@ const members = await getAllMembers({ orders: '-system:default' });
 					members.map((m) => (
 						<li class="p-members__cell">
 							<MemberPanel
-								href={`/members/${m.slug ?? m.id}`}
+								href={`/members/${m.slug}`}
 								name={m.name}
 								nameEn={m.nameEn}
 								role={m.role}

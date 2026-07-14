@@ -6,7 +6,7 @@ import type { MicroCMSImage } from 'microcms-js-sdk';
 interface Props {
 	href: string;
 	name: string;
-	nameEn?: string;
+	nameEn: string;
 	role: string;
 	photo: MicroCMSImage;
 	photoHover: MicroCMSImage;
@@ -40,7 +40,7 @@ const src = (img: MicroCMSImage) => `${img.url}?fm=webp&h=620`;
 		/>
 	</span>
 	<span class="c-member-panel__name">{name}</span>
-	{nameEn && <span class="c-member-panel__nameEn">{nameEn}</span>}
+	<span class="c-member-panel__nameEn">{nameEn}</span>
 	<span class="c-member-panel__role">{role}</span>
 	<span class="c-member-panel__btn" aria-hidden="true">
 		<img class="c-member-panel__arrow" src={arrow.src} alt="" />

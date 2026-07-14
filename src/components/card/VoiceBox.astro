@@ -1,0 +1,156 @@
+---
+import quoteTriangle from '../../images/keitasplan/common/quote-triangle.svg';
+
+import type { MicroCMSImage } from 'microcms-js-sdk';
+
+interface Props {
+	headline: string;
+	meta: string;
+	body: string;
+	thumbnail?: MicroCMSImage;
+}
+
+const { headline, meta, body, thumbnail } = Astro.props;
+---
+
+<article class="c-voice-box">
+	<span class="c-voice-box__photo">
+		{
+			thumbnail && (
+				<img
+					class="c-voice-box__img"
+					src={`${thumbnail.url}?fm=webp&w=880`}
+					alt=""
+					width={thumbnail.width}
+					height={thumbnail.height}
+					loading="lazy"
+					decoding="async"
+				/>
+			)
+		}
+	</span>
+	<h2 class="c-voice-box__head">
+		<img
+			class="c-voice-box__quote"
+			src={quoteTriangle.src}
+			alt=""
+			aria-hidden="true"
+		/>
+		<span class="c-voice-box__headline">{headline}</span>
+		<img
+			class="c-voice-box__quote c-voice-box__quote--close"
+			src={quoteTriangle.src}
+			alt=""
+			aria-hidden="true"
+		/>
+	</h2>
+	<p class="c-voice-box__meta">{meta}</p>
+	<p class="c-voice-box__body">{body}</p>
+</article>
+
+<style lang="scss">
+	.c-voice-box {
+		height: 100%;
+		padding: size(32) size(30);
+		background-color: $brand-white;
+		border-radius: size(7);
+
+		@include mq('sp') {
+			padding: size(40);
+		}
+
+		&__photo {
+			display: block;
+			height: size(226);
+			border-radius: size(3);
+			background-color: $gray;
+			overflow: hidden;
+
+			@include mq('sp') {
+				height: size(364);
+			}
+		}
+
+		&__img {
+			display: block;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+
+		&__head {
+			display: flex;
+			align-items: flex-start;
+			justify-content: center;
+			gap: size(44);
+			margin-top: size(27);
+
+			@include mq('sp') {
+				gap: size(54);
+				margin-top: size(41);
+			}
+		}
+
+		&__quote {
+			display: block;
+			width: size(23);
+			height: size(23);
+
+			@include mq('sp') {
+				width: size(38);
+				height: size(38);
+			}
+
+			&--close {
+				align-self: flex-end;
+				transform: rotate(180deg);
+			}
+		}
+
+		&__headline {
+			width: size(300);
+			font-family: $Font;
+			font-weight: 700;
+			font-size: size(25);
+			line-height: 1.4;
+			text-align: center;
+			color: $brand-blue;
+
+			@include mq('sp') {
+				width: size(367);
+				font-size: size(34);
+			}
+		}
+
+		&__meta {
+			margin-top: size(28);
+			font-family: $Font;
+			font-weight: 400;
+			font-size: size(17);
+			line-height: 1.4;
+			letter-spacing: size(0.65);
+			text-align: center;
+			color: $brand-blue;
+
+			@include mq('sp') {
+				margin-top: size(40);
+				font-size: size(25);
+			}
+		}
+
+		&__body {
+			margin-top: size(20);
+			font-family: $Font;
+			font-weight: 400;
+			font-size: size(18);
+			line-height: 1.6;
+			text-align: justify;
+			color: $brand-text;
+
+			@include mq('sp') {
+				margin-top: size(40);
+				font-size: size(30);
+			}
+		}
+	}
+</style>

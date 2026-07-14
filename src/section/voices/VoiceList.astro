@@ -1,4 +1,5 @@
 ---
+import VoiceBox from '../../components/card/VoiceBox.astro';
 import Pager from '../../components/common/Pager.astro';
 
 interface Props {
@@ -11,86 +12,72 @@ const { items, currentPage, totalPages } = Astro.props;
 
 <section class="p-voices">
 	<div class="p-voices__inner">
-		<h1 class="p-voices__title">お客様の声</h1>
-		<ul class="p-voices__list">
+		<ul class="p-voices__grid">
 			{
 				items.map((v) => (
-					<li class="p-voices__item">
-						<a
-							class="p-voices__link"
-							href={`/voices/detail/${v.id}`}
-						>
-							<span class="p-voices__meta">{v.meta}</span>
-							<span class="p-voices__headline">{v.title}</span>
-						</a>
+					<li class="p-voices__cell">
+						<VoiceBox
+							headline={v.title}
+							meta={v.meta}
+							body={v.body}
+							thumbnail={v.thumbnail}
+						/>
 					</li>
 				))
 			}
 		</ul>
-		<div class="p-voices__pager">
-			<Pager
-				currentPage={currentPage}
-				totalPages={totalPages}
-				basePath="/voices"
-			/>
-		</div>
+		{
+			totalPages > 1 && (
+				<div class="p-voices__pager">
+					<Pager
+						currentPage={currentPage}
+						totalPages={totalPages}
+						basePath="/voices"
+					/>
+				</div>
+			)
+		}
 	</div>
 </section>
 
 <style lang="scss">
 	.p-voices {
+		position: relative;
+		background: linear-gradient(360deg, #dfefff 48.08%, #b8dbff 100%);
+		border-radius: size($section-card-radius) size($section-card-radius) 0 0;
+
 		&__inner {
-			max-width: size(800);
+			max-width: size(1080);
 			margin-inline: auto;
-			padding: size(160) size(24) size(120);
-		}
-
-		&__title {
-			font-family: $Font;
-			font-weight: 500;
-			font-size: size(40);
-			color: $brand-text;
-		}
-
-		&__list {
-			display: flex;
-			flex-direction: column;
-			gap: size(24);
-			margin-top: size(60);
-		}
-
-		&__link {
-			display: flex;
-			flex-direction: column;
-			gap: size(4);
-			padding: size(24);
-			background: $brand-blue-sky;
-			border-radius: size(10);
-		}
-
-		&__meta {
-			font-family: $Font;
-			font-size: size(14);
-			color: $brand-blue;
+			padding-block: size(98) size(100);
 
 			@include mq('sp') {
-				font-size: size(22);
+				max-width: size(630);
+				padding-block: size(148) size(150);
 			}
 		}
 
-		&__headline {
-			font-family: $Font;
-			font-weight: 500;
-			font-size: size(20);
-			color: $brand-text;
+		&__grid {
+			display: grid;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: size(80);
 
 			@include mq('sp') {
-				font-size: size(28);
+				grid-template-columns: minmax(0, 1fr);
+				gap: size(100);
 			}
+		}
+
+		&__cell {
+			min-width: 0;
 		}
 
 		&__pager {
-			margin-top: size(80);
+			margin-top: size(108);
+
+			@include mq('sp') {
+				margin-top: size(119);
+			}
 		}
 	}
 </style>

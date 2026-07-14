@@ -5,6 +5,7 @@ import Footer from '../../layouts/Footer.astro';
 import Header from '../../layouts/Header.astro';
 import Layout from '../../layouts/Layout.astro';
 import { getAllVoices } from '../../lib/microcms';
+import PageHero from '../../section/common/PageHero.astro';
 import VoiceList from '../../section/voices/VoiceList.astro';
 
 const voices = await getAllVoices({ orders: 'system:default' });
@@ -13,6 +14,7 @@ const totalPages = Math.max(1, Math.ceil(voices.length / VOICES_PAGE_SIZE));
 
 <Layout title={`お客様の声 | ${siteMetadata.siteName}`}>
 	<Header id="header" />
+	<PageHero id="voices-hero" ja="お客様の声" en="VOICE" spTitleLarge />
 	<VoiceList
 		items={voices.slice(0, VOICES_PAGE_SIZE)}
 		currentPage={1}

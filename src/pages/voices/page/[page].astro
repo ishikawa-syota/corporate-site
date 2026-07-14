@@ -5,6 +5,7 @@ import Footer from '../../../layouts/Footer.astro';
 import Header from '../../../layouts/Header.astro';
 import Layout from '../../../layouts/Layout.astro';
 import { getAllVoices } from '../../../lib/microcms';
+import PageHero from '../../../section/common/PageHero.astro';
 import VoiceList from '../../../section/voices/VoiceList.astro';
 
 // 1ページ目は /voices/ が担うため、ここでは2ページ目以降のみ生成する
@@ -32,6 +33,7 @@ const { items, page, totalPages } = Astro.props;
 
 <Layout title={`お客様の声（${page}ページ目） | ${siteMetadata.siteName}`}>
 	<Header id="header" />
+	<PageHero id="voices-hero" ja="お客様の声" en="VOICE" spTitleLarge />
 	<VoiceList items={items} currentPage={page} totalPages={totalPages} />
 	<Footer id="footer" variant="subpage" />
 </Layout>

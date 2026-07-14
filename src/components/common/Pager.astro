@@ -1,4 +1,6 @@
 ---
+import arrow from '../../images/keitasplan/common/pager-arrow.svg';
+
 interface Props {
 	currentPage: number;
 	totalPages: number;
@@ -16,22 +18,52 @@ const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
 	totalPages > 1 && (
 		<nav class="c-pager" aria-label="ページ送り">
 			<ul class="c-pager__list">
+				{currentPage > 1 && (
+					<li class="c-pager__item">
+						<a
+							class="c-pager__prev"
+							href={pageHref(currentPage - 1)}
+							aria-label="前のページへ"
+						>
+							<img
+								class="c-pager__arrow"
+								src={arrow.src}
+								alt=""
+							/>
+						</a>
+					</li>
+				)}
 				{pages.map((page) => (
 					<li class="c-pager__item">
 						{page === currentPage ? (
 							<span
-								class="c-pager__page c-pager__page--current"
+								class="c-pager__num c-pager__num--current"
 								aria-current="page"
 							>
 								{page}
 							</span>
 						) : (
-							<a class="c-pager__page" href={pageHref(page)}>
+							<a class="c-pager__num" href={pageHref(page)}>
 								{page}
 							</a>
 						)}
 					</li>
 				))}
+				{currentPage < totalPages && (
+					<li class="c-pager__item">
+						<a
+							class="c-pager__next"
+							href={pageHref(currentPage + 1)}
+							aria-label="次のページへ"
+						>
+							<img
+								class="c-pager__arrow"
+								src={arrow.src}
+								alt=""
+							/>
+						</a>
+					</li>
+				)}
 			</ul>
 		</nav>
 	)
@@ -41,30 +73,53 @@ const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
 	.c-pager {
 		&__list {
 			display: flex;
+			align-items: center;
 			justify-content: center;
-			gap: size(12);
+			gap: size(22);
 		}
 
-		&__page {
+		&__num {
 			display: grid;
 			place-items: center;
-			width: size(44);
-			height: size(44);
-			font-family: $Font;
-			font-size: size(16);
+			width: size(40);
+			height: size(40);
+			border-radius: 50%;
+			background-color: $brand-white;
+			font-family: $Font-Readex;
+			font-weight: 500;
+			font-size: size(20);
+			line-height: 1.4;
 			color: $brand-blue;
-			background: $brand-blue-sky;
-			border-radius: size(8);
 
 			@include mq('sp') {
 				width: size(60);
 				height: size(60);
-				font-size: size(24);
+				font-size: size(30);
 			}
 
 			&--current {
+				background-color: $brand-blue;
 				color: $brand-white;
-				background: $brand-blue;
+			}
+		}
+
+		&__next {
+			display: block;
+		}
+
+		&__prev {
+			display: block;
+			transform: scaleX(-1);
+		}
+
+		&__arrow {
+			display: block;
+			width: size(50);
+			height: size(50);
+
+			@include mq('sp') {
+				width: size(70);
+				height: size(70);
 			}
 		}
 	}

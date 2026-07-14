@@ -17,17 +17,17 @@ const data = await getData();
 		employeeCount={data.employeeCount}
 		officeCount={data.officeCount}
 	/>
-	<HomeVisit
-		id="data-home-visit"
-		annualPurchaseCount={data.annualPurchaseCount}
-		customerSatisfaction={data.customerSatisfaction}
-		avgVisitMinutes={data.avgVisitMinutes}
-	/>
 	<Events
 		id="data-events"
 		annualEventCount={data.annualEventCount}
 		totalStoreCount={data.totalStoreCount}
 		annualVisitorCount={data.annualVisitorCount}
+	/>
+	<HomeVisit
+		id="data-home-visit"
+		annualPurchaseCount={data.annualPurchaseCount}
+		customerSatisfaction={data.customerSatisfaction}
+		avgVisitMinutes={data.avgVisitMinutes}
 	/>
 	<Staff
 		id="data-staff"

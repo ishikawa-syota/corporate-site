@@ -1,7 +1,8 @@
 ---
 import BlockHeading from '../../components/common/BlockHeading.astro';
-import OptImage from '../../components/common/OptImage.astro';
-import mapImg from '../../images/keitasplan/business/kanto-map.png';
+import Picture from '../../components/common/Picture.astro';
+import mapImgPc from '../../images/keitasplan/business/map-pc.png';
+import mapImgSp from '../../images/keitasplan/business/map-sp.png';
 import arrowCircle from '../../images/keitasplan/common/arrow-circle.svg';
 import telIcon from '../../images/keitasplan/common/icon-tel.svg?raw';
 ---
@@ -11,15 +12,14 @@ import telIcon from '../../images/keitasplan/common/icon-tel.svg?raw';
 
 	<div class="p-biz-area__body">
 		<div class="p-biz-area__map">
-			<OptImage
-				src={mapImg}
-				alt="対応エリア地図（関東中心）"
-				width={930}
-				fit="contain"
+			<Picture
+				src={mapImgPc}
+				srcSp={mapImgSp}
+				alt="対応エリア地図（全国）"
 			/>
 		</div>
 		<p class="p-biz-area__text">
-			<span class="p-biz-area__textLead">関東を中心に</span>
+			<span class="p-biz-area__textLead">北海道から沖縄まで</span>
 			<span class="p-biz-area__textMain">
 				<span class="p-biz-area__textBig">全国対応</span>しております。
 			</span>
@@ -77,11 +77,13 @@ import telIcon from '../../images/keitasplan/common/icon-tel.svg?raw';
 
 		&__map {
 			flex-shrink: 0;
-			width: size(465);
-			aspect-ratio: 930 / 800;
+			width: size(493);
+			aspect-ratio: 493 / 400;
+			border-radius: size(10);
 
 			@include mq('sp') {
 				width: 100%;
+				aspect-ratio: 580 / 588;
 			}
 		}
 

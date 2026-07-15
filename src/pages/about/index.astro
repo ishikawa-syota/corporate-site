@@ -1,0 +1,17 @@
+---
+import { siteMetadata } from '../../data/meta';
+import Footer from '../../layouts/Footer.astro';
+import Header from '../../layouts/Header.astro';
+import Layout from '../../layouts/Layout.astro';
+import Access from '../../section/about/Access.astro';
+import CompanyInfo from '../../section/about/CompanyInfo.astro';
+import PageHero from '../../section/common/PageHero.astro';
+---
+
+<Layout title={`会社概要 | ${siteMetadata.siteName}`}>
+	<Header id="header" />
+	<PageHero id="about-hero" ja="会社概要" en="ABOUT" spTitleLarge />
+	<CompanyInfo />
+	<Access />
+	<Footer id="footer" variant="subpage" />
+</Layout>

@@ -16,8 +16,8 @@ export const navItems: NavItem[] = [
 	{ ja: 'メンバー', en: 'MEMBERS', href: '/members' },
 	{ ja: 'お客様の声', en: 'VOICE', href: '/voices' },
 	{ ja: 'ニュース', en: 'NEWS', href: '/news' },
-	{ ja: 'メッセージ', en: 'MESSAGE', href: '/#message' },
-	{ ja: '会社概要', en: 'ABOUT', href: '#about' },
+	{ ja: '代表メッセージ', en: 'MESSAGE', href: '/message' },
+	{ ja: '会社概要', en: 'ABOUT', href: '/about' },
 	{ ja: 'よくある質問', en: 'FAQ', href: '/#faq' },
 ];
 

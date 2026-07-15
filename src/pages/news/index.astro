@@ -4,17 +4,26 @@ import { siteMetadata } from '../../data/meta';
 import Footer from '../../layouts/Footer.astro';
 import Header from '../../layouts/Header.astro';
 import Layout from '../../layouts/Layout.astro';
-import { getAllNews } from '../../lib/microcms';
+import { getAllNews, getAllNewsCategories } from '../../lib/microcms';
+import PageHero from '../../section/common/PageHero.astro';
 import NewsList from '../../section/news/NewsList.astro';
 
 const news = await getAllNews({ orders: '-date' });
+const categories = await getAllNewsCategories({ orders: '-system:default' });
 const totalPages = Math.max(1, Math.ceil(news.length / NEWS_PAGE_SIZE));
 ---
 
-<Layout title={`ニュース | ${siteMetadata.siteName}`}>
+<Layout title={`ニュース・催事情報 | ${siteMetadata.siteName}`}>
 	<Header id="header" />
+	<PageHero
+		id="news-hero"
+		ja='ニュース・<br class="u-sp-only" />催事情報'
+		en="NEWS & EVENTS"
+		spTitleLarge
+	/>
 	<NewsList
 		items={news.slice(0, NEWS_PAGE_SIZE)}
+		categories={categories}
 		currentPage={1}
 		totalPages={totalPages}
 	/>

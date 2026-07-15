@@ -1,115 +1,207 @@
 ---
+import NewsCard from '../../components/card/NewsCard.astro';
 import Pager from '../../components/common/Pager.astro';
-import { formatDotDate } from '../../utils/date';
 
 interface Props {
 	items: any[];
+	categories: any[];
 	currentPage: number;
 	totalPages: number;
+	basePath?: string;
+	currentSlug?: string | null;
 }
-const { items, currentPage, totalPages } = Astro.props;
+const {
+	items,
+	categories,
+	currentPage,
+	totalPages,
+	basePath = '/news',
+	currentSlug = null,
+} = Astro.props;
+
+// 一覧カードの抜粋は本文（リッチテキスト）からタグを除いて生成する
+const toExcerpt = (body?: string) =>
+	body?.replace(/<[^>]+>/g, '').trim() || undefined;
 ---
 
 <section class="p-news">
 	<div class="p-news__inner">
-		<h1 class="p-news__title">ニュース</h1>
-		<ul class="p-news__list">
-			{
-				items.map((n) => (
-					<li class="p-news__item">
-						<a class="p-news__link" href={`/news/detail/${n.id}`}>
-							<img
-								class="p-news__img"
-								src={`${n.image.url}?fm=webp&w=450`}
-								alt=""
-								width={n.image.width}
-								height={n.image.height}
-								loading="lazy"
-								decoding="async"
+		<nav class="p-news__nav" aria-label="ニュースカテゴリー">
+			<ul class="p-news__menu">
+				<li class="p-news__menuItem">
+					<a
+						class:list={[
+							'p-news__menuLink',
+							!currentSlug && 'p-news__menuLink--current',
+						]}
+						href="/news/"
+						aria-current={!currentSlug ? 'page' : undefined}
+					>
+						すべて
+					</a>
+				</li>
+				{
+					categories.map((c) => (
+						<li class="p-news__menuItem">
+							<a
+								class:list={[
+									'p-news__menuLink',
+									currentSlug === c.slug &&
+										'p-news__menuLink--current',
+								]}
+								href={`/news/category/${c.slug}/`}
+								aria-current={
+									currentSlug === c.slug ? 'page' : undefined
+								}
+							>
+								{c.name}
+							</a>
+						</li>
+					))
+				}
+			</ul>
+		</nav>
+		{
+			items.length === 0 ? (
+				<p class="p-news__empty">該当のコンテンツはありません</p>
+			) : (
+				<ul class="p-news__grid">
+					{items.map((n) => (
+						<li class="p-news__cell">
+							<NewsCard
+								href={`/news/detail/${n.id}`}
+								title={n.title}
+								categoryName={n.category.name}
+								categorySlug={n.category.slug}
+								date={n.date}
+								image={n.image}
+								excerpt={toExcerpt(n.body)}
 							/>
-							<span class="p-news__meta">
-								{`${formatDotDate(n.date)} ／ ${n.category.name}`}
-							</span>
-							<span class="p-news__headline">{n.title}</span>
-						</a>
-					</li>
-				))
-			}
-		</ul>
-		<div class="p-news__pager">
-			<Pager
-				currentPage={currentPage}
-				totalPages={totalPages}
-				basePath="/news"
-			/>
-		</div>
+						</li>
+					))}
+				</ul>
+			)
+		}
+		{
+			totalPages > 1 && (
+				<div class="p-news__pager">
+					<Pager
+						currentPage={currentPage}
+						totalPages={totalPages}
+						basePath={basePath}
+					/>
+				</div>
+			)
+		}
 	</div>
 </section>
 
 <style lang="scss">
 	.p-news {
+		position: relative;
+		background: linear-gradient(360deg, #dfefff 48.08%, #b8dbff 100%);
+		border-radius: size($section-card-radius) size($section-card-radius) 0 0;
+
 		&__inner {
-			max-width: size(1050);
-			margin-inline: auto;
-			padding: size(160) size(24) size(120);
-		}
-
-		&__title {
-			font-family: $Font;
-			font-weight: 500;
-			font-size: size(40);
-			color: $brand-text;
-		}
-
-		&__list {
-			display: grid;
-			grid-template-columns: repeat(3, 1fr);
-			gap: size(40);
-			margin-top: size(60);
+			padding-block: size(97) size(92);
 
 			@include mq('sp') {
-				grid-template-columns: 1fr;
-				gap: size(40);
+				padding-block: size(118) size(125);
 			}
 		}
 
-		&__link {
+		&__nav {
 			display: flex;
-			flex-direction: column;
-			gap: size(8);
-		}
-
-		&__img {
-			display: block;
-			width: 100%;
-			height: auto;
-			border-radius: size(10);
-		}
-
-		&__meta {
-			font-family: $Font;
-			font-size: size(13);
-			color: $brand-blue;
+			align-items: center;
+			justify-content: center;
+			width: size(1240);
+			height: size(60);
+			margin-inline: auto;
+			border-radius: size(160);
+			background-color: $brand-blue;
 
 			@include mq('sp') {
-				font-size: size(22);
+				width: size(630);
+				height: auto;
+				border-radius: 0;
+				background-color: transparent;
 			}
 		}
 
-		&__headline {
+		&__menu {
+			display: flex;
+			align-items: center;
+			gap: size(42);
+
+			@include mq('sp') {
+				flex-wrap: wrap;
+				justify-content: center;
+				gap: size(36) size(28);
+			}
+		}
+
+		&__menuLink {
 			font-family: $Font;
 			font-weight: 500;
+			font-size: size(20);
+			line-height: 1.4;
+			letter-spacing: size(0.7);
+			color: $brand-white;
+
+			@include mq('sp') {
+				display: block;
+				padding: size(5) size(18);
+				border-radius: size(80);
+				background-color: $brand-blue;
+				font-size: size(34);
+			}
+
+			&--current {
+				text-decoration: underline;
+				text-underline-offset: size(6);
+			}
+		}
+
+		&__grid {
+			display: grid;
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+			gap: size(75) size(81);
+			width: size(1212);
+			margin: size(85) auto 0;
+
+			@include mq('sp') {
+				grid-template-columns: minmax(0, 1fr);
+				gap: size(100);
+				width: size(630);
+				margin-top: size(94);
+			}
+		}
+
+		&__cell {
+			min-width: 0;
+		}
+
+		&__empty {
+			margin-top: size(85);
+			font-family: $Font;
+			font-weight: 400;
 			font-size: size(18);
-			line-height: 1.6;
+			line-height: 1.8;
+			text-align: center;
 			color: $brand-text;
 
 			@include mq('sp') {
-				font-size: size(28);
+				margin-top: size(94);
+				font-size: size(30);
 			}
 		}
 
 		&__pager {
-			margin-top: size(80);
+			margin-top: size(75);
+
+			@include mq('sp') {
+				margin-top: size(119);
+			}
 		}
 	}
 </style>

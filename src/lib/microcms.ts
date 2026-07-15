@@ -54,6 +54,11 @@ export const getAllVoices = (queries?: MicroCMSQueries) =>
 		client.getAllContents({ endpoint: 'voices', queries })
 	);
 
+export const getAllNewsCategories = (queries?: MicroCMSQueries) =>
+	memoize(`news_categories:${JSON.stringify(queries ?? null)}`, () =>
+		client.getAllContents({ endpoint: 'news_categories', queries })
+	);
+
 // メンバー
 export const getMembers = (queries?: MicroCMSQueries) =>
 	client.getList({

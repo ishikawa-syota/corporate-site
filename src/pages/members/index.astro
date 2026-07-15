@@ -15,22 +15,26 @@ const members = await getAllMembers({ orders: '-system:default' });
 	<PageHero id="members-hero" ja="メンバー" en="MEMBERS" spTitleLarge />
 	<section class="p-members">
 		<div class="p-members__inner">
-			<ul class="p-members__grid">
-				{
-					members.map((m) => (
-						<li class="p-members__cell">
-							<MemberPanel
-								href={`/members/${m.slug}`}
-								name={m.name}
-								nameEn={m.nameEn}
-								role={m.role}
-								photo={m.photo}
-								photoHover={m.photoHover}
-							/>
-						</li>
-					))
-				}
-			</ul>
+			{
+				members.length === 0 ? (
+					<p class="p-members__empty">該当のコンテンツはありません</p>
+				) : (
+					<ul class="p-members__grid">
+						{members.map((m) => (
+							<li class="p-members__cell">
+								<MemberPanel
+									href={`/members/${m.slug}`}
+									name={m.name}
+									nameEn={m.nameEn}
+									role={m.role}
+									photo={m.photo}
+									photoHover={m.photoHover}
+								/>
+							</li>
+						))}
+					</ul>
+				)
+			}
 		</div>
 	</section>
 	<Footer id="footer" variant="subpage" />
@@ -66,6 +70,19 @@ const members = await getAllMembers({ orders: '-system:default' });
 
 		&__cell {
 			min-width: 0;
+		}
+
+		&__empty {
+			font-family: $Font;
+			font-weight: 400;
+			font-size: size(18);
+			line-height: 1.8;
+			text-align: center;
+			color: $brand-text;
+
+			@include mq('sp') {
+				font-size: size(30);
+			}
 		}
 	}
 </style>

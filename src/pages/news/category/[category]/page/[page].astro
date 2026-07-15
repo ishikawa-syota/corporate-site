@@ -1,0 +1,61 @@
+---
+import { NEWS_PAGE_SIZE } from '../../../../../data/config';
+import { siteMetadata } from '../../../../../data/meta';
+import Footer from '../../../../../layouts/Footer.astro';
+import Header from '../../../../../layouts/Header.astro';
+import Layout from '../../../../../layouts/Layout.astro';
+import { getAllNews, getAllNewsCategories } from '../../../../../lib/microcms';
+import PageHero from '../../../../../section/common/PageHero.astro';
+import NewsList from '../../../../../section/news/NewsList.astro';
+
+// 1ページ目は /news/category/{slug}/ が担うため、ここでは2ページ目以降のみ生成する
+export async function getStaticPaths() {
+	const news = await getAllNews({ orders: '-date' });
+	const categories = await getAllNewsCategories({
+		orders: '-system:default',
+	});
+	return categories.flatMap((category) => {
+		const items = news.filter((n) => n.category.slug === category.slug);
+		const totalPages = Math.ceil(items.length / NEWS_PAGE_SIZE);
+		return Array.from({ length: Math.max(0, totalPages - 1) }, (_, i) => {
+			const page = i + 2;
+			return {
+				params: { category: category.slug, page: String(page) },
+				props: {
+					category,
+					categories,
+					items: items.slice(
+						(page - 1) * NEWS_PAGE_SIZE,
+						page * NEWS_PAGE_SIZE
+					),
+					page,
+					totalPages,
+				},
+			};
+		});
+	});
+}
+
+const { category, categories, items, page, totalPages } = Astro.props;
+---
+
+<Layout
+	title={`${category.name}（${page}ページ目） | ニュース・催事情報 | ${siteMetadata.siteName}`}
+>
+	<Header id="header" />
+	<PageHero
+		id="news-hero"
+		ja='ニュース・<br class="u-sp-only" />催事情報'
+		en="NEWS & EVENTS"
+		spTitleLarge
+	/>
+	<NewsList
+		items={items}
+		categories={categories}
+		currentPage={page}
+		totalPages={totalPages}
+		basePath={`/news/category/${category.slug}`}
+		currentSlug={category.slug}
+	/>
+	<Footer id="footer" variant="subpage" />
+</Layout>

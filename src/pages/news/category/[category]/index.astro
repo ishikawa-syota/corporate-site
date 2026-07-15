@@ -1,0 +1,55 @@
+---
+import { NEWS_PAGE_SIZE } from '../../../../data/config';
+import { siteMetadata } from '../../../../data/meta';
+import Footer from '../../../../layouts/Footer.astro';
+import Header from '../../../../layouts/Header.astro';
+import Layout from '../../../../layouts/Layout.astro';
+import { getAllNews, getAllNewsCategories } from '../../../../lib/microcms';
+import PageHero from '../../../../section/common/PageHero.astro';
+import NewsList from '../../../../section/news/NewsList.astro';
+
+export async function getStaticPaths() {
+	const news = await getAllNews({ orders: '-date' });
+	const categories = await getAllNewsCategories({
+		orders: '-system:default',
+	});
+	return categories.map((category) => {
+		const items = news.filter((n) => n.category.slug === category.slug);
+		return {
+			params: { category: category.slug },
+			props: {
+				category,
+				categories,
+				items: items.slice(0, NEWS_PAGE_SIZE),
+				totalPages: Math.max(
+					1,
+					Math.ceil(items.length / NEWS_PAGE_SIZE)
+				),
+			},
+		};
+	});
+}
+
+const { category, categories, items, totalPages } = Astro.props;
+---
+
+<Layout
+	title={`${category.name} | ニュース・催事情報 | ${siteMetadata.siteName}`}
+>
+	<Header id="header" />
+	<PageHero
+		id="news-hero"
+		ja='ニュース・<br class="u-sp-only" />催事情報'
+		en="NEWS & EVENTS"
+		spTitleLarge
+	/>
+	<NewsList
+		items={items}
+		categories={categories}
+		currentPage={1}
+		totalPages={totalPages}
+		basePath={`/news/category/${category.slug}`}
+		currentSlug={category.slug}
+	/>
+	<Footer id="footer" variant="subpage" />
+</Layout>

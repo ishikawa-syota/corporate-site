@@ -1,0 +1,159 @@
+---
+import { formatDotDate } from '../../utils/date';
+
+import type { MicroCMSImage } from 'microcms-js-sdk';
+
+interface Props {
+	href: string;
+	title: string;
+	categoryName: string;
+	categorySlug: string;
+	date: string;
+	image?: MicroCMSImage;
+	excerpt?: string;
+}
+
+const { href, title, categoryName, categorySlug, date, image, excerpt } =
+	Astro.props;
+---
+
+<a class="c-news-card" href={href}>
+	<span class="c-news-card__photo">
+		{
+			image && (
+				<img
+					class="c-news-card__img"
+					src={`${image.url}?fm=webp&w=700`}
+					alt=""
+					width={image.width}
+					height={image.height}
+					loading="lazy"
+					decoding="async"
+				/>
+			)
+		}
+	</span>
+	<span class="c-news-card__meta">
+		<span
+			class:list={[
+				'c-news-card__badge',
+				`c-news-card__badge--${categorySlug}`,
+			]}
+		>
+			{categoryName}
+		</span>
+		<time class="c-news-card__date" datetime={date.slice(0, 10)}>
+			{formatDotDate(date)}
+		</time>
+	</span>
+	<span class="c-news-card__title">{title}</span>
+	{excerpt && <span class="c-news-card__excerpt">{excerpt}</span>}
+</a>
+
+<style lang="scss">
+	.c-news-card {
+		display: block;
+
+		&__photo {
+			display: block;
+			height: size(240);
+			border-radius: size(10);
+			background-color: $gray;
+			overflow: hidden;
+
+			@include mq('sp') {
+				height: size(432);
+			}
+		}
+
+		&__img {
+			display: block;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+
+		&__meta {
+			display: flex;
+			align-items: center;
+			gap: size(10);
+			margin-top: size(17);
+		}
+
+		&__badge {
+			padding: size(2) size(7);
+			border-radius: size(3);
+			background-color: $brand-blue;
+			font-family: $Font;
+			font-weight: 400;
+			font-size: size(18);
+			line-height: 1.4;
+			color: $brand-white;
+
+			@include mq('sp') {
+				font-size: size(28);
+			}
+
+			&--notice {
+				background-color: $brand-green;
+			}
+
+			&--media {
+				background-color: $brand-white;
+				color: $brand-blue;
+			}
+
+			&--other {
+				background-color: #cacaca;
+			}
+		}
+
+		&__date {
+			font-family: $Font;
+			font-weight: 400;
+			font-size: size(18);
+			line-height: 1.4;
+			color: $brand-text;
+
+			@include mq('sp') {
+				font-size: size(28);
+			}
+		}
+
+		&__title {
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+			-webkit-line-clamp: 2;
+			margin-top: size(17);
+			font-family: $Font;
+			font-weight: 700;
+			font-size: size(25);
+			line-height: 1.5;
+			color: $brand-text;
+			overflow: hidden;
+
+			@include mq('sp') {
+				font-size: size(41);
+			}
+		}
+
+		&__excerpt {
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+			-webkit-line-clamp: 3;
+			margin-top: size(24);
+			font-family: $Font;
+			font-weight: 400;
+			font-size: size(18);
+			line-height: 1.8;
+			text-align: justify;
+			color: #666;
+			overflow: hidden;
+
+			@include mq('sp') {
+				margin-top: size(17);
+				font-size: size(30);
+			}
+		}
+	}
+</style>

@@ -12,20 +12,24 @@ const { items, currentPage, totalPages } = Astro.props;
 
 <section class="p-voices">
 	<div class="p-voices__inner">
-		<ul class="p-voices__grid">
-			{
-				items.map((v) => (
-					<li class="p-voices__cell">
-						<VoiceBox
-							headline={v.title}
-							meta={v.meta}
-							body={v.body}
-							thumbnail={v.thumbnail}
-						/>
-					</li>
-				))
-			}
-		</ul>
+		{
+			items.length === 0 ? (
+				<p class="p-voices__empty">該当のコンテンツはありません</p>
+			) : (
+				<ul class="p-voices__grid">
+					{items.map((v) => (
+						<li class="p-voices__cell">
+							<VoiceBox
+								headline={v.title}
+								meta={v.meta}
+								body={v.body}
+								thumbnail={v.thumbnail}
+							/>
+						</li>
+					))}
+				</ul>
+			)
+		}
 		{
 			totalPages > 1 && (
 				<div class="p-voices__pager">
@@ -70,6 +74,19 @@ const { items, currentPage, totalPages } = Astro.props;
 
 		&__cell {
 			min-width: 0;
+		}
+
+		&__empty {
+			font-family: $Font;
+			font-weight: 400;
+			font-size: size(18);
+			line-height: 1.8;
+			text-align: center;
+			color: $brand-text;
+
+			@include mq('sp') {
+				font-size: size(30);
+			}
 		}
 
 		&__pager {

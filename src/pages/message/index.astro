@@ -1,7 +1,5 @@
 ---
 import { siteMetadata } from '../../data/meta';
-import relatedBusinessPc from '../../images/keitasplan/common/related-business-pc.png';
-import relatedBusinessSp from '../../images/keitasplan/common/related-business-sp.png';
 import relatedMembersPc from '../../images/keitasplan/common/related-members-pc.png';
 import relatedMembersSp from '../../images/keitasplan/common/related-members-sp.png';
 import Footer from '../../layouts/Footer.astro';
@@ -9,17 +7,10 @@ import Header from '../../layouts/Header.astro';
 import Layout from '../../layouts/Layout.astro';
 import PageHero from '../../section/common/PageHero.astro';
 import RelatedInfo from '../../section/common/RelatedInfo.astro';
-import DataStats from '../../section/data/DataStats.astro';
+import President from '../../section/message/President.astro';
+import Profile from '../../section/message/Profile.astro';
 
 const relatedCards = [
-	{
-		ja: '事業紹介',
-		en: 'SERVICE',
-		desc: 'サービスの詳細はこちら。',
-		href: '/business',
-		bgPc: relatedBusinessPc,
-		bgSp: relatedBusinessSp,
-	},
 	{
 		ja: '会社概要',
 		en: 'ABOUT',
@@ -37,14 +28,11 @@ const relatedCards = [
 ];
 ---
 
-<Layout title={`数字で見るケイタスプラン | ${siteMetadata.siteName}`}>
+<Layout title={`代表メッセージ | ${siteMetadata.siteName}`}>
 	<Header id="header" />
-	<PageHero
-		id="data-hero"
-		ja='数字で見る<br class="u-sp-only" />ケイタスプラン'
-		en="DATA"
-	/>
-	<DataStats />
-	<RelatedInfo id="data-related" cards={relatedCards} />
+	<PageHero id="message-hero" ja="代表メッセージ" en="MESSAGE" spTitleLarge />
+	<President />
+	<Profile />
+	<RelatedInfo id="message-related" cards={relatedCards} />
 	<Footer id="footer" variant="subpage" />
 </Layout>

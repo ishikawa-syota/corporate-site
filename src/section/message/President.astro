@@ -1,0 +1,167 @@
+---
+import OptImage from '../../components/common/OptImage.astro';
+import portrait from '../../images/keitasplan/message/portrait.png';
+---
+
+<section class="p-president">
+	<div class="p-president__inner">
+		<div class="p-president__main">
+			<h2 class="p-president__heading">
+				関わる人全員を<br />幸せにする会社へ
+			</h2>
+			<div class="p-president__body">
+				<p class="p-president__para">
+					当社の設立は2020年。社会的需要が高まっているにもかかわらず、リユース業界には知識のない不誠実な事業者が多い現状を目の当たりにし、「お客様からできる限り高値で買い取り、適正価格で次のお客様に販売する、誠実なリユース事業者が必要だ」との想いを抱いて、私を含めた２人で会社をスタートしました。
+				</p>
+				<p class="p-president__para">
+					その後、5年足らずで社員数180人規模へと組織を拡大。現在は、設立当初から手掛ける服、バッグ、時計、酒類、貴金属などの中古品売買事業だけではなく、新たにオークション事業も手掛けています。
+				</p>
+				<p class="p-president__para">
+					リユース業界は、少子高齢化の影響を受けて拡大傾向にある稀有な業界。市場は右肩上がりの成長を続け、ますます社会にとって必要な存在となっていくでしょう。その中で当社は、今後“リユースの宝石を活用したオーダーメイドジュエリー事業”にも挑んでいくつもりです。リユース業界の中でも特にジュエリーの分野は、安価で買い取り高値で売るという、お客様に不誠実な対応が目立ちます。そういった環境に反し、当社は誰よりも高い熱量からくる誠実さをもって、“関わる人全員を幸せにする会社”を体現していきます。
+				</p>
+			</div>
+		</div>
+		<div class="p-president__side">
+			<span class="p-president__photo">
+				<OptImage src={portrait} alt="代表取締役 小林 義典" />
+			</span>
+			<p class="p-president__sign">
+				<span class="p-president__role">代表取締役</span>
+				<span class="p-president__name">小林 義典</span>
+			</p>
+		</div>
+	</div>
+</section>
+
+<style lang="scss">
+	.p-president {
+		position: relative;
+		background: linear-gradient(360deg, #dfefff 48.08%, #b8dbff 100%);
+		border-radius: size($section-card-radius) size($section-card-radius) 0 0;
+		padding-top: size(148);
+		padding-bottom: size(112 + $section-card-radius);
+
+		@include mq('sp') {
+			padding-bottom: size(223 + $section-card-radius);
+		}
+
+		&__inner {
+			display: flex;
+			align-items: flex-start;
+			gap: size(104);
+			width: size(1055);
+			margin-inline: size(243) size(238);
+
+			@include mq('sp') {
+				flex-direction: column;
+				gap: size(77);
+				width: size(580);
+				margin-inline: auto;
+			}
+		}
+
+		&__heading {
+			font-family: $Font;
+			font-weight: 500;
+			font-size: size(36);
+			line-height: 1.62;
+			letter-spacing: size(0.73);
+			color: $brand-blue;
+
+			@include mq('sp') {
+				font-size: size(55);
+			}
+		}
+
+		&__body {
+			margin-top: size(65);
+			width: size(603);
+
+			@include mq('sp') {
+				width: 100%;
+			}
+		}
+
+		&__para {
+			font-family: $Font;
+			font-weight: 400;
+			font-size: size(20);
+			line-height: 2.2;
+			text-align: justify;
+			color: $brand-text;
+
+			@include mq('sp') {
+				font-size: size(30);
+			}
+
+			& + & {
+				margin-top: size(44);
+
+				@include mq('sp') {
+					margin-top: size(66);
+				}
+			}
+		}
+
+		&__side {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-end;
+			gap: size(33);
+
+			@include mq('sp') {
+				flex-direction: row-reverse;
+				justify-content: flex-start;
+				align-items: flex-end;
+				gap: size(33);
+				width: 100%;
+			}
+		}
+
+		&__photo {
+			display: block;
+			flex-shrink: 0;
+			width: size(348);
+			height: size(437);
+			border-radius: size(10);
+			overflow: hidden;
+		}
+
+		&__sign {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-end;
+			flex-shrink: 0;
+			gap: size(3);
+			white-space: nowrap;
+
+			@include mq('sp') {
+				margin-bottom: size(14);
+			}
+		}
+
+		&__role {
+			font-family: $Font;
+			font-weight: 400;
+			font-size: size(18);
+			line-height: 1.4;
+			color: $brand-text;
+
+			@include mq('sp') {
+				font-size: size(28);
+			}
+		}
+
+		&__name {
+			font-family: $Font;
+			font-weight: 500;
+			font-size: size(35);
+			line-height: 1.4;
+			color: $brand-text;
+
+			@include mq('sp') {
+				font-size: size(50);
+			}
+		}
+	}
+</style>

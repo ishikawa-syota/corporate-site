@@ -1,0 +1,256 @@
+---
+import mark from '../../images/keitasplan/common/mark.svg?raw';
+---
+
+<section class="p-profile">
+	<div class="p-profile__inner">
+		<div class="p-profile__head">
+			<span class="p-profile__mark" aria-hidden="true" set:html={mark} />
+			<span class="p-profile__titles">
+				<span class="p-profile__ja">代表プロフィール</span>
+				<span class="p-profile__en">PROFILE</span>
+			</span>
+		</div>
+		<dl class="p-profile__list">
+			<div class="p-profile__group">
+				<div class="p-profile__row">
+					<dt class="p-profile__label">氏名</dt>
+					<dd class="p-profile__value">小林 義典（こばやし ◯◯◯◯）</dd>
+				</div>
+				<div class="p-profile__row">
+					<dt class="p-profile__label">役職</dt>
+					<dd class="p-profile__value">代表取締役</dd>
+				</div>
+				<div class="p-profile__row">
+					<dt class="p-profile__label">生年</dt>
+					<dd class="p-profile__value">0000年</dd>
+				</div>
+			</div>
+			<div class="p-profile__group p-profile__group--detail">
+				<div class="p-profile__row p-profile__row--top">
+					<dt class="p-profile__label">経歴</dt>
+					<dd class="p-profile__value">
+						0000年　○○○○○○○○○○○○○<br />
+						0000年　○○○○○○○○○○○○○<br />
+						0000年　○○○○○○○○○○○○○<br />
+						0000年　○○○○○○○○○○○○○<br />
+						0000年　○○○○○○○○○○○○○<br />
+						0000年　○○○○○○○○○○○○○
+					</dd>
+				</div>
+				<div class="p-profile__row p-profile__row--top">
+					<dt class="p-profile__label">保有資格</dt>
+					<dd class="p-profile__value">
+						○○○○○○○○○○○○○<br />
+						○○○○○○○○○○○○○<br />
+						○○○○○○○○○○○○○
+					</dd>
+				</div>
+			</div>
+		</dl>
+		<div class="p-profile__note">
+			<span class="p-profile__noteLabel">趣味・ひとこと</span>
+			<p class="p-profile__noteText">
+				○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○
+			</p>
+		</div>
+	</div>
+</section>
+
+<style lang="scss">
+	.p-profile {
+		position: relative;
+		margin-top: size(-$section-card-radius);
+		background: linear-gradient(180deg, $brand-white 0%, #e9e9e9 100%);
+		border-radius: size($section-card-radius) size($section-card-radius) 0 0;
+
+		&__inner {
+			width: size(1048);
+			margin-inline: auto;
+			padding-block: size(110) size(148);
+
+			@include mq('sp') {
+				width: size(580);
+				padding-block: size(110) size(159);
+			}
+		}
+
+		&__head {
+			display: flex;
+			align-items: flex-start;
+
+			@include mq('sp') {
+				margin-inline-start: size(-50);
+			}
+		}
+
+		&__mark {
+			flex-shrink: 0;
+			width: size(91);
+			height: size(91);
+			margin-top: size(8);
+
+			:global(svg) {
+				display: block;
+				width: 100%;
+				height: 100%;
+			}
+		}
+
+		&__titles {
+			display: flex;
+			flex-direction: column;
+			gap: size(3);
+		}
+
+		&__ja {
+			font-family: $Font;
+			font-weight: 500;
+			font-size: size(60);
+			line-height: 1.4;
+			letter-spacing: size(6);
+			white-space: nowrap;
+			color: $brand-blue;
+			padding-inline: size(15);
+		}
+
+		&__en {
+			font-family: $Font-Readex;
+			font-weight: 500;
+			font-size: size(18);
+			line-height: 1.4;
+			letter-spacing: size(1.8);
+			color: $brand-blue;
+			padding-inline: size(18);
+
+			@include mq('sp') {
+				font-size: size(20);
+			}
+		}
+
+		&__list {
+			display: flex;
+			flex-direction: column;
+			gap: size(45);
+			margin-top: size(108);
+
+			@include mq('sp') {
+				gap: size(27);
+				margin-top: size(86);
+			}
+		}
+
+		&__group {
+			display: flex;
+			flex-direction: column;
+			gap: size(27);
+
+			&--detail {
+				flex-direction: row;
+				gap: size(46);
+
+				@include mq('sp') {
+					flex-direction: column;
+					gap: size(45);
+				}
+			}
+		}
+
+		&__row {
+			display: flex;
+			align-items: center;
+			gap: size(40);
+
+			&--top {
+				align-items: flex-start;
+			}
+		}
+
+		&__label {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-shrink: 0;
+			width: size(100);
+			height: size(36);
+			padding-bottom: size(2);
+			border-radius: size(3);
+			background-color: $brand-blue;
+			font-family: $Font;
+			font-weight: 500;
+			font-size: size(20);
+			line-height: 1.4;
+			color: $brand-white;
+
+			@include mq('sp') {
+				width: size(130);
+				height: size(37);
+				font-size: size(25);
+			}
+		}
+
+		&__value {
+			font-family: $Font;
+			font-weight: 400;
+			font-size: size(23);
+			line-height: 1.4;
+			color: $brand-text;
+
+			@include mq('sp') {
+				font-size: size(30);
+			}
+		}
+
+		&__note {
+			position: relative;
+			min-height: size(182);
+			margin-top: size(45);
+			padding: size(57) size(59) size(29);
+			border-radius: size(3);
+			background-color: $brand-white;
+
+			@include mq('sp') {
+				min-height: size(392);
+				margin-top: size(63);
+				padding: size(90) size(50) size(50);
+			}
+		}
+
+		&__noteLabel {
+			position: absolute;
+			top: 0;
+			left: 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: size(186);
+			height: size(36);
+			border-radius: size(3) 0;
+			background-color: $brand-blue;
+			font-family: $Font;
+			font-weight: 500;
+			font-size: size(20);
+			line-height: 1.4;
+			color: $brand-white;
+
+			@include mq('sp') {
+				width: size(206);
+				height: size(46);
+				font-size: size(25);
+			}
+		}
+
+		&__noteText {
+			font-family: $Font;
+			font-weight: 400;
+			font-size: size(23);
+			line-height: 1.4;
+			overflow-wrap: break-word;
+			color: $brand-text;
+
+			@include mq('sp') {
+				font-size: size(30);
+			}
+		}
+	}
+</style>

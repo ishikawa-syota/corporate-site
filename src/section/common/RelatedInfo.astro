@@ -1,5 +1,6 @@
 ---
 import Picture from '../../components/common/Picture.astro';
+import logoS from '../../images/keitasplan/common/logo_S.svg?raw';
 import mark from '../../images/keitasplan/common/mark.svg?raw';
 import relatedDataPc from '../../images/keitasplan/common/related-data-pc.png';
 import relatedDataSp from '../../images/keitasplan/common/related-data-sp.png';
@@ -65,10 +66,16 @@ const { id, cards = defaultCards } = Astro.props;
 			{
 				cards.map((c) => (
 					<li class="p-related__card">
-						{c.bgPc && c.bgSp && (
+						{c.bgPc && c.bgSp ? (
 							<span class="p-related__cardBg" aria-hidden="true">
 								<Picture src={c.bgPc} srcSp={c.bgSp} alt="" />
 							</span>
+						) : (
+							<span
+								class="p-related__cardMark"
+								aria-hidden="true"
+								set:html={logoS}
+							/>
 						)}
 						<a class="p-related__cardLink" href={c.href}>
 							<span
@@ -204,6 +211,28 @@ const { id, cards = defaultCards } = Astro.props;
 
 			:global(img) {
 				object-fit: cover;
+			}
+		}
+
+		&__cardMark {
+			position: absolute;
+			top: 26.84%;
+			left: 39.94%;
+			z-index: 0;
+			width: 69.35%;
+			height: 91.8%;
+			opacity: 0.3;
+			pointer-events: none;
+
+			:global(svg) {
+				display: block;
+				width: 100%;
+				height: 100%;
+			}
+
+			:global(path) {
+				fill: $brand-white;
+				fill-opacity: 1;
 			}
 		}
 

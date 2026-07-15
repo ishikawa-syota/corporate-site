@@ -159,6 +159,12 @@ const toExcerpt = (body?: string) =>
 			&--current {
 				text-decoration: underline;
 				text-underline-offset: size(6);
+
+				@include mq('sp') {
+					background-color: #dfefff;
+					color: $brand-blue;
+					text-decoration: none;
+				}
 			}
 		}
 

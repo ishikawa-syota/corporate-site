@@ -1,5 +1,5 @@
 ---
-import arrow from '../../images/keitasplan/common/arrow.svg';
+import arrow from '../../images/keitasplan/common/arrow.svg?raw';
 
 import type { MicroCMSImage } from 'microcms-js-sdk';
 
@@ -43,7 +43,7 @@ const src = (img: MicroCMSImage) => `${img.url}?fm=webp&h=620`;
 	<span class="c-member-panel__nameEn">{nameEn}</span>
 	<span class="c-member-panel__role">{role}</span>
 	<span class="c-member-panel__btn" aria-hidden="true">
-		<img class="c-member-panel__arrow" src={arrow.src} alt="" />
+		<span class="c-member-panel__arrow" set:html={arrow} />
 	</span>
 </a>
 
@@ -73,6 +73,14 @@ const src = (img: MicroCMSImage) => `${img.url}?fm=webp&h=620`;
 
 			&:hover .c-member-panel__img--hover {
 				opacity: 1;
+			}
+
+			&:hover .c-member-panel__btn {
+				background-color: #dfefff;
+			}
+
+			&:hover .c-member-panel__arrow :global(path) {
+				fill: $brand-blue;
 			}
 		}
 
@@ -156,6 +164,7 @@ const src = (img: MicroCMSImage) => `${img.url}?fm=webp&h=620`;
 			height: size(97);
 			border-radius: 50%;
 			background: $brand-blue;
+			transition: background-color 0.3s ease;
 		}
 
 		&__arrow {
@@ -165,6 +174,17 @@ const src = (img: MicroCMSImage) => `${img.url}?fm=webp&h=620`;
 			display: block;
 			width: size(22);
 			height: auto;
+
+			:global(svg) {
+				display: block;
+				width: 100%;
+				height: auto;
+			}
+
+			:global(path) {
+				fill: $brand-white;
+				transition: fill 0.3s ease;
+			}
 		}
 	}
 </style>

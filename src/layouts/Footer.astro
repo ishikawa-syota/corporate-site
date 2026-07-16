@@ -28,7 +28,7 @@ const footerNav = [
 	[
 		{ ja: '会社概要', href: '/about' },
 		{ ja: 'よくある質問', href: '/#faq' },
-		{ ja: 'お問い合わせ', href: '#contact' },
+		{ ja: 'お問い合わせ', href: '/contact' },
 	],
 	[
 		{ ja: '特定商取引法表記', href: '/legalnotice' },
@@ -77,7 +77,7 @@ const footerNav = [
 					</span>
 				</a>
 
-				<a href="#contact" class="p-contactCta__form">
+				<a href="/contact" class="p-contactCta__form">
 					<span class="p-contactCta__formLabel"
 						>お問い合わせフォーム</span
 					>
@@ -131,7 +131,12 @@ const footerNav = [
 				}
 			</nav>
 
-			<a href="#contact" class="l-footer__saiyou">
+			<a
+				href="https://kp-recruit.com/"
+				target="_blank"
+				rel="noopener"
+				class="l-footer__saiyou"
+			>
 				<span class="l-footer__saiyouText">採用サイトはこちら</span>
 				<span class="l-footer__saiyouArrow" aria-hidden="true"
 					><img src={arrow.src} alt="" /></span

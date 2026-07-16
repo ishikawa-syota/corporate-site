@@ -86,7 +86,7 @@ const drawerNav = [
 				<span class="l-header__telNum">{companyInfo.tel}</span>
 			</a>
 			<ArrowButton
-				href="#contact"
+				href="/contact"
 				label="お問い合わせ"
 				variant="white"
 				size="sm"
@@ -192,12 +192,17 @@ const drawerNav = [
 					<span class="l-drawer__telNum">{companyInfo.tel}</span>
 					<span class="l-drawer__telHours">{companyInfo.hours}</span>
 				</a>
-				<a href="#contact" class="l-drawer__form"
+				<a href="/contact" class="l-drawer__form"
 					>お問い合わせフォーム</a
 				>
 			</div>
 
-			<a href="#contact" class="l-drawer__saiyou">
+			<a
+				href="https://kp-recruit.com/"
+				target="_blank"
+				rel="noopener"
+				class="l-drawer__saiyou"
+			>
 				<span class="l-drawer__saiyouText">採用サイトはこちら</span>
 				<span class="l-drawer__saiyouArrow" aria-hidden="true"
 					><img src={arrow.src} alt="" /></span

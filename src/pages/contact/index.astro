@@ -1,0 +1,17 @@
+---
+import { siteMetadata } from '../../data/meta';
+import Footer from '../../layouts/Footer.astro';
+import Header from '../../layouts/Header.astro';
+import Layout from '../../layouts/Layout.astro';
+import PageHero from '../../section/common/PageHero.astro';
+import CallInfo from '../../section/contact/CallInfo.astro';
+import FormArea from '../../section/contact/FormArea.astro';
+---
+
+<Layout title={`お問い合わせ | ${siteMetadata.siteName}`}>
+	<Header id="header" />
+	<PageHero id="contact-hero" ja="お問い合わせ" en="CONTACT" spTitleLarge />
+	<CallInfo />
+	<FormArea />
+	<Footer id="footer" variant="subpage" />
+</Layout>

@@ -7,7 +7,7 @@ const { ja, sub } = Astro.props;
 ---
 
 <div class="c-data-head">
-	<h2 class="c-data-head__title">{ja}</h2>
+	<h2 class="c-data-head__title" set:html={ja} />
 	{sub && <p class="c-data-head__sub">{sub}</p>}
 </div>
 

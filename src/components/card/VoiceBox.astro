@@ -4,16 +4,17 @@ import quoteTriangle from '../../images/keitasplan/common/quote-triangle.svg';
 import type { MicroCMSImage } from 'microcms-js-sdk';
 
 interface Props {
+	href: string;
 	headline: string;
 	meta: string;
 	body: string;
 	thumbnail?: MicroCMSImage;
 }
 
-const { headline, meta, body, thumbnail } = Astro.props;
+const { href, headline, meta, body, thumbnail } = Astro.props;
 ---
 
-<article class="c-voice-box">
+<a class="c-voice-box" href={href}>
 	<span class="c-voice-box__photo">
 		{
 			thumbnail && (
@@ -46,10 +47,11 @@ const { headline, meta, body, thumbnail } = Astro.props;
 	</h2>
 	<p class="c-voice-box__meta">{meta}</p>
 	<p class="c-voice-box__body">{body}</p>
-</article>
+</a>
 
 <style lang="scss">
 	.c-voice-box {
+		display: block;
 		height: 100%;
 		padding: size(32) size(30);
 		background-color: $brand-white;

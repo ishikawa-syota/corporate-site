@@ -47,8 +47,7 @@ html {
 	// font-feature-settings: 'palt' on;
 	font-feature-settings:
 		'pnum' on,
-		'lnum' on,
-		'palt' on;
+		'lnum' on;
 
 	&::-webkit-scrollbar {
 		width: 5px;

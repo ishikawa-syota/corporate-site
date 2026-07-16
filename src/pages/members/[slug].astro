@@ -84,9 +84,10 @@ const { member } = Astro.props;
 				'names photo' auto
 				'intro photo' 1fr
 				/ size(526) size(360);
-			justify-content: center;
+			justify-content: space-between;
 			align-items: start;
-			gap: size(46) size(60);
+			gap: size(46);
+			padding-inline: size(295);
 
 			@include mq('sp') {
 				grid-template:
@@ -95,6 +96,9 @@ const { member } = Astro.props;
 					'intro'
 					/ size(526);
 				row-gap: size(60);
+				width: size(526);
+				padding-inline: 0;
+				margin-inline: auto;
 			}
 		}
 
@@ -159,7 +163,7 @@ const { member } = Astro.props;
 
 		&__intro {
 			grid-area: intro;
-			width: size(515);
+			width: size(526);
 			font-family: $Font-Sub;
 			font-weight: 400;
 			font-size: size(18);

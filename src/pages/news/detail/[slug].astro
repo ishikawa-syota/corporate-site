@@ -1,5 +1,7 @@
 ---
+import ArrowButton from '../../../components/button/ArrowButton.astro';
 import { siteMetadata } from '../../../data/meta';
+import watermark from '../../../images/keitasplan/common/logo_S.svg?raw';
 import Footer from '../../../layouts/Footer.astro';
 import Header from '../../../layouts/Header.astro';
 import Layout from '../../../layouts/Layout.astro';
@@ -17,28 +19,56 @@ export async function getStaticPaths() {
 const { item } = Astro.props;
 ---
 
-<Layout title={`${item.title} | ${siteMetadata.siteName}`}>
+<Layout title={`${item.title} | ニュース・催事情報 | ${siteMetadata.siteName}`}>
 	<Header id="header" />
 	<section class="p-news-detail">
+		<span
+			class="p-news-detail__mark"
+			aria-hidden="true"
+			set:html={watermark}
+		/>
 		<div class="p-news-detail__inner">
-			<a class="p-news-detail__back" href="/news/">← ニュース一覧</a>
-			<p class="p-news-detail__meta">
-				{`${formatDotDate(item.date)} ／ ${item.category.name}`}
-			</p>
-			<h1 class="p-news-detail__headline">{item.title}</h1>
-			<img
-				class="p-news-detail__img"
-				src={`${item.image.url}?fm=webp&w=900`}
-				alt=""
-				width={item.image.width}
-				height={item.image.height}
-				decoding="async"
-			/>
-			{
-				item.body && (
-					<div class="p-news-detail__body" set:html={item.body} />
-				)
-			}
+			<article class="p-news-detail__article">
+				<div class="p-news-detail__meta">
+					<span
+						class:list={[
+							'p-news-detail__badge',
+							`p-news-detail__badge--${item.category.slug}`,
+						]}
+					>
+						{item.category.name}
+					</span>
+					<time
+						class="p-news-detail__date"
+						datetime={item.date.slice(0, 10)}
+					>
+						{formatDotDate(item.date)}
+					</time>
+				</div>
+				<h1 class="p-news-detail__title">{item.title}</h1>
+				{
+					item.image && (
+						<span class="p-news-detail__photo">
+							<img
+								class="p-news-detail__img"
+								src={`${item.image.url}?fm=webp&w=1480`}
+								alt=""
+								width={item.image.width}
+								height={item.image.height}
+								decoding="async"
+							/>
+						</span>
+					)
+				}
+				{
+					item.body && (
+						<div class="p-news-detail__body" set:html={item.body} />
+					)
+				}
+			</article>
+			<div class="p-news-detail__back">
+				<ArrowButton href="/news" label="一覧へ戻る" variant="blue" />
+			</div>
 		</div>
 	</section>
 	<Footer id="footer" variant="subpage" />
@@ -46,68 +76,156 @@ const { item } = Astro.props;
 
 <style lang="scss">
 	.p-news-detail {
-		&__inner {
-			max-width: size(800);
-			margin-inline: auto;
-			padding: size(160) size(24) size(120);
+		position: relative;
+		overflow: hidden;
+		padding: size(224) 0 size(160);
+
+		@include mq('sp') {
+			padding: size(183) 0 size(160);
 		}
 
-		&__back {
-			font-family: $Font;
-			font-size: size(14);
-			color: $brand-blue;
+		&__mark {
+			position: absolute;
+			top: size(120);
+			left: size(-73);
+			width: size(469);
+			height: size(469);
+			pointer-events: none;
+
+			:global(svg) {
+				display: block;
+				width: 100%;
+				height: 100%;
+			}
 
 			@include mq('sp') {
-				font-size: size(22);
+				left: size(-99);
+				width: size(634);
+				height: size(634);
+			}
+		}
+
+		&__inner {
+			position: relative;
+			width: size(900);
+			margin-inline: auto;
+
+			@include mq('sp') {
+				width: size(650);
 			}
 		}
 
 		&__meta {
-			margin-top: size(40);
+			display: flex;
+			align-items: center;
+			gap: size(10);
+		}
+
+		&__badge {
+			padding: size(2) size(7);
+			border-radius: size(3);
+			background-color: $brand-blue;
 			font-family: $Font;
-			font-size: size(14);
-			color: $brand-blue;
+			font-weight: 400;
+			font-size: size(18);
+			line-height: 1.4;
+			color: $brand-white;
 
 			@include mq('sp') {
-				font-size: size(22);
+				font-size: size(28);
+			}
+
+			&--notice {
+				background-color: $brand-green;
+			}
+
+			&--media {
+				background-color: $brand-blue-sky;
+				color: $brand-blue;
+			}
+
+			&--other {
+				background-color: #cacaca;
 			}
 		}
 
-		&__headline {
-			margin-top: size(8);
+		&__date {
 			font-family: $Font;
-			font-weight: 500;
+			font-weight: 400;
+			font-size: size(18);
+			line-height: 1.4;
+			color: $brand-text;
+
+			@include mq('sp') {
+				font-size: size(28);
+			}
+		}
+
+		&__title {
+			margin-top: size(24);
+			font-family: $Font;
+			font-weight: 700;
 			font-size: size(32);
 			line-height: 1.5;
 			color: $brand-text;
 
 			@include mq('sp') {
-				font-size: size(40);
+				margin-top: size(30);
+				font-size: size(44);
 			}
+		}
+
+		&__photo {
+			display: block;
+			margin-top: size(40);
+			border-radius: size(10);
+			overflow: hidden;
 		}
 
 		&__img {
 			display: block;
 			width: 100%;
 			height: auto;
-			margin-top: size(32);
-			border-radius: size(10);
 		}
 
 		&__body {
-			margin-top: size(32);
+			margin-top: size(40);
 			font-family: $Font;
-			font-size: size(16);
+			font-weight: 400;
+			font-size: size(18);
 			line-height: 2;
+			text-align: justify;
+			overflow-wrap: break-word;
 			color: $brand-text;
 
 			@include mq('sp') {
-				font-size: size(26);
+				font-size: size(30);
+			}
+
+			// CMSリッチテキスト（クラス付与不可）のための最小限の整形
+			:global(p + p) {
+				margin-top: size(24);
 			}
 
 			:global(img) {
 				max-width: 100%;
 				height: auto;
+				border-radius: size(10);
+			}
+
+			:global(a) {
+				text-decoration: underline;
+				text-underline-offset: 0.15em;
+			}
+		}
+
+		&__back {
+			display: flex;
+			justify-content: center;
+			margin-top: size(80);
+
+			@include mq('sp') {
+				margin-top: size(100);
 			}
 		}
 	}

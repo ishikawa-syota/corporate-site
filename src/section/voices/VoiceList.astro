@@ -20,6 +20,7 @@ const { items, currentPage, totalPages } = Astro.props;
 					{items.map((v) => (
 						<li class="p-voices__cell">
 							<VoiceBox
+								href={`/voices/detail/${v.id}`}
 								headline={v.title}
 								meta={v.meta}
 								body={v.body}

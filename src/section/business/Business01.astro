@@ -184,7 +184,7 @@ const { contents: reports } = reportCategory
 					催事のご検討・資料請求はこちらから
 				</p>
 			</div>
-			<a href="#" class="p-biz01__contactBtn">
+			<a href="/contact" class="p-biz01__contactBtn">
 				<span class="p-biz01__contactBtnLabel"
 					>催事お問い合わせフォーム</span
 				>
@@ -589,13 +589,11 @@ const { contents: reports } = reportCategory
 
 		&__reportSplide {
 			width: 100%;
-			margin-top: size(75);
+			margin-top: size(26);
 
 			@include mq('sp') {
 				position: relative;
-				margin-top: size(125);
-
-				// __inner(580)を突き抜けてビューポート全幅に。左右paddingはSplide側で付与
+				margin-top: size(76);
 				width: 100vw;
 				margin-inline: calc(50% - 50vw);
 			}
@@ -603,7 +601,6 @@ const { contents: reports } = reportCategory
 			.splide__track {
 				@include mq('sp') {
 					overflow: hidden;
-					padding-bottom: size(20);
 				}
 			}
 		}
@@ -639,7 +636,7 @@ const { contents: reports } = reportCategory
 			margin-top: size(62);
 
 			@include mq('sp') {
-				margin-top: size(98);
+				margin-top: size(80);
 			}
 		}
 

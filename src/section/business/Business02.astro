@@ -439,7 +439,11 @@ const flow = [
 		// --- 出張買取実績 stats（Business01 と同一パターン） ---
 		&__stats {
 			position: relative;
-			margin-top: size(115);
+			margin-top: size(190);
+
+			@include mq('sp') {
+				margin-top: size(100);
+			}
 		}
 
 		&__statsBadge {
@@ -500,7 +504,7 @@ const flow = [
 				flex-direction: column;
 				align-items: stretch;
 				gap: size(33);
-				padding: size(60) size(76);
+				padding: size(81) size(76) size(56);
 			}
 		}
 
@@ -592,6 +596,10 @@ const flow = [
 		// --- エコクリアの特徴 ---
 		&__features {
 			margin-top: size(115);
+
+			@include mq('sp') {
+				margin-top: size(90);
+			}
 		}
 
 		&__featureList {
@@ -602,7 +610,8 @@ const flow = [
 
 			@include mq('sp') {
 				grid-template-columns: repeat(2, 1fr);
-				gap: size(30);
+				gap: size(27) size(21);
+				margin-top: size(72);
 			}
 		}
 
@@ -742,7 +751,8 @@ const flow = [
 			margin-inline: auto;
 
 			@include mq('sp') {
-				font-size: size(69);
+				font-size: size(27);
+				margin-top: size(69);
 			}
 		}
 
@@ -757,7 +767,7 @@ const flow = [
 
 			@include mq('sp') {
 				margin-top: size(148);
-				padding: size(98) size(40) size(56);
+				padding: size(90) size(55) size(70);
 			}
 		}
 

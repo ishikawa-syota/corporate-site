@@ -51,6 +51,11 @@ const {
 			box-shadow 0.3s ease,
 			background-color 0.3s ease;
 
+		@include mq('sp') {
+			width: size(380);
+			height: size(100);
+		}
+
 		@media (hover: hover) and (pointer: fine) {
 			&:hover {
 				&::after {
@@ -85,7 +90,7 @@ const {
 			font-weight: 500;
 
 			@include mq('sp') {
-				font-size: size(20);
+				font-size: size(33);
 			}
 		}
 

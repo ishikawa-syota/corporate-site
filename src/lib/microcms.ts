@@ -2,10 +2,16 @@ import { createClient } from 'microcms-js-sdk';
 
 import type { MicroCMSQueries } from 'microcms-js-sdk';
 
-const client = createClient({
-	serviceDomain: import.meta.env.MICROCMS_SERVICE_DOMAIN,
-	apiKey: import.meta.env.MICROCMS_API_KEY,
-});
+const serviceDomain = import.meta.env.MICROCMS_SERVICE_DOMAIN;
+const apiKey = import.meta.env.MICROCMS_API_KEY;
+
+if (!serviceDomain || !apiKey) {
+	throw new Error(
+		'環境変数 MICROCMS_SERVICE_DOMAIN / MICROCMS_API_KEY が設定されていません。.env（Vercelでは環境変数設定）を確認してください。'
+	);
+}
+
+const client = createClient({ serviceDomain, apiKey });
 
 // microCMSのリストAPIはデフォルト10件のため、既定で全件相当を取得する
 const listDefaults: MicroCMSQueries = { limit: 100 };

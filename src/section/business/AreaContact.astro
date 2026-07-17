@@ -42,7 +42,7 @@ import telIcon from '../../images/keitasplan/common/icon-tel.svg?raw';
 					</span>
 				</span>
 			</a>
-			<a href="#" class="p-biz-area__formBtn">
+			<a href="/contact" class="p-biz-area__formBtn">
 				<span class="p-biz-area__formLabel">
 					メールでの<br />お申込み・ご相談
 				</span>
@@ -60,7 +60,7 @@ import telIcon from '../../images/keitasplan/common/icon-tel.svg?raw';
 		margin-top: size(160);
 
 		@include mq('sp') {
-			margin-top: size(120);
+			margin-top: size(115);
 		}
 
 		&__body {
@@ -134,6 +134,7 @@ import telIcon from '../../images/keitasplan/common/icon-tel.svg?raw';
 			// SP: 内側コンテナ(580)より広い678でセクション中央に。左右-49で食み出す
 			@include mq('sp') {
 				width: size(678);
+				margin-top: size(110);
 				margin-inline: size(-49);
 				padding: size(50) size(40) size(60);
 			}
@@ -164,6 +165,8 @@ import telIcon from '../../images/keitasplan/common/icon-tel.svg?raw';
 				flex-direction: column;
 				align-items: center;
 				gap: size(30);
+				width: size(470);
+				margin-inline: auto;
 			}
 		}
 
@@ -266,6 +269,7 @@ import telIcon from '../../images/keitasplan/common/icon-tel.svg?raw';
 			line-height: 1.4;
 			color: $brand-white;
 			text-align: center;
+			white-space: nowrap;
 
 			@include mq('sp') {
 				font-size: size(30);

@@ -1,13 +1,13 @@
 ---
 // 矢印付きピルボタン（Figma: button1 / button1_s / button2 / button_saiyou）
 // variant でサイズ・配色を切り替え、どこでも流用できる汎用ボタン
-import arrow from '../../images/keitasplan/common/arrow.svg';
+import arrow from '../../images/keitasplan/common/arrow.svg?raw';
 
 interface Props {
 	href?: string;
 	label: string;
 	variant?: 'white' | 'blue';
-	size?: 'md' | 'sm' | 'lg';
+	size?: 'md' | 'sm';
 	class?: string;
 }
 
@@ -30,9 +30,7 @@ const {
 	]}
 >
 	<span class="c-arrowBtn__label">{label}</span>
-	<span class="c-arrowBtn__icon" aria-hidden="true">
-		<img src={arrow.src} alt="" />
-	</span>
+	<span class="c-arrowBtn__icon" aria-hidden="true" set:html={arrow} />
 </a>
 
 <style lang="scss">
@@ -42,9 +40,8 @@ const {
 		align-items: center;
 		justify-content: center;
 		gap: size(15);
-		width: size(220);
-		height: size(60);
-		padding: 0 size(24);
+		width: fit-content;
+		padding: size(12) size(66) size(16) size(54);
 		border-radius: 999px;
 		transition:
 			transform 0.3s ease,
@@ -52,8 +49,7 @@ const {
 			background-color 0.3s ease;
 
 		@include mq('sp') {
-			width: size(380);
-			height: size(100);
+			padding: size(21) size(125) size(26) size(90);
 		}
 
 		@media (hover: hover) and (pointer: fine) {
@@ -106,7 +102,7 @@ const {
 			place-items: center;
 			transition: transform 0.3s ease;
 
-			img {
+			:global(svg) {
 				display: block;
 				width: size(17);
 				height: size(15);
@@ -121,52 +117,51 @@ const {
 			.c-arrowBtn__label {
 				color: $brand-text;
 			}
-
-			.c-arrowBtn__icon circle {
-				fill: $brand-blue;
-			}
-
-			.c-arrowBtn__icon path {
-				// stroke: $brand-white;
-			}
 		}
 
 		&--blue {
-			background-color: $brand-blue;
+			background: $brand-gradient;
+			padding: size(24) size(52) size(24) size(40);
+
+			@media (hover: hover) and (pointer: fine) {
+				&:hover .c-arrowBtn__icon {
+					transform: translateX(#{size(6)});
+
+					@include mq('sp') {
+						transform: translateX(#{size(10)});
+					}
+				}
+			}
+
+			// ホバー時はグラデーション→単色ブルーへ（::afterのフェードで表現）
+			&::after {
+				background: $brand-blue;
+			}
 
 			.c-arrowBtn__label {
 				color: $brand-white;
 			}
 
-			.c-arrowBtn__icon circle {
-				fill: $brand-white;
+			.c-arrowBtn__icon {
+				background-color: $brand-white;
 			}
 
-			.c-arrowBtn__icon path {
-				stroke: $brand-blue;
-			}
-
-			@media (hover: hover) and (pointer: fine) {
-				&:hover {
-					transform: translateY(#{size(-2)});
-					background-color: $brand-blue-light;
-				}
+			.c-arrowBtn__icon :global(path) {
+				fill: $brand-blue;
 			}
 		}
 
 		// --- サイズバリアント ---
 		&--sm {
-			width: size(197);
-			height: size(50);
+			padding: size(8) size(45) size(10) size(20);
+
+			@include mq('sp') {
+				padding: size(16) size(86) size(19) size(43);
+			}
 
 			.c-arrowBtn__icon {
 				right: size(12);
 			}
-		}
-
-		&--lg {
-			width: size(301);
-			height: size(60);
 		}
 	}
 </style>

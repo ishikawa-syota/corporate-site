@@ -1,0 +1,148 @@
+---
+import ArrowButton from '../components/button/ArrowButton.astro';
+import { siteMetadata } from '../data/meta';
+import watermark from '../images/keitasplan/common/logo_S.svg?raw';
+import Footer from '../layouts/Footer.astro';
+import Header from '../layouts/Header.astro';
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title={`ページが見つかりません | ${siteMetadata.siteName}`}>
+	<Header id="header" />
+	<section class="p-notfound">
+		<span
+			class="p-notfound__mark"
+			aria-hidden="true"
+			set:html={watermark}
+		/>
+		<div class="p-notfound__inner">
+			<p class="p-notfound__badge">
+				<span class="p-notfound__code">404</span>
+				<span class="p-notfound__label">NOT FOUND</span>
+			</p>
+			<h1 class="p-notfound__text">
+				アクセスしようとしたページは見つかりませんでした。<br
+				/>一時的にアクセスできない状況にあるか、移動もしくは削除された可能性があります。
+			</h1>
+			<div class="p-notfound__back">
+				<ArrowButton
+					href="/"
+					label="TOPページにもどる"
+					variant="blue"
+				/>
+			</div>
+		</div>
+	</section>
+	<Footer id="footer" variant="subpage" />
+</Layout>
+
+<style lang="scss">
+	.p-notfound {
+		position: relative;
+		overflow: hidden;
+		padding: size(224) 0 size(97);
+
+		@include mq('sp') {
+			padding: size(183) 0 size(160);
+		}
+
+		&__mark {
+			position: absolute;
+			top: size(120);
+			left: size(-73);
+			width: size(469);
+			height: size(469);
+			pointer-events: none;
+
+			:global(svg) {
+				display: block;
+				width: 100%;
+				height: 100%;
+			}
+
+			@include mq('sp') {
+				left: size(-99);
+				width: size(634);
+				height: size(634);
+			}
+		}
+
+		&__inner {
+			position: relative;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: size(46);
+			width: size(1057);
+			margin-inline: auto;
+
+			@include mq('sp') {
+				gap: size(60);
+				width: size(650);
+			}
+		}
+
+		&__badge {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			gap: size(4);
+			width: size(275);
+			height: size(275);
+			border-radius: 50%;
+			background-color: $brand-blue;
+
+			@include mq('sp') {
+				gap: size(6);
+				width: size(340);
+				height: size(340);
+			}
+		}
+
+		&__code {
+			font-family: $Font-Readex;
+			font-weight: 700;
+			font-size: size(83);
+			line-height: 1;
+			letter-spacing: size(1.66);
+			color: $brand-white;
+
+			@include mq('sp') {
+				font-size: size(103);
+			}
+		}
+
+		&__label {
+			font-family: $Font-Readex;
+			font-weight: 700;
+			font-size: size(26);
+			line-height: 1;
+			letter-spacing: size(1.12);
+			color: $brand-white;
+
+			@include mq('sp') {
+				font-size: size(32);
+			}
+		}
+
+		&__text {
+			font-family: $Font;
+			font-weight: 400;
+			font-size: size(21);
+			line-height: 1.9;
+			letter-spacing: size(1.12);
+			text-align: center;
+			color: $brand-text;
+
+			@include mq('sp') {
+				font-size: size(30);
+			}
+		}
+
+		&__back {
+			display: flex;
+			justify-content: center;
+		}
+	}
+</style>

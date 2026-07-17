@@ -233,16 +233,11 @@ const { id, annualPurchaseCount, customerSatisfaction, avgVisitMinutes } =
 			display: flex;
 			flex-direction: column;
 			align-items: center;
-			gap: size(10);
 		}
 
 		// 年間買取件数の右側テキストは左寄せ（SPは中央）
 		&__card--wide &__text {
-			align-items: flex-start;
-
-			@include mq('sp') {
-				align-items: center;
-			}
+			align-items: center;
 		}
 
 		&__label {

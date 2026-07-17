@@ -77,15 +77,15 @@ const { id, foundedYear, employeeCount, officeCount } = Astro.props;
 								class="p-data-company__mapImg p-data-company__mapImg--pc"
 								src={mapPc.src}
 								alt=""
-								width="1049"
+								width="493"
 								height="374"
 							/>
 							<img
 								class="p-data-company__mapImg p-data-company__mapImg--sp"
 								src={mapSp.src}
 								alt=""
-								width="513"
-								height="400"
+								width="257"
+								height="230"
 							/>
 						</span>
 						<div class="p-data-company__mapBody">
@@ -102,7 +102,9 @@ const { id, foundedYear, employeeCount, officeCount } = Astro.props;
 							<p
 								class="p-data-company__caption p-data-company__caption--map"
 							>
-								関東を中心に全国対応しております
+								北海道から沖縄まで<br
+									class="u-sp-only"
+								/>全国対応しております
 							</p>
 						</div>
 					</div>
@@ -241,30 +243,36 @@ const { id, foundedYear, employeeCount, officeCount } = Astro.props;
 			}
 		}
 
-		// --- 拠点数（地図・横長。地図は絶対配置の背景） ---
+		// --- 拠点数（地図・横長。地図と図版のインライン横並び） ---
 		&__card--map {
-			display: block;
-			position: relative;
+			flex-direction: row;
+			gap: size(59);
 			padding: 0;
-			overflow: hidden;
+
+			// SP: 地図＋図版の横並びの下に注釈を全幅で配置
+			@include mq('sp') {
+				flex-wrap: wrap;
+				gap: size(16) size(32);
+				padding: size(41) size(40);
+			}
 		}
 
 		&__map {
-			position: absolute;
-			inset: 0;
-			z-index: 0;
+			display: block;
+			flex-shrink: 0;
+			width: size(493);
+
+			@include mq('sp') {
+				width: size(257);
+			}
 		}
 
 		&__mapImg {
-			position: absolute;
+			display: block;
+			width: 100%;
+			height: auto;
 
 			&--pc {
-				inset: 0;
-				width: 100%;
-				height: 100%;
-				object-fit: cover;
-				object-position: left center;
-
 				@include mq('sp') {
 					display: none;
 				}
@@ -275,38 +283,26 @@ const { id, foundedYear, employeeCount, officeCount } = Astro.props;
 
 				@include mq('sp') {
 					display: block;
-					inset: 0;
-					width: 100%;
-					height: 100%;
-					object-fit: cover;
-					object-position: left center;
 				}
 			}
 		}
 
 		&__mapBody {
-			position: absolute;
-			z-index: 1;
-			min-height: size(374);
 			display: flex;
 			flex-direction: column;
-			justify-content: center;
 			align-items: center;
-			left: size(586);
 
-			// SP: 地図の右に図版（上寄せ）、注釈はカード下部に全幅中央
+			// SP: 図版と注釈をカード直下に展開（注釈を地図の下へ回す）
 			@include mq('sp') {
-				inset: 0;
-				align-items: flex-end;
-				justify-content: flex-start;
-				padding: size(40) size(40) size(44);
+				display: contents;
 			}
 		}
 
 		&__caption--map {
 			@include mq('sp') {
+				order: 3;
 				width: 100%;
-				margin-top: auto;
+				font-size: size(25);
 				text-align: center;
 			}
 		}

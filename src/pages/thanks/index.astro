@@ -1,0 +1,230 @@
+---
+import ArrowButton from '../../components/button/ArrowButton.astro';
+import { siteMetadata } from '../../data/meta';
+import watermark from '../../images/keitasplan/common/logo_S.svg?raw';
+import Footer from '../../layouts/Footer.astro';
+import Header from '../../layouts/Header.astro';
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title={`お問い合わせありがとうございます | ${siteMetadata.siteName}`}>
+	<Header id="header" />
+	<section class="p-thanks">
+		<span class="p-thanks__mark" aria-hidden="true" set:html={watermark} />
+		<div class="p-thanks__inner">
+			<h1 class="p-thanks__title">
+				お問い合わせ<br />ありがとうございます
+			</h1>
+			<p class="p-thanks__lead">
+				お申し込みいただいた内容を確認の上、担当よりご連絡をさせていただきますので、<br
+					class="u-pc-only"
+				/>今しばらくお待ちいただけますよう、お願いいたします。
+			</p>
+			<div class="p-thanks__body">
+				<p class="p-thanks__note">
+					ご入力いただいたメールアドレスに、<br /><span
+						class="p-thanks__em">ご相談内容の確認メール</span
+					>をお送りさせていただきましたので、ご確認ください。
+				</p>
+				<div class="p-thanks__fallback">
+					<p class="p-thanks__fallbackText">
+						なお、<strong
+							>数日お待ちいただいても確認メールが届かない場合</strong
+						>は、お手数ですが、
+					</p>
+					<p class="p-thanks__email">E-mail：info@wwww.jp</p>
+					<p class="p-thanks__fallbackText">
+						までお問い合わせをお願いいたします。
+					</p>
+				</div>
+				<div class="p-thanks__back">
+					<ArrowButton
+						href="/"
+						label="TOPページにもどる"
+						variant="blue"
+					/>
+				</div>
+			</div>
+		</div>
+	</section>
+	<Footer id="footer" variant="subpage" />
+</Layout>
+
+<style lang="scss">
+	.p-thanks {
+		position: relative;
+		overflow: hidden;
+		padding: size(227) 0 size(97);
+
+		@include mq('sp') {
+			padding: size(183) 0 size(160);
+		}
+
+		&__mark {
+			position: absolute;
+			top: size(120);
+			left: size(-73);
+			width: size(469);
+			height: size(469);
+			pointer-events: none;
+
+			:global(svg) {
+				display: block;
+				width: 100%;
+				height: 100%;
+			}
+
+			@include mq('sp') {
+				left: size(-99);
+				width: size(634);
+				height: size(634);
+			}
+		}
+
+		&__inner {
+			position: relative;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			width: size(1057);
+			margin-inline: auto;
+
+			@include mq('sp') {
+				width: size(650);
+			}
+		}
+
+		&__title {
+			font-family: $Font;
+			font-weight: 700;
+			font-size: size(50);
+			line-height: 1.4;
+			text-align: center;
+			color: $brand-blue;
+
+			@include mq('sp') {
+				font-size: size(44);
+			}
+		}
+
+		&__lead {
+			margin-top: size(90);
+			font-family: $Font;
+			font-weight: 400;
+			font-size: size(21);
+			line-height: 1.8;
+			letter-spacing: size(2.73);
+			text-align: center;
+			color: $brand-text;
+
+			@include mq('sp') {
+				margin-top: size(60);
+				font-size: size(30);
+				letter-spacing: size(1.5);
+			}
+		}
+
+		&__body {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			width: size(895);
+			margin-top: size(50);
+
+			@include mq('sp') {
+				width: 100%;
+				margin-top: size(60);
+			}
+		}
+
+		&__note {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			width: 100%;
+			min-height: size(130);
+			border-radius: size(10);
+			background-color: #dfefff;
+			font-family: $Font;
+			font-weight: 400;
+			font-size: size(21);
+			line-height: 1.81;
+			text-align: center;
+			color: $brand-text;
+
+			@include mq('sp') {
+				padding: size(30);
+				font-size: size(30);
+			}
+		}
+
+		&__em {
+			font-weight: 700;
+			color: $brand-blue;
+		}
+
+		&__fallback {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: size(18);
+			width: 100%;
+			margin-top: size(83);
+			padding: size(40);
+			border: 1px solid $brand-text;
+			border-radius: size(10);
+
+			@include mq('sp') {
+				gap: size(24);
+				margin-top: size(80);
+				padding: size(40) size(30);
+			}
+		}
+
+		&__fallbackText {
+			font-family: $Font;
+			font-weight: 400;
+			font-size: size(18);
+			line-height: 1.8;
+			letter-spacing: size(2.34);
+			text-align: center;
+			color: $brand-text;
+
+			@include mq('sp') {
+				font-size: size(28);
+				letter-spacing: size(1);
+			}
+		}
+
+		&__email {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 100%;
+			min-height: size(56);
+			border-radius: size(10);
+			background-color: #f1f1f1;
+			font-family: $Font;
+			font-weight: 700;
+			font-size: size(25);
+			line-height: 1.93;
+			letter-spacing: size(1.25);
+			text-align: center;
+			color: $brand-text;
+
+			@include mq('sp') {
+				min-height: size(80);
+				font-size: size(30);
+			}
+		}
+
+		&__back {
+			margin-top: size(95);
+
+			@include mq('sp') {
+				margin-top: size(80);
+			}
+		}
+	}
+</style>

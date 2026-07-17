@@ -102,10 +102,21 @@ const {
 			place-items: center;
 			transition: transform 0.3s ease;
 
+			@include mq('sp') {
+				right: size(20);
+				width: size(65);
+				height: size(65);
+			}
+
 			:global(svg) {
 				display: block;
 				width: size(17);
 				height: size(15);
+
+				@include mq('sp') {
+					width: size(38);
+					height: size(34);
+				}
 			}
 		}
 
@@ -121,7 +132,20 @@ const {
 
 		&--blue {
 			background: $brand-gradient;
-			padding: size(24) size(52) size(24) size(40);
+			padding: size(12) size(58) size(16) size(32);
+
+			@include mq('sp') {
+				padding: size(22) size(107) size(25) size(80);
+			}
+
+			.c-arrowBtn__label {
+				font-size: size(20);
+				color: $brand-white;
+
+				@include mq('sp') {
+					font-size: size(33);
+				}
+			}
 
 			@media (hover: hover) and (pointer: fine) {
 				&:hover .c-arrowBtn__icon {
@@ -138,16 +162,23 @@ const {
 				background: $brand-blue;
 			}
 
-			.c-arrowBtn__label {
-				color: $brand-white;
-			}
-
 			.c-arrowBtn__icon {
 				background-color: $brand-white;
 			}
 
 			.c-arrowBtn__icon :global(path) {
 				fill: $brand-blue;
+			}
+
+			:global(svg) {
+				display: block;
+				width: size(16);
+				height: size(14);
+
+				@include mq('sp') {
+					width: size(25);
+					height: size(22);
+				}
 			}
 		}
 

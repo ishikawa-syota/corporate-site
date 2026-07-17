@@ -301,14 +301,10 @@ import PageHero from '../../section/common/PageHero.astro';
 			&::before {
 				content: '';
 				flex-shrink: 0;
+				align-self: stretch;
 				width: size(5);
-				height: size(31);
 				border-radius: size(10);
 				background-color: $brand-blue;
-
-				@include mq('sp') {
-					height: size(56);
-				}
 			}
 		}
 

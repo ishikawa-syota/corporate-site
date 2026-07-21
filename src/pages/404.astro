@@ -43,7 +43,7 @@ import Layout from '../layouts/Layout.astro';
 		padding: size(224) 0 size(97);
 
 		@include mq('sp') {
-			padding: size(183) 0 size(160);
+			padding: size(198) 0 size(364);
 		}
 
 		&__mark {
@@ -61,9 +61,7 @@ import Layout from '../layouts/Layout.astro';
 			}
 
 			@include mq('sp') {
-				left: size(-99);
-				width: size(634);
-				height: size(634);
+				display: none;
 			}
 		}
 
@@ -77,8 +75,7 @@ import Layout from '../layouts/Layout.astro';
 			margin-inline: auto;
 
 			@include mq('sp') {
-				gap: size(60);
-				width: size(650);
+				width: size(580);
 			}
 		}
 
@@ -92,12 +89,6 @@ import Layout from '../layouts/Layout.astro';
 			height: size(275);
 			border-radius: 50%;
 			background-color: $brand-blue;
-
-			@include mq('sp') {
-				gap: size(6);
-				width: size(340);
-				height: size(340);
-			}
 		}
 
 		&__code {
@@ -107,10 +98,6 @@ import Layout from '../layouts/Layout.astro';
 			line-height: 1;
 			letter-spacing: size(1.66);
 			color: $brand-white;
-
-			@include mq('sp') {
-				font-size: size(103);
-			}
 		}
 
 		&__label {
@@ -120,10 +107,6 @@ import Layout from '../layouts/Layout.astro';
 			line-height: 1;
 			letter-spacing: size(1.12);
 			color: $brand-white;
-
-			@include mq('sp') {
-				font-size: size(32);
-			}
 		}
 
 		&__text {

@@ -22,9 +22,13 @@ import Layout from '../../layouts/Layout.astro';
 			</p>
 			<div class="p-thanks__body">
 				<p class="p-thanks__note">
-					ご入力いただいたメールアドレスに、<br /><span
-						class="p-thanks__em">ご相談内容の確認メール</span
-					>をお送りさせていただきましたので、ご確認ください。
+					<span class="p-thanks__noteText">
+						ご入力いただいたメールアドレスに、<br
+							class="u-pc-only"
+						/><span class="p-thanks__em"
+							>ご相談内容の確認メール</span
+						>をお送りさせていただきましたので、ご確認ください。
+					</span>
 				</p>
 				<div class="p-thanks__fallback">
 					<p class="p-thanks__fallbackText">
@@ -57,7 +61,7 @@ import Layout from '../../layouts/Layout.astro';
 		padding: size(227) 0 size(97);
 
 		@include mq('sp') {
-			padding: size(183) 0 size(160);
+			padding: size(198) 0 size(108);
 		}
 
 		&__mark {
@@ -75,9 +79,7 @@ import Layout from '../../layouts/Layout.astro';
 			}
 
 			@include mq('sp') {
-				left: size(-99);
-				width: size(634);
-				height: size(634);
+				display: none;
 			}
 		}
 
@@ -90,7 +92,7 @@ import Layout from '../../layouts/Layout.astro';
 			margin-inline: auto;
 
 			@include mq('sp') {
-				width: size(650);
+				width: size(580);
 			}
 		}
 
@@ -103,7 +105,7 @@ import Layout from '../../layouts/Layout.astro';
 			color: $brand-blue;
 
 			@include mq('sp') {
-				font-size: size(44);
+				font-size: size(58);
 			}
 		}
 
@@ -118,9 +120,10 @@ import Layout from '../../layouts/Layout.astro';
 			color: $brand-text;
 
 			@include mq('sp') {
-				margin-top: size(60);
+				margin-top: size(140);
 				font-size: size(30);
-				letter-spacing: size(1.5);
+				letter-spacing: size(3.9);
+				text-align: justify;
 			}
 		}
 
@@ -133,7 +136,7 @@ import Layout from '../../layouts/Layout.astro';
 
 			@include mq('sp') {
 				width: 100%;
-				margin-top: size(60);
+				margin-top: size(140);
 			}
 		}
 
@@ -154,9 +157,16 @@ import Layout from '../../layouts/Layout.astro';
 			color: $brand-text;
 
 			@include mq('sp') {
-				padding: size(30);
+				min-height: size(347);
+				padding: size(60) size(45);
 				font-size: size(30);
+				line-height: 1.81;
+				text-align: justify;
 			}
+		}
+
+		&__noteText {
+			width: 100%;
 		}
 
 		&__em {
@@ -176,9 +186,9 @@ import Layout from '../../layouts/Layout.astro';
 			border-radius: size(10);
 
 			@include mq('sp') {
-				gap: size(24);
-				margin-top: size(80);
-				padding: size(40) size(30);
+				gap: size(18);
+				margin-top: size(83);
+				padding: size(40);
 			}
 		}
 
@@ -192,8 +202,8 @@ import Layout from '../../layouts/Layout.astro';
 			color: $brand-text;
 
 			@include mq('sp') {
-				font-size: size(28);
-				letter-spacing: size(1);
+				font-size: size(30);
+				letter-spacing: size(3.9);
 			}
 		}
 
@@ -214,17 +224,14 @@ import Layout from '../../layouts/Layout.astro';
 			color: $brand-text;
 
 			@include mq('sp') {
-				min-height: size(80);
+				min-height: size(96);
 				font-size: size(30);
+				letter-spacing: size(1.5);
 			}
 		}
 
 		&__back {
 			margin-top: size(95);
-
-			@include mq('sp') {
-				margin-top: size(80);
-			}
 		}
 	}
 </style>

@@ -1,0 +1,616 @@
+---
+import { siteMetadata } from '../../data/meta';
+import telIcon from '../../images/keitasplan/common/icon-tel.svg';
+import balloon from '../../images/keitasplan/coolingoff/flow-balloon.svg';
+import Footer from '../../layouts/Footer.astro';
+import Header from '../../layouts/Header.astro';
+import Layout from '../../layouts/Layout.astro';
+import PageHero from '../../section/common/PageHero.astro';
+
+interface FlowStep {
+	title: string;
+	lead?: string;
+	notes: string[];
+}
+
+const flowSteps: FlowStep[] = [
+	{
+		title: 'クーリングオフのご依頼',
+		lead: 'お客様相談室(03-6812-1272)まで、ご連絡ください',
+		notes: [
+			'特定商法取引法第58条の14の規定で、法定書面または電磁的記録(電子メール等）を受領する事が条件になっております。',
+			'詳しくはお電話でお問い合わせください。',
+		],
+	},
+	{
+		title: 'クーリングオフの受付',
+		notes: [
+			'私たちはお客様のご指導、ご意見、またご質問を真摯に受け止め、サービス向上の糧とさせていただきます。 ”お客様からの声が主導となる運営”を志しておりますので、安心してお問い合わせ下さい。',
+		],
+	},
+	{
+		title: '全国保管室でお客様のお品物特定',
+		lead: '誠に恐れ入りますが、お品物特定日数を最長10日前後の期間でお考えください',
+		notes: [
+			'一度お買取をさせて頂いたお品物を8日間安全に保管を行うため、本社管轄下の全国保管室で厳重なセキュリティ設備のもと保管しております。 従って各地域の発送からの到着までの時間を考慮し、お品物特定までに最長10日前後の時間を要します。事故なく安全第一にお客様のお品物をお返しするためのシステムになりますのでご理解下さい。',
+			'※運送は、特別な天候や天災に影響を受けますので、稀にお品物特定まで7日以上かかってしまうこともあります。',
+		],
+	},
+	{
+		title: '電話にてお品物特定のご連絡',
+		notes: [
+			'全国からのお品物が本社管轄下の全国保管室に届きましたら、お客様のお品物を担当部署が特定いたします。お品物確認後は即座にお客様相談室より電話にてご連絡いたします。',
+		],
+	},
+	{
+		title: 'ご返金とお品物の返送',
+		lead: '関東の保管庫より発送いたしますので、最長４日の期間でお考えください',
+		notes: [
+			'返送方法についてですが原則お品物を代金引換で返送いたします。',
+			'お待たせしてしまい恐縮ではございますが、お客様のお品物の特定ができましたら、速やかにお品物を返送いたします。お品物の返送手続き後、お客様相談室よりお電話にて返送のご連絡を差し上げます。お品物到着まで発送日より最長4日間ほど要していますが、道路状況・天候により到着日が前後する場合がございます。予めご了承ください。',
+		],
+	},
+	{
+		title: 'お品物到着のご確認',
+		notes: [
+			'お品物がお手元に届きましたら、契約時の売買契約書の明細内容と返送されたお品物をご確認ください。',
+			'お品物に間違いが無ければクーリングオフ手続きは終了となります。',
+			'万が一お品物に相違がございましたらお電話でご連絡お願いいたします。',
+		],
+	},
+	{
+		title: '終わりに',
+		notes: [
+			'私たちは更なるサービス向上を目指して邁進してまいりますので、これからも末長くご愛顧賜りますよう、お願い申し上げます。',
+		],
+	},
+];
+---
+
+<Layout title={`クーリングオフ | ${siteMetadata.siteName}`}>
+	<Header id="header" />
+	<PageHero
+		id="coolingoff-hero"
+		ja="クーリングオフ"
+		en="COOLING OFF"
+		spTitleLarge
+	/>
+	<section class="p-coolingoff">
+		<div class="p-coolingoff__inner">
+			<div class="p-coolingoff__telCard">
+				<div class="p-coolingoff__telHead">
+					<p class="p-coolingoff__telTitle">
+						クーリングオフを希望の方はこちら
+					</p>
+					<a class="p-coolingoff__telRow" href="tel:0368121272">
+						<span class="p-coolingoff__telIcon">
+							<img
+								class="p-coolingoff__telIconImg"
+								src={telIcon.src}
+								alt=""
+								width="29"
+								height="32"
+							/>
+						</span>
+						<span class="p-coolingoff__telNumber">03-6812-1272</span
+						>
+					</a>
+				</div>
+				<p class="p-coolingoff__telNote">
+					<span class="p-coolingoff__telNoteLabel">受付時間：</span>
+					<span class="p-coolingoff__telNoteText">
+						10:00～18:00【土日祝日も電話受付】携帯・スマートフォンも対応<br
+						/>※こちらは査定申込みの電話番号ではございません。
+					</span>
+				</p>
+			</div>
+
+			<div class="p-coolingoff__sec">
+				<h2 class="p-coolingoff__secTitle">クーリングオフについて</h2>
+				<div class="p-coolingoff__secBody">
+					<p class="p-coolingoff__text">
+						特定商取引法（第58条の14）クーリングオフ制度とは訪問購入に係る売買契約の申し込みや締結が行われた場合であっても、法定書面(売買契約書)を受領した日を含めて8日以内であれば、当該売主たる消費者（申込者等）は書面により申込みの撤回や契約の解除ができるという制度です。
+					</p>
+					<p class="p-coolingoff__text">
+						より安心してお客様にご利用頂けるように、エコクリアでは出張買取をさせて頂いたお客様に限り、<strong
+							class="p-coolingoff__em"
+							>契約日含め8日間以内のお申し出に関して返品保証を実施しております。</strong
+						>
+					</p>
+					<p class="p-coolingoff__text">
+						お客様第一主義に徹するエコクリアでは、サービス満足度向上の為に、全従業員が従事しております。
+						クーリングオフ申請のみならず、契約に関するご相談をお伺いさせて頂きますので、ご不明点・ご不安点があればご相談ください。
+					</p>
+				</div>
+			</div>
+
+			<div class="p-coolingoff__flow">
+				<h2 class="p-coolingoff__balloon">
+					<img
+						class="p-coolingoff__balloonBg"
+						src={balloon.src}
+						alt=""
+						width="410"
+						height="83"
+					/>
+					<span class="p-coolingoff__balloonText">
+						商品返品の基本的な流れ
+					</span>
+				</h2>
+				<div class="p-coolingoff__flowCard">
+					<ol class="p-coolingoff__steps">
+						{
+							flowSteps.map((step, index) => (
+								<li class="p-coolingoff__step">
+									<div class="p-coolingoff__stepHead">
+										<span class="p-coolingoff__stepNum">
+											{index + 1}
+										</span>
+										<h3 class="p-coolingoff__stepTitle">
+											{step.title}
+										</h3>
+									</div>
+									<div class="p-coolingoff__stepBody">
+										{step.lead && (
+											<p class="p-coolingoff__stepLead">
+												{step.lead}
+											</p>
+										)}
+										<div class="p-coolingoff__stepNote">
+											{step.notes.map((note) => (
+												<p class="p-coolingoff__stepText">
+													{note}
+												</p>
+											))}
+										</div>
+									</div>
+								</li>
+							))
+						}
+					</ol>
+				</div>
+			</div>
+
+			<div class="p-coolingoff__warning">
+				<p class="p-coolingoff__warningTitle">
+					突然の訪問営業に<br class="u-sp-only" />ご注意ください
+				</p>
+				<p class="p-coolingoff__warningText">
+					弊社と何ら関係のない第三者による、不審な突然訪問の情報が寄せられておりますので、お知らせ申し上げます。<br
+					/>具体的には、「エコクリア」の名前を騙り、当社への申し込みをしていないのに突然自宅へ訪問をして強引な買取を行う、
+					断ると悪態をついて帰る等の行為が報告されております。<br
+					/><br
+					/>弊社「エコクリア」では、お客様からのお問い合わせや、事前のご予約がない場合での買取に関する訪問、類似する業務は一切行っておりませんので充分にお気を付け下さい。
+				</p>
+			</div>
+		</div>
+	</section>
+	<Footer id="footer" variant="subpage" />
+</Layout>
+
+<style lang="scss">
+	.p-coolingoff {
+		position: relative;
+		background: linear-gradient(180deg, #e9e9e9 0%, #fff 100%);
+		border-radius: size($section-card-radius) size($section-card-radius) 0 0;
+		padding-block: size(196) size(155);
+
+		@include mq('sp') {
+			padding-block: size(121) size(120);
+			background: linear-gradient(360deg, #fff 0%, #e9e9e9 100%);
+		}
+
+		&__inner {
+			width: size(1050);
+			margin-inline: auto;
+
+			@include mq('sp') {
+				width: size(650);
+			}
+		}
+
+		// --- 電話カード ---
+		&__telCard {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			gap: size(25);
+			min-height: size(328);
+			border-radius: size(20);
+			background: linear-gradient(180deg, #fff 0%, #f9f9f9 100%);
+			box-shadow: 0 size(4) size(17) rgb(0 0 0 / 25%);
+
+			@include mq('sp') {
+				gap: size(30);
+				padding: size(60) size(40);
+			}
+		}
+
+		&__telHead {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: size(10);
+			width: 100%;
+		}
+
+		&__telTitle {
+			font-family: $Font;
+			font-weight: 500;
+			font-size: size(33);
+			line-height: 1.4;
+			letter-spacing: size(3.3);
+			text-align: center;
+			color: $brand-text;
+
+			@include mq('sp') {
+				font-size: size(32);
+				letter-spacing: size(1.9);
+			}
+		}
+
+		&__telRow {
+			display: flex;
+			align-items: center;
+			gap: size(22);
+
+			@include mq('sp') {
+				gap: size(20);
+			}
+		}
+
+		&__telIcon {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-shrink: 0;
+			width: size(73);
+			height: size(73);
+			border-radius: 50%;
+			background-color: #dfefff;
+
+			@include mq('sp') {
+				width: size(64);
+				height: size(64);
+			}
+		}
+
+		&__telIconImg {
+			display: block;
+			width: size(29);
+			height: auto;
+
+			@include mq('sp') {
+				width: size(28);
+			}
+		}
+
+		&__telNumber {
+			font-family: $Font-Sub;
+			font-weight: 900;
+			font-size: size(60);
+			line-height: 1.4;
+			color: $brand-blue;
+
+			@include mq('sp') {
+				font-size: size(48);
+			}
+		}
+
+		&__telNote {
+			display: flex;
+			align-items: flex-start;
+			justify-content: center;
+
+			@include mq('sp') {
+				flex-direction: column;
+				align-items: flex-start;
+			}
+		}
+
+		&__telNoteLabel {
+			flex-shrink: 0;
+			font-family: $Font;
+			font-weight: 400;
+			font-size: size(19);
+			line-height: 1.4;
+			color: $brand-text;
+
+			@include mq('sp') {
+				font-size: size(26);
+			}
+		}
+
+		&__telNoteText {
+			font-family: $Font;
+			font-weight: 400;
+			font-size: size(19);
+			line-height: 1.4;
+			color: $brand-text;
+
+			@include mq('sp') {
+				font-size: size(26);
+			}
+		}
+
+		// --- クーリングオフについて ---
+		&__sec {
+			margin-top: size(100);
+
+			@include mq('sp') {
+				margin-top: size(100);
+			}
+		}
+
+		&__secTitle {
+			display: flex;
+			align-items: center;
+			gap: size(10);
+			padding-bottom: size(11);
+			border-bottom: 2px solid $brand-blue;
+			font-family: $Font;
+			font-weight: 500;
+			font-size: size(25);
+			line-height: 1.4;
+			color: $brand-blue;
+
+			@include mq('sp') {
+				gap: size(14);
+				padding-bottom: size(14);
+				font-size: size(40);
+			}
+
+			&::before {
+				content: '';
+				flex-shrink: 0;
+				width: size(24);
+				height: size(25);
+				border-radius: 0 size(20) size(20) 0;
+				background-color: $brand-blue;
+
+				@include mq('sp') {
+					width: size(34);
+					height: size(36);
+				}
+			}
+		}
+
+		&__secBody {
+			margin-top: size(26);
+
+			@include mq('sp') {
+				margin-top: size(34);
+			}
+		}
+
+		&__text {
+			font-family: $Font;
+			font-weight: 400;
+			font-size: size(18);
+			line-height: 1.6;
+			text-align: justify;
+			color: $brand-text;
+
+			@include mq('sp') {
+				font-size: size(30);
+			}
+		}
+
+		&__em {
+			font-weight: 700;
+			color: $brand-blue;
+		}
+
+		// --- 商品返品の基本的な流れ ---
+		&__flow {
+			position: relative;
+			margin-top: size(113);
+
+			@include mq('sp') {
+				margin-top: size(140);
+			}
+		}
+
+		&__balloon {
+			position: absolute;
+			top: size(-28);
+			left: 50%;
+			transform: translateX(-50%);
+			z-index: 1;
+			width: size(410);
+
+			@include mq('sp') {
+				top: size(-40);
+				width: size(480);
+			}
+		}
+
+		&__balloonBg {
+			display: block;
+			width: 100%;
+			height: auto;
+		}
+
+		&__balloonText {
+			position: absolute;
+			top: 16%;
+			left: 0;
+			width: 100%;
+			font-family: $Font;
+			font-weight: 500;
+			font-size: size(25);
+			line-height: 1.4;
+			letter-spacing: size(1.5);
+			text-align: center;
+			color: $brand-white;
+
+			@include mq('sp') {
+				font-size: size(30);
+			}
+		}
+
+		&__flowCard {
+			padding: size(94) 0;
+			border-radius: size(10);
+			background: linear-gradient(180deg, #fff 0%, #e9e9e9 100%);
+			box-shadow: 0 0 size(7.5) rgb(0 0 0 / 25%);
+
+			@include mq('sp') {
+				padding: size(90) 0;
+			}
+		}
+
+		&__steps {
+			display: flex;
+			flex-direction: column;
+			gap: size(33);
+			width: size(901);
+			margin-inline: auto;
+
+			@include mq('sp') {
+				gap: size(40);
+				width: size(580);
+			}
+		}
+
+		&__step {
+			padding-bottom: size(50);
+
+			@include mq('sp') {
+				padding-bottom: size(60);
+			}
+
+			&:not(:last-child) {
+				border-bottom: 1px solid $brand-blue;
+			}
+		}
+
+		&__stepHead {
+			display: flex;
+			align-items: center;
+			gap: size(15);
+			padding-block: size(10);
+		}
+
+		&__stepNum {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-shrink: 0;
+			width: size(50);
+			height: size(50);
+			border-radius: 50%;
+			background: $brand-gradient;
+			font-family: $Font-Readex;
+			font-weight: 500;
+			font-size: size(22);
+			line-height: 1.4;
+			color: $brand-white;
+
+			@include mq('sp') {
+				width: size(70);
+				height: size(70);
+				font-size: size(30);
+			}
+		}
+
+		&__stepTitle {
+			font-family: $Font;
+			font-weight: 500;
+			font-size: size(23);
+			line-height: 1.4;
+			letter-spacing: size(0.73);
+			color: $brand-blue;
+
+			@include mq('sp') {
+				font-size: size(32);
+			}
+		}
+
+		&__stepBody {
+			display: flex;
+			flex-direction: column;
+			gap: size(11);
+			margin-top: size(2);
+			padding-left: size(68);
+
+			@include mq('sp') {
+				gap: size(16);
+				padding-left: size(85);
+			}
+		}
+
+		&__stepLead {
+			font-family: $Font;
+			font-weight: 500;
+			font-size: size(17);
+			line-height: 1.7;
+			text-align: justify;
+			color: $brand-blue;
+
+			@include mq('sp') {
+				font-size: size(26);
+			}
+		}
+
+		&__stepText {
+			font-family: $Font;
+			font-weight: 400;
+			font-size: size(14);
+			line-height: 1.7;
+			text-align: justify;
+			color: #666;
+
+			@include mq('sp') {
+				font-size: size(26);
+			}
+		}
+
+		// --- 訪問営業への注意 ---
+		&__warning {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			gap: size(17);
+			min-height: size(374);
+			margin-top: size(98);
+			padding: size(30) size(47) size(30) size(49);
+			border-radius: size(10);
+			background-color: $brand-white;
+
+			@include mq('sp') {
+				gap: size(24);
+				min-height: auto;
+				margin-top: size(120);
+				padding: size(60) size(40);
+			}
+		}
+
+		&__warningTitle {
+			align-self: center;
+			font-family: $Font;
+			font-weight: 700;
+			font-size: size(23);
+			line-height: 1.7;
+			text-align: center;
+			color: $brand-blue;
+
+			@include mq('sp') {
+				font-size: size(36);
+			}
+		}
+
+		&__warningText {
+			font-family: $Font;
+			font-weight: 400;
+			font-size: size(18);
+			line-height: 1.7;
+			color: $brand-text;
+
+			@include mq('sp') {
+				font-size: size(30);
+			}
+		}
+	}
+</style>

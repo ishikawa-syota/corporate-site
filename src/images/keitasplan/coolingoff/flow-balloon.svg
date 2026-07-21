@@ -1,0 +1,9 @@
+<svg width="410" height="83" viewBox="0 0 410 82.6257" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M379.5 0C396.345 0 410 13.6553 410 30.5C410 47.3447 396.345 61 379.5 61H218.716L206.706 81.6318C205.935 82.957 204.02 82.957 203.249 81.6318L191.239 61H30.5C13.6553 61 0 47.3447 0 30.5C0 13.6553 13.6553 7.89219e-07 30.5 0H379.5Z" fill="url(#coolingoff_balloon_grad)"/>
+<defs>
+<linearGradient id="coolingoff_balloon_grad" x1="205" y1="0" x2="205" y2="82.6257" gradientUnits="userSpaceOnUse">
+<stop stop-color="#0054AC"/>
+<stop offset="1" stop-color="#98CBFF"/>
+</linearGradient>
+</defs>
+</svg>

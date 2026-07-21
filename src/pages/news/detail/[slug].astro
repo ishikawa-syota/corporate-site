@@ -65,6 +65,20 @@ const transformBody = (html: string) => {
 		);
 	}
 
+	// 埋め込み（YouTube等）: レスポンシブ比率のwrapper divへ余白用クラスを付与。
+	// titleが無いiframeはアクセシビリティ（およびhtml-validate）のため補完する
+	for (const iframe of root.querySelectorAll('iframe')) {
+		if (!iframe.getAttribute('title')) {
+			iframe.setAttribute('title', '埋め込みコンテンツ');
+		}
+		// 埋め込みHTMLに含まれる非推奨属性（html-validateで弾かれる）を除去
+		iframe.removeAttribute('scrolling');
+		const parent = iframe.parentNode;
+		if (parent?.tagName === 'DIV') {
+			parent.classList.add('embed-wrapper');
+		}
+	}
+
 	return root.toString();
 };
 
@@ -425,6 +439,25 @@ const body = item.body ? transformBody(item.body) : undefined;
 				font-weight: 700;
 				text-align: center;
 				white-space: nowrap;
+			}
+
+			// 引用（左バー＋インデントのシンプルな引用表現）
+			:global(blockquote) {
+				margin-top: size(24);
+				padding-left: size(20);
+				border-left: size(4) solid $brand-blue;
+
+				@include mq('sp') {
+					padding-left: size(30);
+					border-left-width: size(6);
+				}
+			}
+
+			// 埋め込み（角丸・余白は本文画像と揃える）
+			:global(.embed-wrapper) {
+				margin: size(50) 0 size(30);
+				border-radius: size(10);
+				overflow: hidden;
 			}
 
 			:global(figcaption) {

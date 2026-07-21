@@ -7,7 +7,7 @@ interface Props {
 	href?: string;
 	label: string;
 	variant?: 'white' | 'blue';
-	size?: 'md' | 'sm';
+	size?: 'md' | 'sm' | 'lg';
 	class?: string;
 }
 
@@ -183,6 +183,14 @@ const {
 		}
 
 		// --- サイズバリアント ---
+		&--lg {
+			padding: size(24) size(52) size(24) size(40);
+
+			@include mq('sp') {
+				padding: size(22) size(107) size(25) size(80);
+			}
+		}
+
 		&--sm {
 			padding: size(8) size(45) size(10) size(20);
 

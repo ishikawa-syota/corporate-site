@@ -13,6 +13,10 @@ if (!serviceDomain || !apiKey) {
 
 const client = createClient({ serviceDomain, apiKey });
 
+// microCMS画像API（imgix）: WebP変換＋アップスケール禁止で幅指定
+export const getMicroCMSImage = (url: string, width = 1280, fm = 'webp') =>
+	`${url}?fm=${fm}&fit=max&w=${width}`;
+
 // microCMSのリストAPIはデフォルト10件のため、既定で全件相当を取得する
 const listDefaults: MicroCMSQueries = { limit: 100 };
 

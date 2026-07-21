@@ -1,13 +1,17 @@
 ---
 // 単一ソースの最適化画像（AVIF/WebP生成 + object-fit cover）
 // 固定枠内に流し込む用途。width指定で出力解像度を制御（巨大元画像の最適化）。
+// srcにURL文字列（microCMS等のリモート画像）も渡せる。
+// リモートはastro.config.mjsのimage.domainsに登録されたドメインのみビルド時に最適化される。
 import { getImage } from 'astro:assets';
 
 interface Props {
-	src: ImageMetadata;
+	src: ImageMetadata | string;
 	alt?: string;
 	class?: string;
 	width?: number;
+	// リモート画像でwidthを指定する場合はheightも指定（アスペクト比を保った縮小に必要）
+	height?: number;
 	priority?: boolean;
 	fit?: 'cover' | 'contain';
 }
@@ -17,12 +21,23 @@ const {
 	alt = '',
 	class: className,
 	width,
+	height,
 	priority = false,
 	fit = 'cover',
 } = Astro.props;
 
+// リモート画像で寸法未指定の場合はinferSizeで取得（ビルド時にダウンロードして判定）
+const isRemote = typeof src === 'string';
+
 const opt = (format: 'avif' | 'webp', quality: number) =>
-	getImage({ src, format, quality, ...(width ? { width } : {}) });
+	getImage({
+		src,
+		format,
+		quality,
+		...(width ? { width } : {}),
+		...(height ? { height } : {}),
+		...(isRemote && !(width && height) ? { inferSize: true } : {}),
+	});
 
 const avif = await opt('avif', 65);
 const webp = await opt('webp', 75);
@@ -34,8 +49,8 @@ const webp = await opt('webp', 75);
 	<img
 		src={webp.src}
 		alt={alt}
-		width={src.width}
-		height={src.height}
+		width={webp.attributes.width}
+		height={webp.attributes.height}
 		loading={priority ? 'eager' : 'lazy'}
 		fetchpriority={priority ? 'high' : 'auto'}
 		decoding="async"

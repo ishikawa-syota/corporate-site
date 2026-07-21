@@ -1,11 +1,15 @@
 ---
+import { parse } from 'node-html-parser';
+
 import ArrowButton from '../../../components/button/ArrowButton.astro';
+import OptImage from '../../../components/common/OptImage.astro';
 import { siteMetadata } from '../../../data/meta';
 import watermark from '../../../images/keitasplan/common/logo_S.svg?raw';
 import Footer from '../../../layouts/Footer.astro';
 import Header from '../../../layouts/Header.astro';
 import Layout from '../../../layouts/Layout.astro';
-import { getAllNews } from '../../../lib/microcms';
+import { MICROCMS_ASSETS_HOST } from '../../../lib/constants.js';
+import { getAllNews, getMicroCMSImage } from '../../../lib/microcms';
 import { formatDotDate } from '../../../utils/date';
 
 export async function getStaticPaths() {
@@ -17,6 +21,49 @@ export async function getStaticPaths() {
 }
 
 const { item } = Astro.props;
+
+// リッチテキスト本文のビルド時整形
+// 1. idの重複解消: microCMSは見出しにアンカーidを付与するが、エディタ上で
+//    ブロックを複製すると同じidが重複しhtml-validate(no-dup-id)で落ちる。
+//    2回目以降の出現に連番を振って一意にする（最初のアンカーはそのまま維持）。
+// 2. 画像最適化: 本文内のmicroCMS画像に画像APIパラメータを付与（表示幅540の2倍でWebP化）
+const transformBody = (html: string) => {
+	const root = parse(html);
+
+	const used = new Set<string>();
+	for (const el of root.querySelectorAll('[id]')) {
+		const id = el.getAttribute('id');
+		if (!id) continue;
+		if (!used.has(id)) {
+			used.add(id);
+			continue;
+		}
+		let n = 2;
+		while (used.has(`${id}-${n}`)) n++;
+		el.setAttribute('id', `${id}-${n}`);
+		used.add(`${id}-${n}`);
+	}
+
+	for (const img of root.querySelectorAll('img')) {
+		const src = img.getAttribute('src');
+		if (
+			src?.startsWith(`https://${MICROCMS_ASSETS_HOST}/`) &&
+			!src.includes('?')
+		) {
+			img.setAttribute('src', getMicroCMSImage(src, 1080));
+		}
+	}
+
+	return root.toString();
+};
+
+const body = item.body ? transformBody(item.body) : undefined;
+
+// ヒーロー画像の出力解像度（表示幅440の2倍を上限に、アスペクト比を保って縮小）
+const heroWidth = item.image ? Math.min(880, item.image.width) : 0;
+const heroHeight = item.image
+	? Math.round((item.image.height * heroWidth) / item.image.width)
+	: 0;
 ---
 
 <Layout title={`${item.title} | ニュース・催事情報 | ${siteMetadata.siteName}`}>
@@ -32,13 +79,12 @@ const { item } = Astro.props;
 			{
 				item.image && (
 					<span class="p-news-detail__photo">
-						<img
+						<OptImage
 							class="p-news-detail__img"
-							src={`${item.image.url}?fm=webp&w=880`}
-							alt=""
-							width={item.image.width}
-							height={item.image.height}
-							decoding="async"
+							src={item.image.url}
+							width={heroWidth}
+							height={heroHeight}
+							priority
 						/>
 					</span>
 				)
@@ -52,11 +98,7 @@ const { item } = Astro.props;
 				>
 					{formatDotDate(item.date)}
 				</time>
-				{
-					item.body && (
-						<div class="p-news-detail__body" set:html={item.body} />
-					)
-				}
+				{body && <div class="p-news-detail__body" set:html={body} />}
 			</article>
 		</div>
 		<div class="p-news-detail__more">
@@ -147,13 +189,6 @@ const { item } = Astro.props;
 				height: size(364);
 				margin-top: size(40);
 			}
-		}
-
-		&__img {
-			display: block;
-			width: 100%;
-			height: 100%;
-			object-fit: cover;
 		}
 
 		&__card {

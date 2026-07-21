@@ -4,6 +4,8 @@ import { defineConfig } from 'astro/config';
 import relativeLinks from 'astro-relative-links';
 import postcssMediaQueriesCombinator from 'postcss-combine-media-query';
 import cssnano from 'cssnano';
+
+import { MICROCMS_ASSETS_HOST } from './src/lib/constants.js';
 // 開発中は検証を無効化して、ビルド時のみ読み込むようにコメントアウト
 // import { metaValidator } from './src/utils/metaValidator.js';
 
@@ -25,6 +27,10 @@ export default defineConfig({
 	// NOTE: astro-relative-linksとの相性問題により、
 	// sitemapは public/sitemap.xml に手動で配置しています
 	integrations: [relativeLinks(), ...buildIntegrations],
+	image: {
+		// microCMSの画像をOptImage（astro:assets）でビルド時最適化するための許可ドメイン
+		domains: [MICROCMS_ASSETS_HOST],
+	},
 	vite: {
 		build: {
 			assetsDir: 'assets',

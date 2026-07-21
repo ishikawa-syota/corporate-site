@@ -1,5 +1,7 @@
 ---
 import arrow from '../../images/keitasplan/common/arrow.svg?raw';
+import { cmsImageSizeByHeight } from '../../lib/microcms';
+import OptImage from '../common/OptImage.astro';
 
 import type { MicroCMSImage } from 'microcms-js-sdk';
 
@@ -13,31 +15,28 @@ interface Props {
 }
 
 const { href, name, nameEn, role, photo, photoHover } = Astro.props;
-
-const src = (img: MicroCMSImage) => `${img.url}?fm=webp&h=620`;
 ---
 
 <a class="c-member-panel" href={href}>
 	<span class="c-member-panel__photo">
-		<img
-			class="c-member-panel__img c-member-panel__img--base"
-			src={src(photo)}
-			alt={name}
-			width={photo.width}
-			height={photo.height}
-			loading="lazy"
-			decoding="async"
-		/>
-		<img
+		<span class="c-member-panel__img c-member-panel__img--base">
+			<OptImage
+				src={photo.url}
+				alt={name}
+				fit="contain"
+				{...cmsImageSizeByHeight(photo, 620)}
+			/>
+		</span>
+		<span
 			class="c-member-panel__img c-member-panel__img--hover"
-			src={src(photoHover)}
-			alt=""
-			width={photoHover.width}
-			height={photoHover.height}
-			loading="lazy"
-			decoding="async"
 			aria-hidden="true"
-		/>
+		>
+			<OptImage
+				src={photoHover.url}
+				fit="contain"
+				{...cmsImageSizeByHeight(photoHover, 620)}
+			/>
+		</span>
 	</span>
 	<span class="c-member-panel__name">{name}</span>
 	<span class="c-member-panel__nameEn">{nameEn}</span>
@@ -86,8 +85,8 @@ const src = (img: MicroCMSImage) => `${img.url}?fm=webp&h=620`;
 
 		&__photo {
 			position: relative;
-			display: flex;
-			justify-content: center;
+			display: block;
+			width: 100%;
 			height: size(275);
 			margin-bottom: size(-2);
 			transform: translateX(size(-40));
@@ -100,15 +99,13 @@ const src = (img: MicroCMSImage) => `${img.url}?fm=webp&h=620`;
 
 		&__img {
 			display: block;
-			width: auto;
+			width: 100%;
 			height: 100%;
 			transition: opacity 0.4s ease;
 
 			&--hover {
 				position: absolute;
-				top: 0;
-				left: 50%;
-				transform: translateX(-50%);
+				inset: 0;
 				opacity: 0;
 			}
 		}

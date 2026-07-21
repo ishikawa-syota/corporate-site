@@ -14,6 +14,7 @@ interface Props {
 	height?: number;
 	priority?: boolean;
 	fit?: 'cover' | 'contain';
+	position?: string;
 }
 
 const {
@@ -24,6 +25,7 @@ const {
 	height,
 	priority = false,
 	fit = 'cover',
+	position = 'center',
 } = Astro.props;
 
 // リモート画像で寸法未指定の場合はinferSizeで取得（ビルド時にダウンロードして判定）
@@ -43,7 +45,10 @@ const avif = await opt('avif', 65);
 const webp = await opt('webp', 75);
 ---
 
-<picture class:list={['c-img', className]} style={`--img-fit:${fit}`}>
+<picture
+	class:list={['c-img', className]}
+	style={`--img-fit:${fit};--img-pos:${position}`}
+>
 	<source srcset={avif.src} type="image/avif" />
 	<source srcset={webp.src} type="image/webp" />
 	<img
@@ -68,6 +73,7 @@ const webp = await opt('webp', 75);
 			width: 100%;
 			height: 100%;
 			object-fit: var(--img-fit, cover);
+			object-position: var(--img-pos, center);
 		}
 	}
 </style>

@@ -9,7 +9,11 @@ import Footer from '../../../layouts/Footer.astro';
 import Header from '../../../layouts/Header.astro';
 import Layout from '../../../layouts/Layout.astro';
 import { MICROCMS_ASSETS_HOST } from '../../../lib/constants.js';
-import { getAllNews, getMicroCMSImage } from '../../../lib/microcms';
+import {
+	cmsImageSize,
+	getAllNews,
+	getMicroCMSImage,
+} from '../../../lib/microcms';
 import { formatDotDate } from '../../../utils/date';
 
 export async function getStaticPaths() {
@@ -58,12 +62,6 @@ const transformBody = (html: string) => {
 };
 
 const body = item.body ? transformBody(item.body) : undefined;
-
-// ヒーロー画像の出力解像度（表示幅440の2倍を上限に、アスペクト比を保って縮小）
-const heroWidth = item.image ? Math.min(880, item.image.width) : 0;
-const heroHeight = item.image
-	? Math.round((item.image.height * heroWidth) / item.image.width)
-	: 0;
 ---
 
 <Layout title={`${item.title} | ニュース・催事情報 | ${siteMetadata.siteName}`}>
@@ -82,9 +80,8 @@ const heroHeight = item.image
 						<OptImage
 							class="p-news-detail__img"
 							src={item.image.url}
-							width={heroWidth}
-							height={heroHeight}
 							priority
+							{...cmsImageSize(item.image, 880)}
 						/>
 					</span>
 				)

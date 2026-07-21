@@ -1,5 +1,7 @@
 ---
 import quoteTriangle from '../../images/keitasplan/common/quote-triangle.svg';
+import { cmsImageSize } from '../../lib/microcms';
+import OptImage from '../common/OptImage.astro';
 
 import type { MicroCMSImage } from 'microcms-js-sdk';
 
@@ -18,14 +20,9 @@ const { href, headline, meta, body, thumbnail } = Astro.props;
 	<span class="c-voice-box__photo">
 		{
 			thumbnail && (
-				<img
-					class="c-voice-box__img"
-					src={`${thumbnail.url}?fm=webp&w=880`}
-					alt=""
-					width={thumbnail.width}
-					height={thumbnail.height}
-					loading="lazy"
-					decoding="async"
+				<OptImage
+					src={thumbnail.url}
+					{...cmsImageSize(thumbnail, 880)}
 				/>
 			)
 		}
@@ -71,13 +68,6 @@ const { href, headline, meta, body, thumbnail } = Astro.props;
 			@include mq('sp') {
 				height: size(364);
 			}
-		}
-
-		&__img {
-			display: block;
-			width: 100%;
-			height: 100%;
-			object-fit: cover;
 		}
 
 		&__head {

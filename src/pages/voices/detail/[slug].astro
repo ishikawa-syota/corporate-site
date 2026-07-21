@@ -1,12 +1,13 @@
 ---
 import ArrowButton from '../../../components/button/ArrowButton.astro';
+import OptImage from '../../../components/common/OptImage.astro';
 import { siteMetadata } from '../../../data/meta';
 import watermark from '../../../images/keitasplan/common/logo_S.svg?raw';
 import quoteTriangle from '../../../images/keitasplan/common/quote-triangle.svg';
 import Footer from '../../../layouts/Footer.astro';
 import Header from '../../../layouts/Header.astro';
 import Layout from '../../../layouts/Layout.astro';
-import { getAllVoices } from '../../../lib/microcms';
+import { cmsImageSize, getAllVoices } from '../../../lib/microcms';
 
 export async function getStaticPaths() {
 	const voices = await getAllVoices({ orders: 'system:default' });
@@ -32,13 +33,10 @@ const { voice } = Astro.props;
 				{
 					voice.thumbnail && (
 						<span class="p-voice-detail__photo">
-							<img
-								class="p-voice-detail__img"
-								src={`${voice.thumbnail.url}?fm=webp&w=1480`}
-								alt=""
-								width={voice.thumbnail.width}
-								height={voice.thumbnail.height}
-								decoding="async"
+							<OptImage
+								src={voice.thumbnail.url}
+								priority
+								{...cmsImageSize(voice.thumbnail, 1480)}
 							/>
 						</span>
 					)
@@ -120,13 +118,6 @@ const { voice } = Astro.props;
 			@include mq('sp') {
 				height: size(364);
 			}
-		}
-
-		&__img {
-			display: block;
-			width: 100%;
-			height: 100%;
-			object-fit: cover;
 		}
 
 		&__head {

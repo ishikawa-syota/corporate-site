@@ -1,5 +1,8 @@
 ---
 // メンバーカード（写真 + 役職 + 氏名）
+import { cmsImageSize } from '../../lib/microcms';
+import OptImage from '../common/OptImage.astro';
+
 import type { MicroCMSImage } from 'microcms-js-sdk';
 
 interface Props {
@@ -10,35 +13,23 @@ interface Props {
 }
 
 const { role, name, photo, photoHover } = Astro.props;
-
-// microCMS画像API（imgix）でWebP変換・リサイズ
-const src = (img: MicroCMSImage) => `${img.url}?fm=webp&w=500`;
-const srcset = (img: MicroCMSImage) =>
-	`${img.url}?fm=webp&w=500 1x, ${img.url}?fm=webp&w=1000 2x`;
 ---
 
 <article class="c-member">
 	<div class="c-member__photo">
 		<span class="c-member__img c-member__img--base">
-			<img
-				src={src(photo)}
-				srcset={srcset(photo)}
+			<OptImage
+				src={photo.url}
 				alt={name}
-				width={photo.width}
-				height={photo.height}
-				loading="lazy"
-				decoding="async"
+				fit="contain"
+				{...cmsImageSize(photo, 1000)}
 			/>
 		</span>
 		<span class="c-member__img c-member__img--hover" aria-hidden="true">
-			<img
-				src={src(photoHover)}
-				srcset={srcset(photoHover)}
-				alt=""
-				width={photoHover.width}
-				height={photoHover.height}
-				loading="lazy"
-				decoding="async"
+			<OptImage
+				src={photoHover.url}
+				fit="contain"
+				{...cmsImageSize(photoHover, 1000)}
 			/>
 		</span>
 	</div>
@@ -70,13 +61,6 @@ const srcset = (img: MicroCMSImage) =>
 			// transform: scale(1.4);
 			width: size(403);
 			transform: translateX(-20%);
-
-			img {
-				display: block;
-				width: 100%;
-				height: 100%;
-				object-fit: contain;
-			}
 
 			// hover画像は通常画像の上に重ねて初期は非表示
 			&--hover {

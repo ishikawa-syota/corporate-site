@@ -1,5 +1,7 @@
 ---
+import { cmsImageSize } from '../../lib/microcms';
 import { formatDotDate } from '../../utils/date';
+import OptImage from '../common/OptImage.astro';
 
 import type { MicroCMSImage } from 'microcms-js-sdk';
 
@@ -19,19 +21,7 @@ const { href, title, categoryName, categorySlug, date, image, excerpt } =
 
 <a class="c-news-card" href={href}>
 	<span class="c-news-card__photo">
-		{
-			image && (
-				<img
-					class="c-news-card__img"
-					src={`${image.url}?fm=webp&w=700`}
-					alt=""
-					width={image.width}
-					height={image.height}
-					loading="lazy"
-					decoding="async"
-				/>
-			)
-		}
+		{image && <OptImage src={image.url} {...cmsImageSize(image, 700)} />}
 	</span>
 	<span class="c-news-card__meta">
 		<span
@@ -64,13 +54,6 @@ const { href, title, categoryName, categorySlug, date, image, excerpt } =
 			@include mq('sp') {
 				height: size(432);
 			}
-		}
-
-		&__img {
-			display: block;
-			width: 100%;
-			height: 100%;
-			object-fit: cover;
 		}
 
 		&__meta {

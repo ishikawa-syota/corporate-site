@@ -1,6 +1,6 @@
 import { createClient } from 'microcms-js-sdk';
 
-import type { MicroCMSQueries } from 'microcms-js-sdk';
+import type { MicroCMSImage, MicroCMSQueries } from 'microcms-js-sdk';
 
 const serviceDomain = import.meta.env.MICROCMS_SERVICE_DOMAIN;
 const apiKey = import.meta.env.MICROCMS_API_KEY;
@@ -14,8 +14,24 @@ if (!serviceDomain || !apiKey) {
 const client = createClient({ serviceDomain, apiKey });
 
 // microCMS画像API（imgix）: WebP変換＋アップスケール禁止で幅指定
+// リッチテキスト本文内の画像用。フィールド画像はOptImage＋cmsImageSizeを使う
 export const getMicroCMSImage = (url: string, width = 1280, fm = 'webp') =>
 	`${url}?fm=${fm}&fit=max&w=${width}`;
+
+// OptImageに渡す出力寸法（最大幅を上限にアスペクト比を保って縮小）
+// 寸法不明の場合は空を返し、OptImage側のinferSizeに任せる
+export const cmsImageSize = (img: MicroCMSImage, maxWidth: number) => {
+	if (!img.width || !img.height) return {};
+	const width = Math.min(maxWidth, img.width);
+	return { width, height: Math.round((img.height * width) / img.width) };
+};
+
+// 高さ基準版（高さ揃えのレイアウト用）
+export const cmsImageSizeByHeight = (img: MicroCMSImage, maxHeight: number) => {
+	if (!img.width || !img.height) return {};
+	const height = Math.min(maxHeight, img.height);
+	return { width: Math.round((img.width * height) / img.height), height };
+};
 
 // microCMSのリストAPIはデフォルト10件のため、既定で全件相当を取得する
 const listDefaults: MicroCMSQueries = { limit: 100 };

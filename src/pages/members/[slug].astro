@@ -1,10 +1,11 @@
 ---
+import OptImage from '../../components/common/OptImage.astro';
 import { siteMetadata } from '../../data/meta';
 import watermark from '../../images/keitasplan/common/logo_S.svg?raw';
 import Footer from '../../layouts/Footer.astro';
 import Header from '../../layouts/Header.astro';
 import Layout from '../../layouts/Layout.astro';
-import { getAllMembers } from '../../lib/microcms';
+import { cmsImageSize, getAllMembers } from '../../lib/microcms';
 
 export async function getStaticPaths() {
 	const members = await getAllMembers({ orders: 'system:default' });
@@ -31,13 +32,12 @@ const { member } = Astro.props;
 				<span class="p-member-detail__nameEn">{member.nameEn}</span>
 			</div>
 			<span class="p-member-detail__photo">
-				<img
-					class="p-member-detail__img"
-					src={`${member.portrait.url}?fm=webp`}
+				<OptImage
+					src={member.portrait.url}
 					alt={member.name}
-					width={member.portrait.width}
-					height={member.portrait.height}
-					decoding="async"
+					position="top"
+					priority
+					{...cmsImageSize(member.portrait, 720)}
 				/>
 			</span>
 			<p class="p-member-detail__intro">{member.introduction}</p>
@@ -151,14 +151,6 @@ const { member } = Astro.props;
 				width: 100%;
 				height: auto;
 			}
-		}
-
-		&__img {
-			display: block;
-			width: 100%;
-			height: 100%;
-			object-fit: cover;
-			object-position: top;
 		}
 
 		&__intro {
